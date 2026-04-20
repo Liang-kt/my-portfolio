@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-// --- 內嵌 SVG 圖示組件 (已移除 lucide-react 依賴，絕對安全) ---
+// --- 內嵌 SVG 圖示組件 ---
 const IconArrowLeft = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>;
 const IconArrowUpRight = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>;
 const IconMail = () => <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>;
@@ -11,7 +11,7 @@ const IconPlus = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" widt
 const IconMenu = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></svg>;
 const IconX = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>;
 
-// --- 優化版影片播放器 (處理緩衝與破圖) ---
+// --- 優化版影片播放器 ---
 const OptimizedVideo = ({ src, className }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -227,7 +227,7 @@ const TimelineItem = ({ year, title, subtitle, children, isLast }) => {
   );
 };
 
-// --- 橫向捲動 IA Map 組件 (手機版原生滾動、電腦版 JS 動畫) ---
+// --- 橫向捲動 IA Map 組件 ---
 const HorizontalMapScroll = ({ url }) => {
   const sectionRef = useRef(null);
   const stickyRef = useRef(null);
@@ -274,7 +274,7 @@ const HorizontalMapScroll = ({ url }) => {
             onError={(e) => e.target.style.display = 'none'}
           />
         </div>
-        {/* 進度指示器 (僅電腦版顯示) */}
+        {/* 進度指示器 */}
         <div className="hidden md:flex absolute bottom-12 left-1/2 -translate-x-1/2 items-center gap-4">
           <div className="h-1 w-48 bg-gray-100 rounded-full overflow-hidden">
             <div className="h-full bg-cyan-400 transition-all duration-300" style={{ width: `${progress * 100}%` }} />
@@ -317,7 +317,7 @@ export default function App() {
   const Navbar = () => (
     <>
       <div className={`fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-between md:justify-center px-4 md:px-6 pointer-events-none transition-all duration-700 ${scrolled || currentPage !== 'home' ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}`}>
-        <nav className="pointer-events-auto flex items-center justify-between w-full md:w-auto md:gap-8 px-4 py-2.5 md:px-6 md:py-3 rounded-full bg-white/90 backdrop-blur-xl shadow-lg border border-gray-100">
+        <nav className="pointer-events-auto flex items-center justify-between w-full md:w-auto md:gap-8 px-4 py-2.5 md:px-6 md:py-3 rounded-full bg-white/90 backdrop-blur-xl border border-gray-100 shadow-sm">
           <div className="text-lg md:text-xl font-bold cursor-pointer tracking-wide" onClick={() => navigateTo('home')}>
             T<span className="text-orange-500">.</span>
           </div>
@@ -415,7 +415,7 @@ export default function App() {
               <p className="text-lg md:text-xl lg:text-2xl text-gray-500 max-w-md mx-auto md:mx-0 leading-relaxed px-4 md:px-0 tracking-wide font-medium">Beautiful design has the power to captivate audiences. 轉化品牌理念為視覺敘事。</p>
             </div>
             <div ref={heroVideoRef} className="absolute bottom-0 right-0 z-20 flex items-center justify-center bg-black overflow-hidden" style={{ width: `100%`, height: '60%', borderTopLeftRadius: `3rem`, borderTopRightRadius: `3rem` }}>
-              <video src="/hero-page_showreel.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover opacity-80" />
+              <video src="./hero-page_showreel.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover opacity-80" />
             </div>
           </section>
         </div>
@@ -450,7 +450,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* Recent Projects 區塊：手機版原生橫向滾動，電腦版 JS 捲動 */}
+        {/* Recent Projects 區塊 */}
         <div ref={horizontalSectionRef} className="md:h-[500vh] relative bg-white z-30 w-full border-t border-gray-100">
           <div className="md:sticky md:top-0 md:h-[100svh] w-full flex flex-col justify-center overflow-hidden py-16 md:py-24">
             <div className="max-w-[100rem] mx-auto w-full px-6 md:px-12 mb-6 md:mb-12"><h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-wide text-gray-900 uppercase">Recent Projects</h2></div>
@@ -460,15 +460,7 @@ export default function App() {
                 <div key={p.id} onClick={() => navigateTo('project', p)} className="group cursor-pointer w-[85vw] md:w-screen flex-shrink-0 snap-center md:px-12 flex justify-center">
                   <div className="w-full max-w-[100rem]">
                     <div className={`h-[50vh] md:h-[70vh] rounded-[1.5rem] md:rounded-[3rem] ${p.thumb} overflow-hidden relative`}>
-
-                      <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-[1.5s] ease-out">
-                        {p.coverMedia.type === 'video' ? (
-                          <OptimizedVideo src={p.coverMedia.url} className="w-full h-full" />
-                        ) : p.coverMedia.url ? (
-                          <img src={p.coverMedia.url} className="w-full h-full object-cover" alt={p.title} />
-                        ) : null}
-                      </div>
-
+                      {p.coverMedia.type === 'video' ? <video src={p.coverMedia.url} autoPlay muted loop playsInline className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out" /> : p.coverMedia.url ? <img src={p.coverMedia.url} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out" alt={p.title} /> : null}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <div className="absolute bottom-0 left-0 w-full p-6 md:p-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 md:gap-0">
                         <div className="transform translate-y-4 md:translate-y-6 group-hover:translate-y-0 transition-transform duration-500 order-2 md:order-1">
@@ -494,7 +486,7 @@ export default function App() {
         <div className="absolute inset-0 bg-black transition-colors duration-700">
           <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-[1.5s] ease-out opacity-60 group-hover:opacity-40">
             {isVideo ? (
-              <OptimizedVideo src={coverUrl} className="w-full h-full" />
+              <video src={coverUrl} autoPlay muted loop playsInline className="w-full h-full object-cover" />
             ) : coverUrl ? (
               <img src={coverUrl} alt={cat.title} className="w-full h-full object-cover" />
             ) : (
@@ -545,7 +537,7 @@ export default function App() {
 
                 <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-1000 ease-out">
                   {p.coverMedia.type === 'video' ? (
-                    <OptimizedVideo src={p.coverMedia.url} className="w-full h-full" />
+                    <video src={p.coverMedia.url} autoPlay muted loop playsInline className="w-full h-full object-cover" />
                   ) : p.coverMedia.url ? (
                     <img src={p.coverMedia.url} className="w-full h-full object-cover" alt={p.title} />
                   ) : null}
@@ -571,7 +563,7 @@ export default function App() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mb-20 md:mb-32">
         <div className="aspect-square bg-gray-100 rounded-[2rem] flex items-center justify-center text-gray-400 text-center px-4 overflow-hidden relative w-full max-w-[600px] mx-auto lg:max-w-none">
           <span className="absolute z-0 font-medium">梁庭禎 的照片<br />(請放檔案至 public/me.jpg)</span>
-          <img src="/me.jpg" className="w-full h-full object-cover relative z-10" alt="Profile" onError={(e) => e.target.style.display = 'none'} />
+          <img src="./me.jpg" className="w-full h-full object-cover relative z-10" alt="Profile" />
         </div>
         <div className="text-lg md:text-xl text-gray-600 space-y-6 flex flex-col justify-center">
           <p className="leading-relaxed tracking-wide font-medium font-bold">擁有超過 2 年動態圖像與視覺設計經驗。致力於透過動態設計，解構複雜概念並創造生動視覺呈現。</p>
@@ -611,10 +603,9 @@ export default function App() {
   const ProjectView = () => {
     if (!activeItem) return null;
 
-    // Wisdome.ai 專屬排版 (ID: 1)
     if (activeItem.id === 1) {
       return (
-        <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
+        <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32 overflow-hidden">
           {/* Header */}
           <div className="pt-32 md:pt-40 px-6 md:px-12 max-w-[100rem] mx-auto mb-12">
             <button onClick={() => navigateTo('category', activeItem.categoryId)} className="flex items-center text-sm text-gray-400 hover:text-black transition-colors mb-8 md:mb-12 tracking-wide font-medium">
@@ -624,14 +615,11 @@ export default function App() {
           </div>
 
           {/* Hero Section */}
-          <div className="w-full mb-20 md:mb-40 bg-[#EAEAEC] relative flex items-center justify-center overflow-hidden min-h-[30vh]">
-            {activeItem.heroVideoUrl ? (
-              <video src={activeItem.heroVideoUrl} autoPlay muted loop playsInline className="w-full h-auto block" />
-            ) : (
-              <span className="absolute z-0 text-gray-400 font-bold tracking-widest uppercase text-sm md:text-3xl text-center px-4">
-                [ Hero 影片預留位置 ]
-              </span>
-            )}
+          <div className="w-full mb-20 md:mb-40 bg-[#EAEAEC] relative flex items-center justify-center overflow-hidden">
+            <span className="absolute z-0 text-gray-400 font-bold tracking-widest uppercase text-sm md:text-3xl text-center px-4">
+              [ Hero 影片預留位置 : cover-video.mp4 ]
+            </span>
+            <video src={activeItem.heroVideoUrl} autoPlay muted loop playsInline className="relative z-10 w-full h-auto block" />
           </div>
 
           {/* 01 About the project Section */}
@@ -662,17 +650,16 @@ export default function App() {
               <div className="hidden lg:block w-px bg-gray-200 h-full"></div>
               <div className="flex flex-col pt-8 lg:pt-16">
                 <div className="space-y-8 md:space-y-10">
-                  <p className="text-[18px] md:text-[24px] lg:text-[32px] font-normal font-['Inter'] text-gray-500 leading-relaxed">{activeItem.description}</p>
-                  <p className="text-[18px] md:text-[24px] lg:text-[32px] font-normal font-['Noto_Sans_TC'] text-gray-800 leading-relaxed">{activeItem.descriptionZh}</p>
+                  <p className="text-[18px] md:text-[24px] lg:text-[32px] font-normal font-['Inter'] text-gray-500 leading-relaxed font-medium">{activeItem.description}</p>
+                  <p className="text-[18px] md:text-[24px] lg:text-[32px] font-normal font-['Noto_Sans_TC'] text-gray-800 leading-relaxed font-medium">{activeItem.descriptionZh}</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* 橫向捲動 IA Map 區塊 */}
           <HorizontalMapScroll url={activeItem.iaMapUrl} />
 
-          {/* 02 Brand Identity Section */}
+          {/* 02 Typography & Colors */}
           <div className="w-full mt-24 mb-40">
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-12 md:mb-16">
               <div className="flex flex-col">
@@ -681,12 +668,11 @@ export default function App() {
               </div>
             </div>
 
-            {/* 滿版影片區塊 (使用 OptimizedVideo) */}
-            <div className="w-full bg-[#EAEAEC] aspect-video md:aspect-auto md:h-[80vh] mb-16 md:mb-24 relative overflow-hidden">
-              <OptimizedVideo src={activeItem.motionVideoUrl} className="w-full h-full" />
+            <div className="w-full bg-[#EAEAEC] aspect-video md:aspect-auto md:h-[80vh] mb-16 md:mb-24 relative overflow-hidden flex items-center justify-center">
+              <video src={activeItem.motionVideoUrl} autoPlay muted loop playsInline className="absolute inset-0 z-10 w-full h-full object-cover" />
+              <span className="text-gray-400 font-bold tracking-widest uppercase text-sm md:text-3xl z-0 text-center px-4">Wisdome.ai_motion-branding</span>
             </div>
 
-            {/* Typography & Colors Section */}
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-32">
               <h4 className="text-[28px] md:text-[48px] font-bold font-['Inter'] mb-6 tracking-tight text-gray-900">Typography& Colors</h4>
               <div className="h-px bg-gray-400 w-full mb-12 md:mb-20"></div>
@@ -701,7 +687,6 @@ export default function App() {
                     <h4 className="text-[22px] sm:text-[6vw] md:text-[80px] lg:text-[100px] font-bold font-['Inter'] text-[#282828] leading-none tracking-tighter uppercase whitespace-nowrap">WISDOME.AI</h4>
                   </div>
                 </div>
-
                 <div className="flex justify-between items-end md:grid md:grid-cols-[1fr_2fr] gap-4 md:gap-16 lg:gap-24">
                   <div className="flex-shrink-0">
                     <p className="text-[10px] md:text-base font-bold text-gray-500 mb-1 md:mb-2 font-['Inter'] whitespace-nowrap">Chinese typography</p>
@@ -716,20 +701,14 @@ export default function App() {
               <div className="w-full flex flex-row h-[120px] sm:h-[200px] md:h-[400px] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden mb-12 md:mb-16">
                 {activeItem.brandColors.map((color) => (
                   <div key={color.hex} style={{ backgroundColor: color.hex }} className="w-1/2 h-full flex items-end p-4 md:p-12 relative">
-                    <span className="text-sm sm:text-xl md:text-[32px] font-bold font-['Inter'] tracking-wider uppercase text-white">
-                      {color.hex}
-                    </span>
+                    <span className="text-sm sm:text-xl md:text-[32px] font-bold font-['Inter'] tracking-wider uppercase text-white">{color.hex}</span>
                   </div>
                 ))}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
-                <p className="text-[16px] md:text-[18px] font-normal font-['Inter'] text-gray-900 leading-relaxed md:pr-8">
-                  Employing a vibrant blue paired with a solid black as signature colors, representing the integration of technology-driven solutions within a robust and established education system.
-                </p>
-                <p className="text-[16px] md:text-[18px] font-normal font-['Noto_Sans_TC'] text-gray-900 leading-relaxed">
-                  以明快的藍色及堅實的黑色作為品牌代表色，象徵為穩固的教育體系中增添科技導向的解決方針。
-                </p>
+                <p className="text-[16px] md:text-[18px] font-normal font-['Inter'] text-gray-900 leading-relaxed md:pr-8">Employing a vibrant blue paired with a solid black as signature colors, representing the integration of technology-driven solutions within a robust and established education system.</p>
+                <p className="text-[16px] md:text-[18px] font-normal font-['Noto_Sans_TC'] text-gray-900 leading-relaxed">以明快的藍色及堅實的黑色作為品牌代表色，象徵為穩固的教育體系中增添科技導向的解決方針。</p>
               </div>
             </div>
           </div>
@@ -741,7 +720,6 @@ export default function App() {
                 <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">03</h2>
                 <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2">Web Design</h3>
               </div>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-12 mb-16 md:mb-20">
                 <p className="text-[16px] md:text-[24px] font-normal font-['Inter'] text-gray-500 leading-relaxed">{activeItem.webDesignDesc}</p>
                 <p className="text-[16px] md:text-[24px] font-normal font-['Noto_Sans_TC'] text-gray-800 leading-relaxed">{activeItem.webDesignDescZh}</p>
@@ -749,26 +727,52 @@ export default function App() {
             </div>
 
             {/* 1. 滿版大圖 */}
-            <div className="w-full bg-[#EAEAEC] relative flex items-center justify-center min-h-[30vh] md:min-h-[50vh]">
-              <span className="absolute z-0 text-gray-400 font-bold tracking-widest uppercase text-sm md:text-3xl text-center px-4">
-                [ 大圖預留位置 : web-large.jpg ]
-              </span>
+            <div className="w-full bg-[#EAEAEC] relative flex items-center justify-center min-h-[30vh] md:min-h-[50vh] mb-24 md:mb-40">
+              <span className="absolute z-0 text-gray-400 font-bold tracking-widest uppercase text-sm md:text-3xl text-center px-4">[ 大圖預留位置 : web-large.jpg ]</span>
               <img src="/wisdome.ai_web/web-large.jpg" className="relative z-10 w-full h-auto block" alt="Web Design Large View" onError={(e) => e.target.style.display = 'none'} />
             </div>
 
-            {/* 2. 滿版影片 */}
-            <div className="w-full bg-[#F6F6F6] relative flex items-center justify-center min-h-[30vh] md:min-h-[50vh]">
-              <span className="absolute z-0 text-gray-400 font-bold tracking-widest uppercase text-sm md:text-3xl text-center px-4">
-                [ 滿版影片預留位置 : web-video.mp4 ]
-              </span>
+            {/* 2. Overlapping Showcase (依附圖 image_5379eb.png 重新設計) */}
+            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40">
+              <div className="flex flex-col gap-10 md:gap-16">
+                {/* 小區塊標題 */}
+                <h4 className="text-[28px] md:text-[40px] font-bold font-['Inter'] tracking-tight text-gray-900 border-b border-gray-100 pb-6">Hero Page</h4>
+
+                {/* 展示區佈局：Desktop 疊 Mobile */}
+                <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] items-start gap-12 lg:gap-20">
+                  <div className="relative flex items-start">
+                    {/* 電腦版截圖 (左側/底層) */}
+                    <div className="w-4/5 lg:w-[75%] aspect-[16/10] bg-[#F6F6F6] overflow-hidden flex items-center justify-center relative">
+                      <span className="absolute z-0 text-gray-300 font-bold tracking-widest uppercase text-xs text-center px-4">網頁截圖<br />[web-hero-desktop.jpg]</span>
+                      <img src="/wisdome.ai_web/web-hero-desktop.jpg" className="relative z-10 w-full h-full object-cover" onError={(e) => e.target.style.display = 'none'} />
+                    </div>
+
+                    {/* 手機版截圖 (右側/上層重疊) */}
+                    <div className="absolute top-[15%] right-0 w-[35%] lg:w-[30%] aspect-[9/18] bg-[#EAEAEC] overflow-hidden flex items-center justify-center translate-x-[10%] lg:translate-x-0">
+                      <span className="absolute z-0 text-gray-400 font-bold tracking-widest uppercase text-[10px] text-center px-2">手機版<br />[web-hero-mobile.jpg]</span>
+                      <img src="/wisdome.ai_web/web-hero-mobile.jpg" className="relative z-10 w-full h-full object-cover" onError={(e) => e.target.style.display = 'none'} />
+                    </div>
+                  </div>
+
+                  {/* 右側說明文字 (垂直排列) */}
+                  <div className="flex flex-col gap-6 pt-0 lg:pt-10">
+                    <p className="text-gray-900 font-['Noto_Sans_TC'] text-lg md:text-xl font-bold border-l-4 border-orange-500 pl-4">說明文字</p>
+                    <p className="text-gray-500 font-['Noto_Sans_TC'] text-base md:text-lg leading-relaxed">首創 AI 教務轉型平台，透過數據可視化呈現管理效能，大幅提升校方決策速度。</p>
+                    <p className="text-gray-500 font-['Noto_Sans_TC'] text-base md:text-lg leading-relaxed">手機版介面優化後，操作流程縮短 30%，提供流暢的移動辦公體驗。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. 滿版影片 */}
+            <div className="w-full bg-[#F6F6F6] relative flex items-center justify-center min-h-[30vh] md:min-h-[50vh] mb-24 md:mb-40">
+              <span className="absolute z-0 text-gray-400 font-bold tracking-widest uppercase text-sm md:text-3xl text-center px-4">[ 滿版影片預留位置 : web-video.mp4 ]</span>
               <video src="/wisdome.ai_web/web-video.mp4" autoPlay muted loop playsInline className="relative z-10 w-full h-auto block" />
             </div>
 
-            {/* 3. 長條圖片 */}
+            {/* 4. 長條圖片 */}
             <div className="w-full bg-[#EAEAEC] relative flex items-center justify-center min-h-[30vh] md:min-h-[50vh]">
-              <span className="absolute z-0 text-gray-400 font-bold tracking-widest uppercase text-sm md:text-3xl text-center px-4">
-                [ 長條圖片預留位置 : web-long.jpg ]
-              </span>
+              <span className="absolute z-0 text-gray-400 font-bold tracking-widest uppercase text-sm md:text-3xl text-center px-4">[ 長條圖片預留位置 : web-long.jpg ]</span>
               <img src="/wisdome.ai_web/web-long.jpg" className="relative z-10 w-full h-auto block" alt="Web Design Long View" onError={(e) => e.target.style.display = 'none'} />
             </div>
           </div>
@@ -776,22 +780,16 @@ export default function App() {
       );
     }
 
-    // ================= 其他預設專案版面 =================
+    // 默認專案版面
     return (
-      <div className="pt-32 md:pt-40 pb-20 md:pb-32 animate-in fade-in slide-in-from-bottom-8 duration-700 bg-[#F6F6F6]">
+      <div className="pt-32 md:pt-40 pb-20 md:pb-32 animate-in fade-in duration-700 bg-[#F6F6F6]">
         <div className="px-6 md:px-12 max-w-[100rem] mx-auto">
-          <button onClick={() => navigateTo('category', activeItem?.categoryId)} className="flex items-center text-sm text-gray-400 hover:text-black transition-colors mb-8 md:mb-12 tracking-wide font-medium font-bold"><IconArrowLeft /> <span className="ml-1 md:ml-2 uppercase">Back to category</span></button>
+          <button onClick={() => navigateTo('home')} className="flex items-center text-sm text-gray-400 hover:text-black transition-colors mb-8 md:mb-12 tracking-wide font-medium font-bold"><IconArrowLeft /> <span className="ml-1 md:ml-2 uppercase">Back to category</span></button>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[7rem] font-black mb-8 md:mb-12 tracking-wide leading-tight md:leading-none uppercase font-bold">{activeItem.title}</h1>
         </div>
-
-        <div className="w-full aspect-video md:aspect-auto md:h-[85vh] mb-12 md:mb-24 bg-gray-200 overflow-hidden relative">
-          {activeItem.coverMedia.type === 'video' ? (
-            <OptimizedVideo src={activeItem.coverMedia.url} className="w-full h-full" />
-          ) : activeItem.coverMedia.url ? (
-            <img src={activeItem.coverMedia.url} className="w-full h-full object-cover absolute inset-0" alt={activeItem.title} onError={(e) => { e.target.style.display = 'none'; }} />
-          ) : null}
+        <div className="w-full aspect-video md:aspect-auto md:h-[85vh] mb-12 md:mb-24 bg-gray-200">
+          {activeItem.coverMedia.type === 'video' ? <video src={activeItem.coverMedia.url} autoPlay muted loop playsInline className="w-full h-full object-cover" /> : activeItem.coverMedia.url ? <img src={activeItem.coverMedia.url} className="w-full h-full object-cover" alt={activeItem.title} /> : null}
         </div>
-
         <div className="max-w-[100rem] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 mb-16 md:mb-24">
           <div className="grid grid-cols-2 lg:grid-cols-1 gap-6 md:gap-8 font-bold">
             <div><h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1 md:mb-2 font-bold">Client</h4><p className="text-base md:text-xl font-black tracking-tight uppercase text-gray-900 font-bold">{activeItem.client}</p></div>
@@ -822,6 +820,7 @@ export default function App() {
       <main>
         {currentPage === 'home' && <HomeView />}
         {currentPage === 'about' && <AboutView />}
+        {currentPage === 'works' && <WorksView />}
         {currentPage === 'category' && <CategoryListView />}
         {currentPage === 'project' && activeItem && <ProjectView />}
         {currentPage === 'contact' && <ContactView />}

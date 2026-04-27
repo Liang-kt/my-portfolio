@@ -137,31 +137,109 @@ const PROJECTS = [
   {
     id: 1,
     categoryId: 'uiux',
+    platform: 'web',
     title: 'Wisdome.ai 企業官網設計',
     thumb: 'bg-[#0f172a]',
     coverMedia: { type: 'image', url: '/projects/wisdome.ai_web/cover.jpg' },
-    coverVideoUrl: '/projects/wisdome.ai_web/cover-video.mp4',
-    clientLogoUrl: '/projects/wisdome.ai_web/wisdomeai_logo.svg',
-    iaMapUrl: '/projects/wisdome.ai_web/ia-map.png',
-    motionVideoUrl: '/projects/wisdome.ai_web/wisdome.ai_motion-brading.mp4',
-    heroPageVideoUrl: '/projects/wisdome.ai_web/hero-page.mp4',
-    serviceDesktopVideo: '/projects/wisdome.ai_web/service-desktop.mp4',
-    serviceMobileVideo: '/projects/wisdome.ai_web/service-mobile.mp4',
-    successDesktopVideo: '/projects/wisdome.ai_web/success-desktop.mp4',
-    successMobileVideo: '/projects/wisdome.ai_web/success-mobile.mp4',
-    successFullpageImg: '/projects/wisdome.ai_web/success-fullpage.jpg',
+    heroMedia: { type: 'video', url: '/projects/wisdome.ai_web/cover-video.mp4' },
     tags: ['UI/UX', 'Web Design'],
-    description: 'Wisdome.ai is a startup focused on creating a comprehensive online education platform using AI, machine learning, and education as its core. This promotional video uses sleek lines and fast-paced animation to showcase Wisdome.ai’s innovative and tech-driven identity.',
-    descriptionZh: 'Wisdome.ai 是一家致力於使用ai 技術打造全方位線上教育平台的新創公司，以AI、機器學習以及教育為公司核心概念。在這支形象動畫中利用俐落的線條元素搭配快節奏的動態串接，完整Wisdome.ai 創新及科技導向的企業風格。',
     client: 'WISDOME.AI',
     year: '2023 - 2024',
-    services: ['VIS Design', 'Web Design', 'Corporate Identity Animation'],
-    brandColors: [{ hex: '#282828', label: 'Primary Dark' }, { hex: '#00D2E2', label: 'Accent Cyan' }],
-    webDesignDesc: 'The website is designed with a clean, modern aesthetic that emphasizes usability and accessibility. We focused on creating an intuitive user journey that clearly communicates the value of the AI education platform.',
-    webDesignDescZh: '網站採用乾淨、現代的美學設計，強調可用性與無障礙體驗。我們專注於打造直覺的使用者旅程，透過清晰的資訊架構，精準傳達 AI 教育平台的核心價值與功能。',
-    gallery: []
+    projectOverview: {
+      clientLogoUrl: '/projects/wisdome.ai_web/wisdomeai_logo.svg',
+      backgroundAndGoals: 'Wisdome.ai 是一家致力於使用ai 技術打造全方位線上教育平台的新創公司，以AI、機器學習以及教育為公司核心概念。在這支形象動畫中利用俐落的線條元素搭配快節奏的動態串接，完整Wisdome.ai 創新及科技導向的企業風格。',
+      challenge: 'Wisdome.ai is a startup focused on creating a comprehensive online education platform using AI, machine learning, and education as its core. This promotional video uses sleek lines and fast-paced animation to showcase Wisdome.ai’s innovative and tech-driven identity.',
+      myRole: 'UI/UX Designer & Motion Designer',
+      service: 'VIS Design, Web Design, Corporate Identity Animation'
+    },
+    strategyAndArchitecture: {
+      description: '',
+      iaImage: '/projects/wisdome.ai_web/ia-map.png'
+    },
+    brandIdentity: {
+      motionVideoUrl: '/projects/wisdome.ai_web/wisdome.ai_motion-brading.mp4',
+      typography: { primary: 'Figtree', secondary: 'Noto Sans TC' },
+      colors: [
+        { hex: '#282828', name: 'Primary Dark' },
+        { hex: '#00D2E2', name: 'Accent Cyan' }
+      ]
+    },
+    design: {
+      designSystemDesc: '網站採用乾淨、現代的美學設計，強調可用性與無障礙體驗。我們專注於打造直覺的使用者旅程，透過清晰的資訊架構，精準傳達 AI 教育平台的核心價值與功能。',
+      componentsImages: ['/projects/wisdome.ai_web/components-1.jpg', '/projects/wisdome.ai_web/components-2.jpg'],
+      flowImages: ['/projects/wisdome.ai_web/user-flow.jpg'],
+      screens: ['/projects/wisdome.ai_web/screen-1.jpg', '/projects/wisdome.ai_web/screen-2.jpg'],
+      showcases: [
+        {
+          title: 'Hero Page',
+          description: '',
+          heroVideo: '/projects/wisdome.ai_web/hero-page.mp4'
+        },
+        {
+          title: 'Service',
+          description: '清晰展示 Wisdome.ai 的三大核心能力。透過動態視覺引導與直覺的排版，幫助使用者快速理解 AI 如何介入教務流程，實現自動化與規模化。',
+          desktopVideo: '/projects/wisdome.ai_web/service-desktop.mp4',
+          mobileVideo: '/projects/wisdome.ai_web/service-mobile.mp4'
+        },
+        {
+          title: 'Success Stories',
+          description: '將實際客戶的成功故事以清晰、數據化的方式呈現。透過桌機與行動裝置的跨螢幕設計，確保閱讀體驗流暢，並利用長網頁完整展示案例細節與轉換成效。',
+          desktopVideo: '/projects/wisdome.ai_web/success-desktop.mp4',
+          mobileVideo: '/projects/wisdome.ai_web/success-mobile.mp4',
+          fullpageImg: '/projects/wisdome.ai_web/success-fullpage.jpg'
+        }
+      ]
+    }
   },
-  { id: 2, categoryId: 'uiux', title: 'Ms. Line 學測刷題app', thumb: 'bg-[#F2EFE9]', coverMedia: { type: 'image', url: '' }, tags: ['UI/UX', 'App Design'], description: '專為高中生打造的學測刷題 App，提供流暢的測驗體驗與個人化錯題本功能。', client: 'Ms. Line', year: '2023', gallery: [] },
+  {
+    id: 2,
+    categoryId: 'uiux',
+    platform: 'app',
+    title: 'Ms. Line 學測刷題app',
+    thumb: 'bg-[#F2EFE9]',
+    coverMedia: { type: 'image', url: '' },
+    heroMedia: { type: 'image', url: '/projects/msline/hero.jpg' },
+    tags: ['UI/UX', 'App Design'],
+    description: '專為高中生打造的學測刷題 App，提供流暢的測驗體驗與個人化錯題本功能。',
+    client: 'Ms. Line',
+    year: '2023',
+    gallery: [],
+    projectOverview: {
+      backgroundAndGoals: '隨著數位學習普及，高中生需要一個更有效率的平台來進行學測準備。目標是打造一個直覺的刷題 App，讓學生隨時隨地練習並追蹤學習進度。',
+      challenge: '市場上已有許多測驗 App，如何降低學生的使用門檻，並透過遊戲化設計與流暢的操作介面來提高留存率，是本專案的最大挑戰。',
+      myRole: 'Lead UI/UX Designer',
+      service: '使用者研究、Wireframe、UI 設計、Prototype 製作'
+    },
+    research: {
+      description: '透過深度訪談 20 位應屆考生，我們發現「碎片化時間利用」與「錯題回顧」是他們最迫切的需求。以此為基礎，我們規劃了快速測驗與自動錯題本功能。',
+      images: ['/projects/msline/research-1.jpg', '/projects/msline/research-2.jpg']
+    },
+    strategyAndArchitecture: {
+      description: '將 App 核心分為三大模塊：每日任務、題庫測驗、學習報表。簡化註冊流程，讓使用者下載後能最快進入第一場測驗。',
+      iaImage: '/projects/msline/ia-map.jpg'
+    },
+    brandIdentity: {
+      logoImage: '/projects/msline/logo.png',
+      typography: { primary: 'SF Pro Display', secondary: 'Noto Sans TC' },
+      colors: [
+        { hex: '#4CAF50', name: 'Primary Green' },
+        { hex: '#FF9800', name: 'Secondary Orange' },
+        { hex: '#212121', name: 'Dark Background' }
+      ]
+    },
+    design: {
+      designSystemDesc: '建立了一套完整的 Mobile UI Component Library，確保開發與設計的一致性，並考量了 iOS 與 Android 的平台特性。',
+      componentsImages: ['/projects/msline/components-1.jpg'],
+      flowImages: ['/projects/msline/user-flow.jpg'],
+      screens: ['/projects/msline/screen-1.jpg', '/projects/msline/screen-2.jpg', '/projects/msline/screen-3.jpg', '/projects/msline/screen-4.jpg'],
+      prototypeUrl: '/projects/msline/prototype.mp4',
+      usabilityTesting: '在第一版 Prototype 完成後，邀請 5 位高中生進行易用性測試，根據回饋優化了「結束測驗」的防呆提示設計。'
+    },
+    mascotDesign: {
+      description: '設計了象徵智慧與陪伴的貓頭鷹吉祥物「Line 醬」，在使用者答對連續題目時給予動態鼓勵，增加學習趣味。',
+      images: ['/projects/msline/mascot-1.mp4', '/projects/msline/mascot-2.mp4']
+    }
+  },
   {
     id: 3,
     categoryId: 'uiux',
@@ -174,9 +252,14 @@ const PROJECTS = [
     year: '2024',
     gallery: []
   },
-  { id: 4, categoryId: 'motion', title: 'BrainBox 智慧刷題系統', thumb: 'bg-black', coverMedia: { type: 'video', url: '' }, tags: ['Motion', 'Explainer'], description: '透過生動的 2D 動畫，清楚傳達 BrainBox 產品的核心價值與功能優勢。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 4, categoryId: 'motion', title: 'BrainBox 智慧刷題系統：賦能學生，解放教師。', thumb: 'bg-black', coverMedia: { type: 'video', url: '' }, tags: ['Motion', 'Explainer'], description: '透過生動的 2D 動畫，清楚傳達 BrainBox 產品的核心價值與功能優勢。', client: 'BrainBox', year: '2024', gallery: [] },
   { id: 5, categoryId: 'motion', title: 'Look the Sound of Taipei Metro', thumb: 'bg-[#1a1a1a]', coverMedia: { type: 'video', url: '' }, tags: ['Motion', 'Data Visual'], description: '將臺北捷運的聲音地景進行視覺化，轉化為具備節奏感與幾何美學的動態圖像創作。', client: '國立臺灣藝術大學', year: '2023', gallery: [] },
-  { id: 8, categoryId: 'brand', title: '果然癮品牌識別設計', thumb: 'bg-[#EAF2ED]', coverMedia: { type: 'image', url: '' }, tags: ['Branding', 'Packaging'], description: '完成品牌識別系統設計，並延伸設計 3 組產品外盒及 8 款內包裝，提升視覺吸引力。', client: '果然癮', year: '2021', gallery: [] }
+  { id: 6, categoryId: 'motion', title: 'How to Use BrainBox: A Step-by-Step Tutorial', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'video', url: '' }, tags: ['Motion', 'Tutorial'], description: 'BrainBox 教學影片，一步步引導使用者了解系統操作。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 7, categoryId: 'motion', title: 'Wisdome.ai 公司官網首頁形象動畫', thumb: 'bg-[#0f172a]', coverMedia: { type: 'video', url: '' }, tags: ['Motion', 'Web Animation'], description: '結合品牌理念製作的首頁形象動畫，以動態視覺強化品牌科技感。', client: 'WISDOME.AI', year: '2024', gallery: [] },
+  { id: 8, categoryId: 'brand', title: '果然癮品牌識別設計', thumb: 'bg-[#EAF2ED]', coverMedia: { type: 'image', url: '' }, tags: ['Branding', 'Packaging'], description: '完成品牌識別系統設計，並延伸設計 3 組產品外盒及 8 款內包裝，提升視覺吸引力。', client: '果然癮', year: '2021', gallery: [] },
+  { id: 9, categoryId: 'brand', title: 'MindGap 企業識別系統', thumb: 'bg-[#F2EFE9]', coverMedia: { type: 'image', url: '' }, tags: ['Branding', 'Corporate Identity'], description: '從零建立企業品牌視覺系統，涵蓋標誌設計與色彩規範。', client: 'MindGap', year: '2024', gallery: [] },
+  { id: 10, categoryId: 'brand', title: 'BrainBox 產品識別設計', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: '' }, tags: ['Branding', 'Product Identity'], description: '打造專屬的產品識別系統，提升產品在市場上的辨識度與專業感。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 11, categoryId: 'brand', title: 'Wisdome.ai 企業識別系統', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: '' }, tags: ['Branding', 'Corporate Identity'], description: '整合品牌理念與科技感，打造完整的企業視覺規範系統。', client: 'WISDOME.AI', year: '2023', gallery: [] }
 ];
 
 // ========================= 核心架構：主應用程式 =========================
@@ -186,6 +269,7 @@ export default function PortfolioApp() {
   const [activeItem, setActiveItem] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [homeSelectedFilter, setHomeSelectedFilter] = useState('UI/UX Design');
 
   useEffect(() => {
     const handleScroll = () => { const threshold = currentPage === 'home' ? window.innerHeight * 2.4 : 50; setScrolled(window.scrollY > threshold); };
@@ -245,10 +329,6 @@ export default function PortfolioApp() {
     const [scrollY, setScrollY] = useState(0);
     const [vh, setVh] = useState(800);
     const [isMobile, setIsMobile] = useState(false);
-    const horizontalSectionRef = useRef(null);
-    const trackRef = useRef(null);
-    const currentHScroll = useRef(0);
-    const [activeAccordion, setActiveAccordion] = useState(null);
 
     useEffect(() => {
       setVh(window.innerHeight); setIsMobile(window.innerWidth < 768);
@@ -261,25 +341,12 @@ export default function PortfolioApp() {
     const easeProgress = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
     const textTranslateX = easeProgress * -120;
 
-    useEffect(() => {
-      const updateAnimation = () => {
-        if (horizontalSectionRef.current && trackRef.current && window.innerWidth >= 768) {
-          const rect = horizontalSectionRef.current.getBoundingClientRect();
-          const totalScroll = rect.height - window.innerHeight;
-          let targetP = 0;
-          if (rect.top <= 0) {
-            let rawP = Math.min(1, Math.max(0, -rect.top / totalScroll));
-            if (rawP < 0.3) targetP = 0; else if (rawP >= 0.3 && rawP < 0.7) targetP = 0.5; else targetP = 1;
-          }
-          currentHScroll.current += (targetP - currentHScroll.current) * 0.1;
-          const maxTranslate = trackRef.current.scrollWidth - window.innerWidth;
-          trackRef.current.style.transform = `translateX(${-currentHScroll.current * maxTranslate}px)`;
-        }
-        requestAnimationFrame(updateAnimation);
-      };
-      const reqId = requestAnimationFrame(updateAnimation);
-      return () => cancelAnimationFrame(reqId);
-    }, []);
+    const filteredProjects = PROJECTS.filter(p => {
+      if (homeSelectedFilter === 'UI/UX Design') return p.categoryId === 'uiux';
+      if (homeSelectedFilter === '2D Motion Graphic Design') return p.categoryId === 'motion';
+      if (homeSelectedFilter === 'Branding Design') return p.categoryId === 'brand';
+      return true;
+    });
 
     return (
       <div className="animate-in fade-in duration-700 bg-[#F6F6F6]">
@@ -296,47 +363,45 @@ export default function PortfolioApp() {
           </section>
         </div>
         <div className="relative z-30 bg-white rounded-t-[3rem] md:rounded-t-[4rem] w-full mt-[-2rem] md:mt-[-4rem] shadow-[0_-20px_60px_rgba(0,0,0,0.08)]">
-          <section className="pt-24 md:pt-40 pb-20 px-4 md:px-8 max-w-[100rem] mx-auto">
-            <div className="mb-16 md:mb-24 px-4 md:px-8">
-              <h3 className="text-orange-500 mb-4 font-medium text-lg tracking-wider uppercase">{'{ Our Services }'}</h3>
-              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-gray-900">Explore what we can<br className="hidden md:block" /> do for you</h2>
-            </div>
-            <div className="border-t border-gray-200 w-full">
-              {CATEGORIES.map((cat, idx) => {
-                const { big, small } = getFormattedServiceTitle(cat.title);
-                const isExpanded = activeAccordion === cat.id;
-                return (
-                  <div key={cat.id} className="group border-b border-gray-200 py-10 md:py-16 flex flex-col md:flex-row items-start md:items-center justify-between cursor-pointer hover:bg-[#F8F9FA] transition-colors duration-300 px-4 md:px-12" onClick={() => setActiveAccordion(isExpanded ? null : cat.id)}>
-                    <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-8 w-full"><span className="text-orange-500 font-medium text-xl md:text-2xl mt-2 md:mt-0">0{idx + 1}</span><h3 className="text-4xl md:text-5xl lg:text-[5rem] font-black uppercase tracking-tighter text-[#333] group-hover:text-black transition-colors leading-[1.1]">{big}</h3><span className="text-gray-400 text-lg md:text-2xl font-medium hidden md:block ml-2 mb-2">{small}</span></div>
-                    <span className="text-gray-400 text-lg font-medium md:hidden mt-4 mb-6">{small}</span>
-                    <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full border border-gray-300 flex items-center justify-center group-hover:bg-black group-hover:text-white group-hover:border-black transition-all duration-300 flex-shrink-0 ${isExpanded ? 'bg-black text-white border-black' : ''}`}><IconPlus className={`w-6 h-6 md:w-8 md:h-8 transition-transform duration-500 ${isExpanded ? 'rotate-45' : 'group-hover:rotate-90'}`} /></div>
-                    <div className="w-full md:hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden" style={{ maxHeight: isExpanded ? '600px' : '0px', opacity: isExpanded ? 1 : 0 }}><div className="pb-8 pt-4 flex flex-col items-start"><p className="text-lg text-gray-600 leading-relaxed mb-6 font-medium">{cat.description}</p><button onClick={(e) => { e.stopPropagation(); navigateTo('category', cat.id); }} className="bg-orange-500 text-white px-6 py-3 rounded-full font-bold text-sm hover:bg-orange-600 transition-colors flex items-center gap-2">View Works <IconArrowUpRight className="w-4 h-4" /></button></div></div>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-          <div ref={horizontalSectionRef} className="md:h-[500vh] relative bg-white z-30 w-full border-t border-gray-100">
-            <div className="md:sticky md:top-0 md:h-[100svh] w-full flex flex-col justify-center overflow-hidden py-16 md:py-24">
-              <div className="max-w-[100rem] mx-auto w-full px-6 md:px-12 mb-6 md:mb-12"><h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-wide text-gray-900 uppercase">Recent Projects</h2></div>
-              <div ref={trackRef} className="flex md:w-max w-full overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none hide-scrollbar gap-4 md:gap-0 px-6 md:px-0 pb-8 md:pb-0">
-                {[1, 5, 8].map(id => PROJECTS.find(p => p.id === id)).map((p, idx) => (
-                  <div key={p.id} onClick={() => navigateTo('project', p)} className="group cursor-pointer w-[85vw] md:w-screen flex-shrink-0 snap-center md:px-12 flex justify-center">
-                    <div className="w-full max-w-[100rem]">
-                      <div className={`h-[50vh] md:h-[70vh] rounded-[1.5rem] md:rounded-[3rem] ${p.thumb} overflow-hidden relative flex items-center justify-center`}>
-                        <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-[1.5s] ease-out">
-                          {p.coverMedia?.type === 'video' ? <OptimizedVideo src={p.coverMedia.url} className="w-full h-full" /> : p.coverMedia?.url ? <img src={p.coverMedia.url} className="w-full h-full object-cover" alt={p.title} /> : <span className="text-gray-400 font-medium text-xl">[Cover: {p.title}]</span>}
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <div className="absolute bottom-0 left-0 w-full p-6 md:p-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 md:gap-0">
-                          <div className="transform translate-y-4 md:translate-y-6 group-hover:translate-y-0 transition-transform duration-500 order-2 md:order-1"><h3 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wide mb-4 md:mb-6 text-white leading-tight">{p.title}</h3><div className="flex gap-2 flex-wrap mb-2 md:mb-4">{p.tags.map(tag => (<span key={tag} className="px-3 md:px-5 py-1.5 md:py-2 bg-white/20 backdrop-blur-md rounded-full text-[10px] md:text-sm font-medium text-white border border-white/30 tracking-wider uppercase">{tag}</span>))}</div></div>
-                          <span className="text-white/30 font-black text-5xl md:text-8xl italic leading-none order-1 md:order-2 self-end md:self-auto tracking-widest uppercase">0{idx + 1}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+          <div className="py-24 md:py-32 px-6 md:px-12 max-w-[100rem] mx-auto bg-white rounded-t-[3rem] md:rounded-t-[4rem]">
+            <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-16 gap-8">
+              <div className="max-w-2xl">
+                <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">Selected Works</h2>
+                <p className="text-gray-500 text-lg md:text-xl font-medium leading-relaxed font-['Noto_Sans_TC']">
+                  從商業官網、教育類 App 到完整的品牌與動態視覺，探索我如何透過設計將抽象概念轉化為具體體驗。
+                </p>
+              </div>
+              <div className="bg-[#F5F5F5] p-1.5 rounded-full flex overflow-x-auto hide-scrollbar gap-1 shadow-inner max-w-full">
+                {['UI/UX Design', '2D Motion Graphic Design', 'Branding Design'].map(filter => (
+                  <button
+                    key={filter}
+                    onClick={() => setHomeSelectedFilter(filter)}
+                    className={`whitespace-nowrap flex-shrink-0 px-4 md:px-6 py-2.5 rounded-full text-sm md:text-base font-medium transition-all duration-300 ${homeSelectedFilter === filter ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-800'}`}
+                  >
+                    {filter}
+                  </button>
                 ))}
               </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
+              {filteredProjects.map(p => (
+                <div key={p.id} onClick={() => navigateTo('project', p)} className="group cursor-pointer">
+                  <div className={`aspect-square md:aspect-[4/3] rounded-[1.5rem] md:rounded-[2.5rem] ${p.thumb} overflow-hidden relative transition-all duration-500 shadow-sm hover:shadow-xl`}>
+                    <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-[1.5s] ease-out">
+                      {p.coverMedia?.type === 'video' ? <OptimizedVideo src={p.coverMedia.url} className="w-full h-full" /> : p.coverMedia?.url ? <img src={p.coverMedia.url} className="w-full h-full object-cover" alt={p.title} /> : null}
+                    </div>
+                    <div className="absolute inset-x-0 bottom-0 h-2/3 md:h-1/2 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                      <div className="hidden md:flex bg-white text-black px-6 py-3 rounded-full font-bold items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform tracking-wider uppercase">View Project <IconArrowUpRight className="w-4 h-4 ml-1" /></div>
+                    </div>
+                    <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 flex flex-col items-start transform group-hover:translate-y-0 md:group-hover:translate-y-[-4px] transition-transform duration-500 z-10 pointer-events-none pr-6">
+                      <h3 className="text-white text-2xl md:text-4xl font-bold tracking-tight mb-4 drop-shadow-md leading-tight">{p.title}</h3>
+                      <div className="flex flex-wrap gap-2">{p.tags.map(tag => (<span key={tag} className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[10px] md:text-sm font-bold tracking-wide uppercase">{tag}</span>))}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
           <FooterCTA />
@@ -389,23 +454,293 @@ export default function PortfolioApp() {
       </button>
     );
 
-    // ================= Wisdome.ai 專屬客製化版面 (ID: 1) =================
-    if (activeItem.id === 1) {
+    // --- UI/UX 通用版型元件 ---
+    const GenericUIUXProjectView = () => {
+      const isApp = activeItem.platform === 'app';
+      const hasMascot = activeItem.mascotDesign && activeItem.mascotDesign.description;
+
       return (
         <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
           <div className="pt-32 md:pt-40 px-6 md:px-12 max-w-[100rem] mx-auto mb-12">
             <BackButton />
-            <h1 className="text-4xl md:text-6xl lg:text-[7rem] font-black mb-8 md:mb-12 tracking-wide uppercase leading-tight md:leading-none font-bold">{activeItem.title}</h1>
+            <h1 className="text-4xl md:text-6xl lg:text-[7rem] font-black mb-8 md:mb-12 tracking-wide uppercase leading-tight md:leading-none font-bold text-gray-900">{activeItem.title}</h1>
           </div>
-          <div className="w-full aspect-video mb-16 md:mb-24 bg-[#EAEAEC] relative flex items-center justify-center overflow-hidden"><OptimizedVideo src={activeItem.coverVideoUrl} className="w-full h-full" /></div>
-          <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-20 md:mb-40 mt-12"><div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">01</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2">About the Project</h3></div><div className="grid md:grid-cols-[1fr_2fr] gap-12 lg:gap-20"><div className="space-y-8"><div><h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Client</h4><div className="relative min-h-[3rem] flex flex-col justify-center mb-2"><img src={activeItem.clientLogoUrl} alt="Wisdome.ai Logo" className="h-8 md:h-12 w-auto object-contain origin-left" onError={(e) => { e.target.style.display = 'none'; if (e.target.nextSibling) e.target.nextSibling.style.display = 'block'; }} /><div className="hidden bg-gray-50 border border-gray-200 p-3 rounded-lg w-max"><p className="text-xl font-medium text-gray-800">{activeItem.client}</p></div></div></div><div><h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Year</h4><p className="text-xl font-medium">{activeItem.year}</p></div><div><h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Services</h4><div className="flex flex-wrap gap-2 mt-2">{activeItem.services?.map(t => (<span key={t} className="px-3 py-1 bg-gray-100 rounded-full text-xs font-bold">{t}</span>))}</div></div></div><div className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium"><p className="mb-6">{activeItem.description}</p><p className="font-['Noto_Sans_TC']">{activeItem.descriptionZh}</p></div></div></div>
-          <HorizontalMapScroll url={activeItem.iaMapUrl} />
-          <div className="w-full mt-24 mb-40"><div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-12 md:mb-16"><div className="flex flex-col border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">02</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2">Brand Identity</h3></div></div><div className="w-full aspect-video md:aspect-auto md:h-[80vh] bg-[#EAEAEC] mb-16 md:mb-24 relative overflow-hidden flex items-center justify-center"><OptimizedVideo src={activeItem.motionVideoUrl} className="w-full h-full relative z-10" /></div><div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-32"><h4 className="text-[28px] md:text-[48px] font-bold font-['Inter'] mb-6 tracking-tight text-gray-900">Typography & Colors</h4><div className="h-px bg-gray-400 w-full mb-12 md:mb-20"></div><div className="flex flex-col gap-8 md:gap-16 mb-16 md:mb-24"><div className="flex justify-between items-end md:grid md:grid-cols-[1fr_2fr] gap-4 md:gap-16 lg:gap-24"><div className="flex-shrink-0"><p className="text-[10px] md:text-base font-bold text-gray-500 mb-1 md:mb-2 font-['Inter'] whitespace-nowrap">English typography</p><h5 className="text-base sm:text-[36px] md:text-[48px] font-bold text-[#282828] font-['Inter'] tracking-tight whitespace-nowrap">Figtree</h5></div><div className="text-right md:text-left overflow-hidden"><h4 className="text-[22px] sm:text-[6vw] md:text-[80px] lg:text-[100px] font-bold font-['Inter'] text-[#282828] leading-none tracking-tighter uppercase whitespace-nowrap">WISDOME.AI</h4></div></div><div className="flex justify-between items-end md:grid md:grid-cols-[1fr_2fr] gap-4 md:gap-16 lg:gap-24"><div className="flex-shrink-0"><p className="text-[10px] md:text-base font-bold text-gray-500 mb-1 md:mb-2 font-['Inter'] whitespace-nowrap">Chinese typography</p><h5 className="text-base sm:text-[36px] md:text-[48px] font-bold text-[#282828] font-['Noto_Sans_TC'] tracking-tight whitespace-nowrap">Noto Sans TC</h5></div><div className="text-right md:text-left overflow-hidden"><h4 className="text-[14px] sm:text-[4.5vw] md:text-[60px] lg:text-[72px] font-bold font-['Noto_Sans_TC'] text-[#282828] leading-none tracking-tight whitespace-nowrap">聚愢科技股份有限公司</h4></div></div></div><div className="w-full flex flex-row h-[120px] sm:h-[200px] md:h-[400px] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden mb-12 md:mb-16">{activeItem.brandColors?.map((color) => (<div key={color.hex} style={{ backgroundColor: color.hex }} className="w-1/2 h-full flex items-end p-4 md:p-12 relative"><span className="text-sm sm:text-xl md:text-[32px] font-bold font-['Inter'] tracking-wider uppercase text-white">{color.hex}</span></div>))}</div><div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16"><p className="text-[16px] md:text-[18px] font-normal font-['Inter'] text-gray-900 leading-relaxed md:pr-8">Employing a vibrant blue paired with a solid black as signature colors, representing the integration of technology-driven solutions within a robust and established education system.</p><p className="text-[16px] md:text-[18px] font-normal font-['Noto_Sans_TC'] text-gray-900 leading-relaxed">以明快的藍色及堅實的黑色作為品牌代表色，象徵為穩固的教育體系中增添科技導向的解決方針。</p></div></div></div>
-          <div className="w-full mt-24 mb-40"><div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-100 pb-10"><div className="flex flex-col"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">03</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold tracking-tight text-gray-500 mt-2 font-['Inter']">Web Design</h3></div><div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-12"><p className="text-[16px] md:text-[24px] font-normal font-['Inter'] text-gray-500 leading-relaxed font-medium">{activeItem.webDesignDesc}</p><p className="text-[16px] md:text-[24px] font-normal font-['Noto_Sans_TC'] text-gray-800 leading-relaxed font-medium">{activeItem.webDesignDescZh}</p></div></div><div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-10 mt-16 md:mt-24"><h4 className="text-[24px] md:text-[36px] font-bold font-['Inter'] tracking-tight text-gray-900">Hero Page</h4></div><div className="w-full aspect-video bg-[#EAEAEC] relative flex items-center justify-center mb-24 md:mb-32 overflow-hidden"><OptimizedVideo src={activeItem.heroPageVideoUrl} className="w-full h-full relative z-10" /></div><div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-32"><h4 className="text-[24px] md:text-[36px] font-bold font-['Inter'] tracking-tight text-gray-900 mb-10">Service</h4><div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] items-start gap-12 lg:gap-20"><div className="relative flex items-start"><div className="w-4/5 lg:w-[75%] aspect-[16/10] bg-[#F6F6F6] rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-lg relative"><OptimizedVideo src={activeItem.serviceDesktopVideo} className="w-full h-full relative z-10" /></div><div className="absolute top-[15%] right-0 w-[35%] lg:w-[30%] aspect-[9/18] bg-[#EAEAEC] rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white translate-x-[5%] lg:translate-x-0"><OptimizedVideo src={activeItem.serviceMobileVideo} className="w-full h-full relative z-10" /></div></div><div className="flex flex-col gap-6 pt-0 lg:pt-10"><p className="text-gray-900 text-lg md:text-xl font-bold border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">服務介紹介面</p><p className="text-gray-500 text-base md:text-lg leading-relaxed font-['Noto_Sans_TC']">清晰展示 Wisdome.ai 的三大核心能力。透過動態視覺引導與直覺的排版，幫助使用者快速理解 AI 如何介入教務流程，實現自動化與規模化。</p></div></div></div><div className="max-w-[100rem] mx-auto px-6 md:px-12"><h4 className="text-[24px] md:text-[36px] font-bold font-['Inter'] tracking-tight text-gray-900 mb-10">Success Stories</h4><div className="flex flex-col gap-6 mb-16 lg:mb-24"><p className="text-gray-900 text-lg md:text-xl font-bold border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">成功案例呈現</p><p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-3xl font-['Noto_Sans_TC']">將實際客戶的成功故事以清晰、數據化的方式呈現。透過桌機與行動裝置的跨螢幕設計，確保閱讀體驗流暢，並利用長網頁完整展示案例細節與轉換成效。</p></div><div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start"><div className="lg:col-span-7 flex flex-col gap-12"><div className="relative flex items-start w-full"><div className="w-[85%] aspect-[16/10] bg-[#F6F6F6] rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-lg relative"><OptimizedVideo src={activeItem.successDesktopVideo} className="w-full h-full relative z-10" /></div><div className="absolute bottom-[-10%] right-0 w-[30%] aspect-[9/18] bg-[#EAEAEC] rounded-[1rem] md:rounded-[1.5rem] overflow-hidden shadow-2xl border-4 border-white"><OptimizedVideo src={activeItem.successMobileVideo} className="w-full h-full relative z-10" /></div></div><div className="mt-8 p-8 md:p-10 bg-gray-50 rounded-[2rem]"><h4 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 font-['Noto_Sans_TC']">跨裝置的流暢閱讀體驗</h4><p className="text-gray-600 leading-relaxed text-sm md:text-base font-['Noto_Sans_TC']">無論是使用桌機查看詳細的成效數據，或是透過手機快速瀏覽案例重點，響應式排版皆能提供最佳的視覺動線與資訊層次。</p></div></div><div className="lg:col-span-5 w-full"><div className="w-full bg-[#EAEAEC] rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-xl border border-gray-200 relative group"><div className="relative w-full h-[60vh] lg:h-[80vh] overflow-y-auto hide-scrollbar bg-white"><img src={activeItem.successFullpageImg} className="w-full h-auto relative z-10 hover:opacity-95 transition-opacity" alt="" onError={(e) => e.target.style.display = 'none'} /></div><div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/20 to-transparent pointer-events-none z-20 flex items-end justify-center pb-4 opacity-100 group-hover:opacity-0 transition-opacity duration-500"><span className="text-white text-xs tracking-widest uppercase font-bold drop-shadow-md">Scroll down to view full page</span></div></div></div></div></div></div>
+
+          {/* Hero Section */}
+          {activeItem.heroMedia && (
+            <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden min-h-[40vh] md:min-h-[70vh]">
+              {activeItem.heroMedia.type === 'video' ?
+                <OptimizedVideo src={activeItem.heroMedia.url} className="w-full h-full object-cover relative z-10" /> :
+                <img src={activeItem.heroMedia.url} className="w-full h-full object-cover relative z-10" alt={activeItem.title} onError={(e) => e.target.style.display = 'none'} />
+              }
+            </div>
+          )}
+
+          {/* 01 Project Overview */}
+          {activeItem.projectOverview && (
+            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">01</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Project Overview</h3></div>
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
+                <div className="space-y-8">
+                  {activeItem.projectOverview.clientLogoUrl && (
+                    <div>
+                      <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Client</p>
+                      <img src={activeItem.projectOverview.clientLogoUrl} alt="Client Logo" className="h-8 md:h-12 w-auto object-contain origin-left" onError={(e) => { e.target.style.display = 'none'; }} />
+                    </div>
+                  )}
+                  {activeItem.year && (
+                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Year</p><p className="text-xl font-medium text-gray-800">{activeItem.year}</p></div>
+                  )}
+                  {activeItem.projectOverview.myRole && (
+                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">My Role</p><p className="text-xl font-medium text-gray-800">{activeItem.projectOverview.myRole}</p></div>
+                  )}
+                  {activeItem.projectOverview.service && (
+                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Service</p><p className="text-xl font-medium text-gray-800">{activeItem.projectOverview.service}</p></div>
+                  )}
+                </div>
+                <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                  {activeItem.projectOverview.backgroundAndGoals && (
+                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">Background & Goals</h4><p>{activeItem.projectOverview.backgroundAndGoals}</p></div>
+                  )}
+                  {activeItem.projectOverview.challenge && (
+                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">The Challenge</h4><p>{activeItem.projectOverview.challenge}</p></div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 02 Research */}
+          {activeItem.research && (
+            <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                <div className="flex flex-col mb-16 border-b border-gray-200 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">02</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Research</h3></div>
+                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{activeItem.research.description}</p>
+                {activeItem.research.images && activeItem.research.images.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {activeItem.research.images.map((img, i) => (
+                      <div key={i} className="bg-white rounded-[2rem] aspect-[4/3] overflow-hidden shadow-sm flex items-center justify-center"><img src={img} className="w-full h-full object-cover" alt="Research" onError={(e) => e.target.style.display = 'none'} /></div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 03 Strategy & Architecture */}
+          {activeItem.strategyAndArchitecture && (
+            <div className="w-full mb-24 md:mb-40 mt-12">
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">03</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Strategy & Architecture</h3></div>
+                {activeItem.strategyAndArchitecture.description && (
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{activeItem.strategyAndArchitecture.description}</p>
+                )}
+              </div>
+              {activeItem.strategyAndArchitecture.iaImage && (
+                <HorizontalMapScroll url={activeItem.strategyAndArchitecture.iaImage} />
+              )}
+            </div>
+          )}
+
+          {/* 04 Brand Identity */}
+          {activeItem.brandIdentity && (
+            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">04</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Brand Identity</h3></div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                <div className="bg-[#EAE8F2] rounded-[2rem] p-12 md:p-20 flex items-center justify-center min-h-[300px] overflow-hidden">
+                  {activeItem.brandIdentity.motionVideoUrl ? (
+                    <OptimizedVideo src={activeItem.brandIdentity.motionVideoUrl} className="w-full h-full object-cover rounded-[1rem]" />
+                  ) : (
+                    <img src={activeItem.brandIdentity.logoImage} className="w-2/3 h-auto" alt="Logo" onError={(e) => e.target.style.display = 'none'} />
+                  )}
+                </div>
+                <div className="flex flex-col gap-12">
+                  {activeItem.brandIdentity.colors && (
+                    <div>
+                      <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">Color Palette</h4>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        {activeItem.brandIdentity.colors.map(color => (
+                          <div key={color.hex} className="flex flex-col gap-3">
+                            <div className="w-full aspect-square rounded-[1.5rem] shadow-sm flex items-end p-4 border border-gray-100" style={{ backgroundColor: color.hex }}></div>
+                            <span className="text-sm font-bold text-gray-800 tracking-wide">{color.name}</span>
+                            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{color.hex}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {activeItem.brandIdentity.typography && (
+                    <div className="bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100">
+                      <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">Typography</h4>
+                      <div className="space-y-8">
+                        <div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">Primary Typeface</p><p className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">{activeItem.brandIdentity.typography.primary}</p></div>
+                        {activeItem.brandIdentity.typography.secondary && (<div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">Secondary Typeface</p><p className="text-2xl md:text-4xl font-bold text-gray-900 font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.secondary}</p></div>)}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 05 Design */}
+          {activeItem.design && (
+            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">05</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{isApp ? 'UI Design' : 'Web Design'}</h3></div>
+              <div className="space-y-20">
+                {(activeItem.design.designSystemDesc || (activeItem.design.componentsImages && activeItem.design.componentsImages.length > 0)) && (
+                  <div>
+                    <h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">Design System</h4>
+                    {activeItem.design.designSystemDesc && (
+                      <p className="text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl mb-8">{activeItem.design.designSystemDesc}</p>
+                    )}
+                    {activeItem.design.componentsImages && activeItem.design.componentsImages.length > 0 && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {activeItem.design.componentsImages.map((img, i) => (
+                          <div key={i} className="bg-[#F6F6F6] rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm p-4 md:p-8">
+                            <img src={img} className="w-full h-auto" alt="Component" onError={(e) => e.target.style.display = 'none'} />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {((activeItem.design.screens && activeItem.design.screens.length > 0) || (activeItem.design.flowImages && activeItem.design.flowImages.length > 0)) && (
+                  <div>
+                    <h4 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 border-l-4 border-orange-500 pl-4">Screens & Mockups</h4>
+                    {activeItem.design.screens && activeItem.design.screens.length > 0 && (
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+                        {activeItem.design.screens.map((screen, i) => (
+                          <div key={i} className="bg-[#F6F6F6] rounded-[2rem] aspect-[9/16] overflow-hidden flex items-center justify-center shadow-sm">
+                            <img src={screen} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Screen" onError={(e) => e.target.style.display = 'none'} />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {activeItem.design.flowImages && activeItem.design.flowImages.length > 0 && (
+                      <div className="mt-8">
+                        <h5 className="text-xl font-bold mb-6 text-gray-900 font-['Noto_Sans_TC']">User Flow</h5>
+                        <div className="grid grid-cols-1 gap-6">
+                          {activeItem.design.flowImages.map((img, i) => (
+                            <div key={i} className="bg-[#FAFAFA] rounded-[2rem] overflow-hidden shadow-inner p-4 md:p-8">
+                              <img src={img} className="w-full h-auto object-contain" alt="Flow" onError={(e) => e.target.style.display = 'none'} />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Showcases for Complex Layouts (e.g. Wisdome.ai) */}
+                {activeItem.design.showcases && activeItem.design.showcases.map((showcase, i) => (
+                  <div key={i} className="mb-24">
+                    <h4 className="text-[24px] md:text-[36px] font-bold font-['Inter'] tracking-tight text-gray-900 mb-10">{showcase.title}</h4>
+                    {showcase.description && (
+                      <div className="flex flex-col gap-6 mb-12">
+                        <p className="text-gray-900 text-lg md:text-xl font-bold border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">{showcase.title} 呈現</p>
+                        <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-3xl font-['Noto_Sans_TC']">{showcase.description}</p>
+                      </div>
+                    )}
+
+                    {/* HeroVideo Showcase */}
+                    {showcase.heroVideo && (
+                      <div className="w-full aspect-video bg-[#EAEAEC] relative flex items-center justify-center mb-16 overflow-hidden rounded-[2rem]">
+                        <OptimizedVideo src={showcase.heroVideo} className="w-full h-full object-cover relative z-10" />
+                      </div>
+                    )}
+
+                    {/* Desktop + Mobile Video Showcase */}
+                    {(showcase.desktopVideo || showcase.mobileVideo) && !showcase.fullpageImg && (
+                      <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] items-start gap-12 lg:gap-20">
+                        <div className="relative flex items-start">
+                          {showcase.desktopVideo && (
+                            <div className="w-4/5 lg:w-[75%] aspect-[16/10] bg-[#F6F6F6] rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-lg relative">
+                              <OptimizedVideo src={showcase.desktopVideo} className="w-full h-full object-cover relative z-10" />
+                            </div>
+                          )}
+                          {showcase.mobileVideo && (
+                            <div className="absolute top-[15%] right-0 w-[35%] lg:w-[30%] aspect-[9/18] bg-[#EAEAEC] rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white translate-x-[5%] lg:translate-x-0">
+                              <OptimizedVideo src={showcase.mobileVideo} className="w-full h-full object-cover relative z-10" />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Fullpage Showcase (Wisdome.ai Success Stories) */}
+                    {showcase.fullpageImg && (
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                        <div className="lg:col-span-7 flex flex-col gap-12">
+                          <div className="relative flex items-start w-full">
+                            {showcase.desktopVideo && (
+                              <div className="w-[85%] aspect-[16/10] bg-[#F6F6F6] rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-lg relative">
+                                <OptimizedVideo src={showcase.desktopVideo} className="w-full h-full object-cover relative z-10" />
+                              </div>
+                            )}
+                            {showcase.mobileVideo && (
+                              <div className="absolute bottom-[-10%] right-0 w-[30%] aspect-[9/18] bg-[#EAEAEC] rounded-[1rem] md:rounded-[1.5rem] overflow-hidden shadow-2xl border-4 border-white">
+                                <OptimizedVideo src={showcase.mobileVideo} className="w-full h-full object-cover relative z-10" />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="lg:col-span-5 w-full">
+                          <div className="w-full bg-[#EAEAEC] rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-xl border border-gray-200 relative group">
+                            <div className="relative w-full h-[60vh] lg:h-[80vh] overflow-y-auto hide-scrollbar bg-white">
+                              <img src={showcase.fullpageImg} className="w-full h-auto relative z-10 hover:opacity-95 transition-opacity" alt="" onError={(e) => e.target.style.display = 'none'} />
+                            </div>
+                            <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/20 to-transparent pointer-events-none z-20 flex items-end justify-center pb-4 opacity-100 group-hover:opacity-0 transition-opacity duration-500">
+                              <span className="text-white text-xs tracking-widest uppercase font-bold drop-shadow-md">Scroll down to view</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+                {activeItem.design.prototypeUrl && (
+                  <div>
+                    <h4 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 border-l-4 border-orange-500 pl-4">Prototype</h4>
+                    <div className="w-full aspect-[4/3] md:aspect-video bg-[#EAEAEC] rounded-[2rem] overflow-hidden flex justify-center relative shadow-inner">
+                      <OptimizedVideo src={activeItem.design.prototypeUrl} className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                )}
+                {activeItem.design.usabilityTesting && (
+                  <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">Usability Testing & Iteration</h4><p className="text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl">{activeItem.design.usabilityTesting}</p></div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 06 Mascot Design */}
+          {hasMascot && (
+            <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                <div className="flex flex-col mb-16 border-b border-gray-200 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">06</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Mascot Design</h3></div>
+                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{activeItem.mascotDesign.description}</p>
+                {activeItem.mascotDesign.images && activeItem.mascotDesign.images.length > 0 && (
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    {activeItem.mascotDesign.images.map((img, i) => (
+                      <div key={i} className="bg-white rounded-[2rem] aspect-square overflow-hidden shadow-sm flex items-center justify-center">
+                        {img.endsWith('.mp4') ? <OptimizedVideo src={img} className="w-full h-full object-cover" /> : <img src={img} className="w-full h-full object-cover" alt="Mascot" onError={(e) => e.target.style.display = 'none'} />}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           <FooterCTA />
         </div>
       );
-    }
+    };
+
+
 
     // ================= BrainBox 專屬客製化版面 (ID: 3) =================
     if (activeItem.id === 3) {
@@ -549,6 +884,11 @@ export default function PortfolioApp() {
           <FooterCTA />
         </div>
       );
+    }
+
+    // ================= 預設的 UI/UX 通用版型 =================
+    if (activeItem.categoryId === 'uiux') {
+      return <GenericUIUXProjectView />;
     }
 
     // ================= 預設的其他專案版面 (Fallback) =================

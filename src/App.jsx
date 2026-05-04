@@ -3,14 +3,17 @@ import React, { useState, useEffect, useRef } from 'react';
 // --- 內嵌 SVG 圖示組件 (完全封裝) ---
 const IconArrowLeft = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>;
 const IconArrowUpRight = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>;
+const IconArrowUp = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>;
 const IconMail = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>;
 const IconInstagram = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>;
 const IconLinkedin = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>;
 const IconGlobe = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10" /><line x1="2" x2="22" y1="12" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z" /></svg>;
 const IconPlus = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14" /><path d="M12 5v14" /></svg>;
 const IconMenu = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></svg>;
+const IconSearch = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>;
 const IconX = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>;
-
+const IconChevronLeft = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m15 18-6-6 6-6"/></svg>;
+const IconChevronRight = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m9 18 6-6-6-6"/></svg>;
 // ========================= 核心架構：共用元件 =========================
 
 // --- 優化版影片播放器 ---
@@ -127,10 +130,51 @@ const HorizontalMapScroll = ({ url }) => {
 
 // ========================= 核心架構：資料庫 =========================
 
+const I18N = {
+  zh: {
+    nav: { home: '首頁', works: '作品集', about: '關於我', contact: '聯絡我' },
+    home: { selectedWorks: '精選作品', allWorks: '所有作品' },
+    cta: { title: "Let's create\nsomething amazing.", desc: "有任何專案合作想法，或是想聊聊設計？隨時歡迎與我聯繫。", btn: "與我聯繫" },
+    project: {
+      client: '客戶', year: '年份', myRole: '負責角色', service: '提供服務',
+      overview: '專案概述', background: '背景與目標', challenge: '設計挑戰',
+      research: '使用者研究', strategy: '策略與架構', brand: '品牌識別',
+      engTypo: '英文字體', zhTypo: '中文字體',
+      colorPalette: '色彩計畫', typography: '字體排印', primaryType: '主要字體', secondaryType: '次要字體',
+      webDesign: '網站設計', uiDesign: 'UI 設計',
+      designSystem: '設計系統', screens: '介面展示', userFlow: '使用者流程',
+      prototype: '互動原型', usability: '易用性測試', mascot: '吉祥物設計',
+      scrollMap: '向右滑動探索架構', backTo: '返回'
+    }
+  },
+  en: {
+    nav: { home: 'Home', works: 'Works', about: 'About', contact: 'Contact' },
+    home: { selectedWorks: 'Selected Works', allWorks: 'All Works' },
+    cta: { title: "Let's create\nsomething amazing.", desc: "Have a project in mind or want to talk design? Let's get in touch.", btn: "Get in touch" },
+    project: {
+      client: 'Client', year: 'Year', myRole: 'My Role', service: 'Service',
+      overview: 'Project Overview', background: 'Background & Goals', challenge: 'The Challenge',
+      research: 'Research', strategy: 'Strategy & Architecture', brand: 'Brand Identity',
+      engTypo: 'English typography', zhTypo: 'Chinese typography',
+      colorPalette: 'Color Palette', typography: 'Typography', primaryType: 'Primary Typeface', secondaryType: 'Secondary Typeface',
+      webDesign: 'Web Design', uiDesign: 'UI Design',
+      designSystem: 'Design System', screens: 'Screens & Mockups', userFlow: 'User Flow',
+      prototype: 'Prototype', usability: 'Usability Testing & Iteration', mascot: 'Mascot Design',
+      scrollMap: 'Scroll to explore Map', backTo: 'Back to'
+    }
+  }
+};
+
+const t = (item, lang) => {
+  if (!item) return '';
+  if (typeof item === 'string') return item;
+  return item[lang] || item['zh'] || item['en'] || '';
+};
+
 const CATEGORIES = [
-  { id: 'uiux', title: 'UI/UX Design', subtitle: 'App / Web Design', description: '打造直覺且具備商業價值的數位產品體驗，包含 App、Web 介面設計與使用者研究。' },
-  { id: 'motion', title: 'Motion Graphic Design', subtitle: 'Animation / 2D', description: '透過動態設計賦予品牌與介面生命力，包含解說動畫、UI 微互動與短影音。' },
-  { id: 'brand', title: 'Branding Design', subtitle: 'Strategy / Identity', description: '從零建立具備記憶點的品牌視覺系統，涵蓋標誌設計、色彩計畫與品牌規範。' }
+  { id: 'uiux', title: 'UI/UX Design', subtitle: 'App / Web Design', description: { zh: '打造直覺且具備商業價值的數位產品體驗，包含 App、Web 介面設計與使用者研究。', en: 'Creating intuitive and commercially valuable digital product experiences, including App/Web UI design and user research.' } },
+  { id: 'motion', title: 'Motion Graphic Design', subtitle: 'Animation / 2D', description: { zh: '透過動態設計賦予品牌與介面生命力，包含解說動畫、UI 微互動與短影音。', en: 'Bringing brands and interfaces to life through motion design, including explainer animations, UI micro-interactions, and short videos.' } },
+  { id: 'brand', title: 'Branding Design', subtitle: 'Strategy / Identity', description: { zh: '從零建立具備記憶點的品牌視覺系統，涵蓋標誌設計、色彩計畫與品牌規範。', en: 'Building memorable brand visual systems from scratch, covering logo design, color schemes, and brand guidelines.' } }
 ];
 
 const PROJECTS = [
@@ -195,13 +239,13 @@ const PROJECTS = [
     id: 2,
     categoryId: 'uiux',
     platform: 'app',
-    title: 'Ms. Line 學測刷題app',
+    title: 'Ms. Lin 學測刷題app',
     thumb: 'bg-[#F2EFE9]',
     coverMedia: { type: 'image', url: '' },
     heroMedia: { type: 'image', url: '/projects/msline/hero.jpg' },
     tags: ['UI/UX', 'App Design'],
     description: '專為高中生打造的學測刷題 App，提供流暢的測驗體驗與個人化錯題本功能。',
-    client: 'Ms. Line',
+    client: 'Ms. Lin',
     year: '2023',
     gallery: [],
     projectOverview: {
@@ -218,7 +262,7 @@ const PROJECTS = [
       description: '將 App 核心分為三大模塊：每日任務、題庫測驗、學習報表。簡化註冊流程，讓使用者下載後能最快進入第一場測驗。',
       iaImage: '/projects/msline/ia-map.jpg'
     },
-    brandIdentity: {
+    /* brandIdentity: {
       logoImage: '/projects/msline/logo.png',
       typography: { primary: 'SF Pro Display', secondary: 'Noto Sans TC' },
       colors: [
@@ -226,12 +270,33 @@ const PROJECTS = [
         { hex: '#FF9800', name: 'Secondary Orange' },
         { hex: '#212121', name: 'Dark Background' }
       ]
-    },
+    }, */
     design: {
       designSystemDesc: '建立了一套完整的 Mobile UI Component Library，確保開發與設計的一致性，並考量了 iOS 與 Android 的平台特性。',
+      architectureImg: '',
+      bentoComponents: [
+        { name: 'Buttons', previewImg: '', specsImg: '', colSpan: 1 },
+        { name: 'Inputs & Forms', previewImg: '', specsImg: '', colSpan: 1 },
+        { name: 'Cards & Containers', previewImg: '', specsImg: '', colSpan: 2 },
+        { name: 'Modals & Dialogs', previewImg: '', specsImg: '', colSpan: 2 },
+        { name: 'Dropdowns & Menus', previewImg: '', specsImg: '', colSpan: 1 },
+        { name: 'Tags & Badges', previewImg: '', specsImg: '', colSpan: 1 }
+      ],
       componentsImages: ['/projects/msline/components-1.jpg'],
       flowImages: ['/projects/msline/user-flow.jpg'],
-      screens: ['/projects/msline/screen-1.jpg', '/projects/msline/screen-2.jpg', '/projects/msline/screen-3.jpg', '/projects/msline/screen-4.jpg'],
+      screenGroups: [
+        { title: 'Onboarding ＋ 首頁', screens: ['/projects/msline/onboarding-1.jpg', '/projects/msline/onboarding-2.jpg', '/projects/msline/onboarding-3.jpg', '/projects/msline/onboarding-4.jpg', '/projects/msline/onboarding-5.jpg'] },
+        { title: '題庫', screens: ['/projects/msline/bank-1.jpg', '/projects/msline/bank-2.jpg', '/projects/msline/bank-3.jpg', '/projects/msline/bank-4.jpg', '/projects/msline/bank-5.jpg'] },
+        { title: '我的', screens: ['/projects/msline/profile-1.jpg', '/projects/msline/profile-2.jpg', '/projects/msline/profile-3.jpg', '/projects/msline/profile-4.jpg', '/projects/msline/profile-5.jpg'] },
+        { 
+          title: '各科練習頁面', 
+          tabs: [
+            { title: '數學練習', screens: ['/projects/msline/math-1.jpg', '/projects/msline/math-2.jpg', '/projects/msline/math-3.jpg', '/projects/msline/math-4.jpg', '/projects/msline/math-5.jpg'] },
+            { title: '國文練習', screens: ['/projects/msline/chinese-1.jpg', '/projects/msline/chinese-2.jpg', '/projects/msline/chinese-3.jpg', '/projects/msline/chinese-4.jpg', '/projects/msline/chinese-5.jpg'] },
+            { title: '英文練習', screens: ['/projects/msline/english-1.jpg', '/projects/msline/english-2.jpg', '/projects/msline/english-3.jpg', '/projects/msline/english-4.jpg', '/projects/msline/english-5.jpg'] }
+          ]
+        }
+      ],
       prototypeUrl: '/projects/msline/prototype.mp4',
       usabilityTesting: '在第一版 Prototype 完成後，邀請 5 位高中生進行易用性測試，根據回饋優化了「結束測驗」的防呆提示設計。'
     },
@@ -243,14 +308,64 @@ const PROJECTS = [
   {
     id: 3,
     categoryId: 'uiux',
+    platform: 'web', // 可以設定為 'web' 或 'app'
     title: 'BrainBox UI Visual Design',
     thumb: 'bg-[#EAE8F2]',
     coverMedia: { type: 'image', url: '/projects/brainbox_ui/cover.jpg' },
     tags: ['UI/UX', 'System Design'],
-    description: '智慧教育系統的視覺介面設計，優化教師與學生的操作流程，提升數位學習體驗。',
+    description: {
+      zh: '智慧教育系統的視覺介面設計，優化教師與學生的操作流程，提升數位學習體驗。',
+      en: 'Visual interface design for a smart education system, optimizing operations for teachers and students to enhance the digital learning experience.'
+    },
     client: 'BrainBox',
     year: '2024',
-    gallery: []
+    projectOverview: {
+      backgroundAndGoals: {
+        zh: '請在此輸入 BrainBox 專案背景與目標。',
+        en: 'Please enter BrainBox project background and goals here.'
+      },
+      challenge: {
+        zh: '請在此輸入專案挑戰。',
+        en: 'Please enter project challenges here.'
+      },
+      myRole: 'UI/UX Designer',
+      service: 'UI/UX Design, System Design'
+    },
+    brandIdentity: {
+      logoImage: '',
+      typography: { zh: '', en: '' },
+      colors: []
+    },
+    mascotDesign: {
+      description: {
+        zh: '請在此輸入吉祥物設計理念。',
+        en: 'Please enter mascot design concept here.'
+      },
+      images: []
+    },
+    visuals: {
+      iconSystem: {
+        description: {
+          zh: '請在此輸入 Icon 系統設計理念與動態微交互說明。',
+          en: 'Please enter icon system design concept and micro-interaction details here.'
+        },
+        icons: []
+      },
+      illustrationAnimation: {
+        description: {
+          zh: '請在此輸入插圖與動畫設計（如 Onboarding、情境圖）說明。',
+          en: 'Please enter illustration and animation design details here.'
+        },
+        videos: []
+      },
+      application: {
+        description: {
+          zh: '請在此輸入整合應用設計（介面截圖、Mockup 等）說明。',
+          en: 'Please enter application design details here.'
+        },
+        images: []
+      }
+    }
   },
   { id: 4, categoryId: 'motion', title: 'BrainBox 智慧刷題系統：賦能學生，解放教師。', thumb: 'bg-black', coverMedia: { type: 'video', url: '' }, tags: ['Motion', 'Explainer'], description: '透過生動的 2D 動畫，清楚傳達 BrainBox 產品的核心價值與功能優勢。', client: 'BrainBox', year: '2024', gallery: [] },
   { id: 5, categoryId: 'motion', title: 'Look the Sound of Taipei Metro', thumb: 'bg-[#1a1a1a]', coverMedia: { type: 'video', url: '' }, tags: ['Motion', 'Data Visual'], description: '將臺北捷運的聲音地景進行視覺化，轉化為具備節奏感與幾何美學的動態圖像創作。', client: '國立臺灣藝術大學', year: '2023', gallery: [] },
@@ -265,11 +380,21 @@ const PROJECTS = [
 // ========================= 核心架構：主應用程式 =========================
 
 export default function PortfolioApp() {
+  const [lang, setLang] = useState('zh');
   const [currentPage, setCurrentPage] = useState('home');
   const [activeItem, setActiveItem] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [homeSelectedFilter, setHomeSelectedFilter] = useState('UI/UX Design');
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const transitionTo = (callback) => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      callback();
+      setTimeout(() => setIsTransitioning(false), 50);
+    }, 300); // 配合 CSS duration 300ms
+  };
 
   useEffect(() => {
     const handleScroll = () => { const threshold = currentPage === 'home' ? window.innerHeight * 2.4 : 50; setScrolled(window.scrollY > threshold); };
@@ -280,7 +405,14 @@ export default function PortfolioApp() {
 
   useEffect(() => { if (isMobileMenuOpen) document.body.style.overflow = 'hidden'; else document.body.style.overflow = 'auto'; }, [isMobileMenuOpen]);
 
-  const navigateTo = (page, item = null) => { setCurrentPage(page); setActiveItem(item); setIsMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const navigateTo = (page, item = null) => {
+    transitionTo(() => {
+      setCurrentPage(page);
+      setActiveItem(item);
+      setIsMobileMenuOpen(false);
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    });
+  };
 
   const getFormattedServiceTitle = (title) => {
     if (title.includes('UI/UX')) return { big: 'UIUX', small: 'App / Web Design' };
@@ -295,17 +427,27 @@ export default function PortfolioApp() {
         <nav className="pointer-events-auto flex items-center justify-between w-full md:w-auto md:gap-8 px-4 py-2.5 md:px-6 md:py-3 rounded-full bg-white/90 backdrop-blur-xl border border-gray-100 shadow-sm">
           <div className="text-lg md:text-xl font-bold cursor-pointer tracking-wide" onClick={() => navigateTo('home')}>T<span className="text-orange-500">.</span></div>
           <div className="hidden md:flex gap-2 md:gap-6 text-sm font-medium">
-            <button onClick={() => navigateTo('home')} className={`px-3 py-1.5 rounded-full transition-all ${currentPage === 'home' ? 'bg-black text-white' : 'text-gray-600 hover:text-black hover:bg-gray-100'}`}>Home</button>
-            <button onClick={() => navigateTo('works')} className={`px-3 py-1.5 rounded-full transition-all ${['works', 'category', 'project'].includes(currentPage) ? 'bg-black text-white' : 'text-gray-600 hover:text-black hover:bg-gray-100'}`}>Works</button>
-            <button onClick={() => navigateTo('about')} className={`px-3 py-1.5 rounded-full transition-all ${currentPage === 'about' ? 'bg-black text-white' : 'text-gray-600 hover:text-black hover:bg-gray-100'}`}>About</button>
-            <button onClick={() => navigateTo('contact')} className={`px-3 py-1.5 rounded-full transition-all ${currentPage === 'contact' ? 'bg-black text-white' : 'text-gray-600 hover:text-black hover:bg-gray-100'}`}>Contact</button>
+            <button onClick={() => navigateTo('home')} className={`px-3 py-1.5 rounded-full transition-all ${currentPage === 'home' ? 'bg-black text-white' : 'text-gray-600 hover:text-black hover:bg-gray-100'}`}>{I18N[lang].nav.home}</button>
+            <button onClick={() => navigateTo('works')} className={`px-3 py-1.5 rounded-full transition-all ${['works', 'category', 'project'].includes(currentPage) ? 'bg-black text-white' : 'text-gray-600 hover:text-black hover:bg-gray-100'}`}>{I18N[lang].nav.works}</button>
+            <button onClick={() => navigateTo('about')} className={`px-3 py-1.5 rounded-full transition-all ${currentPage === 'about' ? 'bg-black text-white' : 'text-gray-600 hover:text-black hover:bg-gray-100'}`}>{I18N[lang].nav.about}</button>
+            <button onClick={() => navigateTo('contact')} className={`px-3 py-1.5 rounded-full transition-all ${currentPage === 'contact' ? 'bg-black text-white' : 'text-gray-600 hover:text-black hover:bg-gray-100'}`}>{I18N[lang].nav.contact}</button>
           </div>
-          <button className="md:hidden text-gray-800 p-1" onClick={() => setIsMobileMenuOpen(true)}><IconMenu className="w-6 h-6" /></button>
+          <div className="flex items-center gap-2">
+            <button onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')} className="pointer-events-auto px-3 py-1 rounded-full text-xs font-bold border border-gray-200 text-gray-600 hover:bg-gray-100 transition-all">
+              {lang === 'zh' ? 'EN' : '繁中'}
+            </button>
+            <button className="md:hidden text-gray-800 p-1" onClick={() => setIsMobileMenuOpen(true)}><IconMenu className="w-6 h-6" /></button>
+          </div>
         </nav>
       </div>
       <div className={`fixed inset-0 bg-white z-[60] transform transition-transform duration-500 ease-in-out flex flex-col ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'} md:hidden`}>
         <div className="flex justify-between items-center p-6"><div className="text-2xl font-bold tracking-wide">T<span className="text-orange-500">.</span></div><button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-gray-100 rounded-full text-gray-800"><IconX className="w-6 h-6" /></button></div>
-        <div className="flex flex-col items-center justify-center flex-1 gap-8 text-3xl font-black uppercase tracking-widest"><button onClick={() => navigateTo('home')} className={`${currentPage === 'home' ? 'text-orange-500' : 'text-gray-900'}`}>Home</button><button onClick={() => navigateTo('works')} className={`${['works', 'category', 'project'].includes(currentPage) ? 'text-orange-500' : 'text-gray-900'}`}>Works</button><button onClick={() => navigateTo('about')} className={`${currentPage === 'about' ? 'text-orange-500' : 'text-gray-900'}`}>About</button><button onClick={() => navigateTo('contact')} className={`${currentPage === 'contact' ? 'text-orange-500' : 'text-gray-900'}`}>Contact</button></div>
+        <div className="flex flex-col items-center justify-center flex-1 gap-8 text-3xl font-black uppercase tracking-widest">
+          <button onClick={() => navigateTo('home')} className={`${currentPage === 'home' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.home}</button>
+          <button onClick={() => navigateTo('works')} className={`${['works', 'category', 'project'].includes(currentPage) ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.works}</button>
+          <button onClick={() => navigateTo('about')} className={`${currentPage === 'about' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.about}</button>
+          <button onClick={() => navigateTo('contact')} className={`${currentPage === 'contact' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.contact}</button>
+        </div>
         <div className="p-8 pb-12 text-center text-sm text-gray-400 font-bold tracking-widest">tingchenliang1998@gmail.com</div>
       </div>
     </>
@@ -314,9 +456,9 @@ export default function PortfolioApp() {
   const FooterCTA = () => (
     <div className="w-full mt-24 mb-16 px-6 max-w-[100rem] mx-auto text-center">
       <div className="bg-[#F8F9FA] rounded-[3rem] p-12 md:p-32 flex flex-col items-center">
-        <h2 className="text-5xl md:text-[6rem] font-bold tracking-tighter mb-8 text-gray-900 leading-tight">Let's create<br />something amazing.</h2>
-        <p className="text-xl text-gray-500 mb-12 max-w-md font-medium tracking-wide">有任何專案合作想法，或是想聊聊設計？隨時歡迎與我聯繫。</p>
-        <button onClick={() => navigateTo('contact')} className="bg-orange-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-orange-600 hover:scale-105 transition-all duration-300 flex items-center gap-2">Get in touch <IconArrowUpRight className="w-5 h-5" /></button>
+        <h2 className="text-5xl md:text-[6rem] font-bold tracking-tighter mb-8 text-gray-900 leading-tight whitespace-pre-line">{I18N[lang].cta.title}</h2>
+        <p className="text-xl text-gray-500 mb-12 max-w-md font-medium tracking-wide">{I18N[lang].cta.desc}</p>
+        <button onClick={() => navigateTo('contact')} className="bg-orange-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-orange-600 hover:scale-105 transition-all duration-300 flex items-center gap-2">{I18N[lang].cta.btn} <IconArrowUpRight className="w-5 h-5" /></button>
       </div>
       <div className="mt-12 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm px-6">
         <p className="font-bold uppercase tracking-wide">© {new Date().getFullYear()} Tiffany Liang.</p>
@@ -355,20 +497,22 @@ export default function PortfolioApp() {
             <div className="w-full md:w-[75%] pt-40 md:pt-0 z-30 pointer-events-none will-change-transform" style={{ transform: `translateX(${textTranslateX}vw)` }}>
               <h2 className="text-xl md:text-2xl text-orange-600 mb-6 font-medium flex items-center gap-2"><span className="text-4xl leading-none -mt-2">*</span> We are digital design</h2>
               <h1 className="text-[12vw] md:text-[6.5rem] lg:text-[8.5rem] xl:text-[9.5rem] leading-[0.8] font-black tracking-tighter text-[#252525] mb-8 whitespace-nowrap">TIFFANY LIANG</h1>
-              <p className="text-lg md:text-xl text-gray-500 max-w-md leading-relaxed font-medium mt-8 whitespace-normal">Beautiful design has the power to captivate audiences. 轉化品牌理念與抽象概念為視覺敘事。</p>
+              <p className="text-lg md:text-xl text-gray-500 max-w-md leading-relaxed font-medium mt-8 whitespace-normal">
+                {lang === 'en' ? 'Beautiful design has the power to captivate audiences. Translating brand philosophies and abstract concepts into visual narratives.' : 'Beautiful design has the power to captivate audiences. 轉化品牌理念與抽象概念為視覺敘事。'}
+              </p>
             </div>
             <div className="absolute bottom-0 right-0 z-20 flex items-center justify-center bg-[#EAEAEC] shadow-2xl overflow-hidden will-change-[width,height,border-radius]" style={{ width: isMobile ? '100%' : `${50 + (50 * easeProgress)}%`, height: isMobile ? `${40 + (60 * easeProgress)}vh` : '100%', borderTopLeftRadius: `${isMobile ? 3 * (1 - easeProgress) : 6 * (1 - easeProgress)}rem`, borderTopRightRadius: isMobile ? `${3 * (1 - easeProgress)}rem` : '0', }}>
               <video src="/hero-page_showreel.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover absolute inset-0" />
             </div>
           </section>
         </div>
-        <div className="relative z-30 bg-white rounded-t-[3rem] md:rounded-t-[4rem] w-full mt-[-2rem] md:mt-[-4rem] shadow-[0_-20px_60px_rgba(0,0,0,0.08)]">
+        <div id="featured-works" className="relative z-30 bg-white rounded-t-[3rem] md:rounded-t-[4rem] w-full mt-[-2rem] md:mt-[-4rem] shadow-[0_-20px_60px_rgba(0,0,0,0.08)]">
           <div className="py-24 md:py-32 px-6 md:px-12 max-w-[100rem] mx-auto bg-white rounded-t-[3rem] md:rounded-t-[4rem]">
             <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-16 gap-8">
               <div className="max-w-2xl">
-                <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">Selected Works</h2>
+                <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">{I18N[lang].home.selectedWorks}</h2>
                 <p className="text-gray-500 text-lg md:text-xl font-medium leading-relaxed font-['Noto_Sans_TC']">
-                  從商業官網、教育類 App 到完整的品牌與動態視覺，探索我如何透過設計將抽象概念轉化為具體體驗。
+                  {lang === 'en' ? 'From commercial websites and educational apps to comprehensive branding and motion visuals, explore how I transform abstract concepts into tangible experiences through design.' : '從商業官網、教育類 App 到完整的品牌與動態視覺，探索我如何透過設計將抽象概念轉化為具體體驗。'}
                 </p>
               </div>
               <div className="bg-[#F5F5F5] p-1.5 rounded-full flex overflow-x-auto hide-scrollbar gap-1 shadow-inner max-w-full">
@@ -396,7 +540,7 @@ export default function PortfolioApp() {
                       <div className="hidden md:flex bg-white text-black px-6 py-3 rounded-full font-bold items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform tracking-wider uppercase">View Project <IconArrowUpRight className="w-4 h-4 ml-1" /></div>
                     </div>
                     <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 flex flex-col items-start transform group-hover:translate-y-0 md:group-hover:translate-y-[-4px] transition-transform duration-500 z-10 pointer-events-none pr-6">
-                      <h3 className="text-white text-2xl md:text-4xl font-bold tracking-tight mb-4 drop-shadow-md leading-tight">{p.title}</h3>
+                      <h3 className="text-white text-2xl md:text-4xl font-bold tracking-tight mb-4 drop-shadow-md leading-tight">{t(p.title, lang)}</h3>
                       <div className="flex flex-wrap gap-2">{p.tags.map(tag => (<span key={tag} className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[10px] md:text-sm font-bold tracking-wide uppercase">{tag}</span>))}</div>
                     </div>
                   </div>
@@ -414,7 +558,7 @@ export default function PortfolioApp() {
     <div className={`w-full sticky ${isLast ? 'mb-0' : 'mb-[15vh] md:mb-[40vh]'}`} style={{ top: `calc(10vh + ${idx * 1.5}rem)` }}>
       <div onClick={() => navigateTo('category', cat.id)} className="w-full h-[55vh] md:h-[65vh] group cursor-pointer overflow-hidden rounded-[1.5rem] md:rounded-[4rem] relative">
         <div className="absolute inset-0 bg-black transition-colors duration-700"><div className="w-full h-full transform group-hover:scale-105 transition-transform duration-[1.5s] ease-out opacity-60 group-hover:opacity-40">{isVideo ? <OptimizedVideo src={coverUrl} className="w-full h-full" /> : coverUrl ? <img src={coverUrl} alt={cat.title} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-gray-900" />}</div></div>
-        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-4"><h2 className="text-white text-4xl sm:text-5xl md:text-[6rem] lg:text-[7rem] font-black tracking-wider uppercase text-center leading-[1.1] md:leading-none group-hover:scale-105 md:group-hover:scale-110 transition-transform duration-[1.5s] ease-out drop-shadow-2xl">{cat.title}</h2><div className="hidden md:flex items-center gap-2 text-white font-bold tracking-widest uppercase mt-6 md:mt-10 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 drop-shadow-lg">Explore Projects <IconArrowUpRight className="w-6 h-6 ml-2" /></div></div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-4"><h2 className="text-white text-4xl sm:text-5xl md:text-[6rem] lg:text-[7rem] font-black tracking-wider uppercase text-center leading-[1.1] md:leading-none group-hover:scale-105 md:group-hover:scale-110 transition-transform duration-[1.5s] ease-out drop-shadow-2xl">{t(cat.title, lang)}</h2><div className="hidden md:flex items-center gap-2 text-white font-bold tracking-widest uppercase mt-6 md:mt-10 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 drop-shadow-lg">Explore Projects <IconArrowUpRight className="w-6 h-6 ml-2" /></div></div>
       </div>
     </div>
   );
@@ -440,30 +584,158 @@ export default function PortfolioApp() {
     );
   };
 
+  // --- 可水平捲動的 Screens 元件 ---
+  const ScrollableScreenRow = ({ screens, groupTitle }) => {
+    const scrollRef = useRef(null);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(true);
+
+    const checkScroll = () => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        setCanScrollLeft(scrollLeft > 0);
+        setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+      }
+    };
+
+    useEffect(() => {
+      checkScroll();
+      window.addEventListener('resize', checkScroll);
+      return () => window.removeEventListener('resize', checkScroll);
+    }, [screens]);
+
+    const scroll = (direction) => {
+      if (scrollRef.current) {
+        const scrollAmount = window.innerWidth > 768 ? window.innerWidth * 0.4 : window.innerWidth * 0.7;
+        scrollRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+      }
+    };
+
+    const showArrows = screens && screens.length > 4;
+
+    return (
+      <div className="relative group/row">
+        {showArrows && (
+          <>
+            {canScrollLeft && (
+              <button 
+                onClick={() => scroll('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 z-10 bg-white/90 shadow-lg rounded-full p-2 md:p-3 text-gray-800 hover:bg-gray-900 hover:text-white transition-all opacity-0 group-hover/row:opacity-100 hidden sm:block border border-gray-100"
+              >
+                <IconChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+              </button>
+            )}
+            {canScrollRight && (
+              <button 
+                onClick={() => scroll('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 z-10 bg-white/90 shadow-lg rounded-full p-2 md:p-3 text-gray-800 hover:bg-gray-900 hover:text-white transition-all opacity-0 group-hover/row:opacity-100 hidden sm:block border border-gray-100"
+              >
+                <IconChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+              </button>
+            )}
+          </>
+        )}
+        <div ref={scrollRef} onScroll={checkScroll} className="w-full overflow-x-auto hide-scrollbar snap-x snap-mandatory flex gap-4 md:gap-6 pb-6 pt-2 scroll-smooth">
+          {screens && screens.map((screen, i) => (
+            <div key={`${groupTitle}-${i}`} className="flex-none w-[70%] sm:w-[45%] md:w-[23%] bg-[#F6F6F6] rounded-[2rem] aspect-[9/16] overflow-hidden flex items-center justify-center shadow-sm snap-start animate-in fade-in zoom-in-95 duration-500">
+              <img src={screen} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt={`${groupTitle} Screen ${i+1}`} onError={(e) => e.target.style.display = 'none'} />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   const ProjectView = () => {
     if (!activeItem) return null;
 
-    // --- 封裝重複的返回按鈕元件 (修正邏輯：回到所屬分類) ---
-    const BackButton = () => (
-      <button
-        onClick={() => navigateTo('category', activeItem.categoryId)}
-        className="flex items-center text-sm font-medium text-gray-400 hover:text-black mb-12 transition-colors"
-      >
-        <IconArrowLeft className="w-4 h-4 mr-2" />
-        <span className="uppercase">Back to {activeItem.categoryId.toUpperCase()} WORKS</span>
-      </button>
-    );
+    // --- 封裝重複的返回按鈕元件 (直接回到首頁的精選作品區塊) ---
+    const BackButton = () => {
+      const handleBack = () => {
+        transitionTo(() => {
+          setCurrentPage('home');
+          setActiveItem(null);
+          setIsMobileMenuOpen(false);
+          // 使用 setTimeout 確保 HomeView 掛載後再跳轉，且使用 behavior: 'auto' 避免出現白畫面
+          setTimeout(() => {
+            const section = document.getElementById('featured-works');
+            if (section) {
+              window.scrollTo({ top: section.offsetTop, behavior: 'auto' });
+            } else {
+              window.scrollTo({ top: 0, behavior: 'auto' });
+            }
+          }, 10);
+        });
+      };
 
-    // --- UI/UX 通用版型元件 ---
-    const GenericUIUXProjectView = () => {
-      const isApp = activeItem.platform === 'app';
+      return (
+        <button
+          onClick={handleBack}
+          className="flex items-center text-sm font-medium text-gray-400 hover:text-black mb-12 transition-colors"
+        >
+          <IconArrowLeft className="w-4 h-4 mr-2" />
+          <span className="uppercase">{I18N[lang].project.backTo} HOME</span>
+        </button>
+      );
+    };
+
+    const BackToTopButton = () => {
+      const [isVisible, setIsVisible] = useState(false);
+      const [isReady, setIsReady] = useState(false);
+
+      useEffect(() => {
+        // 延遲 800ms 等待頁面跳轉的 smooth scroll 完成，避免一開始閃爍
+        const timer = setTimeout(() => setIsReady(true), 800);
+        return () => clearTimeout(timer);
+      }, []);
+
+      useEffect(() => {
+        if (!isReady) return;
+
+        const toggleVisibility = () => {
+          if (window.scrollY > 500) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        };
+        
+        toggleVisibility();
+        window.addEventListener('scroll', toggleVisibility);
+        return () => window.removeEventListener('scroll', toggleVisibility);
+      }, [isReady]);
+
+      const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      };
+
+      if (!isVisible) return null;
+
+      return (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-50 p-3 md:p-4 bg-white/90 hover:bg-black text-gray-800 hover:text-white rounded-full shadow-2xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 flex items-center justify-center group border border-gray-200 animate-in fade-in zoom-in-95"
+          title="Back to top"
+        >
+          <IconArrowUp className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-y-1 transition-transform" />
+        </button>
+      );
+    };
+
+    // --- Product Visual Design 通用版型元件 ---
+    const GenericVisualProjectView = () => {
+      let sectionIndex = 1;
+      const getSectionNum = () => String(sectionIndex++).padStart(2, '0');
       const hasMascot = activeItem.mascotDesign && activeItem.mascotDesign.description;
 
       return (
         <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
           <div className="pt-32 md:pt-40 px-6 md:px-12 max-w-[100rem] mx-auto mb-12">
             <BackButton />
-            <h1 className="text-4xl md:text-6xl lg:text-[7rem] font-black mb-8 md:mb-12 tracking-wide uppercase leading-tight md:leading-none font-bold text-gray-900">{activeItem.title}</h1>
+            <h1 className="text-4xl md:text-6xl lg:text-[7rem] font-black mb-8 md:mb-12 tracking-wide uppercase leading-tight md:leading-none font-bold text-gray-900">{t(activeItem.title, lang)}</h1>
           </div>
 
           {/* Hero Section */}
@@ -471,7 +743,7 @@ export default function PortfolioApp() {
             <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden min-h-[40vh] md:min-h-[70vh]">
               {activeItem.heroMedia.type === 'video' ?
                 <OptimizedVideo src={activeItem.heroMedia.url} className="w-full h-full object-cover relative z-10" /> :
-                <img src={activeItem.heroMedia.url} className="w-full h-full object-cover relative z-10" alt={activeItem.title} onError={(e) => e.target.style.display = 'none'} />
+                <img src={activeItem.heroMedia.url} className="w-full h-full object-cover relative z-10" alt={t(activeItem.title, lang)} onError={(e) => e.target.style.display = 'none'} />
               }
             </div>
           )}
@@ -479,31 +751,216 @@ export default function PortfolioApp() {
           {/* 01 Project Overview */}
           {activeItem.projectOverview && (
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
-              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">01</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Project Overview</h3></div>
+              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.overview}</h3></div>
               <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
                 <div className="space-y-8">
                   {activeItem.projectOverview.clientLogoUrl && (
                     <div>
-                      <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Client</p>
+                      <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">{I18N[lang].project.client}</p>
                       <img src={activeItem.projectOverview.clientLogoUrl} alt="Client Logo" className="h-8 md:h-12 w-auto object-contain origin-left" onError={(e) => { e.target.style.display = 'none'; }} />
                     </div>
                   )}
                   {activeItem.year && (
-                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Year</p><p className="text-xl font-medium text-gray-800">{activeItem.year}</p></div>
+                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.year}</p><p className="text-xl font-medium text-gray-800">{activeItem.year}</p></div>
                   )}
                   {activeItem.projectOverview.myRole && (
-                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">My Role</p><p className="text-xl font-medium text-gray-800">{activeItem.projectOverview.myRole}</p></div>
+                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.myRole}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.myRole, lang)}</p></div>
                   )}
                   {activeItem.projectOverview.service && (
-                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Service</p><p className="text-xl font-medium text-gray-800">{activeItem.projectOverview.service}</p></div>
+                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.service}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.service, lang)}</p></div>
                   )}
                 </div>
-                <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] whitespace-pre-line">
                   {activeItem.projectOverview.backgroundAndGoals && (
-                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">Background & Goals</h4><p>{activeItem.projectOverview.backgroundAndGoals}</p></div>
+                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.background}</h4><p>{t(activeItem.projectOverview.backgroundAndGoals, lang)}</p></div>
                   )}
                   {activeItem.projectOverview.challenge && (
-                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">The Challenge</h4><p>{activeItem.projectOverview.challenge}</p></div>
+                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.challenge}</h4><p>{t(activeItem.projectOverview.challenge, lang)}</p></div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 02 Brand Identity */}
+          {activeItem.brandIdentity && (
+            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.brand}</h3></div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                <div className="bg-[#EAE8F2] rounded-[2rem] p-12 md:p-20 flex items-center justify-center min-h-[300px] overflow-hidden">
+                  {activeItem.brandIdentity.motionVideoUrl ? (
+                    <OptimizedVideo src={activeItem.brandIdentity.motionVideoUrl} className="w-full h-full object-cover rounded-[1rem]" />
+                  ) : activeItem.brandIdentity.logoImage ? (
+                    <img src={activeItem.brandIdentity.logoImage} className="max-w-full max-h-[150px] object-contain" alt="Brand Logo" />
+                  ) : (
+                    <span className="text-gray-400 font-bold tracking-widest uppercase">Logo Design</span>
+                  )}
+                </div>
+                <div className="space-y-12">
+                  {activeItem.brandIdentity.typography && (
+                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.typography}</h4><div className="bg-[#FAFAFA] rounded-2xl p-8 border border-gray-100"><div className="text-[80px] font-bold leading-none mb-6 text-gray-900 font-['Inter']">Aa</div><p className="text-xl text-gray-600 font-medium whitespace-pre-line">{t(activeItem.brandIdentity.typography, lang)}</p></div></div>
+                  )}
+                  {activeItem.brandIdentity.colors && activeItem.brandIdentity.colors.length > 0 && (
+                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.colors}</h4><div className="flex flex-wrap gap-4">{activeItem.brandIdentity.colors.map(color => (<div key={color} className="w-16 h-16 md:w-20 md:h-20 rounded-full shadow-inner border border-gray-200" style={{ backgroundColor: color }}></div>))}</div></div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 03 Mascot Design */}
+          {hasMascot && (
+            <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                <div className="flex flex-col mb-16 border-b border-gray-200 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.mascot}</h3></div>
+                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.mascotDesign.description, lang)}</p>
+                {activeItem.mascotDesign.images && activeItem.mascotDesign.images.length > 0 && (
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    {activeItem.mascotDesign.images.map((img, i) => (
+                      <div key={i} className="bg-white rounded-[2rem] aspect-square overflow-hidden shadow-sm flex items-center justify-center">
+                        {img.endsWith('.mp4') ? <OptimizedVideo src={img} className="w-full h-full object-cover" /> : <img src={img} className="w-full h-full object-cover" alt="Mascot" onError={(e) => e.target.style.display = 'none'} />}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 04 Icon System */}
+          {activeItem.visuals?.iconSystem && (
+            <div className="w-full mb-24 md:mb-40">
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-100 pb-10">
+                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2>
+                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Icon System</h3>
+              </div>
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                {activeItem.visuals.iconSystem.description && (
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.iconSystem.description, lang)}</p>
+                )}
+                {activeItem.visuals.iconSystem.icons && activeItem.visuals.iconSystem.icons.length > 0 && (
+                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 md:gap-6">
+                    {activeItem.visuals.iconSystem.icons.map((icon, i) => (
+                      <div key={i} className="bg-white border border-gray-100 rounded-2xl aspect-square flex flex-col items-center justify-center relative group hover:border-orange-500 hover:shadow-lg transition-all duration-300">
+                        <div className="w-1/2 h-1/2 relative z-10 opacity-70 group-hover:opacity-100 transition-opacity group-hover:scale-110 duration-300">
+                          {icon.endsWith('.mp4') ? <OptimizedVideo src={icon} className="w-full h-full" /> : <img src={icon} className="w-full h-full object-contain" alt="Icon" />}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 05 Illustration & Animation */}
+          {activeItem.visuals?.illustrationAnimation && (
+            <div className="w-full bg-[#FAFAFA] py-24 md:py-32 mb-24 md:mb-40">
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-200 pb-10">
+                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2>
+                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Illustration & Animation</h3>
+              </div>
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                {activeItem.visuals.illustrationAnimation.description && (
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.illustrationAnimation.description, lang)}</p>
+                )}
+                {activeItem.visuals.illustrationAnimation.videos && activeItem.visuals.illustrationAnimation.videos.length > 0 && (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+                    {activeItem.visuals.illustrationAnimation.videos.map((vid, i) => (
+                      <div key={i} className="w-full aspect-video bg-white rounded-[2rem] shadow-sm flex items-center justify-center overflow-hidden border border-gray-100">
+                        {vid.endsWith('.mp4') ? <OptimizedVideo src={vid} className="w-full h-full relative z-10" /> : <img src={vid} className="w-full h-full object-cover" alt="Illustration" />}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 06 Application */}
+          {activeItem.visuals?.application && (
+            <div className="w-full mb-24 md:mb-40">
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-100 pb-10">
+                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2>
+                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Application</h3>
+              </div>
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                {activeItem.visuals.application.description && (
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.application.description, lang)}</p>
+                )}
+                {activeItem.visuals.application.images && activeItem.visuals.application.images.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {activeItem.visuals.application.images.map((img, i) => (
+                      <div key={i} className="w-full bg-[#EAEAEC] rounded-[2rem] overflow-hidden shadow-sm flex items-center justify-center">
+                         <img src={img} className="w-full h-auto object-cover" alt="Application" />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          <FooterCTA />
+        </div>
+      );
+    };
+
+
+    // --- UI/UX 通用版型元件 ---
+    const GenericUIUXProjectView = () => {
+      const isApp = activeItem.platform === 'app';
+      const hasMascot = activeItem.mascotDesign && activeItem.mascotDesign.description;
+      let sectionIndex = 1;
+      const getSectionNum = () => String(sectionIndex++).padStart(2, '0');
+      const [selectedComponent, setSelectedComponent] = useState(null);
+      const [activeScreenTabs, setActiveScreenTabs] = useState({});
+
+      return (
+        <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
+          <div className="pt-32 md:pt-40 px-6 md:px-12 max-w-[100rem] mx-auto mb-12">
+            <BackButton />
+            <h1 className="text-4xl md:text-6xl lg:text-[7rem] font-black mb-8 md:mb-12 tracking-wide uppercase leading-tight md:leading-none font-bold text-gray-900">{t(activeItem.title, lang)}</h1>
+          </div>
+
+          {/* Hero Section */}
+          {activeItem.heroMedia && (
+            <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden min-h-[40vh] md:min-h-[70vh]">
+              {activeItem.heroMedia.type === 'video' ?
+                <OptimizedVideo src={activeItem.heroMedia.url} className="w-full h-full object-cover relative z-10" /> :
+                <img src={activeItem.heroMedia.url} className="w-full h-full object-cover relative z-10" alt={t(activeItem.title, lang)} onError={(e) => e.target.style.display = 'none'} />
+              }
+            </div>
+          )}
+
+          {/* 01 Project Overview */}
+          {activeItem.projectOverview && (
+            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.overview}</h3></div>
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
+                <div className="space-y-8">
+                  {activeItem.projectOverview.clientLogoUrl && (
+                    <div>
+                      <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">{I18N[lang].project.client}</p>
+                      <img src={activeItem.projectOverview.clientLogoUrl} alt="Client Logo" className="h-8 md:h-12 w-auto object-contain origin-left" onError={(e) => { e.target.style.display = 'none'; }} />
+                    </div>
+                  )}
+                  {activeItem.year && (
+                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.year}</p><p className="text-xl font-medium text-gray-800">{activeItem.year}</p></div>
+                  )}
+                  {activeItem.projectOverview.myRole && (
+                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.myRole}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.myRole, lang)}</p></div>
+                  )}
+                  {activeItem.projectOverview.service && (
+                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.service}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.service, lang)}</p></div>
+                  )}
+                </div>
+                <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] whitespace-pre-line">
+                  {activeItem.projectOverview.backgroundAndGoals && (
+                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.background}</h4><p>{t(activeItem.projectOverview.backgroundAndGoals, lang)}</p></div>
+                  )}
+                  {activeItem.projectOverview.challenge && (
+                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.challenge}</h4><p>{t(activeItem.projectOverview.challenge, lang)}</p></div>
                   )}
                 </div>
               </div>
@@ -514,8 +971,8 @@ export default function PortfolioApp() {
           {activeItem.research && (
             <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
               <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-                <div className="flex flex-col mb-16 border-b border-gray-200 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">02</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Research</h3></div>
-                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{activeItem.research.description}</p>
+                <div className="flex flex-col mb-16 border-b border-gray-200 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.research}</h3></div>
+                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.research.description, lang)}</p>
                 {activeItem.research.images && activeItem.research.images.length > 0 && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {activeItem.research.images.map((img, i) => (
@@ -531,9 +988,9 @@ export default function PortfolioApp() {
           {activeItem.strategyAndArchitecture && (
             <div className="w-full mb-24 md:mb-40 mt-12">
               <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-                <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">03</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Strategy & Architecture</h3></div>
+                <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.strategy}</h3></div>
                 {activeItem.strategyAndArchitecture.description && (
-                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{activeItem.strategyAndArchitecture.description}</p>
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.strategyAndArchitecture.description, lang)}</p>
                 )}
               </div>
               {activeItem.strategyAndArchitecture.iaImage && (
@@ -545,7 +1002,7 @@ export default function PortfolioApp() {
           {/* 04 Brand Identity */}
           {activeItem.brandIdentity && (
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
-              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">04</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Brand Identity</h3></div>
+              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.brand}</h3></div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
                 <div className="bg-[#EAE8F2] rounded-[2rem] p-12 md:p-20 flex items-center justify-center min-h-[300px] overflow-hidden">
                   {activeItem.brandIdentity.motionVideoUrl ? (
@@ -557,12 +1014,12 @@ export default function PortfolioApp() {
                 <div className="flex flex-col gap-12">
                   {activeItem.brandIdentity.colors && (
                     <div>
-                      <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">Color Palette</h4>
+                      <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">{I18N[lang].project.colorPalette}</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         {activeItem.brandIdentity.colors.map(color => (
                           <div key={color.hex} className="flex flex-col gap-3">
                             <div className="w-full aspect-square rounded-[1.5rem] shadow-sm flex items-end p-4 border border-gray-100" style={{ backgroundColor: color.hex }}></div>
-                            <span className="text-sm font-bold text-gray-800 tracking-wide">{color.name}</span>
+                            <span className="text-sm font-bold text-gray-800 tracking-wide">{t(color.name, lang)}</span>
                             <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{color.hex}</span>
                           </div>
                         ))}
@@ -571,10 +1028,10 @@ export default function PortfolioApp() {
                   )}
                   {activeItem.brandIdentity.typography && (
                     <div className="bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100">
-                      <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">Typography</h4>
+                      <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">{I18N[lang].project.typography}</h4>
                       <div className="space-y-8">
-                        <div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">Primary Typeface</p><p className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">{activeItem.brandIdentity.typography.primary}</p></div>
-                        {activeItem.brandIdentity.typography.secondary && (<div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">Secondary Typeface</p><p className="text-2xl md:text-4xl font-bold text-gray-900 font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.secondary}</p></div>)}
+                        <div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.primaryType}</p><p className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">{activeItem.brandIdentity.typography.primary}</p></div>
+                        {activeItem.brandIdentity.typography.secondary && (<div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.secondaryType}</p><p className="text-2xl md:text-4xl font-bold text-gray-900 font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.secondary}</p></div>)}
                       </div>
                     </div>
                   )}
@@ -586,16 +1043,45 @@ export default function PortfolioApp() {
           {/* 05 Design */}
           {activeItem.design && (
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
-              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">05</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{isApp ? 'UI Design' : 'Web Design'}</h3></div>
+              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{isApp ? I18N[lang].project.uiDesign : I18N[lang].project.webDesign}</h3></div>
               <div className="space-y-20">
-                {(activeItem.design.designSystemDesc || (activeItem.design.componentsImages && activeItem.design.componentsImages.length > 0)) && (
+                {isApp && (activeItem.design.designSystemDesc || activeItem.design.architectureImg || (activeItem.design.bentoComponents && activeItem.design.bentoComponents.length > 0) || (activeItem.design.componentsImages && activeItem.design.componentsImages.length > 0)) && (
                   <div>
-                    <h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">Design System</h4>
+                    <h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.designSystem}</h4>
                     {activeItem.design.designSystemDesc && (
-                      <p className="text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl mb-8">{activeItem.design.designSystemDesc}</p>
+                      <p className="text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.design.designSystemDesc, lang)}</p>
                     )}
-                    {activeItem.design.componentsImages && activeItem.design.componentsImages.length > 0 && (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    {/* Architecture Image */}
+                    {activeItem.design.architectureImg && (
+                      <div className="w-full bg-[#FAFAFA] rounded-[2rem] overflow-hidden mb-12 p-8 shadow-sm border border-gray-100 flex items-center justify-center min-h-[300px]">
+                        <img src={activeItem.design.architectureImg} className="w-full h-auto object-cover rounded-xl" alt="Design System Architecture" onError={(e) => e.target.style.display = 'none'} />
+                        {/* Placeholder text if image is empty */}
+                        {!activeItem.design.architectureImg && <p className="text-gray-400 font-bold uppercase tracking-widest text-sm">Architecture Diagram</p>}
+                      </div>
+                    )}
+
+                    {/* Bento Box Grid */}
+                    {activeItem.design.bentoComponents && activeItem.design.bentoComponents.length > 0 && (
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+                        {activeItem.design.bentoComponents.map((comp, idx) => (
+                          <div key={idx} className={`relative group bg-[#FAFAFA] rounded-[2rem] p-6 shadow-sm border border-gray-100 overflow-hidden min-h-[200px] flex items-center justify-center transition-all hover:shadow-md ${comp.colSpan === 2 ? 'col-span-2' : 'col-span-1 md:col-span-1'}`}>
+                            <span className="absolute top-4 left-6 text-sm font-bold text-gray-400 uppercase tracking-wider">{comp.name}</span>
+                            <img src={comp.previewImg} className="w-4/5 h-auto object-contain mt-4 group-hover:scale-105 transition-transform duration-500" alt={comp.name} onError={(e) => e.target.style.display = 'none'} />
+                            
+                            {/* Hover Overlay Button */}
+                            <button onClick={() => setSelectedComponent(comp)} className="absolute bottom-4 right-4 bg-white shadow-lg rounded-full p-3 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 hover:bg-gray-900 hover:text-white text-gray-900 flex items-center gap-2">
+                              <IconSearch className="w-5 h-5" />
+                              <span className="text-sm font-bold hidden md:block px-1">View Specs</span>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Fallback old componentsImages */}
+                    {activeItem.design.componentsImages && activeItem.design.componentsImages.length > 0 && (!activeItem.design.bentoComponents || activeItem.design.bentoComponents.length === 0) && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                         {activeItem.design.componentsImages.map((img, i) => (
                           <div key={i} className="bg-[#F6F6F6] rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm p-4 md:p-8">
                             <img src={img} className="w-full h-auto" alt="Component" onError={(e) => e.target.style.display = 'none'} />
@@ -603,12 +1089,71 @@ export default function PortfolioApp() {
                         ))}
                       </div>
                     )}
+
+                    {/* View All Components CTA */}
+                    {(activeItem.design.bentoComponents && activeItem.design.bentoComponents.length > 0) && (
+                      <div className="flex justify-center mt-12 pb-12 border-b border-gray-100">
+                        <button className="px-8 py-4 bg-gray-900 text-white rounded-full font-bold tracking-wide hover:bg-gray-800 hover:-translate-y-1 transition-all duration-300 shadow-lg flex items-center">
+                          {lang === 'en' ? 'Explore Full Design System' : '探索完整 Design System'} <IconArrowUpRight className="w-5 h-5 ml-2" />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )}
 
-                {((activeItem.design.screens && activeItem.design.screens.length > 0) || (activeItem.design.flowImages && activeItem.design.flowImages.length > 0)) && (
+                {((activeItem.design.screens && activeItem.design.screens.length > 0) || (activeItem.design.screenGroups && activeItem.design.screenGroups.length > 0) || (activeItem.design.flowImages && activeItem.design.flowImages.length > 0)) && (
                   <div>
-                    <h4 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 border-l-4 border-orange-500 pl-4">Screens & Mockups</h4>
+                    <h4 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.screens}</h4>
+                    
+                    {/* User Flow (Moved above screens) */}
+                    {activeItem.design.flowImages && activeItem.design.flowImages.length > 0 && (
+                      <div className="mb-16">
+                        <h5 className="text-xl md:text-2xl font-bold mb-6 text-gray-900 font-['Noto_Sans_TC'] border-b border-gray-100 pb-2 inline-block">{I18N[lang].project.userFlow}</h5>
+                        <div className="grid grid-cols-1 gap-6">
+                          {activeItem.design.flowImages.map((img, i) => (
+                            <div key={i} className="bg-[#FAFAFA] rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 p-4 md:p-8">
+                              <img src={img} className="w-full h-auto object-contain" alt="Flow" onError={(e) => e.target.style.display = 'none'} />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Screens Title (if needed, otherwise just groups) */}
+                    {/* Screen Groups (Horizontal Scrollable) */}
+                    {activeItem.design.screenGroups && activeItem.design.screenGroups.length > 0 && (
+                      <div className="space-y-16 mb-12">
+                        {activeItem.design.screenGroups.map((group, gIdx) => {
+                          const hasTabs = group.tabs && group.tabs.length > 0;
+                          const activeTabIdx = activeScreenTabs[gIdx] || 0;
+                          const currentScreens = hasTabs ? group.tabs[activeTabIdx].screens : group.screens;
+
+                          return (
+                            <div key={gIdx} className="w-full">
+                              <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
+                                <h5 className="text-xl md:text-2xl font-bold text-gray-900 font-['Noto_Sans_TC'] border-b border-gray-100 pb-2 inline-block">{group.title}</h5>
+                                {hasTabs && (
+                                  <div className="bg-[#F5F5F5] p-1.5 rounded-full flex overflow-x-auto hide-scrollbar gap-1 shadow-inner self-start md:self-end max-w-full">
+                                    {group.tabs.map((tab, tIdx) => (
+                                      <button 
+                                        key={tIdx} 
+                                        onClick={() => setActiveScreenTabs(prev => ({ ...prev, [gIdx]: tIdx }))}
+                                        className={`whitespace-nowrap flex-shrink-0 px-4 md:px-6 py-2.5 rounded-full text-sm md:text-base font-medium font-['Noto_Sans_TC'] transition-all duration-300 ${activeTabIdx === tIdx ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-800'}`}
+                                      >
+                                        {tab.title}
+                                      </button>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                              <ScrollableScreenRow screens={currentScreens} groupTitle={hasTabs ? group.tabs[activeTabIdx].title : group.title} />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* Fallback old screens grid */}
                     {activeItem.design.screens && activeItem.design.screens.length > 0 && (
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
                         {activeItem.design.screens.map((screen, i) => (
@@ -618,29 +1163,17 @@ export default function PortfolioApp() {
                         ))}
                       </div>
                     )}
-                    {activeItem.design.flowImages && activeItem.design.flowImages.length > 0 && (
-                      <div className="mt-8">
-                        <h5 className="text-xl font-bold mb-6 text-gray-900 font-['Noto_Sans_TC']">User Flow</h5>
-                        <div className="grid grid-cols-1 gap-6">
-                          {activeItem.design.flowImages.map((img, i) => (
-                            <div key={i} className="bg-[#FAFAFA] rounded-[2rem] overflow-hidden shadow-inner p-4 md:p-8">
-                              <img src={img} className="w-full h-auto object-contain" alt="Flow" onError={(e) => e.target.style.display = 'none'} />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 )}
 
                 {/* Showcases for Complex Layouts (e.g. Wisdome.ai) */}
                 {activeItem.design.showcases && activeItem.design.showcases.map((showcase, i) => (
                   <div key={i} className="mb-24">
-                    <h4 className="text-[24px] md:text-[36px] font-bold font-['Inter'] tracking-tight text-gray-900 mb-10">{showcase.title}</h4>
+                    <h4 className="text-[24px] md:text-[36px] font-bold font-['Inter'] tracking-tight text-gray-900 mb-10">{t(showcase.title, lang)}</h4>
                     {showcase.description && (
                       <div className="flex flex-col gap-6 mb-12">
-                        <p className="text-gray-900 text-lg md:text-xl font-bold border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">{showcase.title} 呈現</p>
-                        <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-3xl font-['Noto_Sans_TC']">{showcase.description}</p>
+                        <p className="text-gray-900 text-lg md:text-xl font-bold border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">{t(showcase.title, lang)} {lang === 'en' ? 'Showcase' : '呈現'}</p>
+                        <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-3xl font-['Noto_Sans_TC'] whitespace-pre-line">{t(showcase.description, lang)}</p>
                       </div>
                     )}
 
@@ -692,7 +1225,7 @@ export default function PortfolioApp() {
                               <img src={showcase.fullpageImg} className="w-full h-auto relative z-10 hover:opacity-95 transition-opacity" alt="" onError={(e) => e.target.style.display = 'none'} />
                             </div>
                             <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/20 to-transparent pointer-events-none z-20 flex items-end justify-center pb-4 opacity-100 group-hover:opacity-0 transition-opacity duration-500">
-                              <span className="text-white text-xs tracking-widest uppercase font-bold drop-shadow-md">Scroll down to view</span>
+                              <span className="text-white text-xs tracking-widest uppercase font-bold drop-shadow-md">{lang === 'en' ? 'Scroll down to view' : '向下捲動查看'}</span>
                             </div>
                           </div>
                         </div>
@@ -703,14 +1236,14 @@ export default function PortfolioApp() {
 
                 {activeItem.design.prototypeUrl && (
                   <div>
-                    <h4 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 border-l-4 border-orange-500 pl-4">Prototype</h4>
+                    <h4 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.prototype}</h4>
                     <div className="w-full aspect-[4/3] md:aspect-video bg-[#EAEAEC] rounded-[2rem] overflow-hidden flex justify-center relative shadow-inner">
                       <OptimizedVideo src={activeItem.design.prototypeUrl} className="w-full h-full object-cover" />
                     </div>
                   </div>
                 )}
                 {activeItem.design.usabilityTesting && (
-                  <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">Usability Testing & Iteration</h4><p className="text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl">{activeItem.design.usabilityTesting}</p></div>
+                  <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.usability}</h4><p className="text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl whitespace-pre-line">{t(activeItem.design.usabilityTesting, lang)}</p></div>
                 )}
               </div>
             </div>
@@ -720,8 +1253,8 @@ export default function PortfolioApp() {
           {hasMascot && (
             <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
               <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-                <div className="flex flex-col mb-16 border-b border-gray-200 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">06</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Mascot Design</h3></div>
-                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{activeItem.mascotDesign.description}</p>
+                <div className="flex flex-col mb-16 border-b border-gray-200 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.mascot}</h3></div>
+                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.mascotDesign.description, lang)}</p>
                 {activeItem.mascotDesign.images && activeItem.mascotDesign.images.length > 0 && (
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                     {activeItem.mascotDesign.images.map((img, i) => (
@@ -736,159 +1269,55 @@ export default function PortfolioApp() {
           )}
 
           <FooterCTA />
+
+          {/* Component Detail Modal */}
+          {selectedComponent && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300" onClick={() => setSelectedComponent(null)}>
+              <div className="bg-white w-full max-w-5xl max-h-[90vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-300" onClick={e => e.stopPropagation()}>
+                <div className="flex items-center justify-between p-6 md:p-8 border-b border-gray-100">
+                  <h3 className="text-2xl font-bold font-['Inter'] text-gray-900">{selectedComponent.name} Specs</h3>
+                  <button onClick={() => setSelectedComponent(null)} className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-900">
+                    <IconX className="w-6 h-6" />
+                  </button>
+                </div>
+                <div className="p-6 md:p-10 overflow-y-auto bg-[#FAFAFA] flex-1 flex items-center justify-center min-h-[50vh]">
+                  {selectedComponent.specsImg ? (
+                    <img src={selectedComponent.specsImg} alt={`${selectedComponent.name} Specs`} className="w-full h-auto object-contain max-h-[70vh] rounded-xl shadow-sm border border-gray-200" />
+                  ) : (
+                    <div className="text-center text-gray-400">
+                      <IconSearch className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                      <p className="font-medium text-lg">Specs details coming soon</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       );
     };
 
 
 
-    // ================= BrainBox 專屬客製化版面 (ID: 3) =================
-    if (activeItem.id === 3) {
+
+    // ================= 預設的 Product Visual Design 通用版型 =================
+    if (activeItem.visuals) {
       return (
-        <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
-
-          {/* Header (標題與返回按鈕) */}
-          <div className="pt-32 md:pt-40 px-6 md:px-12 max-w-[100rem] mx-auto mb-12">
-            <BackButton />
-            <h1 className="text-4xl md:text-6xl lg:text-[7rem] font-black mb-8 md:mb-12 tracking-wide uppercase leading-tight md:leading-none font-bold text-gray-900">{activeItem.title}</h1>
-          </div>
-
-          {/* Hero Video / Cover */}
-          <div className="w-full mb-16 md:mb-24 bg-[#F2EFE9] relative flex items-center justify-center overflow-hidden min-h-[30vh] md:min-h-[65vh]">
-            <OptimizedVideo src="/projects/brainbox_ui/brainbox-hero.mp4" className="w-full h-auto block relative z-10" />
-          </div>
-
-          {/* Intro Section */}
-          <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
-            <div className="grid md:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
-              <div className="space-y-8">
-                <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Client</p><p className="font-bold text-xl">{activeItem.client}</p></div>
-                <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Year</p><p className="font-bold text-xl">{activeItem.year}</p></div>
-                <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Services</p><p className="font-bold text-xl">{activeItem.tags.join(', ')}</p></div>
-              </div>
-              <div className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC']">
-                <p>BrainBox 是一款專為學生與教師打造的智慧教育平台。本次專案不僅重塑了產品的視覺系統，更導入了專屬的品牌吉祥物，透過活潑的動態表情與互動，大幅提升學生的學習動機與軟體親和力。</p>
-              </div>
-            </div>
-          </div>
-
-          {/* ================= 01 產品視覺 (Brand Visuals) ================= */}
-          <div className="w-full mb-32 md:mb-48">
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-100 pb-10">
-              <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">01</h2>
-              <h3 className="text-[32px] md:text-[40px] font-bold tracking-tight text-gray-500 mt-2 font-['Inter']">Brand Visuals</h3>
-            </div>
-
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-                <div className="bg-[#EAE8F2] rounded-[2rem] p-12 md:p-20 flex items-center justify-center relative min-h-[300px]">
-                  <img src="/projects/brainbox_ui/logo-display.svg" className="relative z-10 w-2/3 h-auto" alt="BrainBox Logo" onError={(e) => e.target.style.display = 'none'} />
-                </div>
-                <div className="flex flex-col gap-12">
-                  <div>
-                    <h4 className="text-2xl font-bold mb-6 font-['Inter']">Color Palette</h4>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                      {['#6C5CE7', '#FFB86C', '#00B894', '#2D3436'].map((color) => (
-                        <div key={color} className="flex flex-col gap-3">
-                          <div className="w-full aspect-square rounded-[1.5rem] shadow-sm" style={{ backgroundColor: color }}></div>
-                          <span className="text-sm font-bold text-gray-500 uppercase tracking-wider">{color}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100">
-                    <h4 className="text-2xl font-bold mb-6 font-['Inter']">Typography</h4>
-                    <div className="space-y-8">
-                      <div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">Primary / English</p><p className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">Quicksand</p></div>
-                      <div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">Secondary / Chinese</p><p className="text-3xl md:text-4xl font-bold text-gray-900 font-['Noto_Sans_TC']">源柔黑體</p></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* ================= 02 品牌吉祥物設計 (Mascot Design) ================= */}
-          <div className="w-full bg-[#FAFAFA] py-24 md:py-40 mb-32 md:mb-48">
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-200 pb-10">
-              <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">02</h2>
-              <h3 className="text-[32px] md:text-[40px] font-bold tracking-tight text-gray-500 mt-2 font-['Inter']">Mascot Design</h3>
-            </div>
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-              <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-20 items-center mb-24 md:mb-32">
-                <div className="order-2 lg:order-1">
-                  <h4 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 font-['Noto_Sans_TC']">溫暖且充滿智慧的學習夥伴</h4>
-                  <p className="text-lg text-gray-600 leading-relaxed font-['Noto_Sans_TC'] mb-6">為了降低學生面對測驗與學習的焦慮感，我們設計了專屬的品牌吉祥物。以幾何圓潤的線條為基礎，象徵系統的包容性與靈活性。</p>
-                  <p className="text-lg text-gray-600 leading-relaxed font-['Noto_Sans_TC']">在各種學習情境中，吉祥物會給予適時的反饋與鼓勵，讓數位學習過程充滿人性化的溫度。</p>
-                </div>
-                <div className="order-1 lg:order-2 w-full aspect-square md:aspect-[4/3] bg-white rounded-[2rem] shadow-xl relative flex items-center justify-center overflow-hidden border border-gray-100">
-                  <OptimizedVideo src="/projects/brainbox_ui/mascot-intro.mp4" className="w-full h-full relative z-10" />
-                </div>
-              </div>
-              <div className="mb-24 md:mb-32">
-                <h4 className="text-2xl md:text-3xl font-bold mb-10 text-gray-900 font-['Noto_Sans_TC'] border-l-4 border-orange-500 pl-4">動態展示：六種表情</h4>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-                  {[1, 2, 3, 4, 5, 6].map((num) => (
-                    <div key={num} className="bg-white rounded-[1.5rem] md:rounded-[2rem] aspect-square flex items-center justify-center overflow-hidden relative shadow-sm hover:shadow-xl transition-shadow duration-500">
-                      <OptimizedVideo src={`/projects/brainbox_ui/mascot-exp-${num}.mp4`} className="w-full h-full relative z-10" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <h4 className="text-2xl md:text-3xl font-bold mb-10 text-gray-900 font-['Noto_Sans_TC'] border-l-4 border-orange-500 pl-4">軟體內出場景</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                  <div className="w-full aspect-[4/3] bg-[#EAEAEC] rounded-[2rem] relative overflow-hidden flex items-center justify-center">
-                    <OptimizedVideo src="/projects/brainbox_ui/mascot-scene-1.mp4" className="w-full h-full relative z-10" />
-                  </div>
-                  <div className="w-full aspect-[4/3] bg-[#EAEAEC] rounded-[2rem] relative overflow-hidden flex items-center justify-center lg:translate-y-12">
-                    <OptimizedVideo src="/projects/brainbox_ui/mascot-scene-2.mp4" className="w-full h-full relative z-10" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* ================= 03 產品視覺設計 (Product Visuals) ================= */}
-          <div className="w-full mb-20 md:mb-40">
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-100 pb-10">
-              <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">03</h2>
-              <h3 className="text-[32px] md:text-[40px] font-bold tracking-tight text-gray-500 mt-2 font-['Inter']">Product Visuals</h3>
-            </div>
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-              <div className="mb-24 md:mb-32">
-                <h4 className="text-2xl md:text-3xl font-bold mb-10 text-gray-900 font-['Noto_Sans_TC'] border-l-4 border-orange-500 pl-4">情境插圖設計</h4>
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-                  <div className="md:col-span-8 aspect-[16/10] bg-gray-100 rounded-[2rem] overflow-hidden relative flex items-center justify-center">
-                    <img src="/projects/brainbox_ui/illu-1.jpg" className="w-full h-full object-cover relative z-10" alt="" onError={(e) => e.target.style.display = 'none'} />
-                  </div>
-                  <div className="md:col-span-4 aspect-square md:aspect-auto bg-gray-100 rounded-[2rem] overflow-hidden relative flex items-center justify-center">
-                    <img src="/projects/brainbox_ui/illu-2.jpg" className="w-full h-full object-cover relative z-10" alt="" onError={(e) => e.target.style.display = 'none'} />
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h4 className="text-2xl md:text-3xl font-bold mb-10 text-gray-900 font-['Noto_Sans_TC'] border-l-4 border-orange-500 pl-4">系統圖示設計</h4>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 md:gap-6">
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map((num) => (
-                    <div key={num} className="bg-white border border-gray-100 rounded-2xl aspect-square flex flex-col items-center justify-center relative group hover:border-orange-500 hover:shadow-lg transition-all duration-300">
-                      <div className="w-1/2 h-1/2 relative z-10 opacity-70 group-hover:opacity-100 transition-opacity group-hover:scale-110 duration-300">
-                        <OptimizedVideo src={`/projects/brainbox_ui/icon-${num}.mp4`} className="w-full h-full" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-          <FooterCTA />
-        </div>
+        <>
+          <GenericVisualProjectView />
+          <BackToTopButton />
+        </>
       );
     }
 
     // ================= 預設的 UI/UX 通用版型 =================
     if (activeItem.categoryId === 'uiux') {
-      return <GenericUIUXProjectView />;
+      return (
+        <>
+          <GenericUIUXProjectView />
+          <BackToTopButton />
+        </>
+      );
     }
 
     // ================= 預設的其他專案版面 (Fallback) =================
@@ -916,6 +1345,7 @@ export default function PortfolioApp() {
           </div>
         </div>
         <FooterCTA />
+        <BackToTopButton />
       </div>
     );
   };
@@ -947,6 +1377,7 @@ export default function PortfolioApp() {
     <div className="min-h-screen bg-[#F6F6F6] text-slate-900 font-sans selection:bg-orange-200 selection:text-orange-900">
       <Navbar />
       <main>{renderContent()}</main>
+      <div className={`fixed inset-0 bg-white z-[100] pointer-events-none transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-100' : 'opacity-0'}`} />
     </div>
   );
 }

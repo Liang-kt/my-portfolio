@@ -3,17 +3,17 @@ import React, { useState, useEffect, useRef } from 'react';
 // --- 內嵌 SVG 圖示組件 (完全封裝) ---
 const IconArrowLeft = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>;
 const IconArrowUpRight = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>;
-const IconArrowUp = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>;
+const IconArrowUp = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m5 12 7-7 7 7" /><path d="M12 19V5" /></svg>;
 const IconMail = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>;
 const IconInstagram = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>;
 const IconLinkedin = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>;
 const IconGlobe = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10" /><line x1="2" x2="22" y1="12" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z" /></svg>;
 const IconPlus = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14" /><path d="M12 5v14" /></svg>;
 const IconMenu = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></svg>;
-const IconSearch = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>;
+const IconSearch = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>;
 const IconX = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>;
-const IconChevronLeft = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m15 18-6-6 6-6"/></svg>;
-const IconChevronRight = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m9 18 6-6-6-6"/></svg>;
+const IconChevronLeft = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m15 18-6-6 6-6" /></svg>;
+const IconChevronRight = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m9 18 6-6-6-6" /></svg>;
 // ========================= 核心架構：共用元件 =========================
 
 // --- 優化版影片播放器 ---
@@ -47,7 +47,7 @@ const OptimizedVideo = ({ src, className }) => {
           preload="metadata"
           onCanPlay={() => setIsLoaded(true)}
           onError={() => setHasError(true)}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          className={`transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${className.includes('h-auto') ? 'w-full h-auto block object-contain' : 'absolute inset-0 w-full h-full object-cover'}`}
         />
       )}
     </div>
@@ -202,7 +202,26 @@ const PROJECTS = [
     },
     brandIdentity: {
       motionVideoUrl: '/projects/wisdome.ai_web/wisdome.ai_motion-brading.mp4',
-      typography: { primary: 'Figtree', secondary: 'Noto Sans TC' },
+      combinedView: true,
+      typography: {
+        en: { name: 'Figtree', preview: 'WISDOME.AI' },
+        tc: { name: 'Noto Sans TC', preview: '聚愢科技股份有限公司' }
+      },
+      colorDesc: '以明快的藍色及堅實的黑色作為品牌代表色，象徵為穩固的教育體系中增添科技導向的解決方針。',
+      logos: [
+        {
+          type: 'Graphic Logo',
+          title: '[ 圖像標誌設計理念 ]',
+          description: '此處可以說明圖像 Logo 的設計靈感、隱喻或是幾何構造原理...',
+          imageUrl: '/projects/wisdome.ai_web/graph-logo.png'
+        },
+        {
+          type: 'Logotype',
+          title: '[ 標準字設計理念 ]',
+          description: '此處可以說明文字 Logo 的筆畫細節、字型選擇原因與微調...',
+          imageUrl: '/projects/wisdome.ai_web/logotype.png'
+        }
+      ],
       colors: [
         { hex: '#282828', name: 'Primary Dark' },
         { hex: '#00D2E2', name: 'Accent Cyan' }
@@ -211,27 +230,15 @@ const PROJECTS = [
     design: {
       designSystemDesc: '網站採用乾淨、現代的美學設計，強調可用性與無障礙體驗。我們專注於打造直覺的使用者旅程，透過清晰的資訊架構，精準傳達 AI 教育平台的核心價值與功能。',
       componentsImages: ['/projects/wisdome.ai_web/components-1.jpg', '/projects/wisdome.ai_web/components-2.jpg'],
-      flowImages: ['/projects/wisdome.ai_web/user-flow.jpg'],
-      screens: ['/projects/wisdome.ai_web/screen-1.jpg', '/projects/wisdome.ai_web/screen-2.jpg'],
-      showcases: [
-        {
-          title: 'Hero Page',
-          description: '',
-          heroVideo: '/projects/wisdome.ai_web/hero-page.mp4'
-        },
-        {
-          title: 'Service',
-          description: '清晰展示 Wisdome.ai 的三大核心能力。透過動態視覺引導與直覺的排版，幫助使用者快速理解 AI 如何介入教務流程，實現自動化與規模化。',
-          desktopVideo: '/projects/wisdome.ai_web/service-desktop.mp4',
-          mobileVideo: '/projects/wisdome.ai_web/service-mobile.mp4'
-        },
-        {
-          title: 'Success Stories',
-          description: '將實際客戶的成功故事以清晰、數據化的方式呈現。透過桌機與行動裝置的跨螢幕設計，確保閱讀體驗流暢，並利用長網頁完整展示案例細節與轉換成效。',
-          desktopVideo: '/projects/wisdome.ai_web/success-desktop.mp4',
-          mobileVideo: '/projects/wisdome.ai_web/success-mobile.mp4',
-          fullpageImg: '/projects/wisdome.ai_web/success-fullpage.jpg'
-        }
+      webShowcaseStrip: [
+        { type: 'video', url: '/projects/wisdome.ai_web/hero page.mov', title: 'Hero Page', desc: '首頁主視覺區塊，以動態影片與品牌標語傳遞 AI 教育平台的創新形象與科技感。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-hero.mov' } },
+        { type: 'video', url: '/projects/wisdome.ai_web/service.mov', title: 'Service', desc: '服務介紹區塊，透過清晰的圖文排版逐一呈現平台核心功能與解決方案。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-service.mov' } },
+        { type: 'video', url: '/projects/wisdome.ai_web/why-wisdome.mov', title: 'Why Wisdome', desc: '品牌差異化區塊，說明選擇 Wisdome.ai 的關鍵優勢與競爭力。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-why-wisdome.mov' } },
+        { type: 'image', url: '/projects/wisdome.ai_web/success-stories.png', title: 'Success Stories', desc: '成功案例區塊，以數據與客戶回饋建立信任感，強化轉換說服力。', mobile: { type: 'image', url: '/projects/wisdome.ai_web/mobile-sucsess-stories.jpg' } },
+        { type: 'video', url: '/projects/wisdome.ai_web/cta-area.mov', title: 'CTA Area', desc: '行動呼籲區塊，引導訪客進行下一步操作，如免費試用或聯繫諮詢。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-cta-area.mov' } },
+        { type: 'image', url: '/projects/wisdome.ai_web/about-us.png', title: 'About Us', desc: '關於我們區塊，介紹團隊背景與企業願景，拉近與用戶的距離。', mobile: { type: 'image', url: '/projects/wisdome.ai_web/mobile-last-part.jpg' } },
+        { type: 'image', url: '/projects/wisdome.ai_web/contact-us.png', title: 'Contact Us', desc: '聯絡資訊區塊，提供多元聯繫管道，降低用戶溝通門檻。' },
+        { type: 'image', url: '/projects/wisdome.ai_web/footer.png', title: 'Footer', desc: '頁尾區塊，統整網站導航、社群連結與版權資訊。' }
       ]
     }
   },
@@ -275,7 +282,7 @@ const PROJECTS = [
       designSystemDesc: '建立了一套完整的 Mobile UI Component Library，確保開發與設計的一致性，並考量了 iOS 與 Android 的平台特性。',
       architectureImg: '',
       bentoComponents: [
-        { name: 'Buttons', previewImg: '', specsImg: '', colSpan: 1 },
+        { name: 'Buttons', previewImg: '', specsImg: '', colSpan: 1, liveComponent: 'button' },
         { name: 'Inputs & Forms', previewImg: '', specsImg: '', colSpan: 1 },
         { name: 'Cards & Containers', previewImg: '', specsImg: '', colSpan: 2 },
         { name: 'Modals & Dialogs', previewImg: '', specsImg: '', colSpan: 2 },
@@ -288,8 +295,8 @@ const PROJECTS = [
         { title: 'Onboarding ＋ 首頁', screens: ['/projects/msline/onboarding-1.jpg', '/projects/msline/onboarding-2.jpg', '/projects/msline/onboarding-3.jpg', '/projects/msline/onboarding-4.jpg', '/projects/msline/onboarding-5.jpg'] },
         { title: '題庫', screens: ['/projects/msline/bank-1.jpg', '/projects/msline/bank-2.jpg', '/projects/msline/bank-3.jpg', '/projects/msline/bank-4.jpg', '/projects/msline/bank-5.jpg'] },
         { title: '我的', screens: ['/projects/msline/profile-1.jpg', '/projects/msline/profile-2.jpg', '/projects/msline/profile-3.jpg', '/projects/msline/profile-4.jpg', '/projects/msline/profile-5.jpg'] },
-        { 
-          title: '各科練習頁面', 
+        {
+          title: '各科練習頁面',
           tabs: [
             { title: '數學練習', screens: ['/projects/msline/math-1.jpg', '/projects/msline/math-2.jpg', '/projects/msline/math-3.jpg', '/projects/msline/math-4.jpg', '/projects/msline/math-5.jpg'] },
             { title: '國文練習', screens: ['/projects/msline/chinese-1.jpg', '/projects/msline/chinese-2.jpg', '/projects/msline/chinese-3.jpg', '/projects/msline/chinese-4.jpg', '/projects/msline/chinese-5.jpg'] },
@@ -515,12 +522,12 @@ export default function PortfolioApp() {
                   {lang === 'en' ? 'From commercial websites and educational apps to comprehensive branding and motion visuals, explore how I transform abstract concepts into tangible experiences through design.' : '從商業官網、教育類 App 到完整的品牌與動態視覺，探索我如何透過設計將抽象概念轉化為具體體驗。'}
                 </p>
               </div>
-              <div className="bg-[#F5F5F5] p-1.5 rounded-full flex overflow-x-auto hide-scrollbar gap-1 shadow-inner max-w-full">
+              <div className="w-full md:w-auto bg-[#F5F5F5] p-1.5 rounded-[1.5rem] md:rounded-full flex gap-1 shadow-inner">
                 {['UI/UX Design', '2D Motion Graphic Design', 'Branding Design'].map(filter => (
                   <button
                     key={filter}
                     onClick={() => setHomeSelectedFilter(filter)}
-                    className={`whitespace-nowrap flex-shrink-0 px-4 md:px-6 py-2.5 rounded-full text-sm md:text-base font-medium transition-all duration-300 ${homeSelectedFilter === filter ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-800'}`}
+                    className={`flex-auto px-3 md:px-6 py-2 md:py-2.5 rounded-[1rem] md:rounded-full text-xs md:text-base font-medium transition-all duration-300 leading-snug md:whitespace-nowrap flex items-center justify-center text-center break-words ${homeSelectedFilter === filter ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-800'}`}
                   >
                     {filter}
                   </button>
@@ -618,7 +625,7 @@ export default function PortfolioApp() {
         {showArrows && (
           <>
             {canScrollLeft && (
-              <button 
+              <button
                 onClick={() => scroll('left')}
                 className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 z-10 bg-white/90 shadow-lg rounded-full p-2 md:p-3 text-gray-800 hover:bg-gray-900 hover:text-white transition-all opacity-0 group-hover/row:opacity-100 hidden sm:block border border-gray-100"
               >
@@ -626,7 +633,7 @@ export default function PortfolioApp() {
               </button>
             )}
             {canScrollRight && (
-              <button 
+              <button
                 onClick={() => scroll('right')}
                 className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 z-10 bg-white/90 shadow-lg rounded-full p-2 md:p-3 text-gray-800 hover:bg-gray-900 hover:text-white transition-all opacity-0 group-hover/row:opacity-100 hidden sm:block border border-gray-100"
               >
@@ -638,7 +645,7 @@ export default function PortfolioApp() {
         <div ref={scrollRef} onScroll={checkScroll} className="w-full overflow-x-auto hide-scrollbar snap-x snap-mandatory flex gap-4 md:gap-6 pb-6 pt-2 scroll-smooth">
           {screens && screens.map((screen, i) => (
             <div key={`${groupTitle}-${i}`} className="flex-none w-[70%] sm:w-[45%] md:w-[23%] bg-[#F6F6F6] rounded-[2rem] aspect-[9/16] overflow-hidden flex items-center justify-center shadow-sm snap-start animate-in fade-in zoom-in-95 duration-500">
-              <img src={screen} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt={`${groupTitle} Screen ${i+1}`} onError={(e) => e.target.style.display = 'none'} />
+              <img src={screen} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt={`${groupTitle} Screen ${i + 1}`} onError={(e) => e.target.style.display = 'none'} />
             </div>
           ))}
         </div>
@@ -699,7 +706,7 @@ export default function PortfolioApp() {
             setIsVisible(false);
           }
         };
-        
+
         toggleVisibility();
         window.addEventListener('scroll', toggleVisibility);
         return () => window.removeEventListener('scroll', toggleVisibility);
@@ -740,10 +747,12 @@ export default function PortfolioApp() {
 
           {/* Hero Section */}
           {activeItem.heroMedia && (
-            <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden min-h-[40vh] md:min-h-[70vh]">
+            <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden">
               {activeItem.heroMedia.type === 'video' ?
-                <OptimizedVideo src={activeItem.heroMedia.url} className="w-full h-full object-cover relative z-10" /> :
-                <img src={activeItem.heroMedia.url} className="w-full h-full object-cover relative z-10" alt={t(activeItem.title, lang)} onError={(e) => e.target.style.display = 'none'} />
+                <div className="w-full h-auto z-10">
+                  <OptimizedVideo src={activeItem.heroMedia.url} className="w-full h-auto" />
+                </div> :
+                <img src={activeItem.heroMedia.url} className="w-full h-auto block object-contain z-10" alt={t(activeItem.title, lang)} onError={(e) => e.target.style.display = 'none'} />
               }
             </div>
           )}
@@ -892,7 +901,7 @@ export default function PortfolioApp() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {activeItem.visuals.application.images.map((img, i) => (
                       <div key={i} className="w-full bg-[#EAEAEC] rounded-[2rem] overflow-hidden shadow-sm flex items-center justify-center">
-                         <img src={img} className="w-full h-auto object-cover" alt="Application" />
+                        <img src={img} className="w-full h-auto object-cover" alt="Application" />
                       </div>
                     ))}
                   </div>
@@ -902,6 +911,313 @@ export default function PortfolioApp() {
           )}
 
           <FooterCTA />
+        </div>
+      );
+    };
+    // --- 長圖捲動標註元件 ---
+    const AnnotationItem = ({ annotation, lang }) => {
+      const [ref, isVisible] = useOnScreen({ threshold: 0.1, rootMargin: '0px 0px -20% 0px' });
+      const { top, left, align, title, desc } = annotation;
+
+      return (
+        <div
+          ref={ref}
+          className="absolute z-20 flex items-center"
+          style={{ top, left, transform: 'translate(-50%, -50%)' }}
+        >
+          {/* 圓點 */}
+          <div className="relative">
+            <div className={`w-3 h-3 md:w-4 md:h-4 rounded-full bg-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.5)] transition-all duration-500 ${isVisible ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}></div>
+            <div className={`absolute inset-0 rounded-full bg-orange-500/30 animate-ping ${isVisible ? 'opacity-100' : 'opacity-0'}`}></div>
+          </div>
+
+          {/* 線段與文字框容器 */}
+          <div className={`absolute top-1/2 flex items-center ${align === 'right' ? 'left-full flex-row' : 'right-full flex-row-reverse'} -translate-y-1/2`}>
+            {/* 線段 */}
+            <div className={`h-[1px] bg-orange-500 transition-all duration-700 ease-out ${isVisible ? 'w-12 md:w-32' : 'w-0'}`}></div>
+
+            {/* 文字框 */}
+            <div className={`bg-white/95 backdrop-blur-md border border-gray-100 p-4 md:p-5 shadow-2xl rounded-xl w-48 md:w-64 transition-all duration-700 delay-500 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'} ${align === 'right' ? 'ml-3 md:ml-4' : 'mr-3 md:mr-4'}`}>
+              <h4 className="text-sm md:text-base font-bold text-gray-900 mb-1 md:mb-2">{title}</h4>
+              <p className="text-xs md:text-sm text-gray-500 leading-relaxed break-words whitespace-pre-wrap">{desc}</p>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    const ScrollAnnotationView = ({ data, lang }) => {
+      const [imgError, setImgError] = useState(false);
+
+      if (!data || !data.url) return null;
+
+      return (
+        <div className="w-full relative bg-[#F8F9FA] rounded-2xl md:rounded-[32px] overflow-hidden shadow-sm border border-gray-100 my-12 min-h-[100vh]">
+          {/* 長圖 */}
+          {!imgError ? (
+            <img src={data.url} alt="Long Screenshot Design" className="w-full h-auto block" onError={() => setImgError(true)} />
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-400">
+              <p className="font-bold tracking-widest uppercase text-xl mb-2">[ Image Placeholder ]</p>
+              <p className="text-sm">Please place the image at {data.url}</p>
+            </div>
+          )}
+
+          {/* 標註點 */}
+          {data.annotations?.map((anno, idx) => (
+            <AnnotationItem key={idx} annotation={anno} lang={lang} />
+          ))}
+        </div>
+      );
+    };
+
+    // --- GSAT App Button 互動展示元件 ---
+    const GSATButtonShowcase = () => {
+      const [btnSize, setBtnSize] = useState('M');
+      const [btnStatus, setBtnStatus] = useState('Default');
+      const [btnStyle, setBtnStyle] = useState('Primary');
+
+      const colors = {
+        primary500: '#7878FF', primary600: '#5858EA', primary700: '#2525A4',
+        primary200: '#E2E2FF', primary300: '#CDCDFF',
+        neutral0: '#FFFFFF', neutral300: '#E6E6E6', neutral400: '#CCCCCC'
+      };
+
+      const sizeMap = {
+        'L': { px: 32, py: 16, text: 16, radius: 16 },
+        'M': { px: 24, py: 12, text: 14, radius: 12 },
+        'S': { px: 20, py: 8, text: 13, radius: 8 },
+        'Ex S': { px: 16, py: 6, text: 12, radius: 8 }
+      };
+
+      const size = sizeMap[btnSize];
+      const isDisabled = btnStatus === 'Disable';
+      const isActive = btnStatus === 'Active';
+
+      const getButtonStyle = () => {
+        const base = {
+          padding: `${size.py}px ${size.px}px`,
+          fontSize: `${size.text}px`,
+          borderRadius: `${size.radius}px`,
+          fontWeight: 700,
+          cursor: isDisabled ? 'not-allowed' : 'pointer',
+          transition: 'all 0.2s ease',
+          border: '2px solid transparent',
+          letterSpacing: '0.02em',
+          lineHeight: 1.4,
+        };
+        if (btnStyle === 'Primary') {
+          return { ...base, backgroundColor: isDisabled ? colors.neutral300 : isActive ? colors.primary700 : colors.primary500, color: colors.neutral0, opacity: isDisabled ? 0.6 : 1 };
+        } else if (btnStyle === 'Outline') {
+          return { ...base, backgroundColor: 'transparent', color: isDisabled ? colors.neutral400 : isActive ? colors.primary700 : colors.primary500, borderColor: isDisabled ? colors.neutral300 : isActive ? colors.primary700 : colors.primary500, opacity: isDisabled ? 0.6 : 1 };
+        } else {
+          return { ...base, backgroundColor: 'transparent', color: isDisabled ? colors.neutral400 : isActive ? colors.primary700 : colors.primary500, border: '2px solid transparent', opacity: isDisabled ? 0.6 : 1 };
+        }
+      };
+
+      const chip = (active) =>
+        `px-2 py-0.5 rounded-full text-[10px] font-bold cursor-pointer transition-all duration-200 ${active ? 'bg-[#7878FF] text-white shadow-sm' : 'bg-white text-gray-500 hover:bg-gray-100 border border-gray-200'}`;
+
+      return (
+        <div className="flex-1 flex flex-col items-center justify-center gap-4">
+          <div className="flex items-center justify-center min-h-[60px]">
+            <button style={getButtonStyle()} disabled={isDisabled}>Button</button>
+          </div>
+          <div className="w-full space-y-2">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-[9px] font-bold text-gray-400 uppercase w-8 shrink-0">Size</span>
+              {['L', 'M', 'S', 'Ex S'].map(s => (<span key={s} className={chip(btnSize === s)} onClick={() => setBtnSize(s)}>{s}</span>))}
+            </div>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-[9px] font-bold text-gray-400 uppercase w-8 shrink-0">Style</span>
+              {['Primary', 'Outline', 'Ghost'].map(s => (<span key={s} className={chip(btnStyle === s)} onClick={() => setBtnStyle(s)}>{s}</span>))}
+            </div>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-[9px] font-bold text-gray-400 uppercase w-8 shrink-0">State</span>
+              {['Default', 'Active', 'Disable'].map(s => (<span key={s} className={chip(btnStatus === s)} onClick={() => setBtnStatus(s)}>{s}</span>))}
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // --- 網站設計長條展示：桌面版＋手機版置中交疊，左右交錯標註 ---
+    const WebShowcaseStrip = ({ items }) => {
+      if (!items || items.length === 0) return null;
+      const mobileItems = items.filter(item => item.mobile).map(item => item.mobile);
+
+      // 靠左對齊標題橘色圖標：桌面 60% + 手機 20%，重疊 50px
+      const desktopLeft = '0';
+      const desktopWidth = '60%';
+      const mobileLeft = 'calc(60% - 50px)';
+      const mobileWidth = '20%';
+
+      const containerRef = useRef(null);
+      const mobileScrollRef = useRef(null);
+
+      // 頁面捲動同步手機版長條捲動
+      useEffect(() => {
+        const container = containerRef.current;
+        const mobileScroll = mobileScrollRef.current;
+        if (!container || !mobileScroll) return;
+
+        const handleScroll = () => {
+          const rect = container.getBoundingClientRect();
+          const viewportH = window.innerHeight;
+          // progress=0: 長條頂部到達畫面頂部
+          // progress=1: 長條底部到達畫面底部
+          const scrollRange = rect.height - viewportH;
+          const rawProgress = scrollRange > 0
+            ? Math.max(0, Math.min(1, -rect.top / scrollRange))
+            : 0;
+
+          // 減速捲動：power curve 讓手機版捲動較慢，結尾自然到底
+          const progress = Math.pow(rawProgress, 1.5);
+
+          // 同步套用到手機版長條的 scrollTop
+          const maxScroll = mobileScroll.scrollHeight - mobileScroll.clientHeight;
+          if (maxScroll > 0) {
+            mobileScroll.scrollTop = progress * maxScroll;
+          }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      return (
+        <div ref={containerRef} className="w-full my-12 relative">
+          {/* 桌面版長條 */}
+          <div className="relative">
+            {items.map((item, idx) => (
+              <WebShowcaseStripItem
+                key={idx}
+                item={item}
+                index={idx}
+                totalItems={items.length}
+                desktopLeft={desktopLeft}
+                desktopWidth={desktopWidth}
+                mobileRight={`calc(${mobileLeft} + ${mobileWidth})`}
+              />
+            ))}
+          </div>
+
+          {/* 手機版長條疊加（限制高度＋同步捲動） */}
+          {mobileItems.length > 0 && (
+            <div
+              className="absolute hidden md:block"
+              style={{ top: '2%', bottom: '2%', left: mobileLeft, width: mobileWidth, zIndex: 15 }}
+            >
+              <div
+                className="rounded-[1.2rem] lg:rounded-[1.8rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] relative bg-black h-full"
+                style={{ border: '3px solid rgba(255,255,255,0.12)' }}
+              >
+                <div ref={mobileScrollRef} className="h-full overflow-y-auto scrollbar-ultra-thin">
+                  {mobileItems.map((mItem, idx) => (
+                    <div key={idx} style={{ lineHeight: 0, fontSize: 0, marginBottom: idx < mobileItems.length - 1 ? '-1px' : 0 }}>
+                      {mItem.type === 'video' ? <WebShowcaseVideo src={mItem.url} /> : <WebShowcaseImage src={mItem.url} />}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    };
+
+    // --- 長條展示：單一桌面媒體項目 + 右側標註 ---
+    const WebShowcaseStripItem = ({ item, index, totalItems, desktopLeft, desktopWidth, mobileRight }) => {
+      const [ref, isVisible] = useOnScreen({ threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+      const isLast = index === totalItems - 1;
+
+      return (
+        <div ref={ref} className="relative" style={{ lineHeight: 0, fontSize: 0, marginBottom: isLast ? 0 : '-1px' }}>
+          {/* 桌面版媒體 */}
+          <div style={{ width: desktopWidth, marginLeft: desktopLeft, lineHeight: 0, fontSize: 0 }}>
+            <div className={`overflow-hidden ${index === 0 ? 'rounded-t-2xl md:rounded-t-[24px]' : ''} ${isLast ? 'rounded-b-2xl md:rounded-b-[24px]' : ''}`} style={{ lineHeight: 0, fontSize: 0 }}>
+              {item.type === 'video' ? <WebShowcaseVideo src={item.url} /> : <WebShowcaseImage src={item.url} />}
+            </div>
+          </div>
+
+          {/* 右側標註 — 在手機版長條右側 */}
+          <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 items-center justify-start" style={{ left: `calc(${mobileRight} + 8px)`, right: 0 }}>
+            <div className={`flex items-center transition-all duration-700 ${isVisible ? 'opacity-100' : 'opacity-0 -translate-x-4'}`}>
+              <div className={`w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-orange-500 flex-shrink-0 shadow-[0_0_10px_rgba(249,115,22,0.4)] transition-all duration-500 ${isVisible ? 'scale-100' : 'scale-0'}`}></div>
+              <div className={`h-[1px] bg-orange-400 transition-all duration-700 delay-200 ${isVisible ? 'w-8 lg:w-16' : 'w-0'}`}></div>
+              <div className="ml-4 lg:ml-6 max-w-[180px] lg:max-w-[240px]">
+                <h5 className="text-xs lg:text-sm font-bold text-gray-900 tracking-wide uppercase mb-1" style={{ lineHeight: 1.4 }}>{item.title}</h5>
+                <p className="text-[11px] lg:text-xs text-gray-500 leading-relaxed font-['Noto_Sans_TC']" style={{ lineHeight: 1.6 }}>{item.desc}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 響應式標註 (小螢幕) */}
+          <div className="md:hidden absolute bottom-0 z-20 pointer-events-none" style={{ left: desktopLeft, width: desktopWidth }}>
+            <div className={`bg-gradient-to-t from-black/60 to-transparent px-4 py-3 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+              <h5 className="text-xs font-bold text-white tracking-wider uppercase" style={{ lineHeight: 1.4 }}>{item.title}</h5>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // --- 長條展示：影片項目 ---
+    const WebShowcaseVideo = ({ src }) => {
+      const [isLoaded, setIsLoaded] = useState(false);
+      const [hasError, setHasError] = useState(false);
+
+      return (
+        <div className="relative w-full" style={{ lineHeight: 0, fontSize: 0 }}>
+          {!isLoaded && !hasError && (
+            <div className="absolute inset-0 flex items-center justify-center z-10 bg-gray-100/50">
+              <div className="w-8 h-8 border-4 border-gray-300 border-t-orange-500 rounded-full animate-spin"></div>
+            </div>
+          )}
+          {hasError ? (
+            <div className="w-full bg-[#F0F0F0] flex flex-col items-center justify-center py-32">
+              <span className="text-gray-400 font-bold tracking-widest text-xs uppercase">[ Media Placeholder ]</span>
+              <span className="text-gray-300 text-xs mt-2">{src}</span>
+            </div>
+          ) : (
+            <video
+              src={src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              onCanPlay={() => setIsLoaded(true)}
+              onError={() => setHasError(true)}
+              className="w-full h-auto block"
+              style={{ display: hasError ? 'none' : 'block', verticalAlign: 'top' }}
+            />
+          )}
+        </div>
+      );
+    };
+
+    // --- 長條展示：圖片項目 ---
+    const WebShowcaseImage = ({ src }) => {
+      const [hasError, setHasError] = useState(false);
+
+      return (
+        <div className="relative w-full" style={{ lineHeight: 0, fontSize: 0 }}>
+          {hasError ? (
+            <div className="w-full bg-[#F0F0F0] flex flex-col items-center justify-center py-32">
+              <span className="text-gray-400 font-bold tracking-widest text-xs uppercase">[ Image Placeholder ]</span>
+              <span className="text-gray-300 text-xs mt-2">{src}</span>
+            </div>
+          ) : (
+            <img
+              src={src}
+              alt=""
+              className="w-full h-auto block"
+              style={{ verticalAlign: 'top' }}
+              onError={() => setHasError(true)}
+            />
+          )}
         </div>
       );
     };
@@ -925,10 +1241,12 @@ export default function PortfolioApp() {
 
           {/* Hero Section */}
           {activeItem.heroMedia && (
-            <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden min-h-[40vh] md:min-h-[70vh]">
+            <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden">
               {activeItem.heroMedia.type === 'video' ?
-                <OptimizedVideo src={activeItem.heroMedia.url} className="w-full h-full object-cover relative z-10" /> :
-                <img src={activeItem.heroMedia.url} className="w-full h-full object-cover relative z-10" alt={t(activeItem.title, lang)} onError={(e) => e.target.style.display = 'none'} />
+                <div className="w-full h-auto z-10">
+                  <OptimizedVideo src={activeItem.heroMedia.url} className="w-full h-auto" />
+                </div> :
+                <img src={activeItem.heroMedia.url} className="w-full h-auto block object-contain z-10" alt={t(activeItem.title, lang)} onError={(e) => e.target.style.display = 'none'} />
               }
             </div>
           )}
@@ -1003,39 +1321,134 @@ export default function PortfolioApp() {
           {activeItem.brandIdentity && (
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
               <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.brand}</h3></div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-                <div className="bg-[#EAE8F2] rounded-[2rem] p-12 md:p-20 flex items-center justify-center min-h-[300px] overflow-hidden">
+
+              <div className="flex flex-col gap-12 lg:gap-16">
+                {/* 橫向滿版影片或 Logo */}
+                <div className={`w-full bg-[#EAE8F2] rounded-[2rem] flex items-center justify-center overflow-hidden ${activeItem.brandIdentity.motionVideoUrl ? 'aspect-video' : 'p-12 md:p-20 min-h-[300px]'}`}>
                   {activeItem.brandIdentity.motionVideoUrl ? (
-                    <OptimizedVideo src={activeItem.brandIdentity.motionVideoUrl} className="w-full h-full object-cover rounded-[1rem]" />
+                    <OptimizedVideo src={activeItem.brandIdentity.motionVideoUrl} className="w-full h-full object-cover" />
                   ) : (
-                    <img src={activeItem.brandIdentity.logoImage} className="w-2/3 h-auto" alt="Logo" onError={(e) => e.target.style.display = 'none'} />
+                    <img src={activeItem.brandIdentity.logoImage} className="w-2/3 md:w-1/3 h-auto" alt="Logo" onError={(e) => e.target.style.display = 'none'} />
                   )}
                 </div>
-                <div className="flex flex-col gap-12">
-                  {activeItem.brandIdentity.colors && (
-                    <div>
-                      <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">{I18N[lang].project.colorPalette}</h4>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                        {activeItem.brandIdentity.colors.map(color => (
-                          <div key={color.hex} className="flex flex-col gap-3">
-                            <div className="w-full aspect-square rounded-[1.5rem] shadow-sm flex items-end p-4 border border-gray-100" style={{ backgroundColor: color.hex }}></div>
-                            <span className="text-sm font-bold text-gray-800 tracking-wide">{t(color.name, lang)}</span>
-                            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{color.hex}</span>
+                {/* Logo Showcase (交錯式排版) */}
+                {activeItem.brandIdentity.logos && activeItem.brandIdentity.logos.length > 0 && (
+                  <div className="flex flex-col mt-8 md:mt-16 mb-16 md:mb-24">
+                    <div className="flex items-center gap-4 mb-6">
+                      <h4 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">Logo Design</h4>
+                    </div>
+                    <div className="w-full h-[1px] bg-gray-300 mb-16 md:mb-24"></div>
+
+                    <div className="flex flex-col gap-16 md:gap-32">
+                      {activeItem.brandIdentity.logos.map((logo, index) => {
+                        const isEven = index % 2 === 0;
+                        return (
+                          <div key={index} className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-16 items-center`}>
+                            {/* Image Placeholder */}
+                            <div className="w-full md:w-1/2 aspect-[4/3] md:aspect-video bg-[#F5F5F5] rounded-3xl flex items-center justify-center border border-gray-100 overflow-hidden shadow-sm">
+                              {logo.imageUrl ? (
+                                <img src={logo.imageUrl} alt={logo.type} className="w-full h-full object-contain p-6 md:p-10" />
+                              ) : (
+                                <div className="text-gray-400 font-bold tracking-widest text-sm md:text-base flex flex-col items-center gap-2 uppercase">
+                                  <span>[ {logo.type} ]</span>
+                                  <span className="text-xs">Image Placeholder</span>
+                                </div>
+                              )}
+                            </div>
+                            {/* Text Content */}
+                            <div className="w-full md:w-1/2 flex flex-col justify-center py-4">
+                              <span className="text-sm font-bold text-orange-500 uppercase tracking-widest mb-4 inline-block">{logo.type}</span>
+                              <h4 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 font-['Noto_Sans_TC'] leading-tight">{logo.title}</h4>
+                              <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-lg">{logo.description}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 色彩計畫與字體排印 */}
+                {activeItem.brandIdentity.combinedView ? (
+                  <div className="flex flex-col mt-8 md:mt-16">
+                    <div className="flex items-center gap-4 mb-6">
+                      <h4 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">Typography& Colors</h4>
+                    </div>
+                    <div className="w-full h-[1px] bg-gray-300 mb-16"></div>
+
+                    {/* Typography Section */}
+                    <div className="flex flex-col md:flex-row gap-12 md:gap-16 mb-24 md:mb-32">
+                      {/* Left Column: Font Names */}
+                      <div className="w-full md:w-1/3 flex flex-col gap-10">
+                        {activeItem.brandIdentity.typography?.en && (
+                          <div>
+                            <p className="text-sm font-bold text-gray-500 mb-2">English typography</p>
+                            <p className="text-4xl md:text-5xl font-bold text-[#282828]">{activeItem.brandIdentity.typography.en.name}</p>
+                          </div>
+                        )}
+                        {activeItem.brandIdentity.typography?.tc && (
+                          <div>
+                            <p className="text-sm font-bold text-gray-500 mb-2">Chinese typography</p>
+                            <p className="text-3xl md:text-4xl font-bold text-[#282828] font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.tc.name}</p>
+                          </div>
+                        )}
+                      </div>
+                      {/* Right Column: Previews */}
+                      <div className="w-full md:w-2/3 flex flex-col gap-10 justify-center overflow-hidden">
+                        {activeItem.brandIdentity.typography?.en && (
+                          <p className="text-5xl sm:text-7xl md:text-[6rem] lg:text-[7.5rem] font-bold text-[#282828] uppercase tracking-wide leading-none truncate md:overflow-visible">{activeItem.brandIdentity.typography.en.preview}</p>
+                        )}
+                        {activeItem.brandIdentity.typography?.tc && (
+                          <p className="text-4xl sm:text-6xl md:text-[4rem] lg:text-[5rem] font-bold text-[#282828] tracking-tight leading-tight font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.tc.preview}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Colors Section */}
+                    <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-center">
+                      {/* Left Column: Description */}
+                      <div className="w-full md:w-1/3 mb-4 md:mb-0">
+                        <p className="text-base md:text-lg text-gray-800 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                          {activeItem.brandIdentity.colorDesc}
+                        </p>
+                      </div>
+                      {/* Right Column: Color Blocks */}
+                      <div className="w-full md:w-2/3 flex h-48 md:h-64 rounded-3xl overflow-hidden shadow-sm">
+                        {activeItem.brandIdentity.colors?.map(color => (
+                          <div key={color.hex} className="flex-1 p-6 md:p-8 flex items-end" style={{ backgroundColor: color.hex }}>
+                            <span className="text-white font-bold tracking-widest text-base md:text-xl">{color.hex}</span>
                           </div>
                         ))}
                       </div>
                     </div>
-                  )}
-                  {activeItem.brandIdentity.typography && (
-                    <div className="bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100">
-                      <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">{I18N[lang].project.typography}</h4>
-                      <div className="space-y-8">
-                        <div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.primaryType}</p><p className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">{activeItem.brandIdentity.typography.primary}</p></div>
-                        {activeItem.brandIdentity.typography.secondary && (<div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.secondaryType}</p><p className="text-2xl md:text-4xl font-bold text-gray-900 font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.secondary}</p></div>)}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                    {activeItem.brandIdentity.colors && (
+                      <div>
+                        <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">{I18N[lang].project.colorPalette}</h4>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                          {activeItem.brandIdentity.colors.map(color => (
+                            <div key={color.hex} className="flex flex-col gap-3">
+                              <div className="w-full aspect-square rounded-[1.5rem] shadow-sm flex items-end p-4 border border-gray-100" style={{ backgroundColor: color.hex }}></div>
+                              <span className="text-sm font-bold text-gray-800 tracking-wide">{t(color.name, lang)}</span>
+                              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{color.hex}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
+                    )}
+                    {activeItem.brandIdentity.typography && (
+                      <div className="bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100 h-full">
+                        <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">{I18N[lang].project.typography}</h4>
+                        <div className="space-y-8">
+                          <div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.primaryType}</p><p className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">{activeItem.brandIdentity.typography.primary}</p></div>
+                          {activeItem.brandIdentity.typography.secondary && (<div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.secondaryType}</p><p className="text-2xl md:text-4xl font-bold text-gray-900 font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.secondary}</p></div>)}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -1045,12 +1458,13 @@ export default function PortfolioApp() {
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
               <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{isApp ? I18N[lang].project.uiDesign : I18N[lang].project.webDesign}</h3></div>
               <div className="space-y-20">
-                {isApp && (activeItem.design.designSystemDesc || activeItem.design.architectureImg || (activeItem.design.bentoComponents && activeItem.design.bentoComponents.length > 0) || (activeItem.design.componentsImages && activeItem.design.componentsImages.length > 0)) && (
+                {activeItem.design.designSystemDesc && (
+                  <div className="mb-12"><p className="text-lg md:text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl">{t(activeItem.design.designSystemDesc, lang)}</p></div>
+                )}
+
+                {isApp && (activeItem.design.architectureImg || (activeItem.design.bentoComponents && activeItem.design.bentoComponents.length > 0) || (activeItem.design.componentsImages && activeItem.design.componentsImages.length > 0)) && (
                   <div>
                     <h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.designSystem}</h4>
-                    {activeItem.design.designSystemDesc && (
-                      <p className="text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.design.designSystemDesc, lang)}</p>
-                    )}
 
                     {/* Architecture Image */}
                     {activeItem.design.architectureImg && (
@@ -1065,10 +1479,18 @@ export default function PortfolioApp() {
                     {activeItem.design.bentoComponents && activeItem.design.bentoComponents.length > 0 && (
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
                         {activeItem.design.bentoComponents.map((comp, idx) => (
-                          <div key={idx} className={`relative group bg-[#FAFAFA] rounded-[2rem] p-6 shadow-sm border border-gray-100 overflow-hidden min-h-[200px] flex items-center justify-center transition-all hover:shadow-md ${comp.colSpan === 2 ? 'col-span-2' : 'col-span-1 md:col-span-1'}`}>
-                            <span className="absolute top-4 left-6 text-sm font-bold text-gray-400 uppercase tracking-wider">{comp.name}</span>
-                            <img src={comp.previewImg} className="w-4/5 h-auto object-contain mt-4 group-hover:scale-105 transition-transform duration-500" alt={comp.name} onError={(e) => e.target.style.display = 'none'} />
-                            
+                          <div key={idx} className={`relative group bg-[#FAFAFA] rounded-[2rem] p-6 shadow-sm border border-gray-100 overflow-hidden min-h-[200px] flex flex-col transition-all hover:shadow-md ${comp.colSpan === 2 ? 'col-span-2' : 'col-span-1 md:col-span-1'}`}>
+                            <span className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">{comp.name}</span>
+
+                            {/* Live Component Preview */}
+                            {comp.liveComponent === 'button' ? (
+                              <GSATButtonShowcase />
+                            ) : (
+                              <div className="flex-1 flex items-center justify-center">
+                                <img src={comp.previewImg} className="w-4/5 h-auto object-contain group-hover:scale-105 transition-transform duration-500" alt={comp.name} onError={(e) => e.target.style.display = 'none'} />
+                              </div>
+                            )}
+
                             {/* Hover Overlay Button */}
                             <button onClick={() => setSelectedComponent(comp)} className="absolute bottom-4 right-4 bg-white shadow-lg rounded-full p-3 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 hover:bg-gray-900 hover:text-white text-gray-900 flex items-center gap-2">
                               <IconSearch className="w-5 h-5" />
@@ -1101,10 +1523,20 @@ export default function PortfolioApp() {
                   </div>
                 )}
 
-                {((activeItem.design.screens && activeItem.design.screens.length > 0) || (activeItem.design.screenGroups && activeItem.design.screenGroups.length > 0) || (activeItem.design.flowImages && activeItem.design.flowImages.length > 0)) && (
+                {((activeItem.design.screens && activeItem.design.screens.length > 0) || (activeItem.design.screenGroups && activeItem.design.screenGroups.length > 0) || (activeItem.design.flowImages && activeItem.design.flowImages.length > 0) || activeItem.design.longScreenshot || activeItem.design.webShowcaseStrip) && (
                   <div>
                     <h4 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.screens}</h4>
-                    
+
+                    {/* 網站設計長條展示（影片＋圖片無縫拼接） */}
+                    {activeItem.design.webShowcaseStrip && (
+                      <WebShowcaseStrip items={activeItem.design.webShowcaseStrip} />
+                    )}
+
+                    {/* 長圖與標註區域 (如果有設定) */}
+                    {activeItem.design.longScreenshot && (
+                      <ScrollAnnotationView data={activeItem.design.longScreenshot} lang={lang} />
+                    )}
+
                     {/* User Flow (Moved above screens) */}
                     {activeItem.design.flowImages && activeItem.design.flowImages.length > 0 && (
                       <div className="mb-16">
@@ -1133,12 +1565,12 @@ export default function PortfolioApp() {
                               <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
                                 <h5 className="text-xl md:text-2xl font-bold text-gray-900 font-['Noto_Sans_TC'] border-b border-gray-100 pb-2 inline-block">{group.title}</h5>
                                 {hasTabs && (
-                                  <div className="bg-[#F5F5F5] p-1.5 rounded-full flex overflow-x-auto hide-scrollbar gap-1 shadow-inner self-start md:self-end max-w-full">
+                                  <div className="bg-[#F5F5F5] p-1.5 rounded-[1.5rem] md:rounded-full flex flex-wrap gap-2 shadow-inner self-start md:self-end">
                                     {group.tabs.map((tab, tIdx) => (
-                                      <button 
-                                        key={tIdx} 
+                                      <button
+                                        key={tIdx}
                                         onClick={() => setActiveScreenTabs(prev => ({ ...prev, [gIdx]: tIdx }))}
-                                        className={`whitespace-nowrap flex-shrink-0 px-4 md:px-6 py-2.5 rounded-full text-sm md:text-base font-medium font-['Noto_Sans_TC'] transition-all duration-300 ${activeTabIdx === tIdx ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-800'}`}
+                                        className={`whitespace-nowrap px-4 md:px-6 py-2.5 rounded-full text-sm md:text-base font-medium font-['Noto_Sans_TC'] transition-all duration-300 ${activeTabIdx === tIdx ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-800'}`}
                                       >
                                         {tab.title}
                                       </button>
@@ -1267,8 +1699,6 @@ export default function PortfolioApp() {
               </div>
             </div>
           )}
-
-          <FooterCTA />
 
           {/* Component Detail Modal */}
           {selectedComponent && (

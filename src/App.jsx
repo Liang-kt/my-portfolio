@@ -971,6 +971,44 @@ export default function PortfolioApp() {
       );
     };
 
+    // --- 自訂下拉選單元件 ---
+    const CustomSelect = ({ label, value, options, onChange }) => {
+      const [open, setOpen] = useState(false);
+      const ref = useRef(null);
+
+      useEffect(() => {
+        const handleClickOutside = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+      }, []);
+
+      return (
+        <div ref={ref} className="relative w-full">
+          <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">{label}</span>
+          <button
+            onClick={() => setOpen(!open)}
+            className="w-full flex items-center justify-between gap-2 bg-white border border-gray-200 rounded-xl px-3 py-1.5 text-[11px] font-semibold text-gray-700 hover:border-[#7878FF] transition-colors cursor-pointer"
+          >
+            <span>{value}</span>
+            <svg className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+          {open && (
+            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden py-1" style={{ animation: 'fadeInDown 0.15s ease' }}>
+              {options.map(opt => (
+                <div
+                  key={opt}
+                  onClick={() => { onChange(opt); setOpen(false); }}
+                  className={`px-3 py-1.5 text-[11px] font-medium cursor-pointer transition-colors ${value === opt ? 'bg-[#EEEEFF] text-[#7878FF] font-bold' : 'text-gray-600 hover:bg-gray-50'}`}
+                >
+                  {opt}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    };
+
     // --- GSAT App Button 互動展示元件 ---
     const GSATButtonShowcase = () => {
       const [btnSize, setBtnSize] = useState('M');
@@ -1015,27 +1053,18 @@ export default function PortfolioApp() {
         }
       };
 
-      const chip = (active) =>
-        `px-2 py-0.5 rounded-full text-[10px] font-bold cursor-pointer transition-all duration-200 ${active ? 'bg-[#7878FF] text-white shadow-sm' : 'bg-white text-gray-500 hover:bg-gray-100 border border-gray-200'}`;
-
       return (
-        <div className="flex-1 flex flex-col items-center justify-center gap-4">
-          <div className="flex items-center justify-center min-h-[60px]">
+        <div className="flex-1 flex items-stretch gap-4">
+          {/* 左側：按鈕預覽 */}
+          <div className="flex-1 flex items-center justify-center">
             <button style={getButtonStyle()} disabled={isDisabled}>Button</button>
           </div>
-          <div className="w-full space-y-2">
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-[9px] font-bold text-gray-400 uppercase w-8 shrink-0">Size</span>
-              {['L', 'M', 'S', 'Ex S'].map(s => (<span key={s} className={chip(btnSize === s)} onClick={() => setBtnSize(s)}>{s}</span>))}
-            </div>
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-[9px] font-bold text-gray-400 uppercase w-8 shrink-0">Style</span>
-              {['Primary', 'Outline', 'Ghost'].map(s => (<span key={s} className={chip(btnStyle === s)} onClick={() => setBtnStyle(s)}>{s}</span>))}
-            </div>
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-[9px] font-bold text-gray-400 uppercase w-8 shrink-0">State</span>
-              {['Default', 'Active', 'Disable'].map(s => (<span key={s} className={chip(btnStatus === s)} onClick={() => setBtnStatus(s)}>{s}</span>))}
-            </div>
+
+          {/* 右側：下拉選單（垂直排列） */}
+          <div className="w-[90px] flex flex-col justify-center gap-2 shrink-0">
+            <CustomSelect label="Size" value={btnSize} options={['L', 'M', 'S', 'Ex S']} onChange={setBtnSize} />
+            <CustomSelect label="Style" value={btnStyle} options={['Primary', 'Outline', 'Ghost']} onChange={setBtnStyle} />
+            <CustomSelect label="State" value={btnStatus} options={['Default', 'Active', 'Disable']} onChange={setBtnStatus} />
           </div>
         </div>
       );

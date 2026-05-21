@@ -1654,9 +1654,9 @@ export default function PortfolioApp() {
       const activePercent = progressPercents[currentState];
 
       return (
-        <div className="flex-1 flex flex-col justify-between gap-6 relative select-none">
+        <div className="flex flex-col gap-6 relative select-none">
           {/* 上半部：精緻毛玻璃展示區域，無文字單純顯示圖表 */}
-          <div className="flex-1 flex flex-col justify-center py-8 px-8 bg-white/40 rounded-3xl border border-gray-100/50 shadow-inner relative z-20 min-h-[310px] overflow-hidden gap-12">
+          <div className="flex flex-col py-8 px-8 bg-white/40 rounded-3xl border border-gray-100/50 shadow-inner relative z-20 overflow-hidden gap-8">
             
             {/* 進度條 (Progress Bar) - 參考附圖二設計：細長圓角、單色無漸變無動態 */}
             <div className="w-full flex flex-col gap-2">

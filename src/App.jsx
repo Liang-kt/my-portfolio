@@ -283,11 +283,12 @@ const PROJECTS = [
       architectureImg: '',
       bentoComponents: [
         { name: 'Buttons', previewImg: '', specsImg: '', colSpan: 1, liveComponent: 'button' },
-        { name: 'Inputs & Forms', previewImg: '', specsImg: '', colSpan: 1 },
-        { name: 'Cards & Containers', previewImg: '', specsImg: '', colSpan: 2 },
+        { name: 'Inputs & Forms', previewImg: '', specsImg: '', colSpan: 1, liveComponent: 'input' },
+        { name: 'Navigation Bar', previewImg: '', specsImg: '', colSpan: 1, liveComponent: 'navigation' },
+        { name: 'Dropdowns & Menus', previewImg: '', specsImg: '', colSpan: 1, liveComponent: 'dropdown' },
+        { name: 'Progress Bar and Step Indicator', previewImg: '', specsImg: '', colSpan: 2, liveComponent: 'progress' },
         { name: 'Modals & Dialogs', previewImg: '', specsImg: '', colSpan: 2 },
-        { name: 'Dropdowns & Menus', previewImg: '', specsImg: '', colSpan: 1 },
-        { name: 'Tags & Badges', previewImg: '', specsImg: '', colSpan: 1 }
+        { name: 'Subject Cards', previewImg: '', specsImg: '', colSpan: 1, liveComponent: 'subject' }
       ],
       componentsImages: ['/projects/msline/components-1.jpg'],
       flowImages: ['/projects/msline/user-flow.jpg'],
@@ -946,33 +947,8 @@ export default function PortfolioApp() {
       );
     };
 
-    const ScrollAnnotationView = ({ data, lang }) => {
-      const [imgError, setImgError] = useState(false);
-
-      if (!data || !data.url) return null;
-
-      return (
-        <div className="w-full relative bg-[#F8F9FA] rounded-2xl md:rounded-[32px] overflow-hidden shadow-sm border border-gray-100 my-12 min-h-[100vh]">
-          {/* 長圖 */}
-          {!imgError ? (
-            <img src={data.url} alt="Long Screenshot Design" className="w-full h-auto block" onError={() => setImgError(true)} />
-          ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-400">
-              <p className="font-bold tracking-widest uppercase text-xl mb-2">[ Image Placeholder ]</p>
-              <p className="text-sm">Please place the image at {data.url}</p>
-            </div>
-          )}
-
-          {/* 標註點 */}
-          {data.annotations?.map((anno, idx) => (
-            <AnnotationItem key={idx} annotation={anno} lang={lang} />
-          ))}
-        </div>
-      );
-    };
-
     // --- 自訂下拉選單元件 ---
-    const CustomSelect = ({ label, value, options, onChange }) => {
+    const CustomSelect = ({ label, value, options, onChange, openUp = false }) => {
       const [open, setOpen] = useState(false);
       const ref = useRef(null);
 
@@ -984,48 +960,48 @@ export default function PortfolioApp() {
 
       return (
         <div ref={ref} className="relative w-full">
-          <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">{label}</span>
-          <button
+          <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1.5">{label.toUpperCase()}</span>
+          <button 
             onClick={() => setOpen(!open)}
-            className="w-full flex items-center justify-between gap-2 bg-white border border-gray-200 rounded-xl px-3 py-1.5 text-[11px] font-semibold text-gray-700 hover:border-[#7878FF] transition-colors cursor-pointer"
+            className="w-full h-11 px-4 flex items-center justify-between bg-white border border-[#E6E6E6] rounded-2xl text-xs font-bold text-[#0B132B] shadow-sm cursor-pointer outline-none transition-all hover:border-gray-300"
           >
-            <span>{value}</span>
-            <svg className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            <span className="truncate">{value}</span>
+            <svg className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
           </button>
           {open && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden py-1" style={{ animation: 'fadeInDown 0.15s ease' }}>
-              {options.map(opt => (
-                <div
-                  key={opt}
-                  onClick={() => { onChange(opt); setOpen(false); }}
-                  className={`px-3 py-1.5 text-[11px] font-medium cursor-pointer transition-colors ${value === opt ? 'bg-[#EEEEFF] text-[#7878FF] font-bold' : 'text-gray-600 hover:bg-gray-50'}`}
-                >
-                  {opt}
-                </div>
-              ))}
+            <div className={`absolute left-0 right-0 w-full bg-white border border-[#0B132B] rounded-2xl shadow-xl z-40 p-2 flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-1 duration-150 ${openUp ? 'bottom-full mb-2' : 'top-full mt-2'}`}>
+              {options.map((opt) => {
+                const isSelected = value === opt;
+                return (
+                  <button
+                    key={opt}
+                    onClick={() => { onChange(opt); setOpen(false); }}
+                    className={`w-full text-left px-3 py-2 text-xs font-bold rounded-xl transition-colors cursor-pointer ${isSelected ? 'bg-[#0B132B] text-white' : 'text-[#0B132B] bg-transparent hover:bg-gray-50'}`}
+                  >
+                    {opt}
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
       );
     };
 
+
     // --- GSAT App Button 互動展示元件 ---
     const GSATButtonShowcase = () => {
-      const [btnSize, setBtnSize] = useState('M');
-      const [btnStatus, setBtnStatus] = useState('Default');
-      const [btnStyle, setBtnStyle] = useState('Primary');
-
-      const colors = {
-        primary500: '#7878FF', primary600: '#5858EA', primary700: '#2525A4',
-        primary200: '#E2E2FF', primary300: '#CDCDFF',
-        neutral0: '#FFFFFF', neutral300: '#E6E6E6', neutral400: '#CCCCCC'
-      };
+      const [btnSize, setBtnSize] = useState('M'); // L | M | S | Ex S
+      const [btnStyle, setBtnStyle] = useState('Primary'); // Primary | Outline | Ghost
+      const [btnStatus, setBtnStatus] = useState('Default'); // Default | Active | Disable
 
       const sizeMap = {
-        'L': { px: 32, py: 16, text: 16, radius: 16 },
-        'M': { px: 24, py: 12, text: 14, radius: 12 },
-        'S': { px: 20, py: 8, text: 13, radius: 8 },
-        'Ex S': { px: 16, py: 6, text: 12, radius: 8 }
+        'L': { width: 129, height: 56, text: 20, radius: 16 },
+        'M': { width: 99, height: 44, text: 16, radius: 12 },
+        'S': { width: 83, height: 32, text: 14, radius: 8 },
+        'Ex S': { width: 72, height: 28, text: 12, radius: 8 }
       };
 
       const size = sizeMap[btnSize];
@@ -1034,37 +1010,733 @@ export default function PortfolioApp() {
 
       const getButtonStyle = () => {
         const base = {
-          padding: `${size.py}px ${size.px}px`,
+          width: `${size.width}px`,
+          height: `${size.height}px`,
           fontSize: `${size.text}px`,
           borderRadius: `${size.radius}px`,
           fontWeight: 700,
           cursor: isDisabled ? 'not-allowed' : 'pointer',
           transition: 'all 0.2s ease',
-          border: '2px solid transparent',
           letterSpacing: '0.02em',
           lineHeight: 1.4,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         };
+
         if (btnStyle === 'Primary') {
-          return { ...base, backgroundColor: isDisabled ? colors.neutral300 : isActive ? colors.primary700 : colors.primary500, color: colors.neutral0, opacity: isDisabled ? 0.6 : 1 };
+          if (isDisabled) {
+            return {
+              ...base,
+              backgroundColor: '#E6E6E6',
+              color: '#ffffff',
+              border: '2px solid transparent',
+            };
+          } else if (isActive) {
+            return {
+              ...base,
+              backgroundColor: '#7878ff',
+              color: '#ffffff',
+              border: '2px solid transparent',
+            };
+          } else {
+            // Default
+            return {
+              ...base,
+              backgroundColor: '#E6E6E6',
+              color: '#000000',
+              border: '2px solid transparent',
+            };
+          }
         } else if (btnStyle === 'Outline') {
-          return { ...base, backgroundColor: 'transparent', color: isDisabled ? colors.neutral400 : isActive ? colors.primary700 : colors.primary500, borderColor: isDisabled ? colors.neutral300 : isActive ? colors.primary700 : colors.primary500, opacity: isDisabled ? 0.6 : 1 };
+          if (isDisabled) {
+            return {
+              ...base,
+              backgroundColor: '#ffffff',
+              border: '0.5pt solid #E6E6E6',
+              color: '#E6E6E6',
+            };
+          } else if (isActive) {
+            return {
+              ...base,
+              backgroundColor: '#EEEEFF',
+              border: '0.5pt solid #7878ff',
+              color: '#7878ff',
+            };
+          } else {
+            // Default
+            return {
+              ...base,
+              backgroundColor: '#ffffff',
+              border: '0.5pt solid #BFBFBF',
+              color: '#000000',
+            };
+          }
         } else {
-          return { ...base, backgroundColor: 'transparent', color: isDisabled ? colors.neutral400 : isActive ? colors.primary700 : colors.primary500, border: '2px solid transparent', opacity: isDisabled ? 0.6 : 1 };
+          // Ghost
+          if (isDisabled) {
+            return {
+              ...base,
+              backgroundColor: 'transparent',
+              border: '2px solid transparent',
+              color: '#E6E6E6',
+            };
+          } else if (isActive) {
+            return {
+              ...base,
+              backgroundColor: 'transparent',
+              border: '2px solid transparent',
+              color: '#7878ff',
+            };
+          } else {
+            // Default
+            return {
+              ...base,
+              backgroundColor: 'transparent',
+              border: '2px solid transparent',
+              color: '#A4A4A4',
+            };
+          }
         }
       };
 
       return (
-        <div className="flex-1 flex items-stretch gap-4">
-          {/* 左側：按鈕預覽 */}
-          <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex flex-col justify-between gap-4">
+          {/* 上側：按鈕預覽區塊（加入高雅內嵌淺色背景以襯托按鈕） */}
+          <div className="flex-1 flex items-center justify-center min-h-[110px] py-4 bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner">
             <button style={getButtonStyle()} disabled={isDisabled}>Button</button>
           </div>
 
-          {/* 右側：下拉選單（垂直排列） */}
-          <div className="w-[90px] flex flex-col justify-center gap-2 shrink-0">
-            <CustomSelect label="Size" value={btnSize} options={['L', 'M', 'S', 'Ex S']} onChange={setBtnSize} />
-            <CustomSelect label="Style" value={btnStyle} options={['Primary', 'Outline', 'Ghost']} onChange={setBtnStyle} />
-            <CustomSelect label="State" value={btnStatus} options={['Default', 'Active', 'Disable']} onChange={setBtnStatus} />
+          {/* 下側：三個狀態切換器（改為與附圖二一致的 Segmented Control 樣式） */}
+          <div className="flex flex-col gap-2 w-full mt-auto">
+            {/* Size Selector */}
+            <div className="w-full bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1">
+              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">Size</span>
+              <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap sm:flex-nowrap justify-end gap-0.5 flex-shrink-0">
+                {['L', 'M', 'S', 'Ex S'].map((sz) => {
+                  const isCurrent = btnSize === sz;
+                  return (
+                    <button 
+                      key={sz}
+                      onClick={() => setBtnSize(sz)} 
+                      className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                        isCurrent 
+                          ? 'bg-white text-gray-900 shadow-sm' 
+                          : 'text-gray-400 hover:text-gray-700'
+                      }`}
+                    >
+                      {sz}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Style Selector */}
+            <div className="w-full bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1">
+              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">Style</span>
+              <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap sm:flex-nowrap justify-end gap-0.5 flex-shrink-0">
+                {['Primary', 'Outline', 'Ghost'].map((st) => {
+                  const isCurrent = btnStyle === st;
+                  return (
+                    <button 
+                      key={st}
+                      onClick={() => setBtnStyle(st)} 
+                      className={`px-2.5 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                        isCurrent 
+                          ? 'bg-white text-gray-900 shadow-sm' 
+                          : 'text-gray-400 hover:text-gray-700'
+                      }`}
+                    >
+                      {st}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* State Selector */}
+            <div className="w-full bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1">
+              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">State</span>
+              <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap sm:flex-nowrap justify-end gap-0.5 flex-shrink-0">
+                {['Default', 'Active', 'Disable'].map((stat) => {
+                  const isCurrent = btnStatus === stat;
+                  return (
+                    <button 
+                      key={stat}
+                      onClick={() => setBtnStatus(stat)} 
+                      className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                        isCurrent 
+                          ? 'bg-white text-gray-900 shadow-sm' 
+                          : 'text-gray-400 hover:text-gray-700'
+                      }`}
+                    >
+                      {stat}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // --- GSAT App Navigation Bar 互動展示元件 ---
+    const GSATNavigationShowcase = () => {
+      const [activeTab, setActiveTab] = useState('Home'); // Home | Book | Wrong | Saved | Profile
+
+      const tabs = [
+        { 
+          id: 'Home', 
+          zhLabel: '首頁', 
+          enLabel: 'Home',
+          icon: (isActive) => (
+            <svg className={`w-5.5 h-5.5 transition-all duration-200 ${isActive ? 'text-[#7878FF] scale-110' : 'text-[#A4A4A4] group-hover:text-[#5E5E5E]'}`} fill="none" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+              <path d="M27.3333 107.375V50.875L65 22.625L102.667 50.875V107.375H74.4166V74.4167H55.5833V107.375H27.3333Z" fill="currentColor"/>
+            </svg>
+          )
+        },
+        { 
+          id: 'Book', 
+          zhLabel: '題庫', 
+          enLabel: 'Book',
+          icon: (isActive) => (
+            <svg className={`w-5.5 h-5.5 transition-all duration-200 ${isActive ? 'text-[#7878FF] scale-110' : 'text-[#A4A4A4] group-hover:text-[#5E5E5E]'}`} fill="none" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+              <path d="M99.3999 22H39.2001C32.1051 22 26.3001 27.805 26.3001 34.9V95.0998C26.3001 102.195 32.1051 108 39.2001 108H103.7V99.3998H39.2001C36.8351 99.3998 34.9001 97.4648 34.9001 95.0998C34.9001 92.7348 36.8351 90.7998 39.2001 90.7998H99.3999C101.765 90.7998 103.7 88.8648 103.7 86.4998V26.3C103.7 23.935 101.765 22 99.3999 22ZM86.5 47.7999H47.8001V39.2H86.5V47.7999Z" fill="currentColor"/>
+            </svg>
+          )
+        },
+        { 
+          id: 'Profile', 
+          zhLabel: '我的', 
+          enLabel: 'Profile',
+          icon: (isActive) => (
+            <svg className={`w-5.5 h-5.5 transition-all duration-200 ${isActive ? 'text-[#7878FF] scale-110' : 'text-[#A4A4A4] group-hover:text-[#5E5E5E]'}`} fill="none" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="64.9305" cy="45.9242" r="18.6667" fill="currentColor"/>
+              <path d="M74.022 66.5051C88.2961 70.4521 98.7776 83.5319 98.7778 99.0617V102.742H31.2222V99.0617C31.2224 83.5659 41.6572 70.5078 55.8833 66.5295C58.5633 68.0175 61.6475 68.8663 64.9302 68.8664C68.231 68.8664 71.3316 68.0083 74.022 66.5051Z" fill="currentColor"/>
+            </svg>
+          )
+        }
+      ];
+
+      return (
+        <div className="flex-1 flex flex-col justify-between gap-4 relative">
+          {/* 上側：導覽列預覽區塊（獨立預覽卡片設計，和切換器分開） */}
+          <div className="flex-1 flex items-center justify-center min-h-[88px] py-3 px-6 bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner relative z-20">
+            <div className="w-full max-w-[280px] bg-white border border-[#E6E6E6] shadow-sm rounded-2xl px-2 h-16 flex items-center justify-between">
+              {tabs.map((tab) => {
+                const isActive = activeTab === tab.id;
+                const label = lang === 'zh' ? tab.zhLabel : tab.enLabel;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className="flex-1 flex flex-col items-center justify-center h-full relative cursor-pointer group"
+                  >
+                    {tab.icon(isActive)}
+                    <span 
+                      className={`text-[9px] font-bold mt-1 transition-all duration-200 ${
+                        isActive 
+                          ? 'text-[#7878FF] scale-105' 
+                          : 'text-[#A4A4A4] group-hover:text-[#5E5E5E]'
+                      }`}
+                    >
+                      {label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 下側：控制項選項 */}
+          <div className="w-full mt-auto bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-2 flex items-center justify-between gap-1">
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">Tab</span>
+            <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap sm:flex-nowrap justify-end gap-0.5 flex-shrink-0">
+              {tabs.map((tab) => {
+                const isCurrent = activeTab === tab.id;
+                return (
+                  <button 
+                    key={tab.id}
+                    onClick={() => {
+                      setActiveTab(tab.id);
+                    }} 
+                    className={`px-2 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                      isCurrent 
+                        ? 'bg-white text-gray-900 shadow-sm' 
+                        : 'text-gray-400 hover:text-gray-700'
+                    }`}
+                  >
+                    {tab.id}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // --- GSAT App Dropdown & Menu 互動展示元件 ---
+    const GSATDropdownShowcase = () => {
+      const [isOpen, setIsOpen] = useState(false);
+      const [dropdownState, setDropdownState] = useState('Interactive'); // Interactive | Disabled
+
+      const options = lang === 'zh' ? [
+        { id: 'all', label: '全部' },
+        { id: 'chinese', label: '國文' },
+        { id: 'english', label: '英文' },
+        { id: 'mathA', label: '數學A' },
+        { id: 'mathB', label: '數學B' }
+      ] : [
+        { id: 'all', label: 'All' },
+        { id: 'chinese', label: 'Chinese' },
+        { id: 'english', label: 'English' },
+        { id: 'mathA', label: 'Math A' },
+        { id: 'mathB', label: 'Math B' }
+      ];
+
+      const [selectedOptionId, setSelectedOptionId] = useState('all');
+
+      const handleToggle = () => {
+        if (dropdownState === 'Disabled') return;
+        setIsOpen(!isOpen);
+      };
+
+      const handleSelect = (id) => {
+        setSelectedOptionId(id);
+        setIsOpen(false);
+      };
+
+      const currentOption = options.find(o => o.id === selectedOptionId) || options[0];
+
+      return (
+        <div className="flex-1 flex flex-col justify-between gap-4 relative">
+          {/* 上側：下拉選單預覽區塊 */}
+          <div className="flex-1 flex flex-col items-center justify-start min-h-[320px] pt-4 pb-2 relative z-20">
+            <div className="w-full max-w-[210px] relative">
+              <button 
+                onClick={handleToggle}
+                className={`w-full h-11 px-5 flex items-center justify-between border rounded-xl text-[15px] font-medium transition-all duration-200 outline-none select-none cursor-pointer ${
+                  dropdownState === 'Disabled'
+                    ? 'bg-[#FBFBFB] border-[#E6E6E6] text-[#CCCCCC] cursor-not-allowed'
+                    : isOpen
+                      ? 'bg-white border-2 border-[#7878FF] text-black shadow-sm'
+                      : 'bg-white border border-[#E6E6E6] text-black hover:border-[#7878FF]'
+                }`}
+              >
+                <span className="truncate">
+                  {currentOption.label}
+                </span>
+                <svg 
+                  className={`w-4 h-4 transition-transform duration-200 flex-shrink-0 ml-2 ${dropdownState === 'Disabled' ? 'text-[#CCCCCC]' : 'text-black'}`} 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor" 
+                  strokeWidth="2.5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* Options Dropdown Menu */}
+              {isOpen && dropdownState !== 'Disabled' && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-[#EEEEFF] rounded-xl shadow-lg overflow-hidden p-3 z-30 animate-in fade-in slide-in-from-top-2 duration-200 flex flex-col gap-1.5 border-none">
+                  {options.map((opt) => {
+                    const isSelected = selectedOptionId === opt.id;
+                    return (
+                      <button
+                        key={opt.id}
+                        onClick={() => handleSelect(opt.id)}
+                        className={`w-full h-10 px-4 text-left text-sm font-medium flex items-center transition-all cursor-pointer rounded-xl select-none ${
+                          isSelected 
+                            ? 'bg-[#7878FF] text-white shadow-sm' 
+                            : 'text-black bg-transparent hover:bg-white/60 hover:text-[#7878FF]'
+                        }`}
+                      >
+                        <span className="truncate">{opt.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* 下側：控制項選項 */}
+          <div className="w-full mt-auto bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-2 flex items-center justify-between gap-2">
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">State</span>
+            <div className="flex bg-gray-100 rounded-lg p-0.5 flex-shrink-0">
+              <button 
+                onClick={() => { setDropdownState('Interactive'); }} 
+                className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${dropdownState === 'Interactive' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400 hover:text-gray-700'}`}
+              >
+                {lang === 'zh' ? '預設' : 'Active'}
+              </button>
+              <button 
+                onClick={() => { setDropdownState('Disabled'); setIsOpen(false); }} 
+                className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${dropdownState === 'Disabled' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400 hover:text-gray-700'}`}
+              >
+                {lang === 'zh' ? '禁用' : 'Disabled'}
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // --- GSAT App Input 互動展示元件 ---
+    const GSATInputShowcase = () => {
+      const [inputState, setInputState] = useState('Default'); // Default | Focus | Disable | Erro
+      const [inputValue, setInputValue] = useState('');
+
+      const placeholder = lang === 'zh' ? '電子信箱' : 'Email';
+
+      return (
+        <div className="flex-1 flex flex-col justify-between gap-4 relative">
+          {/* 上側：輸入框預覽區塊（內嵌精緻淺色背景，與下側控制項分離） */}
+          <div className="flex-1 flex items-center justify-center min-h-[76px] py-3 bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner relative z-20">
+            <div className="w-full max-w-[240px] text-left">
+              {/* Input wrapper with Icon */}
+              <div className="relative w-full">
+                {/* Leading Mail Icon */}
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                  <svg 
+                    className={`w-4 h-4 transition-colors duration-200 ${
+                      inputState === 'Disable'
+                        ? 'text-[#CCCCCC]'
+                        : inputState === 'Erro'
+                          ? 'text-[#FF8AA4]'
+                          : inputState === 'Focus'
+                            ? 'text-[#7878FF]'
+                            : 'text-[#A4A4A4]'
+                    }`}
+                    fill="currentColor" 
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                </div>
+
+                {/* Input tag */}
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => {
+                    if (inputState !== 'Disable') {
+                      setInputValue(e.target.value);
+                    }
+                  }}
+                  disabled={inputState === 'Disable'}
+                  placeholder={placeholder}
+                  className={`w-full h-11 pl-10 pr-9 border rounded-xl text-[14px] font-medium transition-all duration-200 outline-none select-text ${
+                    inputState === 'Disable'
+                      ? 'bg-white border-[#E6E6E6] text-[#CCCCCC] placeholder-[#CCCCCC] cursor-not-allowed'
+                      : inputState === 'Erro'
+                        ? 'bg-white border-[#FF8AA4] text-[#FF8AA4] placeholder-[#FF8AA4] focus:border-[#FF8AA4]'
+                        : inputState === 'Focus'
+                          ? 'bg-white border-2 border-[#7878FF] text-[#7878FF] placeholder-[#7878FF] shadow-sm'
+                          : 'bg-white border border-[#BFBFBF] text-black placeholder-[#A4A4A4] hover:border-[#7878FF] focus:border-2 focus:border-[#7878FF]'
+                  }`}
+                  onFocus={() => {
+                    if (inputState !== 'Disable' && inputState !== 'Erro') {
+                      setInputState('Focus');
+                    }
+                  }}
+                  onBlur={() => {
+                    if (inputState === 'Focus') {
+                      setInputState('Default');
+                    }
+                  }}
+                />
+
+                {/* Trailing status icon (Error/Lock) */}
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  {inputState === 'Erro' && (
+                    <svg className="w-5 h-5 text-[#FF8AA4]" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                  {inputState === 'Disable' && (
+                    <svg className="w-4 h-4 text-[#CCCCCC]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 下側：控制項選項 */}
+          <div className="w-full mt-auto bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-2 flex items-center justify-between gap-1">
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">State</span>
+            <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap sm:flex-nowrap justify-end gap-0.5 flex-shrink-0">
+              {['Default', 'Focus', 'Disable', 'Erro'].map((st) => {
+                const isCurrent = inputState === st;
+                return (
+                  <button 
+                    key={st}
+                    onClick={() => {
+                      setInputState(st);
+                    }} 
+                    className={`px-2.5 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                      isCurrent 
+                        ? 'bg-white text-gray-900 shadow-sm' 
+                        : 'text-gray-400 hover:text-gray-700'
+                    }`}
+                  >
+                    {st}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    const GSATSubjectCardsShowcase = () => {
+      const [activeSubId, setActiveSubId] = useState('mathA');
+      const [isSubmitted, setIsSubmitted] = useState(false);
+
+      // Define standard subjects
+      const subjects = [
+        { id: 'mathA', zhName: '數學 A', enName: 'Math A', illustration: '/projects/mslin-app/illustrations/math-a.svg' },
+        { id: 'mathB', zhName: '數學 B', enName: 'Math B', illustration: '/projects/mslin-app/illustrations/math-b.svg' },
+        { id: 'english', zhName: '英文', enName: 'English', illustration: '/projects/mslin-app/illustrations/english.svg' },
+        { id: 'chinese', zhName: '國文', enName: 'Chinese', illustration: '/projects/mslin-app/illustrations/chinese.svg' }
+      ];
+
+      const activeSubject = subjects.find(s => s.id === activeSubId) || subjects[0];
+      const isAddActive = activeSubId === 'add';
+
+      // Reset submission state when switching tabs
+      useEffect(() => {
+        setIsSubmitted(false);
+      }, [activeSubId]);
+
+      return (
+        <div className="flex-1 flex flex-col justify-between gap-4 relative">
+          
+          {/* Middle: Beautiful Vertical Card Area */}
+          <div className="flex-1 flex flex-col justify-center items-center py-4 px-4 bg-white/40 rounded-3xl border border-gray-100/50 shadow-inner relative z-20 min-h-[390px] overflow-hidden">
+            
+            {/* A. Real Subject Card */}
+            {!isAddActive ? (
+              <div 
+                className="w-full max-w-[250px] mx-auto bg-white rounded-[24px] border border-[#E6E6E6] shadow-[0_8px_30px_rgb(0,0,0,0.02)] p-5 flex flex-col items-center justify-between min-h-[350px] relative transition-all duration-300 group animate-fade-in-scale"
+                key={activeSubject.id}
+              >
+                {/* Top of Card */}
+                <div className="w-full text-left">
+                  <h5 className="text-[17px] font-bold text-gray-900 leading-tight">
+                    {lang === 'zh' ? activeSubject.zhName : activeSubject.enName}
+                  </h5>
+                </div>
+
+                {/* Center Illustration */}
+                <div className="w-full flex-1 flex items-center justify-center py-4 my-auto min-h-[130px]">
+                  <img 
+                    src={activeSubject.illustration} 
+                    className="h-[110px] w-auto object-contain transition-transform duration-300 select-none" 
+                    alt={activeSubject.zhName} 
+                  />
+                </div>
+
+                {/* Bottom Action Buttons (Direct Primary & Ghost styling) */}
+                <div className="w-full flex flex-col gap-2 mt-2">
+                  <button className="w-full py-2.5 text-[12px] font-bold rounded-xl bg-[#7878FF] hover:bg-[#5858EA] text-white transition-all transform active:scale-95 hover:shadow-[0_4px_12px_rgba(120,120,255,0.2)] cursor-pointer text-center">
+                    {lang === 'zh' ? '立即刷題' : 'Start Practice'}
+                  </button>
+                  <button className="w-full py-2 text-[12px] font-bold rounded-xl bg-transparent text-[#7878FF] hover:bg-[#EEEEFF]/40 transition-all transform active:scale-95 cursor-pointer text-center">
+                    {lang === 'zh' ? '選擇練習模式' : 'Practice Mode'}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              /* B. Add Card State */
+              <div 
+                className={`w-full max-w-[250px] mx-auto rounded-[24px] border border-dashed p-5 flex flex-col items-center justify-between min-h-[350px] relative transition-all duration-300 group select-none ${
+                  isSubmitted
+                    ? 'border-[#C7F1E8] bg-[#C7F1E8]/10'
+                    : 'border-[#CCCCCC] bg-white hover:border-[#7878FF] hover:bg-[#EEEEFF]/10'
+                }`}
+              >
+                {/* Top of Card */}
+                <div className="w-full text-left">
+                  <h5 className="text-[17px] font-bold text-gray-900 leading-tight">
+                    {lang === 'zh' ? '新增學科' : 'Add Subject'}
+                  </h5>
+                </div>
+
+                {/* Center Illustration (add.svg) */}
+                <div className="w-full flex-1 flex items-center justify-center py-4 my-auto min-h-[130px]">
+                  {isSubmitted ? (
+                    <div className="flex flex-col items-center gap-2 animate-fade-in-scale">
+                      <span className="text-4xl text-[#3E6C62]">✓</span>
+                      <span className="text-xs font-bold text-[#3E6C62] text-center">
+                        {lang === 'zh' ? '已提交申請！' : 'Submitted!'}
+                      </span>
+                    </div>
+                  ) : (
+                    <img 
+                      src="/projects/mslin-app/illustrations/add.svg" 
+                      className="h-[90px] w-auto object-contain transition-transform duration-300 select-none" 
+                      alt="Add Illustration" 
+                    />
+                  )}
+                </div>
+
+                {/* Bottom Action Button */}
+                <div className="w-full flex flex-col gap-2 mt-2">
+                  {isSubmitted ? (
+                    <button 
+                      onClick={() => setIsSubmitted(false)}
+                      className="w-full py-2.5 text-[12px] font-bold rounded-xl bg-[#3E6C62] text-white transition-all transform active:scale-95 text-center cursor-pointer"
+                    >
+                      {lang === 'zh' ? '重新申請' : 'Request Again'}
+                    </button>
+                  ) : (
+                    <button 
+                      onClick={() => setIsSubmitted(true)}
+                      className="w-full py-2.5 text-[12px] font-bold rounded-xl bg-[#7878FF] hover:bg-[#5858EA] text-white transition-all transform active:scale-95 text-center cursor-pointer shadow-sm"
+                    >
+                      {lang === 'zh' ? '點擊新增' : 'Click to Add'}
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+
+          </div>
+
+          {/* Bottom subject filter switcher (replaces mode switcher) */}
+          <div className="w-full mt-auto bg-gray-100/90 rounded-2xl p-1 flex justify-between items-center gap-0.5 select-none border border-gray-200/40">
+            {subjects.map((sub) => {
+              const isActive = activeSubId === sub.id;
+              const name = lang === 'zh' ? sub.zhName : sub.enName;
+              return (
+                <button
+                  key={sub.id}
+                  onClick={() => setActiveSubId(sub.id)}
+                  className={`flex-1 py-1.5 text-[11px] font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap text-center ${
+                    isActive
+                      ? 'bg-white text-gray-900 shadow-sm border border-gray-200/30 font-extrabold'
+                      : 'text-gray-400 hover:text-gray-700 font-semibold'
+                  }`}
+                >
+                  {name}
+                </button>
+              );
+            })}
+            <button
+              onClick={() => setActiveSubId('add')}
+              className={`py-1.5 px-3 text-[11px] font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap text-center ${
+                activeSubId === 'add'
+                  ? 'bg-[#FFE1E8] text-[#8E3148] border border-[#FF8AA4]/30 font-extrabold'
+                  : 'text-gray-400 hover:text-gray-700 hover:bg-gray-200/20 font-semibold'
+              }`}
+            >
+              {lang === 'zh' ? '+ 新增學科' : '+ Add'}
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    // --- Progress Bar & Step Indicator 互動展示元件 ---
+    const GSATProgressShowcase = () => {
+      const [currentState, setCurrentState] = useState(2); // 預設第二狀態 (0-5 中的 2)
+
+      const progressPercents = [0, 20, 30, 70, 100, 100];
+      const activePercent = progressPercents[currentState];
+
+      return (
+        <div className="flex-1 flex flex-col justify-between gap-6 relative select-none">
+          {/* 上半部：精緻毛玻璃展示區域，無文字單純顯示圖表 */}
+          <div className="flex-1 flex flex-col justify-center py-8 px-8 bg-white/40 rounded-3xl border border-gray-100/50 shadow-inner relative z-20 min-h-[310px] overflow-hidden gap-12">
+            
+            {/* 進度條 (Progress Bar) - 參考附圖二設計：細長圓角、單色無漸變無動態 */}
+            <div className="w-full flex flex-col gap-2">
+              <div className="w-full h-2 bg-gray-100/70 rounded-full overflow-hidden border border-gray-200/10 relative shadow-inner">
+                <div 
+                  className="h-full bg-[#7878FF] rounded-full transition-all duration-500 ease-out"
+                  style={{ width: `${activePercent}%` }}
+                />
+              </div>
+            </div>
+
+            {/* 步驟指示器 (Step Indicator) - 參考附圖三設計：4個步驟、打勾與數值狀態切換 */}
+            <div className="w-full px-2 flex items-center justify-between relative">
+              {/* 底層軌道與進度啟用軌道 */}
+              <div className="absolute left-8 right-8 top-1/2 -translate-y-1/2 h-[2px] bg-gray-100 rounded-full z-0">
+                <div 
+                  className="h-full bg-[#7878FF] rounded-full transition-all duration-500 ease-out" 
+                  style={{
+                    width: 
+                      currentState <= 1 ? '0%' :
+                      currentState === 2 ? '33.33%' :
+                      currentState === 3 ? '66.67%' : '100%'
+                  }}
+                />
+              </div>
+
+              {/* 圓形步驟點 (1 to 4) */}
+              {[1, 2, 3, 4].map((stepNum) => {
+                const isCompleted = stepNum < currentState;
+                const isActive = stepNum === currentState;
+
+                return (
+                  <div key={stepNum} className="flex flex-col items-center z-10 relative">
+                    <button 
+                      onClick={() => setCurrentState(stepNum)}
+                      className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-base transition-all duration-300 transform active:scale-95 border cursor-pointer ${
+                        isActive
+                          ? 'bg-white border-2 border-[#7878FF] text-[#7878FF] shadow-[0_0_16px_rgba(120,120,255,0.2)]'
+                          : isCompleted
+                            ? 'bg-[#7878FF] border-none text-white shadow-sm'
+                            : 'bg-white border-2 border-gray-100 text-gray-300 hover:border-gray-200'
+                      }`}
+                    >
+                      {isCompleted ? (
+                        <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3.5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      ) : (
+                        stepNum
+                      )}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 底部 0-5 切換按鈕區 */}
+          <div className="w-full mt-auto bg-gray-100/90 rounded-2xl p-1 flex justify-between items-center gap-0.5 border border-gray-200/40 select-none">
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2.5 flex-shrink-0">
+              {lang === 'zh' ? '進度切換' : 'Select Stage'}
+            </span>
+            <div className="flex bg-gray-200/20 rounded-xl p-0.5 justify-end gap-0.5 flex-1 max-w-[200px]">
+              {[0, 1, 2, 3, 4, 5].map((num) => {
+                const isActive = currentState === num;
+                return (
+                  <button
+                    key={num}
+                    onClick={() => setCurrentState(num)}
+                    className={`flex-1 py-1 text-[11px] font-extrabold rounded-lg transition-all cursor-pointer text-center ${
+                      isActive
+                        ? 'bg-white text-gray-900 shadow-sm border border-gray-200/30'
+                        : 'text-gray-400 hover:text-gray-700'
+                    }`}
+                  >
+                    {num}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       );
@@ -1507,26 +2179,130 @@ export default function PortfolioApp() {
                     {/* Bento Box Grid */}
                     {activeItem.design.bentoComponents && activeItem.design.bentoComponents.length > 0 && (
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
-                        {activeItem.design.bentoComponents.map((comp, idx) => (
-                          <div key={idx} className={`relative group bg-[#FAFAFA] rounded-[2rem] p-6 shadow-sm border border-gray-100 overflow-hidden min-h-[200px] flex flex-col transition-all hover:shadow-md ${comp.colSpan === 2 ? 'col-span-2' : 'col-span-1 md:col-span-1'}`}>
-                            <span className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">{comp.name}</span>
+                        {(() => {
+                          const comps = activeItem.design.bentoComponents;
+                          const hasInputAndNav = comps.some(c => c.liveComponent === 'input') && comps.some(c => c.liveComponent === 'navigation');
 
-                            {/* Live Component Preview */}
-                            {comp.liveComponent === 'button' ? (
-                              <GSATButtonShowcase />
-                            ) : (
-                              <div className="flex-1 flex items-center justify-center">
-                                <img src={comp.previewImg} className="w-4/5 h-auto object-contain group-hover:scale-105 transition-transform duration-500" alt={comp.name} onError={(e) => e.target.style.display = 'none'} />
+                          if (!hasInputAndNav) {
+                            return comps.map((comp, idx) => (
+                              <div
+                                key={idx}
+                                className={`relative bg-[#FAFAFA] rounded-[2rem] p-6 shadow-sm border border-gray-100 min-h-[200px] flex flex-col transition-all ${comp.liveComponent ? '' : 'overflow-hidden'} ${comp.colSpan === 2 ? 'col-span-2' : 'col-span-1 md:col-span-1'}`}
+                              >
+                                <span className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">{comp.name}</span>
+
+                                {/* Live Component Preview */}
+                                {comp.liveComponent === 'navigation' ? (
+                                  <GSATNavigationShowcase />
+                                ) : comp.liveComponent === 'button' ? (
+                                  <GSATButtonShowcase />
+                                ) : comp.liveComponent === 'dropdown' ? (
+                                  <GSATDropdownShowcase />
+                                ) : comp.liveComponent === 'input' ? (
+                                  <GSATInputShowcase />
+                                ) : comp.liveComponent === 'subject' ? (
+                                  <GSATSubjectCardsShowcase />
+                                ) : comp.liveComponent === 'progress' ? (
+                                  <GSATProgressShowcase />
+                                ) : (
+                                  <div className="flex-1 flex items-center justify-center">
+                                    <img src={comp.previewImg} className="w-4/5 h-auto object-contain transition-transform duration-500" alt={comp.name} onError={(e) => e.target.style.display = 'none'} />
+                                  </div>
+                                )}
+
+                                {/* 查看元件資訊按鈕 */}
+                                <button
+                                  onClick={() => setSelectedComponent(comp)}
+                                  className={`absolute top-4 right-4 z-10 h-10 w-10 ${lang === 'zh' ? 'hover:w-[124px]' : 'hover:w-[162px]'} flex items-center justify-start overflow-hidden bg-white/80 hover:bg-white border border-gray-200/60 backdrop-blur-md shadow-sm hover:shadow-md rounded-full p-0 pl-2.5 hover:pr-3.5 transition-all duration-500 ease-in-out group/btn text-gray-700 hover:text-gray-950 cursor-pointer`}
+                                  title={lang === 'zh' ? '查看元件資訊' : 'View Component Info'}
+                                >
+                                  <IconSearch className="w-5 h-5 flex-shrink-0" />
+                                  <span className="text-xs font-bold font-['Noto_Sans_TC'] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 ease-in-out overflow-hidden whitespace-nowrap ml-2">
+                                    {lang === 'zh' ? '查看元件資訊' : 'View Component Info'}
+                                  </span>
+                                </button>
                               </div>
-                            )}
+                            ));
+                          }
 
-                            {/* Hover Overlay Button */}
-                            <button onClick={() => setSelectedComponent(comp)} className="absolute bottom-4 right-4 bg-white shadow-lg rounded-full p-3 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 hover:bg-gray-900 hover:text-white text-gray-900 flex items-center gap-2">
-                              <IconSearch className="w-5 h-5" />
-                              <span className="text-sm font-bold hidden md:block px-1">View Specs</span>
-                            </button>
-                          </div>
-                        ))}
+                          // Custom grid layout if both input and navigation exist (MS Lin)
+                          const buttonComp = comps.find(c => c.liveComponent === 'button');
+                          const inputComp = comps.find(c => c.liveComponent === 'input');
+                          const navComp = comps.find(c => c.liveComponent === 'navigation');
+                          const dropdownComp = comps.find(c => c.liveComponent === 'dropdown');
+                          const cardsComp = comps.find(c => c.name === 'Cards & Containers' || c.name === 'Progress Bar and Step Indicator' || c.liveComponent === 'progress');
+                          const modalsComp = comps.find(c => c.name === 'Modals & Dialogs');
+                          const subjectComp = comps.find(c => c.name === 'Subject Cards' || c.liveComponent === 'subject');
+
+                          const renderCard = (comp, customClassName = '') => {
+                            if (!comp) return null;
+                            const isLive = !!comp.liveComponent;
+                            return (
+                              <div
+                                key={comp.name}
+                                className={`relative bg-[#FAFAFA] rounded-[2rem] p-6 shadow-sm border border-gray-100 flex flex-col transition-all ${isLive ? '' : 'overflow-hidden'} ${customClassName}`}
+                              >
+                                <span className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">{comp.name}</span>
+
+                                {/* Live Component Preview */}
+                                {comp.liveComponent === 'navigation' ? (
+                                  <GSATNavigationShowcase />
+                                ) : comp.liveComponent === 'button' ? (
+                                  <GSATButtonShowcase />
+                                ) : comp.liveComponent === 'dropdown' ? (
+                                  <GSATDropdownShowcase />
+                                ) : comp.liveComponent === 'input' ? (
+                                  <GSATInputShowcase />
+                                ) : comp.liveComponent === 'subject' ? (
+                                  <GSATSubjectCardsShowcase />
+                                ) : comp.liveComponent === 'progress' ? (
+                                  <GSATProgressShowcase />
+                                ) : (
+                                  <div className="flex-1 flex items-center justify-center">
+                                    <img src={comp.previewImg} className="w-4/5 h-auto object-contain transition-transform duration-500" alt={comp.name} onError={(e) => e.target.style.display = 'none'} />
+                                  </div>
+                                )}
+
+                                {/* 查看元件資訊按鈕 */}
+                                <button
+                                  onClick={() => setSelectedComponent(comp)}
+                                  className={`absolute top-4 right-4 z-10 h-10 w-10 ${lang === 'zh' ? 'hover:w-[124px]' : 'hover:w-[162px]'} flex items-center justify-start overflow-hidden bg-white/80 hover:bg-white border border-gray-200/60 backdrop-blur-md shadow-sm hover:shadow-md rounded-full p-0 pl-2.5 hover:pr-3.5 transition-all duration-500 ease-in-out group/btn text-gray-700 hover:text-gray-950 cursor-pointer`}
+                                  title={lang === 'zh' ? '查看元件資訊' : 'View Component Info'}
+                                >
+                                  <IconSearch className="w-5 h-5 flex-shrink-0" />
+                                  <span className="text-xs font-bold font-['Noto_Sans_TC'] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 ease-in-out overflow-hidden whitespace-nowrap ml-2">
+                                    {lang === 'zh' ? '查看元件資訊' : 'View Component Info'}
+                                  </span>
+                                </button>
+                              </div>
+                            );
+                          };
+
+                          return (
+                            <>
+                              {/* 1. Buttons (col-span-1) */}
+                              {renderCard(buttonComp, 'col-span-1 md:col-span-1 min-h-[200px]')}
+
+                              {/* 2. Vertical Stack (Inputs & Forms + Navigation Bar) (col-span-1) */}
+                              <div className="col-span-1 md:col-span-1 flex flex-col gap-4 md:gap-6 h-full">
+                                {renderCard(inputComp, 'flex-1')}
+                                {renderCard(navComp, 'flex-1')}
+                              </div>
+
+                              {/* 3. Dropdowns & Menus (col-span-1) */}
+                              {renderCard(dropdownComp, 'col-span-1 md:col-span-1 min-h-[200px]')}
+
+                              {/* 4. Subject Cards (col-span-1) */}
+                              {renderCard(subjectComp, 'col-span-1 md:col-span-1 min-h-[200px]')}
+
+                              {/* 5. Cards & Containers (col-span-2) */}
+                              {renderCard(cardsComp, 'col-span-2 md:col-span-2 min-h-[200px]')}
+
+                              {/* 6. Modals & Dialogs (col-span-2) */}
+                              {renderCard(modalsComp, 'col-span-2 md:col-span-2 min-h-[200px]')}
+                            </>
+                          );
+                        })()}
                       </div>
                     )}
 
@@ -1731,11 +2507,13 @@ export default function PortfolioApp() {
 
           {/* Component Detail Modal */}
           {selectedComponent && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300" onClick={() => setSelectedComponent(null)}>
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setSelectedComponent(null)}>
               <div className="bg-white w-full max-w-5xl max-h-[90vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-300" onClick={e => e.stopPropagation()}>
                 <div className="flex items-center justify-between p-6 md:p-8 border-b border-gray-100">
-                  <h3 className="text-2xl font-bold font-['Inter'] text-gray-900">{selectedComponent.name} Specs</h3>
-                  <button onClick={() => setSelectedComponent(null)} className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-900">
+                  <h3 className="text-2xl font-bold font-['Inter'] text-gray-900">
+                    {selectedComponent.name} {lang === 'zh' ? '規格資訊' : 'Specs'}
+                  </h3>
+                  <button onClick={() => setSelectedComponent(null)} className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-900 cursor-pointer">
                     <IconX className="w-6 h-6" />
                   </button>
                 </div>
@@ -1743,15 +2521,23 @@ export default function PortfolioApp() {
                   {selectedComponent.specsImg ? (
                     <img src={selectedComponent.specsImg} alt={`${selectedComponent.name} Specs`} className="w-full h-auto object-contain max-h-[70vh] rounded-xl shadow-sm border border-gray-200" />
                   ) : (
-                    <div className="text-center text-gray-400">
-                      <IconSearch className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                      <p className="font-medium text-lg">Specs details coming soon</p>
+                    <div className="text-center p-8 bg-white/50 backdrop-blur-sm rounded-[2rem] border border-gray-200/50 shadow-inner flex flex-col items-center justify-center max-w-md mx-auto">
+                      <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mb-4 text-orange-500 animate-pulse">
+                        <IconSearch className="w-8 h-8" />
+                      </div>
+                      <p className="font-bold text-gray-800 text-lg mb-2">
+                        {lang === 'zh' ? '規格資訊即將推出' : 'Specs details coming soon'}
+                      </p>
+                      <p className="text-sm text-gray-400">
+                        {lang === 'zh' ? '我們正在整理此元件的詳細設計規格書，敬請期待。' : 'We are preparing the detailed design specs for this component. Stay tuned.'}
+                      </p>
                     </div>
                   )}
                 </div>
               </div>
             </div>
           )}
+
         </div>
       );
     };

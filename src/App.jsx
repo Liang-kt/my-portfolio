@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 // --- 內嵌 SVG 圖示組件 (完全封裝) ---
 const IconArrowLeft = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>;
@@ -86,7 +86,6 @@ const TimelineItem = ({ year, title, subtitle, children, isLast }) => {
   );
 };
 
-// --- 橫向捲動 IA Map 組件 ---
 const HorizontalMapScroll = ({ url }) => {
   const sectionRef = useRef(null);
   const imgRef = useRef(null);
@@ -94,35 +93,140 @@ const HorizontalMapScroll = ({ url }) => {
   const [maxScroll, setMaxScroll] = useState(0);
   const [hasError, setHasError] = useState(false);
 
-  const updateMaxScroll = () => { if (imgRef.current && !hasError) setMaxScroll(Math.max(0, imgRef.current.scrollWidth - window.innerWidth)); };
+  const updateMaxScroll = useCallback(() => {
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      setMaxScroll(0);
+      return;
+    }
+    if (imgRef.current) {
+      // Use offsetWidth which is extremely stable, fast, and unaffected by CSS transforms
+      const contentWidth = imgRef.current.offsetWidth;
+      if (contentWidth > 0) {
+        const maxScrollVal = Math.max(0, contentWidth - window.innerWidth);
+        setMaxScroll(maxScrollVal);
+      }
+    }
+  }, []);
 
+  // Handle image load event directly from the DOM img element
+  const handleImageLoad = () => {
+    updateMaxScroll();
+  };
+
+  useEffect(() => {
+    if (!url) return;
+    setHasError(false);
+
+    // Initial measurement
+    updateMaxScroll();
+
+    // Standard resize listener
+    window.addEventListener('resize', updateMaxScroll);
+
+    // Robust interval to capture width once layout stabilizes in all network environments
+    let count = 0;
+    const interval = setInterval(() => {
+      if (imgRef.current && imgRef.current.offsetWidth > 0) {
+        updateMaxScroll();
+        count++;
+        if (count > 10) clearInterval(interval);
+      }
+    }, 100);
+
+    return () => {
+      window.removeEventListener('resize', updateMaxScroll);
+      clearInterval(interval);
+    };
+  }, [url, updateMaxScroll]);
+
+  // Synchronize scroll listener with changes in maxScroll
   useEffect(() => {
     const updateScroll = () => {
       if (window.innerWidth < 768 || !sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
-      const totalHeight = rect.height - window.innerHeight;
-      let p = rect.top <= 0 ? Math.min(1, Math.max(0, -rect.top / totalHeight)) : 0;
-      setProgress(p);
+      const scrollPassed = -rect.top;
+
+      if (maxScroll <= 0) {
+        setProgress(0);
+        return;
+      }
+
+      const startBuffer = 150;
+      if (scrollPassed < startBuffer) {
+        setProgress(0);
+      } else if (scrollPassed > maxScroll + startBuffer) {
+        setProgress(1);
+      } else {
+        setProgress((scrollPassed - startBuffer) / maxScroll);
+      }
     };
-    window.addEventListener('scroll', updateScroll);
-    window.addEventListener('resize', updateMaxScroll);
+
+    window.addEventListener('scroll', updateScroll, { passive: true });
     updateScroll();
-    setTimeout(updateMaxScroll, 100);
-    return () => { window.removeEventListener('scroll', updateScroll); window.removeEventListener('resize', updateMaxScroll); };
-  }, [hasError]);
+
+    return () => {
+      window.removeEventListener('scroll', updateScroll);
+    };
+  }, [maxScroll]);
 
   const translateX = maxScroll * progress;
+  const startBuffer = 150;
+  const endBuffer = 150;
+  
+  // Clean, JavaScript-controlled height definition to avoid clashes with CSS classes
+  const isDesktop = window.innerWidth >= 768;
+  const sectionHeight = isDesktop
+    ? (maxScroll > 0 ? `${window.innerHeight + maxScroll + startBuffer + endBuffer}px` : '100vh')
+    : 'auto';
 
   return (
-    <section ref={sectionRef} className="md:h-[300vh] relative w-full bg-white z-20">
+    <section ref={sectionRef} style={{ height: sectionHeight }} className="relative w-full bg-white z-20">
       <div className="md:sticky md:top-0 md:h-screen w-full flex items-center overflow-hidden">
-        <div className="md:hidden w-full overflow-x-auto hide-scrollbar py-12 px-6 snap-x snap-mandatory flex">
-          {hasError ? <div className="h-[50vh] w-[80vw] bg-gray-50 border-2 border-dashed border-gray-200 rounded-3xl mx-auto" /> : <img src={url} alt="" className="h-[50vh] w-auto max-w-none snap-center" onError={() => setHasError(true)} onLoad={updateMaxScroll} />}
+        {/* Mobile View */}
+        <div className="md:hidden w-full overflow-x-auto hide-scrollbar py-12 px-6 snap-x snap-mandatory flex flex-shrink-0">
+          {hasError ? (
+            <div className="h-[50vh] w-[80vw] bg-gray-50 border-2 border-dashed border-gray-200 rounded-3xl mx-auto flex-shrink-0" />
+          ) : (
+            <img
+              src={url}
+              alt=""
+              className="h-[50vh] w-auto max-w-none snap-center flex-shrink-0"
+              onError={() => setHasError(true)}
+            />
+          )}
         </div>
-        <div style={{ transform: window.innerWidth >= 768 ? `translateX(${-translateX}px)` : 'none' }} className="hidden md:flex h-full items-center will-change-transform">
-          {hasError ? <div className="h-[70vh] w-[80vw] bg-gray-50 border-2 border-dashed border-gray-200 rounded-[3rem] mx-32 shadow-sm" /> : <img ref={imgRef} src={url} alt="" className="h-[80vh] md:h-[85vh] w-auto max-w-none px-[10vw] object-contain" onLoad={updateMaxScroll} onError={() => setHasError(true)} />}
+        {/* Desktop View */}
+        <div
+          style={{ transform: isDesktop ? `translateX(${-translateX}px)` : 'none' }}
+          className="hidden md:flex h-full items-center will-change-transform flex-shrink-0"
+        >
+          {hasError ? (
+            <div className="h-[70vh] w-[80vw] bg-gray-50 border-2 border-dashed border-gray-200 rounded-[3rem] mx-32 shadow-sm flex-shrink-0" />
+          ) : (
+            <img
+              ref={imgRef}
+              src={url}
+              alt=""
+              className="h-[80vh] md:h-[85vh] w-auto max-w-none px-[10vw] block flex-shrink-0"
+              onLoad={handleImageLoad}
+              onError={() => setHasError(true)}
+            />
+          )}
         </div>
-        {!hasError && <div className="hidden md:flex absolute bottom-12 left-1/2 -translate-x-1/2 items-center gap-4"><div className="h-1 w-48 bg-gray-100 rounded-full overflow-hidden"><div className="h-full bg-cyan-400 transition-all duration-300" style={{ width: `${progress * 100}%` }} /></div><span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Scroll to explore Map</span></div>}
+        {!hasError && isDesktop && (
+          <div className="hidden md:flex absolute bottom-12 left-1/2 -translate-x-1/2 items-center gap-4">
+            <div className="h-1 w-48 bg-gray-100 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-cyan-400 transition-all duration-300"
+                style={{ width: `${progress * 100}%` }}
+              />
+            </div>
+            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+              Scroll to explore Map
+            </span>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -293,7 +397,19 @@ const PROJECTS = [
       componentsImages: ['/projects/msline/components-1.jpg'],
       flowImages: ['/projects/msline/user-flow.jpg'],
       screenGroups: [
-        { title: 'Onboarding ＋ 首頁', screens: ['/projects/msline/onboarding-1.jpg', '/projects/msline/onboarding-2.jpg', '/projects/msline/onboarding-3.jpg', '/projects/msline/onboarding-4.jpg', '/projects/msline/onboarding-5.jpg'] },
+        { title: 'Onboarding ＋ 首頁', screens: [
+          '/projects/mslin-app/screens/key-feature1.jpg',
+          '/projects/mslin-app/screens/key-feature2.jpg',
+          '/projects/mslin-app/screens/key-feature3.jpg',
+          '/projects/mslin-app/screens/cta-page.jpg',
+          '/projects/mslin-app/screens/sign-in.jpg',
+          '/projects/mslin-app/screens/sign-up.jpg',
+          '/projects/mslin-app/screens/onboradinbg-name.jpg',
+          '/projects/mslin-app/screens/onboradinbg-grade.jpg',
+          '/projects/mslin-app/screens/onboradinbg-status.jpg',
+          '/projects/mslin-app/screens/onboradinbg-subject.jpg',
+          '/projects/mslin-app/screens/onboradinbg-notification.jpg'
+        ] },
         { title: '題庫', screens: ['/projects/msline/bank-1.jpg', '/projects/msline/bank-2.jpg', '/projects/msline/bank-3.jpg', '/projects/msline/bank-4.jpg', '/projects/msline/bank-5.jpg'] },
         { title: '我的', screens: ['/projects/msline/profile-1.jpg', '/projects/msline/profile-2.jpg', '/projects/msline/profile-3.jpg', '/projects/msline/profile-4.jpg', '/projects/msline/profile-5.jpg'] },
         {
@@ -387,49 +503,8 @@ const PROJECTS = [
 
 // ========================= 核心架構：主應用程式 =========================
 
-export default function PortfolioApp() {
-  const [lang, setLang] = useState('zh');
-  const [currentPage, setCurrentPage] = useState('home');
-  const [activeItem, setActiveItem] = useState(null);
-  const [scrolled, setScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [homeSelectedFilter, setHomeSelectedFilter] = useState('UI/UX Design');
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const transitionTo = (callback) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      callback();
-      setTimeout(() => setIsTransitioning(false), 50);
-    }, 300); // 配合 CSS duration 300ms
-  };
-
-  useEffect(() => {
-    const handleScroll = () => { const threshold = currentPage === 'home' ? window.innerHeight * 2.4 : 50; setScrolled(window.scrollY > threshold); };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [currentPage]);
-
-  useEffect(() => { if (isMobileMenuOpen) document.body.style.overflow = 'hidden'; else document.body.style.overflow = 'auto'; }, [isMobileMenuOpen]);
-
-  const navigateTo = (page, item = null) => {
-    transitionTo(() => {
-      setCurrentPage(page);
-      setActiveItem(item);
-      setIsMobileMenuOpen(false);
-      window.scrollTo({ top: 0, behavior: 'auto' });
-    });
-  };
-
-  const getFormattedServiceTitle = (title) => {
-    if (title.includes('UI/UX')) return { big: 'UIUX', small: 'App / Web Design' };
-    if (title.includes('Motion')) return { big: 'MOTION GRAPHIC DESIGN', small: 'Animation / 2D' };
-    if (title.includes('Brand')) return { big: 'BRANDING DESIGN', small: 'Strategy / Identity' };
-    return { big: title, small: '' };
-  };
-
-  const Navbar = () => (
+  const Navbar = ({ scrolled, currentPage, navigateTo, lang, setLang, isMobileMenuOpen, setIsMobileMenuOpen }) => (
     <>
       <div className={`fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-between md:justify-center px-4 md:px-6 pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${scrolled || currentPage !== 'home' ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}`}>
         <nav className="pointer-events-auto flex items-center justify-between w-full md:w-auto md:gap-8 px-4 py-2.5 md:px-6 md:py-3 rounded-full bg-white/90 backdrop-blur-xl border border-gray-100 shadow-sm">
@@ -461,7 +536,7 @@ export default function PortfolioApp() {
     </>
   );
 
-  const FooterCTA = () => (
+  const FooterCTA = ({ navigateTo, lang }) => (
     <div className="w-full mt-24 mb-16 px-6 max-w-[100rem] mx-auto text-center">
       <div className="bg-[#F8F9FA] rounded-[3rem] p-12 md:p-32 flex flex-col items-center">
         <h2 className="text-5xl md:text-[6rem] font-bold tracking-tighter mb-8 text-gray-900 leading-tight whitespace-pre-line">{I18N[lang].cta.title}</h2>
@@ -475,21 +550,48 @@ export default function PortfolioApp() {
     </div>
   );
 
-  const HomeView = () => {
-    const [scrollY, setScrollY] = useState(0);
-    const [vh, setVh] = useState(800);
+  const HomeView = ({ lang, homeSelectedFilter, setHomeSelectedFilter, navigateTo }) => {
+    const trackRef = useRef(null);
+    const [progress, setProgress] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-      setVh(window.innerHeight); setIsMobile(window.innerWidth < 768);
-      const handleScroll = () => { window.requestAnimationFrame(() => { setScrollY(window.scrollY); }); };
+      setIsMobile(window.innerWidth < 768);
+      const handleScroll = () => {
+        if (trackRef.current) {
+          const rect = trackRef.current.getBoundingClientRect();
+          const scrollableHeight = rect.height - window.innerHeight;
+          if (scrollableHeight > 0) {
+            const rawProgress = -rect.top / scrollableHeight;
+            setProgress(Math.min(Math.max(rawProgress, 0), 1));
+          }
+        }
+      };
+      
       window.addEventListener('scroll', handleScroll, { passive: true });
-      return () => { window.removeEventListener('scroll', handleScroll); };
+      window.addEventListener('resize', handleScroll);
+      handleScroll();
+      
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', handleScroll);
+      };
     }, []);
 
-    const rawProgress = scrollY / (vh * 1.5); const progress = Math.min(Math.max(rawProgress, 0), 1);
-    const easeProgress = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-    const textTranslateX = easeProgress * -120;
+    // Phase 1: Video expansion, completing by 45% of the overall scroll track
+    const expandProgress = Math.min(progress / 0.45, 1.0);
+    const easeExpand = expandProgress < 0.5 
+      ? 2 * expandProgress * expandProgress 
+      : 1 - Math.pow(-2 * expandProgress + 2, 2) / 2;
+      
+    const textTranslateX = easeExpand * -120;
+    const textOpacity = 1 - easeExpand;
+
+    // Phase 2: Cinematic overlay fade-in, transitioning from 45% to 85% of the scroll track
+    const overlayProgress = progress >= 0.45 ? Math.min((progress - 0.45) / 0.4, 1.0) : 0;
+    const easeOverlay = overlayProgress < 0.5 
+      ? 2 * overlayProgress * overlayProgress 
+      : 1 - Math.pow(-2 * overlayProgress + 2, 2) / 2;
 
     const filteredProjects = PROJECTS.filter(p => {
       if (homeSelectedFilter === 'UI/UX Design') return p.categoryId === 'uiux';
@@ -499,18 +601,51 @@ export default function PortfolioApp() {
     });
 
     return (
-      <div className="animate-in fade-in duration-700 bg-[#F6F6F6]">
-        <div className="h-[250vh] w-full relative">
-          <section className="sticky top-0 h-[100svh] w-full flex flex-col md:flex-row items-center justify-between px-6 md:px-12 overflow-hidden bg-[#F6F6F6] z-0">
-            <div className="w-full md:w-[75%] pt-40 md:pt-0 z-30 pointer-events-none will-change-transform" style={{ transform: `translateX(${textTranslateX}vw)` }}>
+      <div className="bg-[#F6F6F6]">
+        {/* Set explicit inline style heights to guarantee viewport scaling is 100% robust across all browsers */}
+        <div ref={trackRef} style={{ height: '400vh' }} className="w-full relative">
+          <section style={{ height: '100vh' }} className="sticky top-0 w-full flex flex-col md:flex-row items-center justify-between px-6 md:px-12 overflow-hidden bg-[#F6F6F6] z-0">
+            {/* Phase 1: Original Left Text Container */}
+            <div className="w-full md:w-[75%] pt-40 md:pt-0 z-30 pointer-events-none will-change-transform animate-in fade-in duration-700" style={{ transform: `translateX(${textTranslateX}vw)`, opacity: textOpacity }}>
               <h2 className="text-xl md:text-2xl text-orange-600 mb-6 font-medium flex items-center gap-2"><span className="text-4xl leading-none -mt-2">*</span> We are digital design</h2>
               <h1 className="text-[12vw] md:text-[6.5rem] lg:text-[8.5rem] xl:text-[9.5rem] leading-[0.8] font-black tracking-tighter text-[#252525] mb-8 whitespace-nowrap">TIFFANY LIANG</h1>
               <p className="text-lg md:text-xl text-gray-500 max-w-md leading-relaxed font-medium mt-8 whitespace-normal">
                 {lang === 'en' ? 'Beautiful design has the power to captivate audiences. Translating brand philosophies and abstract concepts into visual narratives.' : 'Beautiful design has the power to captivate audiences. 轉化品牌理念與抽象概念為視覺敘事。'}
               </p>
             </div>
-            <div className="absolute bottom-0 right-0 z-20 flex items-center justify-center bg-[#EAEAEC] shadow-2xl overflow-hidden will-change-[width,height,border-radius]" style={{ width: isMobile ? '100%' : `${50 + (50 * easeProgress)}%`, height: isMobile ? `${40 + (60 * easeProgress)}vh` : '100%', borderTopLeftRadius: `${isMobile ? 3 * (1 - easeProgress) : 6 * (1 - easeProgress)}rem`, borderTopRightRadius: isMobile ? `${3 * (1 - easeProgress)}rem` : '0', }}>
+            
+            {/* Expanding Video Container */}
+            <div 
+              className="absolute bottom-0 right-0 z-20 flex items-center justify-center bg-[#EAEAEC] shadow-2xl overflow-hidden will-change-[width,height,border-radius] animate-in fade-in duration-1000" 
+              style={{ 
+                width: isMobile ? '100%' : `${50 + (50 * easeExpand)}%`, 
+                height: isMobile ? `${40 + (60 * easeExpand)}vh` : '100%', 
+                borderTopLeftRadius: `${isMobile ? 3 * (1 - easeExpand) : 6 * (1 - easeExpand)}rem`, 
+                borderTopRightRadius: isMobile ? `${3 * (1 - easeExpand)}rem` : '0', 
+              }}
+            >
               <video src="/hero-page_showreel.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover absolute inset-0" />
+              
+              {/* Dynamic Dark Tint Overlay for Legibility */}
+              <div 
+                className="absolute inset-0 bg-black/40 pointer-events-none transition-opacity duration-300 z-21" 
+                style={{ opacity: easeOverlay * 0.5 }} 
+              />
+              
+              {/* Cinematic Center Text Overlay (Phase 2) */}
+              <div 
+                style={{ 
+                  opacity: easeOverlay, 
+                  transform: `translateY(${(1 - easeOverlay) * 20}px)` 
+                }} 
+                className="absolute inset-0 z-25 flex flex-col items-center justify-center pointer-events-none text-white px-6 text-center select-none"
+              >
+                <span className="text-orange-500 font-bold tracking-[0.3em] text-xs md:text-sm uppercase mb-4">TIFFANY LIANG</span>
+                <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-widest uppercase leading-none mb-6">PORTFOLIO / 2026</h2>
+                <div className="flex items-center gap-2 mt-4 animate-bounce">
+                  <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-white/70">SCROLL DOWN TO EXPLORE WORKS</span>
+                </div>
+              </div>
             </div>
           </section>
         </div>
@@ -556,13 +691,13 @@ export default function PortfolioApp() {
               ))}
             </div>
           </div>
-          <FooterCTA />
+          <FooterCTA navigateTo={navigateTo} lang={lang} />
         </div>
       </div>
     );
   };
 
-  const WorkCategoryCard = ({ cat, idx, isLast, navigateTo, coverUrl, isVideo }) => (
+  const WorkCategoryCard = ({ cat, idx, isLast, navigateTo, coverUrl, isVideo, lang }) => (
     <div className={`w-full sticky ${isLast ? 'mb-0' : 'mb-[15vh] md:mb-[40vh]'}`} style={{ top: `calc(10vh + ${idx * 1.5}rem)` }}>
       <div onClick={() => navigateTo('category', cat.id)} className="w-full h-[55vh] md:h-[65vh] group cursor-pointer overflow-hidden rounded-[1.5rem] md:rounded-[4rem] relative">
         <div className="absolute inset-0 bg-black transition-colors duration-700"><div className="w-full h-full transform group-hover:scale-105 transition-transform duration-[1.5s] ease-out opacity-60 group-hover:opacity-40">{isVideo ? <OptimizedVideo src={coverUrl} className="w-full h-full" /> : coverUrl ? <img src={coverUrl} alt={cat.title} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-gray-900" />}</div></div>
@@ -571,16 +706,16 @@ export default function PortfolioApp() {
     </div>
   );
 
-  const WorksView = () => (
+  const WorksView = ({ navigateTo, lang }) => (
     <div className="bg-[#F6F6F6] animate-in fade-in duration-700 min-h-screen">
       <div className="bg-white pt-32 md:pt-40 pb-16 md:pb-32 px-6 md:px-12 rounded-b-[2rem] md:rounded-b-[4rem] relative z-10 shadow-[0_20px_60px_rgba(0,0,0,0.05)]">
         <div className="max-w-[100rem] mx-auto"><h3 className="text-orange-500 font-bold tracking-widest uppercase mb-2 md:mb-4 text-sm md:text-base">Portfolio</h3><h1 className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-wide text-gray-900 leading-none uppercase">Works</h1><p className="mt-6 md:mt-8 text-base md:text-xl lg:text-2xl text-gray-500 max-w-3xl leading-relaxed tracking-wide font-medium">Explore my selected projects across UI/UX Design, Motion Graphics, and Branding. 透過不同領域的視覺敘事，探索我的精選作品。</p></div>
       </div>
-      <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-16 md:pt-20 pb-20 md:pb-32 relative z-0">{CATEGORIES.map((cat, idx) => { const coverProject = PROJECTS.find(p => p.categoryId === cat.id && p.coverMedia && p.coverMedia.url); return <WorkCategoryCard key={cat.id} cat={cat} idx={idx} isLast={idx === CATEGORIES.length - 1} navigateTo={navigateTo} coverUrl={coverProject?.coverMedia.url} isVideo={coverProject?.coverMedia.type === 'video'} />; })}</div>
+      <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-16 md:pt-20 pb-20 md:pb-32 relative z-0">{CATEGORIES.map((cat, idx) => { const coverProject = PROJECTS.find(p => p.categoryId === cat.id && p.coverMedia && p.coverMedia.url); return <WorkCategoryCard key={cat.id} cat={cat} idx={idx} isLast={idx === CATEGORIES.length - 1} navigateTo={navigateTo} coverUrl={coverProject?.coverMedia.url} isVideo={coverProject?.coverMedia.type === 'video'} lang={lang} />; })}</div>
     </div>
   );
 
-  const CategoryListView = () => {
+  const CategoryListView = ({ activeItem, navigateTo, lang }) => {
     const categoryInfo = CATEGORIES.find(c => c.id === activeItem);
     const filteredProjects = PROJECTS.filter(p => p.categoryId === activeItem);
     useEffect(() => { window.scrollTo(0, 0); }, []);
@@ -592,7 +727,6 @@ export default function PortfolioApp() {
     );
   };
 
-  // --- 可水平捲動的 Screens 元件 ---
   const ScrollableScreenRow = ({ screens, groupTitle }) => {
     const scrollRef = useRef(null);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -601,8 +735,8 @@ export default function PortfolioApp() {
     const checkScroll = () => {
       if (scrollRef.current) {
         const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-        setCanScrollLeft(scrollLeft > 0);
-        setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+        setCanScrollLeft(scrollLeft > 10);
+        setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
       }
     };
 
@@ -643,22 +777,27 @@ export default function PortfolioApp() {
             )}
           </>
         )}
-        <div ref={scrollRef} onScroll={checkScroll} className="w-full overflow-x-auto hide-scrollbar snap-x snap-mandatory flex gap-4 md:gap-6 pb-6 pt-2 scroll-smooth">
+        <div ref={scrollRef} onScroll={checkScroll} className="overflow-x-auto hide-scrollbar snap-x snap-mandatory flex gap-4 md:gap-6 pb-8 pt-4 full-viewport-carousel scroll-smooth">
+          {/* Left Spacer to align Card 0 with standard page content margins */}
+          <div className="carousel-spacer snap-start" />
+          
           {screens && screens.map((screen, i) => (
-            <div key={`${groupTitle}-${i}`} className="flex-none w-[70%] sm:w-[45%] md:w-[23%] bg-[#F6F6F6] rounded-[2rem] aspect-[9/16] overflow-hidden flex items-center justify-center shadow-sm snap-start animate-in fade-in zoom-in-95 duration-500">
-              <img src={screen} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt={`${groupTitle} Screen ${i + 1}`} onError={(e) => e.target.style.display = 'none'} />
+            <div 
+              key={`${groupTitle}-${i}`} 
+              className={`flex-none w-[70%] sm:w-[45%] md:w-[23%] bg-[#F6F6F6] rounded-[2rem] overflow-hidden shadow-sm ${i === 0 ? '' : 'snap-start'}`}
+            >
+              <img src={screen} className="w-full h-auto block" alt={`${groupTitle} Screen ${i + 1}`} onError={(e) => e.target.style.display = 'none'} />
             </div>
           ))}
+
+          {/* Right Spacer to provide identical end padding matching page margins */}
+          <div className="carousel-spacer snap-end" />
         </div>
       </div>
     );
   };
 
-  const ProjectView = () => {
-    if (!activeItem) return null;
-
-    // --- 封裝重複的返回按鈕元件 (直接回到首頁的精選作品區塊) ---
-    const BackButton = () => {
+    const BackButton = ({ transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, lang }) => {
       const handleBack = () => {
         transitionTo(() => {
           setCurrentPage('home');
@@ -733,189 +872,6 @@ export default function PortfolioApp() {
       );
     };
 
-    // --- Product Visual Design 通用版型元件 ---
-    const GenericVisualProjectView = () => {
-      let sectionIndex = 1;
-      const getSectionNum = () => String(sectionIndex++).padStart(2, '0');
-      const hasMascot = activeItem.mascotDesign && activeItem.mascotDesign.description;
-
-      return (
-        <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
-          <div className="pt-32 md:pt-40 px-6 md:px-12 max-w-[100rem] mx-auto mb-12">
-            <BackButton />
-            <h1 className="text-4xl md:text-6xl lg:text-[7rem] font-black mb-8 md:mb-12 tracking-wide uppercase leading-tight md:leading-none font-bold text-gray-900">{t(activeItem.title, lang)}</h1>
-          </div>
-
-          {/* Hero Section */}
-          {activeItem.heroMedia && (
-            <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden">
-              {activeItem.heroMedia.type === 'video' ?
-                <div className="w-full h-auto z-10">
-                  <OptimizedVideo src={activeItem.heroMedia.url} className="w-full h-auto" />
-                </div> :
-                <img src={activeItem.heroMedia.url} className="w-full h-auto block object-contain z-10" alt={t(activeItem.title, lang)} onError={(e) => e.target.style.display = 'none'} />
-              }
-            </div>
-          )}
-
-          {/* 01 Project Overview */}
-          {activeItem.projectOverview && (
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
-              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.overview}</h3></div>
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
-                <div className="space-y-8">
-                  {activeItem.projectOverview.clientLogoUrl && (
-                    <div>
-                      <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">{I18N[lang].project.client}</p>
-                      <img src={activeItem.projectOverview.clientLogoUrl} alt="Client Logo" className="h-8 md:h-12 w-auto object-contain origin-left" onError={(e) => { e.target.style.display = 'none'; }} />
-                    </div>
-                  )}
-                  {activeItem.year && (
-                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.year}</p><p className="text-xl font-medium text-gray-800">{activeItem.year}</p></div>
-                  )}
-                  {activeItem.projectOverview.myRole && (
-                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.myRole}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.myRole, lang)}</p></div>
-                  )}
-                  {activeItem.projectOverview.service && (
-                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.service}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.service, lang)}</p></div>
-                  )}
-                </div>
-                <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] whitespace-pre-line">
-                  {activeItem.projectOverview.backgroundAndGoals && (
-                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.background}</h4><p>{t(activeItem.projectOverview.backgroundAndGoals, lang)}</p></div>
-                  )}
-                  {activeItem.projectOverview.challenge && (
-                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.challenge}</h4><p>{t(activeItem.projectOverview.challenge, lang)}</p></div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* 02 Brand Identity */}
-          {activeItem.brandIdentity && (
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
-              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.brand}</h3></div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-                <div className="bg-[#EAE8F2] rounded-[2rem] p-12 md:p-20 flex items-center justify-center min-h-[300px] overflow-hidden">
-                  {activeItem.brandIdentity.motionVideoUrl ? (
-                    <OptimizedVideo src={activeItem.brandIdentity.motionVideoUrl} className="w-full h-full object-cover rounded-[1rem]" />
-                  ) : activeItem.brandIdentity.logoImage ? (
-                    <img src={activeItem.brandIdentity.logoImage} className="max-w-full max-h-[150px] object-contain" alt="Brand Logo" />
-                  ) : (
-                    <span className="text-gray-400 font-bold tracking-widest uppercase">Logo Design</span>
-                  )}
-                </div>
-                <div className="space-y-12">
-                  {activeItem.brandIdentity.typography && (
-                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.typography}</h4><div className="bg-[#FAFAFA] rounded-2xl p-8 border border-gray-100"><div className="text-[80px] font-bold leading-none mb-6 text-gray-900 font-['Inter']">Aa</div><p className="text-xl text-gray-600 font-medium whitespace-pre-line">{t(activeItem.brandIdentity.typography, lang)}</p></div></div>
-                  )}
-                  {activeItem.brandIdentity.colors && activeItem.brandIdentity.colors.length > 0 && (
-                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.colors}</h4><div className="flex flex-wrap gap-4">{activeItem.brandIdentity.colors.map(color => (<div key={color} className="w-16 h-16 md:w-20 md:h-20 rounded-full shadow-inner border border-gray-200" style={{ backgroundColor: color }}></div>))}</div></div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* 03 Mascot Design */}
-          {hasMascot && (
-            <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-                <div className="flex flex-col mb-16 border-b border-gray-200 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.mascot}</h3></div>
-                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.mascotDesign.description, lang)}</p>
-                {activeItem.mascotDesign.images && activeItem.mascotDesign.images.length > 0 && (
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                    {activeItem.mascotDesign.images.map((img, i) => (
-                      <div key={i} className="bg-white rounded-[2rem] aspect-square overflow-hidden shadow-sm flex items-center justify-center">
-                        {img.endsWith('.mp4') ? <OptimizedVideo src={img} className="w-full h-full object-cover" /> : <img src={img} className="w-full h-full object-cover" alt="Mascot" onError={(e) => e.target.style.display = 'none'} />}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* 04 Icon System */}
-          {activeItem.visuals?.iconSystem && (
-            <div className="w-full mb-24 md:mb-40">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-100 pb-10">
-                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2>
-                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Icon System</h3>
-              </div>
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-                {activeItem.visuals.iconSystem.description && (
-                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.iconSystem.description, lang)}</p>
-                )}
-                {activeItem.visuals.iconSystem.icons && activeItem.visuals.iconSystem.icons.length > 0 && (
-                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 md:gap-6">
-                    {activeItem.visuals.iconSystem.icons.map((icon, i) => (
-                      <div key={i} className="bg-white border border-gray-100 rounded-2xl aspect-square flex flex-col items-center justify-center relative group hover:border-orange-500 hover:shadow-lg transition-all duration-300">
-                        <div className="w-1/2 h-1/2 relative z-10 opacity-70 group-hover:opacity-100 transition-opacity group-hover:scale-110 duration-300">
-                          {icon.endsWith('.mp4') ? <OptimizedVideo src={icon} className="w-full h-full" /> : <img src={icon} className="w-full h-full object-contain" alt="Icon" />}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* 05 Illustration & Animation */}
-          {activeItem.visuals?.illustrationAnimation && (
-            <div className="w-full bg-[#FAFAFA] py-24 md:py-32 mb-24 md:mb-40">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-200 pb-10">
-                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2>
-                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Illustration & Animation</h3>
-              </div>
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-                {activeItem.visuals.illustrationAnimation.description && (
-                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.illustrationAnimation.description, lang)}</p>
-                )}
-                {activeItem.visuals.illustrationAnimation.videos && activeItem.visuals.illustrationAnimation.videos.length > 0 && (
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-                    {activeItem.visuals.illustrationAnimation.videos.map((vid, i) => (
-                      <div key={i} className="w-full aspect-video bg-white rounded-[2rem] shadow-sm flex items-center justify-center overflow-hidden border border-gray-100">
-                        {vid.endsWith('.mp4') ? <OptimizedVideo src={vid} className="w-full h-full relative z-10" /> : <img src={vid} className="w-full h-full object-cover" alt="Illustration" />}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* 06 Application */}
-          {activeItem.visuals?.application && (
-            <div className="w-full mb-24 md:mb-40">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-100 pb-10">
-                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2>
-                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Application</h3>
-              </div>
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-                {activeItem.visuals.application.description && (
-                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.application.description, lang)}</p>
-                )}
-                {activeItem.visuals.application.images && activeItem.visuals.application.images.length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {activeItem.visuals.application.images.map((img, i) => (
-                      <div key={i} className="w-full bg-[#EAEAEC] rounded-[2rem] overflow-hidden shadow-sm flex items-center justify-center">
-                        <img src={img} className="w-full h-auto object-cover" alt="Application" />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          <FooterCTA />
-        </div>
-      );
-    };
-    // --- 長圖捲動標註元件 ---
     const AnnotationItem = ({ annotation, lang }) => {
       const [ref, isVisible] = useOnScreen({ threshold: 0.1, rootMargin: '0px 0px -20% 0px' });
       const { top, left, align, title, desc } = annotation;
@@ -947,7 +903,6 @@ export default function PortfolioApp() {
       );
     };
 
-    // --- 自訂下拉選單元件 ---
     const CustomSelect = ({ label, value, options, onChange, openUp = false }) => {
       const [open, setOpen] = useState(false);
       const ref = useRef(null);
@@ -990,9 +945,7 @@ export default function PortfolioApp() {
       );
     };
 
-
-    // --- GSAT App Button 互動展示元件 ---
-    const GSATButtonShowcase = () => {
+    const GSATButtonShowcase = ({ lang }) => {
       const [btnSize, setBtnSize] = useState('M'); // L | M | S | Ex S
       const [btnStyle, setBtnStyle] = useState('Primary'); // Primary | Outline | Ghost
       const [btnStatus, setBtnStatus] = useState('Default'); // Default | Active | Disable
@@ -1182,8 +1135,7 @@ export default function PortfolioApp() {
       );
     };
 
-    // --- GSAT App Navigation Bar 互動展示元件 ---
-    const GSATNavigationShowcase = () => {
+    const GSATNavigationShowcase = ({ lang }) => {
       const [activeTab, setActiveTab] = useState('Home'); // Home | Book | Wrong | Saved | Profile
 
       const tabs = [
@@ -1278,8 +1230,8 @@ export default function PortfolioApp() {
       );
     };
 
-    // --- GSAT App Dropdown & Menu 互動展示元件 ---
-    const GSATDropdownShowcase = () => {
+
+    const GSATDropdownShowcase = ({ lang }) => {
       const [isOpen, setIsOpen] = useState(false);
       const [dropdownState, setDropdownState] = useState('Interactive'); // Interactive | Disabled
 
@@ -1386,8 +1338,8 @@ export default function PortfolioApp() {
       );
     };
 
-    // --- GSAT App Input 互動展示元件 ---
-    const GSATInputShowcase = () => {
+
+    const GSATInputShowcase = ({ lang }) => {
       const [inputState, setInputState] = useState('Default'); // Default | Focus | Disable | Erro
       const [inputValue, setInputValue] = useState('');
 
@@ -1497,7 +1449,7 @@ export default function PortfolioApp() {
       );
     };
 
-    const GSATSubjectCardsShowcase = () => {
+    const GSATSubjectCardsShowcase = ({ lang }) => {
       const [activeSubId, setActiveSubId] = useState('mathA');
       const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -1646,8 +1598,8 @@ export default function PortfolioApp() {
       );
     };
 
-    // --- Progress Bar & Step Indicator 互動展示元件 ---
-    const GSATProgressShowcase = () => {
+
+    const GSATProgressShowcase = ({ lang }) => {
       const [currentState, setCurrentState] = useState(2); // 預設第二狀態 (0-5 中的 2)
 
       const progressPercents = [0, 20, 30, 70, 100, 100];
@@ -1742,7 +1694,7 @@ export default function PortfolioApp() {
       );
     };
 
-    // --- 網站設計長條展示：桌面版＋手機版置中交疊，左右交錯標註 ---
+
     const WebShowcaseStrip = ({ items }) => {
       if (!items || items.length === 0) return null;
       const mobileItems = items.filter(item => item.mobile).map(item => item.mobile);
@@ -1828,7 +1780,6 @@ export default function PortfolioApp() {
       );
     };
 
-    // --- 長條展示：單一桌面媒體項目 + 右側標註 ---
     const WebShowcaseStripItem = ({ item, index, totalItems, desktopLeft, desktopWidth, mobileRight }) => {
       const [ref, isVisible] = useOnScreen({ threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
       const isLast = index === totalItems - 1;
@@ -1864,7 +1815,6 @@ export default function PortfolioApp() {
       );
     };
 
-    // --- 長條展示：影片項目 ---
     const WebShowcaseVideo = ({ src }) => {
       const [isLoaded, setIsLoaded] = useState(false);
       const [hasError, setHasError] = useState(false);
@@ -1899,7 +1849,6 @@ export default function PortfolioApp() {
       );
     };
 
-    // --- 長條展示：圖片項目 ---
     const WebShowcaseImage = ({ src }) => {
       const [hasError, setHasError] = useState(false);
 
@@ -1924,8 +1873,189 @@ export default function PortfolioApp() {
     };
 
 
-    // --- UI/UX 通用版型元件 ---
-    const GenericUIUXProjectView = () => {
+    const GenericVisualProjectView = ({ activeItem, lang, transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, navigateTo }) => {
+      let sectionIndex = 1;
+      const getSectionNum = () => String(sectionIndex++).padStart(2, '0');
+      const hasMascot = activeItem.mascotDesign && activeItem.mascotDesign.description;
+
+      return (
+        <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
+          <div className="pt-32 md:pt-40 px-6 md:px-12 max-w-[100rem] mx-auto mb-12">
+            <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
+            <h1 className="text-4xl md:text-6xl lg:text-[7rem] font-black mb-8 md:mb-12 tracking-wide uppercase leading-tight md:leading-none font-bold text-gray-900">{t(activeItem.title, lang)}</h1>
+          </div>
+
+          {/* Hero Section */}
+          {activeItem.heroMedia && (
+            <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden">
+              {activeItem.heroMedia.type === 'video' ?
+                <div className="w-full h-auto z-10">
+                  <OptimizedVideo src={activeItem.heroMedia.url} className="w-full h-auto" />
+                </div> :
+                <img src={activeItem.heroMedia.url} className="w-full h-auto block object-contain z-10" alt={t(activeItem.title, lang)} onError={(e) => e.target.style.display = 'none'} />
+              }
+            </div>
+          )}
+
+          {/* 01 Project Overview */}
+          {activeItem.projectOverview && (
+            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.overview}</h3></div>
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
+                <div className="space-y-8">
+                  {activeItem.projectOverview.clientLogoUrl && (
+                    <div>
+                      <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">{I18N[lang].project.client}</p>
+                      <img src={activeItem.projectOverview.clientLogoUrl} alt="Client Logo" className="h-8 md:h-12 w-auto object-contain origin-left" onError={(e) => { e.target.style.display = 'none'; }} />
+                    </div>
+                  )}
+                  {activeItem.year && (
+                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.year}</p><p className="text-xl font-medium text-gray-800">{activeItem.year}</p></div>
+                  )}
+                  {activeItem.projectOverview.myRole && (
+                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.myRole}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.myRole, lang)}</p></div>
+                  )}
+                  {activeItem.projectOverview.service && (
+                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.service}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.service, lang)}</p></div>
+                  )}
+                </div>
+                <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] whitespace-pre-line">
+                  {activeItem.projectOverview.backgroundAndGoals && (
+                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.background}</h4><p>{t(activeItem.projectOverview.backgroundAndGoals, lang)}</p></div>
+                  )}
+                  {activeItem.projectOverview.challenge && (
+                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.challenge}</h4><p>{t(activeItem.projectOverview.challenge, lang)}</p></div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 02 Brand Identity */}
+          {activeItem.brandIdentity && (
+            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.brand}</h3></div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                <div className="bg-[#EAE8F2] rounded-[2rem] p-12 md:p-20 flex items-center justify-center min-h-[300px] overflow-hidden">
+                  {activeItem.brandIdentity.motionVideoUrl ? (
+                    <OptimizedVideo src={activeItem.brandIdentity.motionVideoUrl} className="w-full h-full object-cover rounded-[1rem]" />
+                  ) : activeItem.brandIdentity.logoImage ? (
+                    <img src={activeItem.brandIdentity.logoImage} className="max-w-full max-h-[150px] object-contain" alt="Brand Logo" />
+                  ) : (
+                    <span className="text-gray-400 font-bold tracking-widest uppercase">Logo Design</span>
+                  )}
+                </div>
+                <div className="space-y-12">
+                  {activeItem.brandIdentity.typography && (
+                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.typography}</h4><div className="bg-[#FAFAFA] rounded-2xl p-8 border border-gray-100"><div className="text-[80px] font-bold leading-none mb-6 text-gray-900 font-['Inter']">Aa</div><p className="text-xl text-gray-600 font-medium whitespace-pre-line">{t(activeItem.brandIdentity.typography, lang)}</p></div></div>
+                  )}
+                  {activeItem.brandIdentity.colors && activeItem.brandIdentity.colors.length > 0 && (
+                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.colors}</h4><div className="flex flex-wrap gap-4">{activeItem.brandIdentity.colors.map(color => (<div key={color} className="w-16 h-16 md:w-20 md:h-20 rounded-full shadow-inner border border-gray-200" style={{ backgroundColor: color }}></div>))}</div></div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 03 Mascot Design */}
+          {hasMascot && (
+            <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                <div className="flex flex-col mb-16 border-b border-gray-200 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.mascot}</h3></div>
+                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.mascotDesign.description, lang)}</p>
+                {activeItem.mascotDesign.images && activeItem.mascotDesign.images.length > 0 && (
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    {activeItem.mascotDesign.images.map((img, i) => (
+                      <div key={i} className="bg-white rounded-[2rem] aspect-square overflow-hidden shadow-sm flex items-center justify-center">
+                        {img.endsWith('.mp4') ? <OptimizedVideo src={img} className="w-full h-full object-cover" /> : <img src={img} className="w-full h-full object-cover" alt="Mascot" onError={(e) => e.target.style.display = 'none'} />}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 04 Icon System */}
+          {activeItem.visuals?.iconSystem && (
+            <div className="w-full mb-24 md:mb-40">
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-100 pb-10">
+                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2>
+                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Icon System</h3>
+              </div>
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                {activeItem.visuals.iconSystem.description && (
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.iconSystem.description, lang)}</p>
+                )}
+                {activeItem.visuals.iconSystem.icons && activeItem.visuals.iconSystem.icons.length > 0 && (
+                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 md:gap-6">
+                    {activeItem.visuals.iconSystem.icons.map((icon, i) => (
+                      <div key={i} className="bg-white border border-gray-100 rounded-2xl aspect-square flex flex-col items-center justify-center relative group hover:border-orange-500 hover:shadow-lg transition-all duration-300">
+                        <div className="w-1/2 h-1/2 relative z-10 opacity-70 group-hover:opacity-100 transition-opacity group-hover:scale-110 duration-300">
+                          {icon.endsWith('.mp4') ? <OptimizedVideo src={icon} className="w-full h-full" /> : <img src={icon} className="w-full h-full object-contain" alt="Icon" />}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 05 Illustration & Animation */}
+          {activeItem.visuals?.illustrationAnimation && (
+            <div className="w-full bg-[#FAFAFA] py-24 md:py-32 mb-24 md:mb-40">
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-200 pb-10">
+                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2>
+                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Illustration & Animation</h3>
+              </div>
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                {activeItem.visuals.illustrationAnimation.description && (
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.illustrationAnimation.description, lang)}</p>
+                )}
+                {activeItem.visuals.illustrationAnimation.videos && activeItem.visuals.illustrationAnimation.videos.length > 0 && (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+                    {activeItem.visuals.illustrationAnimation.videos.map((vid, i) => (
+                      <div key={i} className="w-full aspect-video bg-white rounded-[2rem] shadow-sm flex items-center justify-center overflow-hidden border border-gray-100">
+                        {vid.endsWith('.mp4') ? <OptimizedVideo src={vid} className="w-full h-full relative z-10" /> : <img src={vid} className="w-full h-full object-cover" alt="Illustration" />}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 06 Application */}
+          {activeItem.visuals?.application && (
+            <div className="w-full mb-24 md:mb-40">
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-100 pb-10">
+                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2>
+                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Application</h3>
+              </div>
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                {activeItem.visuals.application.description && (
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.application.description, lang)}</p>
+                )}
+                {activeItem.visuals.application.images && activeItem.visuals.application.images.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {activeItem.visuals.application.images.map((img, i) => (
+                      <div key={i} className="w-full bg-[#EAEAEC] rounded-[2rem] overflow-hidden shadow-sm flex items-center justify-center">
+                        <img src={img} className="w-full h-auto object-cover" alt="Application" />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          <FooterCTA navigateTo={navigateTo} lang={lang} />
+        </div>
+      );
+    };
+
+    const GenericUIUXProjectView = ({ activeItem, lang, transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, navigateTo }) => {
       const isApp = activeItem.platform === 'app';
       const hasMascot = activeItem.mascotDesign && activeItem.mascotDesign.description;
       let sectionIndex = 1;
@@ -1936,7 +2066,7 @@ export default function PortfolioApp() {
       return (
         <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
           <div className="pt-32 md:pt-40 px-6 md:px-12 max-w-[100rem] mx-auto mb-12">
-            <BackButton />
+            <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
             <h1 className="text-4xl md:text-6xl lg:text-[7rem] font-black mb-8 md:mb-12 tracking-wide uppercase leading-tight md:leading-none font-bold text-gray-900">{t(activeItem.title, lang)}</h1>
           </div>
 
@@ -2193,17 +2323,17 @@ export default function PortfolioApp() {
 
                                 {/* Live Component Preview */}
                                 {comp.liveComponent === 'navigation' ? (
-                                  <GSATNavigationShowcase />
+                                  <GSATNavigationShowcase lang={lang} />
                                 ) : comp.liveComponent === 'button' ? (
-                                  <GSATButtonShowcase />
+                                  <GSATButtonShowcase lang={lang} />
                                 ) : comp.liveComponent === 'dropdown' ? (
-                                  <GSATDropdownShowcase />
+                                  <GSATDropdownShowcase lang={lang} />
                                 ) : comp.liveComponent === 'input' ? (
-                                  <GSATInputShowcase />
+                                  <GSATInputShowcase lang={lang} />
                                 ) : comp.liveComponent === 'subject' ? (
-                                  <GSATSubjectCardsShowcase />
+                                  <GSATSubjectCardsShowcase lang={lang} />
                                 ) : comp.liveComponent === 'progress' ? (
-                                  <GSATProgressShowcase />
+                                  <GSATProgressShowcase lang={lang} />
                                 ) : (
                                   <div className="flex-1 flex items-center justify-center">
                                     <img src={comp.previewImg} className="w-4/5 h-auto object-contain transition-transform duration-500" alt={comp.name} onError={(e) => e.target.style.display = 'none'} />
@@ -2246,17 +2376,17 @@ export default function PortfolioApp() {
 
                                 {/* Live Component Preview */}
                                 {comp.liveComponent === 'navigation' ? (
-                                  <GSATNavigationShowcase />
+                                  <GSATNavigationShowcase lang={lang} />
                                 ) : comp.liveComponent === 'button' ? (
-                                  <GSATButtonShowcase />
+                                  <GSATButtonShowcase lang={lang} />
                                 ) : comp.liveComponent === 'dropdown' ? (
-                                  <GSATDropdownShowcase />
+                                  <GSATDropdownShowcase lang={lang} />
                                 ) : comp.liveComponent === 'input' ? (
-                                  <GSATInputShowcase />
+                                  <GSATInputShowcase lang={lang} />
                                 ) : comp.liveComponent === 'subject' ? (
-                                  <GSATSubjectCardsShowcase />
+                                  <GSATSubjectCardsShowcase lang={lang} />
                                 ) : comp.liveComponent === 'progress' ? (
-                                  <GSATProgressShowcase />
+                                  <GSATProgressShowcase lang={lang} />
                                 ) : (
                                   <div className="flex-1 flex items-center justify-center">
                                     <img src={comp.previewImg} className="w-4/5 h-auto object-contain transition-transform duration-500" alt={comp.name} onError={(e) => e.target.style.display = 'none'} />
@@ -2542,6 +2672,51 @@ export default function PortfolioApp() {
       );
     };
 
+  const ProjectView = ({ activeItem, lang, transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, navigateTo }) => {
+    if (!activeItem) return null;
+
+    // --- 封裝重複的返回按鈕元件 (直接回到首頁的精選作品區塊) ---
+
+
+
+
+    // --- Product Visual Design 通用版型元件 ---
+
+    // --- 長圖捲動標註元件 ---
+
+
+    // --- 自訂下拉選單元件 ---
+
+
+
+    // --- GSAT App Button 互動展示元件 ---
+
+
+    // --- GSAT App Navigation Bar 互動展示元件 ---
+
+    // --- GSAT App Dropdown & Menu 互動展示元件 ---
+
+    // --- GSAT App Input 互動展示元件 ---
+
+
+
+    // --- Progress Bar & Step Indicator 互動展示元件 ---
+
+    // --- 網站設計長條展示：桌面版＋手機版置中交疊，左右交錯標註 ---
+
+
+    // --- 長條展示：單一桌面媒體項目 + 右側標註 ---
+
+
+    // --- 長條展示：影片項目 ---
+
+
+    // --- 長條展示：圖片項目 ---
+
+
+    // --- UI/UX 通用版型元件 ---
+
+
 
 
 
@@ -2549,7 +2724,7 @@ export default function PortfolioApp() {
     if (activeItem.visuals) {
       return (
         <>
-          <GenericVisualProjectView />
+          <GenericVisualProjectView activeItem={activeItem} lang={lang} transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} navigateTo={navigateTo} />
           <BackToTopButton />
         </>
       );
@@ -2559,7 +2734,7 @@ export default function PortfolioApp() {
     if (activeItem.categoryId === 'uiux') {
       return (
         <>
-          <GenericUIUXProjectView />
+          <GenericUIUXProjectView activeItem={activeItem} lang={lang} transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} navigateTo={navigateTo} />
           <BackToTopButton />
         </>
       );
@@ -2569,7 +2744,7 @@ export default function PortfolioApp() {
     return (
       <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 bg-white">
         <div className="pt-40 pb-12 px-6 max-w-[100rem] mx-auto">
-          <BackButton />
+          <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
           <header className="px-2 md:px-8">
             <h1 className="text-5xl md:text-[7rem] font-bold tracking-tighter mb-12 leading-none">{activeItem.title}</h1>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-t border-gray-100 max-w-6xl">
@@ -2589,38 +2764,109 @@ export default function PortfolioApp() {
             <p className="text-xl md:text-2xl text-gray-600 leading-relaxed">{activeItem.description}</p>
           </div>
         </div>
-        <FooterCTA />
+        <FooterCTA navigateTo={navigateTo} lang={lang} />
         <BackToTopButton />
       </div>
     );
   };
 
-  const AboutView = () => (
+  const AboutView = ({ lang, navigateTo }) => (
     <div className="animate-in fade-in duration-700 bg-white">
       <div className="pt-40 pb-16 px-6 max-w-[100rem] mx-auto md:px-8"><h1 className="text-6xl md:text-[8rem] font-bold tracking-tighter mb-16 leading-none max-w-6xl mx-auto">Tiffany<br />Liang.</h1><div className="grid md:grid-cols-[1fr_1.5fr] gap-12 md:gap-20 items-start mb-32 max-w-6xl mx-auto"><div className="aspect-[3/4] bg-[#F8F9FA] rounded-[2rem] overflow-hidden flex items-center justify-center text-gray-400 w-full max-w-md mx-auto md:mx-0 shadow-sm relative">梁庭禎 的照片</div><div className="pt-4"><h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8 leading-snug text-gray-900">將品牌理念與抽象概念，<br />轉化為具備影響力與情感共鳴的視覺敘事。</h2><div className="space-y-6 text-xl text-gray-600 leading-relaxed mb-16"><p>我擁有超過2年的動態圖像與視覺設計經驗。自小培養的美學素養，使我能精確掌握節奏與動態細節，進而獨立負責品牌從概念發想、腳本分鏡到完整動態執行的視覺設計解決方案。</p><p>曾為科技公司成功建構完整的品牌形象動畫、產品形象及介紹動畫、介面轉場動態等。我致力於透過動態設計，解構複雜的概念並創造出生動的視覺呈現。</p></div><div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-10 border-t border-gray-100"><div><h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Motion & Animation</h3><div className="flex flex-wrap gap-2">{['動態圖像設計', '動畫解說影片', '影音剪輯', '腳本撰寫'].map(skill => (<span key={skill} className="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-medium text-gray-800">{skill}</span>))}</div></div><div><h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Visual Design</h3><div className="flex flex-wrap gap-2">{['平面設計', '品牌設計', '介面設計', '美術設計'].map(skill => (<span key={skill} className="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-medium text-gray-800">{skill}</span>))}</div></div></div></div></div><div className="mb-32 max-w-5xl mx-auto"><h2 className="text-5xl font-bold tracking-tighter mb-20 px-2 md:px-0">Work Experience</h2><div><TimelineItem year="2023.10 - Present" title="Wisdome.Al 聚偲科技股份有限公司" subtitle="視覺效果設計師"><ul className="list-disc pl-5 space-y-4"><li><strong className="text-gray-900">企業識別設計：</strong>設計企業標誌、名片及簡報模板，並整合品牌理念製作識別系統手冊。製作公司官網首頁形象動畫。</li><li><strong className="text-gray-900">產品介面設計：</strong>建構產品品牌識別規範與手冊。設計16個動態圖樣與70個靜態圖標，提升辨識度；繪製插圖與頭像；優化功能介面。</li><li><strong className="text-gray-900">廣告行銷動畫：</strong>獨立完成2部產品形象動畫。結合 AI 語音製作清晰流暢的軟體操作教學影片。</li></ul></TimelineItem></div></div></div>
-      <FooterCTA />
+      <FooterCTA navigateTo={navigateTo} lang={lang} />
     </div>
   );
 
-  const ContactView = () => (
+  const ContactView = ({ navigateTo }) => (
     <div className="min-h-[80vh] flex flex-col items-center justify-center px-6 animate-in fade-in duration-700 pt-32 bg-white text-center"><div className="w-16 h-16 bg-black text-white rounded-2xl flex items-center justify-center mb-10 transform -rotate-12"><IconMail className="w-8 h-8" /></div><h1 className="text-6xl md:text-[6rem] font-bold tracking-tighter mb-6">Say Hello.</h1><p className="text-xl text-gray-500 mb-12 max-w-lg mx-auto">正在尋找設計師合作嗎？或是想交流交流？<br />期待與你聯繫。</p><a href="mailto:tingchenliang1998@gmail.com" className="text-2xl md:text-4xl font-bold border-b-2 border-black pb-2 hover:text-gray-500 hover:border-gray-500 transition-colors mb-20">tingchenliang1998@gmail.com</a><div className="flex gap-8 text-lg font-medium"><a href="#" className="flex items-center gap-2 hover:text-gray-500 transition-colors"><IconInstagram className="w-5 h-5" /> Instagram</a><a href="#" className="flex items-center gap-2 hover:text-gray-500 transition-colors"><IconLinkedin className="w-5 h-5" /> LinkedIn</a><a href="#" className="flex items-center gap-2 hover:text-gray-500 transition-colors"><IconGlobe className="w-5 h-5" /> Dribbble</a></div></div>
   );
 
+export default function PortfolioApp() {
+  const [lang, setLang] = useState('zh');
+  const [currentPage, setCurrentPage] = useState('home');
+  const [activeItem, setActiveItem] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [homeSelectedFilter, setHomeSelectedFilter] = useState('UI/UX Design');
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const transitionTo = (callback) => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      callback();
+      setTimeout(() => setIsTransitioning(false), 50);
+    }, 300); // 配合 CSS duration 300ms
+  };
+
+  useEffect(() => {
+    const handleScroll = () => { const threshold = currentPage === 'home' ? window.innerHeight * 2.9 : 50; setScrolled(window.scrollY > threshold); };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [currentPage]);
+
+  useEffect(() => { if (isMobileMenuOpen) document.body.style.overflow = 'hidden'; else document.body.style.overflow = 'auto'; }, [isMobileMenuOpen]);
+
+  const navigateTo = (page, item = null) => {
+    transitionTo(() => {
+      setCurrentPage(page);
+      setActiveItem(item);
+      setIsMobileMenuOpen(false);
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    });
+  };
+
+  const getFormattedServiceTitle = (title) => {
+    if (title.includes('UI/UX')) return { big: 'UIUX', small: 'App / Web Design' };
+    if (title.includes('Motion')) return { big: 'MOTION GRAPHIC DESIGN', small: 'Animation / 2D' };
+    if (title.includes('Brand')) return { big: 'BRANDING DESIGN', small: 'Strategy / Identity' };
+    return { big: title, small: '' };
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // --- 可水平捲動的 Screens 元件 ---
+
+
+
+
+
+
+
+
   const renderContent = () => {
     switch (currentPage) {
-      case 'home': return <HomeView />;
-      case 'works': return <WorksView />;
-      case 'category': return <CategoryListView />;
-      case 'project': return <ProjectView />;
-      case 'about': return <AboutView />;
-      case 'contact': return <ContactView />;
-      default: return <HomeView />;
+      case 'home': return <HomeView lang={lang} homeSelectedFilter={homeSelectedFilter} setHomeSelectedFilter={setHomeSelectedFilter} navigateTo={navigateTo} />;
+      case 'works': return <WorksView navigateTo={navigateTo} lang={lang} />;
+      case 'category': return <CategoryListView activeItem={activeItem} navigateTo={navigateTo} lang={lang} />;
+      case 'project': return <ProjectView activeItem={activeItem} lang={lang} transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} navigateTo={navigateTo} />;
+      case 'about': return <AboutView lang={lang} navigateTo={navigateTo} />;
+      case 'contact': return <ContactView navigateTo={navigateTo} />;
+      default: return <HomeView lang={lang} homeSelectedFilter={homeSelectedFilter} setHomeSelectedFilter={setHomeSelectedFilter} navigateTo={navigateTo} />;
     }
   };
 
   return (
     <div className="min-h-screen bg-[#F6F6F6] text-slate-900 font-sans selection:bg-orange-200 selection:text-orange-900">
-      <Navbar />
+      <Navbar
+        scrolled={scrolled}
+        currentPage={currentPage}
+        navigateTo={navigateTo}
+        lang={lang}
+        setLang={setLang}
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
       <main>{renderContent()}</main>
       <div className={`fixed inset-0 bg-white z-[100] pointer-events-none transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-100' : 'opacity-0'}`} />
     </div>

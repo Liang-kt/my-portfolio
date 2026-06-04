@@ -391,7 +391,7 @@ const PROJECTS = [
         { name: 'Navigation Bar', previewImg: '', specsImg: '', colSpan: 1, liveComponent: 'navigation' },
         { name: 'Dropdowns & Menus', previewImg: '', specsImg: '', colSpan: 1, liveComponent: 'dropdown' },
         { name: 'Progress Bar and Step Indicator', previewImg: '', specsImg: '', colSpan: 2, liveComponent: 'progress' },
-        { name: 'Modals & Dialogs', previewImg: '', specsImg: '', colSpan: 2 },
+        { name: 'Accordion', previewImg: '', specsImg: '', colSpan: 2, liveComponent: 'accordion' },
         { name: 'Subject Cards', previewImg: '', specsImg: '', colSpan: 1, liveComponent: 'subject' }
       ],
       componentsImages: ['/projects/msline/components-1.jpg'],
@@ -417,7 +417,14 @@ const PROJECTS = [
           tabs: [
             { title: '數學練習', screens: ['/projects/msline/math-1.jpg', '/projects/msline/math-2.jpg', '/projects/msline/math-3.jpg', '/projects/msline/math-4.jpg', '/projects/msline/math-5.jpg'] },
             { title: '國文練習', screens: ['/projects/msline/chinese-1.jpg', '/projects/msline/chinese-2.jpg', '/projects/msline/chinese-3.jpg', '/projects/msline/chinese-4.jpg', '/projects/msline/chinese-5.jpg'] },
-            { title: '英文練習', screens: ['/projects/msline/english-1.jpg', '/projects/msline/english-2.jpg', '/projects/msline/english-3.jpg', '/projects/msline/english-4.jpg', '/projects/msline/english-5.jpg'] }
+            { title: '英文練習', screens: [
+              '/projects/mslin-app/screens/english1.png',
+              '/projects/mslin-app/screens/english2.png',
+              '/projects/mslin-app/screens/english3.png',
+              '/projects/mslin-app/screens/english4.png',
+              '/projects/mslin-app/screens/english5.png',
+              '/projects/mslin-app/screens/english6.png'
+            ] }
           ]
         }
       ],
@@ -784,7 +791,7 @@ const PROJECTS = [
           {screens && screens.map((screen, i) => (
             <div 
               key={`${groupTitle}-${i}`} 
-              className={`flex-none w-[70%] sm:w-[45%] md:w-[23%] bg-[#F6F6F6] rounded-[2rem] overflow-hidden shadow-sm ${i === 0 ? '' : 'snap-start'}`}
+              className={`flex-none w-[70%] sm:w-[45%] md:w-[23%] bg-white rounded-[2rem] overflow-hidden shadow-sm ${i === 0 ? '' : 'snap-start'}`}
             >
               <img src={screen} className="w-full h-auto block" alt={`${groupTitle} Screen ${i + 1}`} onError={(e) => e.target.style.display = 'none'} />
             </div>
@@ -1606,9 +1613,9 @@ const PROJECTS = [
       const activePercent = progressPercents[currentState];
 
       return (
-        <div className="flex flex-col gap-6 relative select-none">
+        <div className="flex-1 flex flex-col justify-between gap-6 relative select-none w-full">
           {/* 上半部：精緻毛玻璃展示區域，無文字單純顯示圖表 */}
-          <div className="flex flex-col py-8 px-8 bg-white/40 rounded-3xl border border-gray-100/50 shadow-inner relative z-20 overflow-hidden gap-8">
+          <div className="flex-1 flex flex-col justify-center py-8 px-8 bg-white/40 rounded-3xl border border-gray-100/50 shadow-inner relative z-20 overflow-hidden gap-8 min-h-[220px]">
             
             {/* 進度條 (Progress Bar) - 參考附圖二設計：細長圓角、單色無漸變無動態 */}
             <div className="w-full flex flex-col gap-2">
@@ -1685,6 +1692,174 @@ const PROJECTS = [
                     }`}
                   >
                     {num}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+
+    const GSATAccordionShowcase = ({ lang }) => {
+      const [simulatedState, setSimulatedState] = useState('Expand'); // Default | Expand | Unit Menu
+      const [isExpanded, setIsExpanded] = useState(true);
+      const [selectedSubId, setSelectedSubId] = useState(null);
+
+      useEffect(() => {
+        if (simulatedState === 'Default') {
+          setIsExpanded(false);
+          setSelectedSubId(null);
+        } else if (simulatedState === 'Expand') {
+          setIsExpanded(true);
+          setSelectedSubId(null);
+        } else if (simulatedState === 'Unit Menu') {
+          setIsExpanded(true);
+          setSelectedSubId(0); // Highlight "閱讀理解"
+        }
+      }, [simulatedState]);
+
+      const subItems = [
+        { id: 0, title: '閱讀理解' },
+        { id: 1, title: '文意選填' },
+        { id: 2, title: '多選題' },
+        { id: 3, title: '多選題' }
+      ];
+
+      const handleToggle = () => {
+        if (isExpanded) {
+          setSimulatedState('Default');
+        } else {
+          setSimulatedState('Expand');
+        }
+      };
+
+      const handleImmediateQuiz = (e) => {
+        e.stopPropagation();
+        setSimulatedState('Expand');
+      };
+
+      return (
+        <div className="flex-1 flex flex-col justify-between gap-6 relative w-full select-none animate-in fade-in duration-300">
+          {/* 上側：單一風琴折預覽區 */}
+          <div className="flex-1 flex flex-col justify-center py-5 px-4 bg-white/40 rounded-3xl border border-gray-100/50 shadow-inner min-h-[220px] overflow-hidden">
+            <div className="w-full max-w-[340px] mx-auto">
+              <div 
+                className="border transition-all duration-300 overflow-hidden"
+                style={{ 
+                  borderRadius: '24px',
+                  borderColor: '#CCCCCC',
+                  backgroundColor: '#FBFBFB',
+                  boxShadow: isExpanded ? '0 12px 30px -8px rgba(0, 0, 0, 0.04)' : '0 2px 4px rgba(0,0,0,0.02)'
+                }}
+              >
+                {/* Accordion Header */}
+                <div 
+                  onClick={handleToggle}
+                  className="w-full px-6 py-5 flex items-center justify-between transition-colors hover:bg-gray-100/20 cursor-pointer"
+                >
+                  <span className="text-xl font-bold text-black font-['Noto_Sans_TC'] tracking-tight">基礎字詞</span>
+                  <div className="flex items-center gap-4">
+                    {/* Collapsed State: "立即刷題" Button + Down Triangle */}
+                    {!isExpanded && (
+                      <button 
+                        onClick={handleImmediateQuiz}
+                        className="px-4 py-1.5 bg-[#7878FF] hover:bg-[#5858EA] text-white text-xs font-bold rounded-full transition-all duration-200 shadow-sm active:scale-95 cursor-pointer font-['Noto_Sans_TC']"
+                        style={{ borderRadius: '9999px' }}
+                      >
+                        立即刷題
+                      </button>
+                    )}
+                    {/* Solid Triangle Icon */}
+                    {isExpanded ? (
+                      <svg className="w-3.5 h-3.5 text-[#5E5E5E]" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 8L20 16H4L12 8Z" />
+                      </svg>
+                    ) : (
+                      <svg className="w-3.5 h-3.5 text-[#5E5E5E]" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 16L4 8H20L12 16Z" />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+
+                {/* Expanded Content (Sub Unit Menu) */}
+                <div 
+                  className="transition-all duration-300 overflow-hidden bg-[#FBFBFB]"
+                  style={{ 
+                    maxHeight: isExpanded ? '300px' : '0', 
+                    opacity: isExpanded ? 1 : 0,
+                    borderTop: isExpanded ? '1px solid #EFEFEF' : 'none'
+                  }}
+                >
+                  <div className="flex flex-col">
+                    {subItems.map((sub, idx) => {
+                      const isSelected = selectedSubId === sub.id;
+                      return (
+                        <div 
+                          key={idx}
+                          onClick={() => {
+                            setSelectedSubId(sub.id);
+                            setSimulatedState('Unit Menu');
+                          }}
+                          className={`px-6 py-4 flex items-center justify-between border-b border-[#EFEFEF]/60 last:border-b-0 transition-all select-none cursor-pointer group/row ${
+                            isSelected 
+                              ? 'bg-[#EEEEFF]/40' 
+                              : 'bg-[#FBFBFB] hover:bg-gray-100/30'
+                          }`}
+                        >
+                          <span className={`text-base font-bold font-['Noto_Sans_TC'] transition-colors duration-200 ${
+                            isSelected ? 'text-[#7878FF]' : 'text-gray-800'
+                          }`}>
+                            {sub.title}
+                          </span>
+
+                          {/* Right Arrow Card Button */}
+                          <div 
+                            className={`w-9 h-9 rounded-xl flex items-center justify-center border transition-all duration-200 ${
+                              isSelected
+                                ? 'bg-[#7878FF] border-transparent text-white shadow-sm'
+                                : 'bg-white border-[#E6E6E6] text-black group-hover/row:border-[#7878FF] group-hover/row:text-[#7878FF]'
+                            }`}
+                            style={{ borderRadius: '10px' }}
+                          >
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 下側：狀態選擇器 */}
+          <div className="w-full mt-auto bg-gray-100/90 rounded-2xl p-1 flex justify-between items-center gap-0.5 border border-gray-200/40 select-none">
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2.5 flex-shrink-0">
+              {lang === 'zh' ? '狀態模擬' : 'Select Stage'}
+            </span>
+            <div className="flex bg-gray-200/20 rounded-xl p-0.5 justify-end gap-0.5 flex-1 max-w-[240px]">
+              {[
+                { id: 'Default', label: 'default' },
+                { id: 'Expand', label: 'expand' },
+                { id: 'Unit Menu', label: 'unit menu2' }
+              ].map((st) => {
+                const isCurrent = simulatedState === st.id;
+                return (
+                  <button 
+                    key={st.id}
+                    onClick={() => setSimulatedState(st.id)} 
+                    className={`flex-1 py-1 text-[10px] font-extrabold rounded-lg transition-all cursor-pointer text-center ${
+                      isCurrent 
+                        ? 'bg-white text-gray-900 shadow-sm border border-gray-200/30' 
+                        : 'text-gray-400 hover:text-gray-700'
+                    }`}
+                  >
+                    {st.label}
                   </button>
                 );
               })}
@@ -2334,6 +2509,8 @@ const PROJECTS = [
                                   <GSATSubjectCardsShowcase lang={lang} />
                                 ) : comp.liveComponent === 'progress' ? (
                                   <GSATProgressShowcase lang={lang} />
+                                ) : comp.liveComponent === 'accordion' ? (
+                                  <GSATAccordionShowcase lang={lang} />
                                 ) : (
                                   <div className="flex-1 flex items-center justify-center">
                                     <img src={comp.previewImg} className="w-4/5 h-auto object-contain transition-transform duration-500" alt={comp.name} onError={(e) => e.target.style.display = 'none'} />
@@ -2361,7 +2538,7 @@ const PROJECTS = [
                           const navComp = comps.find(c => c.liveComponent === 'navigation');
                           const dropdownComp = comps.find(c => c.liveComponent === 'dropdown');
                           const cardsComp = comps.find(c => c.name === 'Cards & Containers' || c.name === 'Progress Bar and Step Indicator' || c.liveComponent === 'progress');
-                          const modalsComp = comps.find(c => c.name === 'Modals & Dialogs');
+                          const accordionComp = comps.find(c => c.name === 'Accordion' || c.liveComponent === 'accordion');
                           const subjectComp = comps.find(c => c.name === 'Subject Cards' || c.liveComponent === 'subject');
 
                           const renderCard = (comp, customClassName = '') => {
@@ -2387,6 +2564,8 @@ const PROJECTS = [
                                   <GSATSubjectCardsShowcase lang={lang} />
                                 ) : comp.liveComponent === 'progress' ? (
                                   <GSATProgressShowcase lang={lang} />
+                                ) : comp.liveComponent === 'accordion' ? (
+                                  <GSATAccordionShowcase lang={lang} />
                                 ) : (
                                   <div className="flex-1 flex items-center justify-center">
                                     <img src={comp.previewImg} className="w-4/5 h-auto object-contain transition-transform duration-500" alt={comp.name} onError={(e) => e.target.style.display = 'none'} />
@@ -2428,8 +2607,8 @@ const PROJECTS = [
                               {/* 5. Cards & Containers (col-span-2) */}
                               {renderCard(cardsComp, 'col-span-2 md:col-span-2 min-h-[200px]')}
 
-                              {/* 6. Modals & Dialogs (col-span-2) */}
-                              {renderCard(modalsComp, 'col-span-2 md:col-span-2 min-h-[200px]')}
+                              {/* 6. Accordion (col-span-2) */}
+                              {renderCard(accordionComp, 'col-span-2 md:col-span-2 min-h-[200px]')}
                             </>
                           );
                         })()}
@@ -2524,7 +2703,7 @@ const PROJECTS = [
                     {activeItem.design.screens && activeItem.design.screens.length > 0 && (
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
                         {activeItem.design.screens.map((screen, i) => (
-                          <div key={i} className="bg-[#F6F6F6] rounded-[2rem] aspect-[9/16] overflow-hidden flex items-center justify-center shadow-sm">
+                          <div key={i} className="bg-white rounded-[2rem] aspect-[9/16] overflow-hidden flex items-center justify-center shadow-sm">
                             <img src={screen} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Screen" onError={(e) => e.target.style.display = 'none'} />
                           </div>
                         ))}

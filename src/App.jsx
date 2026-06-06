@@ -397,7 +397,7 @@ const PROJECTS = [
       componentsImages: ['/projects/msline/components-1.jpg'],
       flowImages: ['/projects/msline/user-flow.jpg'],
       screenGroups: [
-        { title: 'Onboarding ＋ 首頁', screens: [
+        { title: 'Onboarding', screens: [
           '/projects/mslin-app/screens/key-feature1.jpg',
           '/projects/mslin-app/screens/key-feature2.jpg',
           '/projects/mslin-app/screens/key-feature3.jpg',
@@ -410,8 +410,20 @@ const PROJECTS = [
           '/projects/mslin-app/screens/onboradinbg-subject.jpg',
           '/projects/mslin-app/screens/onboradinbg-notification.jpg'
         ] },
-        { title: '題庫', screens: ['/projects/msline/bank-1.jpg', '/projects/msline/bank-2.jpg', '/projects/msline/bank-3.jpg', '/projects/msline/bank-4.jpg', '/projects/msline/bank-5.jpg'] },
-        { title: '我的', screens: ['/projects/msline/profile-1.jpg', '/projects/msline/profile-2.jpg', '/projects/msline/profile-3.jpg', '/projects/msline/profile-4.jpg', '/projects/msline/profile-5.jpg'] },
+        { title: '首頁', screens: [
+          '/projects/mslin-app/screens/home1.png',
+          '/projects/mslin-app/screens/home2.png'
+        ] },
+        { title: '題庫', screens: [
+          '/projects/mslin-app/screens/base1.png',
+          '/projects/mslin-app/screens/base2.png',
+          '/projects/mslin-app/screens/base3.png'
+        ] },
+        { title: '我的', screens: [
+          '/projects/mslin-app/screens/profile1.png',
+          '/projects/mslin-app/screens/profile2.png',
+          '/projects/mslin-app/screens/profile3.png'
+        ] },
         {
           title: '各科練習頁面',
           tabs: [

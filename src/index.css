@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+.bg-secondary {
+  background-color: #FAFAFB;
+}
+
 html, body {
   max-width: 100%;
 }

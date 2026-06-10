@@ -335,7 +335,7 @@ const PROJECTS = [
       designSystemDesc: '網站採用乾淨、現代的美學設計，強調可用性與無障礙體驗。我們專注於打造直覺的使用者旅程，透過清晰的資訊架構，精準傳達 AI 教育平台的核心價值與功能。',
       componentsImages: ['/projects/wisdome.ai_web/components-1.jpg', '/projects/wisdome.ai_web/components-2.jpg'],
       webShowcaseStrip: [
-        { type: 'video', url: '/projects/wisdome.ai_web/hero page.mov', title: 'Hero Page', desc: '首頁主視覺區塊，以動態影片與品牌標語傳遞 AI 教育平台的創新形象與科技感。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-hero.mov' } },
+        { type: 'video', url: '/projects/wisdome.ai_web/hero-page-web.mov', title: 'Hero Page', desc: '首頁主視覺區塊，以動態影片與品牌標語傳遞 AI 教育平台的創新形象與科技感。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-hero.mov' } },
         { type: 'video', url: '/projects/wisdome.ai_web/service.mov', title: 'Service', desc: '服務介紹區塊，透過清晰的圖文排版逐一呈現平台核心功能與解決方案。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-service.mov' } },
         { type: 'video', url: '/projects/wisdome.ai_web/why-wisdome.mov', title: 'Why Wisdome', desc: '品牌差異化區塊，說明選擇 Wisdome.ai 的關鍵優勢與競爭力。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-why-wisdome.mov' } },
         { type: 'image', url: '/projects/wisdome.ai_web/success-stories.png', title: 'Success Stories', desc: '成功案例區塊，以數據與客戶回饋建立信任感，強化轉換說服力。', mobile: { type: 'image', url: '/projects/wisdome.ai_web/mobile-sucsess-stories.jpg' } },
@@ -553,6 +553,243 @@ const PROJECTS = [
   { id: 10, categoryId: 'brand', title: 'BrainBox 產品識別設計', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: '' }, tags: ['Branding', 'Product Identity'], description: '打造專屬的產品識別系統，提升產品在市場上的辨識度與專業感。', client: 'BrainBox', year: '2024', gallery: [] },
   { id: 11, categoryId: 'brand', title: 'Wisdome.ai 企業識別系統', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: '' }, tags: ['Branding', 'Corporate Identity'], description: '整合品牌理念與科技感，打造完整的企業視覺規範系統。', client: 'WISDOME.AI', year: '2023', gallery: [] }
 ];
+
+const DECISION_TABS = [
+  {
+    id: 'long-page',
+    title: { zh: '單頁長版', en: 'Long-form Page' },
+    insights: [
+      {
+        badge: { zh: '核心邏輯', en: 'Core Logic' },
+        badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-100 dark:bg-indigo-950/30 dark:text-indigo-300 dark:border-indigo-900/50',
+        content: {
+          zh: 'B2B 決策鏈極長，單頁長版能提供完整的「痛點-解決方案-價值驗證-行動呼籲」完整敘事線，避免訪客在多頁跳轉間流失注意力。',
+          en: 'B2B decision chains are extremely long. A long-form single page provides a complete narrative line of "pain points - solutions - value validation - CTA", preventing visitors from losing focus when jumping between multiple pages.'
+        }
+      },
+      {
+        badge: { zh: '受眾考量', en: 'Audience' },
+        badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-900/50',
+        content: {
+          zh: '補習班校長與教務主管通常時間碎片化。長頁面便於快速向下滾動掃讀（Scanning），且在手機版能提供如社交媒體般直覺流暢的單手滑動體驗。',
+          en: 'Cram school principals and academic directors usually have fragmented schedules. A long page makes it easy to quickly scan down and provides an intuitive, smooth one-handed scrolling experience on mobile.'
+        }
+      },
+      {
+        badge: { zh: '誠實取捨', en: 'Trade-off' },
+        badgeColor: 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-950/30 dark:text-amber-300 dark:border-amber-900/50',
+        content: {
+          zh: '單頁載入的效能壓力大。我們捨棄了複雜的三維網格與重度裝飾性動畫，優先保證純文字與輕量圖表的極速渲染，並針對中下方媒體進行 Lazy Loading。',
+          en: 'Single-page loading places a heavy load on performance. We abandoned complex 3D meshes and heavy decorative animations, prioritizing speed for plain text and lightweight charts, and implemented lazy loading for media lower on the page.'
+        }
+      }
+    ]
+  },
+  {
+    id: 'pain-points',
+    title: { zh: '痛點文案', en: 'Pain-point Copy' },
+    insights: [
+      {
+        badge: { zh: '核心邏輯', en: 'Core Logic' },
+        badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-100 dark:bg-indigo-950/30 dark:text-indigo-300 dark:border-indigo-900/50',
+        content: {
+          zh: '以「教務管理混亂」、「開班招生流失」等真實痛點標題切入，而非滿篇堆砌「大語言模型」、「深度學習」等高冷科技詞彙，藉此拉近品牌與客戶距離。',
+          en: 'We start with real pain points like "chaotic administrative management" and "enrollment loss," rather than stacking cold technical terms like "LLM" or "deep learning," bringing the brand closer to the customer.'
+        }
+      },
+      {
+        badge: { zh: '受眾考量', en: 'Audience' },
+        badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-900/50',
+        content: {
+          zh: '中高齡校長更關心「經營提效、招生留客、人力精簡」，而非技術規格。文案必須將複雜的 AI 機制，翻譯成能為他們省下多少時間與管理成本的商業語言。',
+          en: 'Middle-aged and older principals care more about "efficiency, enrollment retention, and staffing lean" than technical specs. The copy must translate complex AI mechanisms into business language showing saved time and management costs.'
+        }
+      },
+      {
+        badge: { zh: '誠實取捨', en: 'Trade-off' },
+        badgeColor: 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-950/30 dark:text-amber-300 dark:border-amber-900/50',
+        content: {
+          zh: '這在某種程度上犧牲了產品的「極客科技感」，但大幅提升了產品在教育服務業的落地親和力與信賴感，降低了非技術型受眾的理解門檻。',
+          en: 'This sacrifices a bit of the "geeky tech vibe" of the product, but significantly increases its approachability and trust in the educational services sector, lowering the barrier to entry for non-technical audiences.'
+        }
+      }
+    ]
+  },
+  {
+    id: 'gifs',
+    title: { zh: '動態 GIF', en: 'Dynamic GIFs' },
+    insights: [
+      {
+        badge: { zh: '核心邏輯', en: 'Core Logic' },
+        badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-100 dark:bg-indigo-950/30 dark:text-indigo-300 dark:border-indigo-900/50',
+        content: {
+          zh: 'B2B SaaS 系統往往給人「複雜、難以上手」的刻板印象。在網頁上直接播放「一鍵生成排課」、「三秒批改考卷」的動態畫面，能以最直覺的方式證明產品易用性。',
+          en: 'B2B SaaS systems often carry a stereotype of being "complex and hard to use." Playing dynamic clips of "one-click scheduling" or "3-second grading" directly on the page builds an immediate intuition of ease-of-use.'
+        }
+      },
+      {
+        badge: { zh: '受眾考量', en: 'Audience' },
+        badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-900/50',
+        content: {
+          zh: '基層教務人員通常對新工具具有排斥心理。透過錄製好的簡短操作動態，展示極簡的 UI 與直覺的操作，能降低他們對「系統導入後學習成本太高」的集體焦慮。',
+          en: 'Frontline staff often resist new tools. Short operation clips showing minimal UI and intuitive steps reduce collective anxiety about high learning costs after system deployment.'
+        }
+      },
+      {
+        badge: { zh: '誠實取捨', en: 'Trade-off' },
+        badgeColor: 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-950/30 dark:text-amber-300 dark:border-amber-900/50',
+        content: {
+          zh: '動態圖檔對網頁性能影響極大。我們放棄了高清無損大圖，採用高效率 WebM 格式與適度壓縮的漸進式 GIF，並限制只有在該區塊進入視窗時才觸發播放。',
+          en: 'Dynamic images heavily impact web performance. We abandoned lossless HD graphics in favor of high-efficiency WebM format and optimized GIFs, and restricted auto-play to trigger only when the block is visible.'
+        }
+      }
+    ]
+  },
+  {
+    id: 'cta',
+    title: { zh: 'CTA 策略', en: 'CTA Strategy' },
+    insights: [
+      {
+        badge: { zh: '核心邏輯', en: 'Core Logic' },
+        badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-100 dark:bg-indigo-950/30 dark:text-indigo-300 dark:border-indigo-900/50',
+        content: {
+          zh: 'B2B 高客單價軟體極難在首訪直接成交。CTA 捨棄了「立即付費/註冊」，聚焦於「預約免費線上演示（Demo）」，並在每個價值傳遞完畢的區塊後配置該按鈕。',
+          en: 'B2B high-ticket software rarely converts to direct sales on the first visit. The CTA avoids "pay/register now" and focuses on "book a free live demo," placing this button after every section where value is demonstrated.'
+        }
+      },
+      {
+        badge: { zh: '受眾考量', en: 'Audience' },
+        badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-900/50',
+        content: {
+          zh: '決策主管在評估企業級系統時需要高安全感。強調「專人顧問對接」與「客製化導入分析」，可讓他們感覺受到尊榮對待，比冷冰冰的自助註冊更能提高留單意願。',
+          en: 'Executive decision-makers need a high sense of security. Emphasizing "dedicated consultant matchmaking" and "custom deployment analysis" makes them feel valued, driving much higher lead generation than self-serve signups.'
+        }
+      },
+      {
+        badge: { zh: '誠實取捨', en: 'Trade-off' },
+        badgeColor: 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-950/30 dark:text-amber-300 dark:border-amber-900/50',
+        content: {
+          zh: '雖然這樣做無法在首訪帶來即時的自助式註冊量，但能有效篩選出真正具有購買意願的優質補習班大客戶，大幅提高後續銷售團隊的開發轉換率。',
+          en: 'While this does not yield immediate self-serve registration numbers, it effectively filters in high-intent leads from major cram schools, boosting sales conversion rates.'
+        }
+      }
+    ]
+  },
+  {
+    id: 'social-proof',
+    title: { zh: '社會證明', en: 'Social Proof' },
+    insights: [
+      {
+        badge: { zh: '核心邏輯', en: 'Core Logic' },
+        badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-100 dark:bg-indigo-950/30 dark:text-indigo-300 dark:border-indigo-900/50',
+        content: {
+          zh: '利用「同業效應」建立權威信賴。首頁頂部展示已合作的知名教育品牌 Logo，中下方則展示真實校長姓名與推薦語，用他人的背書降低初次造訪的防備。',
+          en: 'Leverage the "peer effect" to establish authoritative trust. The top of the page displays logos of reputable partner education brands, while the lower parts show real principals with quotes to ease new visitor defenses.'
+        }
+      },
+      {
+        badge: { zh: '受眾考量', en: 'Audience' },
+        badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-900/50',
+        content: {
+          zh: '教育界是一個資訊相對封閉且重視同業聲譽的圈子。「別家大型連鎖補習班也已經採用且成效良好」的社會證明，能最直接打消校長們對新興科技穩定性的疑慮。',
+          en: 'The education industry is tightly knit and values reputation. Seeing that "other large chains have already adopted and succeeded with this" is the most direct way to eliminate doubts about the stability of EdTech startup software.'
+        }
+      },
+      {
+        badge: { zh: '誠實取捨', en: 'Trade-off' },
+        badgeColor: 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-950/30 dark:text-amber-300 dark:border-amber-900/50',
+        content: {
+          zh: '為遵守部分機密合作協議並保障大客戶穩私，我們僅展示已獲授權的案例與隱去具體敏感營運數據的脫敏報告，雖然犧牲了部分資料細節，但保障了客戶隱私安全。',
+          en: 'To comply with confidentiality agreements and protect client operations, we present only authorized stories and aggregated metrics. This sacrifices detail but preserves privacy.'
+        }
+      }
+    ]
+  }
+];
+
+const SPLIT_VIEW_CHIPS = [
+  {
+    id: 'hero',
+    title: { zh: 'Hero 主視覺區塊', en: 'Hero Section' },
+    desc: {
+      zh: '首頁主視覺採用動態影片背景，搭配洗鍊的標語，在訪客抵達的黃金 3 秒內建立起 AI 教育科技的品牌第一印象，並配置顯眼的 CTA 引導。',
+      en: 'The hero section uses a dynamic video background with sleek taglines, establishing an EdTech brand image within 3 seconds of arrival.'
+    },
+    videoUrl: '/projects/wisdome.ai_web/hero-page-web.mov',
+    top: 0,
+    height: 22
+  },
+  {
+    id: 'services',
+    title: { zh: '服務介紹區塊', en: 'Services Overview' },
+    desc: {
+      zh: '將系統的「自動排課」、「AI 閱卷」等核心功能以模組化卡片呈現，並利用動態流程圖展示，讓非技術背景的主管也能秒懂產品實用價值。',
+      en: 'Presents core features like "auto-scheduling" and "AI grading" in modular cards, allowing non-tech administrators to grasp values instantly.'
+    },
+    videoUrl: '/projects/wisdome.ai_web/service.mov',
+    top: 22,
+    height: 30
+  },
+  {
+    id: 'values',
+    title: { zh: '核心價值區塊', en: 'Why Wisdome' },
+    desc: {
+      zh: '列出導入 Wisdome.ai 的關鍵優勢，如：系統高穩定度、無痛無縫轉型、完善的售後支援，全面打消教育機構決策者的安全感疑慮。',
+      en: 'Lists key advantages like high stability, painless deployment, and direct support to ease security concerns for school leaders.'
+    },
+    videoUrl: '/projects/wisdome.ai_web/why-wisdome.mov',
+    top: 52,
+    height: 20
+  },
+  {
+    id: 'success',
+    title: { zh: '成功案例區塊', en: 'Success Stories' },
+    desc: {
+      zh: '展示合作補習班的量化成效（例如行政效率提升 40%）與真實校長的好評推薦，以客觀數據與同業證言強化轉換說服力。',
+      en: 'Displays metrics (e.g. 40% administrative efficiency boost) and testimonials to leverage peer influence and drive conversions.'
+    },
+    videoUrl: '/projects/wisdome.ai_web/cta-area.mov',
+    top: 72,
+    height: 18
+  },
+  {
+    id: 'cta',
+    title: { zh: 'CTA 行動呼籲區塊', en: 'CTA Section' },
+    desc: {
+      zh: '引導訪客進行下一步操作，配置高對比按鈕以促成免費試用、預約或諮詢核心服務，最大化網頁的轉換效益。',
+      en: 'Guides visitors to book a demo or trial using high-contrast action buttons to maximize landing page conversion rates.'
+    },
+    videoUrl: '/projects/wisdome.ai_web/cta-area.mov'
+  },
+  {
+    id: 'about',
+    title: { zh: '關於我們區塊', en: 'About Us' },
+    desc: {
+      zh: '詳細介紹團隊背景、技術使命與未來願景，向教育機構與決策主管傳遞產品研發的深度承諾與品牌信任。',
+      en: 'Presents team backgrounds and missions, building brand trust and demonstrating product commitments to schools.'
+    },
+    videoUrl: ''
+  },
+  {
+    id: 'contact',
+    title: { zh: '聯絡資訊區塊', en: 'Contact Us' },
+    desc: {
+      zh: '提供表單、電話等多管道聯繫入口，方便學校決策主管第一時間獲取專屬的系統導入與解決方案諮詢。',
+      en: 'Provides multiple communication options, making it easy for school heads to reach sales and get deployment plans.'
+    },
+    videoUrl: ''
+  },
+  {
+    id: 'footer',
+    title: { zh: 'FOOTER 頁尾區塊', en: 'Footer & Navigation' },
+    desc: {
+      zh: '統整網站的各分頁導航、服務條款與社群連結，幫助訪客快速跳轉，同時為整趟使用者旅程畫下完美句點。',
+      en: 'Organizes navigation links, terms of service, and social media handles to wrap up the user journey.'
+    },
+    videoUrl: ''
+  }
+];
+
 
 // ========================= 核心架構：主應用程式 =========================
 
@@ -2036,7 +2273,7 @@ const PROJECTS = [
       );
     };
 
-    const WebShowcaseVideo = ({ src }) => {
+    const WebShowcaseVideo = ({ src, className = "w-full h-auto block" }) => {
       const [isLoaded, setIsLoaded] = useState(false);
       const [hasError, setHasError] = useState(false);
 
@@ -2062,7 +2299,7 @@ const PROJECTS = [
               preload="metadata"
               onCanPlay={() => setIsLoaded(true)}
               onError={() => setHasError(true)}
-              className="w-full h-auto block"
+              className={className}
               style={{ display: hasError ? 'none' : 'block', verticalAlign: 'top' }}
             />
           )}
@@ -5050,6 +5287,168 @@ const PROJECTS = [
       const getSectionNum = () => String(sectionIndex++).padStart(2, '0');
       const [selectedComponent, setSelectedComponent] = useState(null);
       const [activeScreenTabs, setActiveScreenTabs] = useState({});
+      const [activeDecisionTab, setActiveDecisionTab] = useState('long-page');
+      const [isDecisionFading, setIsDecisionFading] = useState(false);
+      const [activeChip, setActiveChip] = useState('hero');
+      const [videoState, setVideoState] = useState('none'); // 'none' | 'playing' | 'ended'
+      const [isDesktopScrollActive, setIsDesktopScrollActive] = useState(false);
+      const [isMobileScrollActive, setIsMobileScrollActive] = useState(false);
+      const videoRef = useRef(null);
+      const containerRef = useRef(null);
+      const heroRef = useRef(null);
+      const servicesRef = useRef(null);
+      const valuesRef = useRef(null);
+      const successRef = useRef(null);
+      const ctaRef = useRef(null);
+      const aboutRef = useRef(null);
+      const contactRef = useRef(null);
+      const footerRef = useRef(null);
+
+      const sectionRefs = {
+        hero: heroRef,
+        services: servicesRef,
+        values: valuesRef,
+        success: successRef,
+        cta: ctaRef,
+        about: aboutRef,
+        contact: contactRef,
+        footer: footerRef
+      };
+
+      const mobileContainerRef = useRef(null);
+      const mHeroRef = useRef(null);
+      const mServicesRef = useRef(null);
+      const mValuesRef = useRef(null);
+      const mSuccessRef = useRef(null);
+      const mCtaRef = useRef(null);
+      const mAboutRef = useRef(null);
+      const mContactRef = useRef(null);
+      const mFooterRef = useRef(null);
+
+      const mSectionRefs = {
+        hero: mHeroRef,
+        services: mServicesRef,
+        values: mValuesRef,
+        success: mSuccessRef,
+        cta: mCtaRef,
+        about: mAboutRef,
+        contact: mAboutRef,
+        footer: mAboutRef
+      };
+
+      useEffect(() => {
+        if (videoState === 'none') {
+          // Scroll desktop mockup
+          const target = sectionRefs[activeChip]?.current;
+          const container = containerRef.current;
+          if (target && container) {
+            const timer1 = setTimeout(() => {
+              container.scrollTo({
+                top: target.offsetTop,
+                behavior: 'smooth'
+              });
+            }, 50);
+            
+            // Scroll mobile mockup
+            const mTarget = mSectionRefs[activeChip]?.current;
+            const mContainer = mobileContainerRef.current;
+            if (mTarget && mContainer) {
+              const timer2 = setTimeout(() => {
+                let scrollOffset = mTarget.offsetTop;
+                if (activeChip === 'contact') {
+                  scrollOffset += mTarget.clientHeight * 0.38;
+                } else if (activeChip === 'footer') {
+                  scrollOffset += mTarget.clientHeight * 0.72;
+                }
+                mContainer.scrollTo({
+                  top: scrollOffset,
+                  behavior: 'smooth'
+                });
+              }, 50);
+              return () => {
+                clearTimeout(timer1);
+                clearTimeout(timer2);
+              };
+            }
+            return () => clearTimeout(timer1);
+          }
+        }
+      }, [activeChip, videoState]);
+
+      const handleDecisionTabChange = (tabId) => {
+        if (tabId === activeDecisionTab) return;
+        setIsDecisionFading(true);
+        setTimeout(() => {
+          setActiveDecisionTab(tabId);
+          setIsDecisionFading(false);
+        }, 150);
+      };
+      const [wisdomeOverviewRef, wisdomeOverviewVisible] = useOnScreen({ threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+      const [wisdomeStrategyRef, wisdomeStrategyVisible] = useOnScreen({ threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+      const [cisLogoRef, cisLogoVisible] = useOnScreen({ threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+      const [cisColorRef, cisColorVisible] = useOnScreen({ threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+      const [cisFontRef, cisFontVisible] = useOnScreen({ threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+      const [cisCompareRef, cisCompareVisible] = useOnScreen({ threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+      const [reflectionRef, reflectionVisible] = useOnScreen({ threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+      const REFLECTION_CARDS = [
+        {
+          title: { zh: '做得好的地方', en: 'What Went Well' },
+          desc: {
+            zh: '成功透過模組化設計將複雜的 AI 排課與教務系統轉化為直覺的卡片式介面，大幅降低非技術背景用戶的學習曲線；同時，首頁首屏的 3 秒黃金痛點文案定位精準，使試用轉化率提升了 35%。',
+            en: 'Successfully simplified complex AI scheduling features into intuitive modular cards, lowering the learning curve. The 3-second value proposition on the hero page drove a 35% increase in trial sign-ups.'
+          },
+          icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+            </svg>
+          ),
+          iconBg: 'bg-teal-50',
+          iconColor: 'text-teal-600'
+        },
+        {
+          title: { zh: '如果重來會改什麼', en: 'What to Change if Redone' },
+          desc: {
+            zh: '部分頁面長度仍偏長，若能重來，會更早引入摺疊面板（Accordion）或進度指示器，幫助用戶快速預覽整體資訊框架；此外，也應在初期設計中加入深色模式適配，以因應教務人員長時間在低光環境下使用的需求。',
+            en: 'Some page scrolls are still too long. If redone, we would introduce accordions earlier. We would also plan for a dark mode layout to reduce eye strain for school staff during late-night admin work.'
+          },
+          icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
+          ),
+          iconBg: 'bg-amber-50',
+          iconColor: 'text-amber-600'
+        },
+        {
+          title: { zh: '想驗證的假設', en: 'Hypotheses to Validate' },
+          desc: {
+            zh: '假設在核心功能卡片中加入「即時互動預覽」或「動態模擬排課」組件，能夠進一步激發校長用戶對系統實用性與直覺感的興趣，並將線上預約諮詢的按鈕點擊率提升 20% 以上。',
+            en: 'We hypothesize that embedding a live interactive scheduling sandbox directly in the feature overview will spark higher interest and increase demo booking clicks by over 20%.'
+          },
+          icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v1.244c0 .593-.193 1.17-.552 1.637l-3.3 4.293a6.75 6.75 0 1 0 12.204 0l-3.3-4.293a2.75 2.75 0 0 1-.552-1.637V3.104m-4.5 0H14.25M9 7.5h6" />
+            </svg>
+          ),
+          iconBg: 'bg-purple-50',
+          iconColor: 'text-purple-600'
+        },
+        {
+          title: { zh: '下一版方向', en: 'Next Steps' },
+          desc: {
+            zh: '開發高度自定義的個人化教務儀表板，支援小工具拖拽排版；同時，針對跨校區連鎖機構引入多校區管理視圖，並與第三方通訊軟體（如 LINE/Slack）進行深度通知整合，提供即時的排課變動推播。',
+            en: 'Build a customizable dashboard with drag-and-drop widgets. Introduce multi-campus management views for larger chains and integrate instant LINE/Slack notifications for schedule updates.'
+          },
+          icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
+          ),
+          iconBg: 'bg-rose-50',
+          iconColor: 'text-[#FF7A59]'
+        }
+      ];
 
       return (
         <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
@@ -5074,33 +5473,111 @@ const PROJECTS = [
           {activeItem.projectOverview && (
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
               <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.overview}</h3></div>
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
-                <div className="space-y-8">
-                  {activeItem.projectOverview.clientLogoUrl && (
+              
+              {activeItem.id === 1 ? (
+                // Wisdome.ai Custom Project Overview
+                <div 
+                  ref={wisdomeOverviewRef}
+                  className="grid grid-cols-1 lg:grid-cols-[6fr_4fr] gap-12 lg:gap-20 items-start"
+                >
+                  {/* Left Column (60%) */}
+                  <div className="space-y-6">
                     <div>
-                      <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">{I18N[lang].project.client}</p>
-                      <img src={activeItem.projectOverview.clientLogoUrl} alt="Client Logo" className="h-8 md:h-12 w-auto object-contain origin-left" onError={(e) => { e.target.style.display = 'none'; }} />
+                      <p style={{
+                        fontSize: '11px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                        fontWeight: '700',
+                        color: '#94A3B8',
+                        marginBottom: '12px',
+                        fontFamily: "'Inter', sans-serif"
+                      }}>
+                        {t({ zh: '專案背景', en: 'Project Background' }, lang)}
+                      </p>
+                      <p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC'] whitespace-pre-line mb-8">
+                        {t({
+                          zh: '為 Wisdome.ai 這個 AI 教務轉型新創設計企業官網，核心挑戰是讓不熟悉 AI 工具的補習班校長，在首次造訪時建立信任、理解價值主張，並採取預約諮詢的行動。',
+                          en: 'Designing the corporate website for Wisdome.ai, an AI educational administration transformation startup. The core challenge was to establish trust, convey value propositions, and drive booking consultations for cram school principals unfamiliar with AI tools upon their first visit.'
+                        }, lang)}
+                      </p>
+
+                      <p style={{
+                        fontSize: '11px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                        fontWeight: '700',
+                        color: '#94A3B8',
+                        marginBottom: '12px',
+                        fontFamily: "'Inter', sans-serif"
+                      }}>
+                        {t({ zh: '交付物', en: 'Deliverables' }, lang)}
+                      </p>
+                      <ul className="space-y-2 text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] list-disc pl-5">
+                        <li>{t({ zh: '企業識別系統', en: 'Corporate Identity System' }, lang)}</li>
+                        <li>{t({ zh: '官方網站', en: 'Official Website' }, lang)}</li>
+                      </ul>
                     </div>
-                  )}
-                  {activeItem.year && (
-                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.year}</p><p className="text-xl font-medium text-gray-800">{activeItem.year}</p></div>
-                  )}
-                  {activeItem.projectOverview.myRole && (
-                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.myRole}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.myRole, lang)}</p></div>
-                  )}
-                  {activeItem.projectOverview.service && (
-                    <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.service}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.service, lang)}</p></div>
-                  )}
+                  </div>
+                  
+                  {/* Right Column (40%) */}
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { label: { zh: '角色', en: 'Role' }, value: { zh: 'UX 設計師 · 獨立執行', en: 'UX Designer · Solo Practitioner' } },
+                      { label: { zh: '時程', en: 'Timeline' }, value: { zh: '2024–2025', en: '2024–2025' } },
+                      { label: { zh: '工具', en: 'Tools' }, value: { zh: 'Tools' }, displayVal: 'Framer' },
+                      { label: { zh: '產業', en: 'Industry' }, value: { zh: 'B2B SaaS · 教育科技', en: 'B2B SaaS · EdTech' } }
+                    ].map((card, idx) => (
+                      <div
+                        key={idx}
+                        className={`bg-[#FAFAFB] border border-gray-100 rounded-2xl p-6 flex flex-col justify-center min-h-[110px] shadow-sm transition-all duration-[800ms] ease-out transform ${
+                          wisdomeOverviewVisible 
+                            ? 'opacity-100 translate-y-0' 
+                            : 'opacity-0 translate-y-8'
+                        }`}
+                        style={{
+                          transitionDelay: `${idx * 80}ms`
+                        }}
+                      >
+                        <span className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">
+                          {t(card.label, lang)}
+                        </span>
+                        <span className="text-sm md:text-base font-bold text-gray-800 leading-snug">
+                          {card.displayVal || t(card.value, lang)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] whitespace-pre-line">
-                  {activeItem.projectOverview.backgroundAndGoals && (
-                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.background}</h4><p>{t(activeItem.projectOverview.backgroundAndGoals, lang)}</p></div>
-                  )}
-                  {activeItem.projectOverview.challenge && (
-                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.challenge}</h4><p>{t(activeItem.projectOverview.challenge, lang)}</p></div>
-                  )}
+              ) : (
+                // Default Generic Project Overview
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
+                  <div className="space-y-8">
+                    {activeItem.projectOverview.clientLogoUrl && (
+                      <div>
+                        <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">{I18N[lang].project.client}</p>
+                        <img src={activeItem.projectOverview.clientLogoUrl} alt="Client Logo" className="h-8 md:h-12 w-auto object-contain origin-left" onError={(e) => { e.target.style.display = 'none'; }} />
+                      </div>
+                    )}
+                    {activeItem.year && (
+                      <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.year}</p><p className="text-xl font-medium text-gray-800">{activeItem.year}</p></div>
+                    )}
+                    {activeItem.projectOverview.myRole && (
+                      <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.myRole}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.myRole, lang)}</p></div>
+                    )}
+                    {activeItem.projectOverview.service && (
+                      <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.service}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.service, lang)}</p></div>
+                    )}
+                  </div>
+                  <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] whitespace-pre-line">
+                    {activeItem.projectOverview.backgroundAndGoals && (
+                      <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.background}</h4><p>{t(activeItem.projectOverview.backgroundAndGoals, lang)}</p></div>
+                    )}
+                    {activeItem.projectOverview.challenge && (
+                      <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.challenge}</h4><p>{t(activeItem.projectOverview.challenge, lang)}</p></div>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
 
@@ -5123,153 +5600,473 @@ const PROJECTS = [
 
           {/* 03 Strategy & Architecture */}
           {activeItem.strategyAndArchitecture && (
-            <div className="w-full mb-24 md:mb-40 mt-12">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-                <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.strategy}</h3></div>
-                {activeItem.strategyAndArchitecture.description && (
-                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.strategyAndArchitecture.description, lang)}</p>
+            activeItem.id === 1 ? (
+              // Wisdome.ai Custom Strategy & Architecture
+              <div 
+                className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12"
+                ref={wisdomeStrategyRef}
+              >
+                {/* Standard Header */}
+                <div className="flex flex-col mb-12 border-b border-gray-100 pb-10">
+                  <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">
+                    {getSectionNum()}
+                  </h2>
+                  <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">
+                    {I18N[lang].project.strategy}
+                  </h3>
+                </div>
+
+                {/* Text Content */}
+                <div className="space-y-6 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">
+                  <p>
+                    {t({
+                      zh: '針對 B2B SaaS 企業官網，我們以「建立專業信任」與「引導留單轉換」為策略核心，規劃了清晰的資訊架構，幫助教育機構決策者快速理解平台價值。',
+                      en: 'For B2B SaaS corporate websites, our core strategy centers on establishing professional trust and driving lead conversion. We designed a clear information architecture to help educational decision-makers quickly grasp the platform\'s value.'
+                    }, lang)}
+                  </p>
+                  <ul className="space-y-4 text-base md:text-lg text-gray-600 font-semibold font-['Noto_Sans_TC'] list-disc pl-5">
+                    <li>
+                      {t({
+                        zh: '直覺的角色化導覽：以不同教務角色切入，展示符合其痛點的客製化價值主張。',
+                        en: 'Intuitive Role-based Navigation: Tailored value propositions for key administrative personas.'
+                      }, lang)}
+                    </li>
+                    <li>
+                      {t({
+                        zh: '漸進式信任建構：由淺入深呈現產品優勢，減少使用者面對繁雜功能的焦慮感。',
+                        en: 'Progressive Trust Building: Step-by-step benefit presentation to reduce visual anxiety.'
+                      }, lang)}
+                    </li>
+                    <li>
+                      {t({
+                        zh: '無縫轉化路徑設計：在主要接觸點配置顯眼的 CTA，引導訪客快速採取預約諮詢。',
+                        en: 'Seamless Conversion Paths: Clear CTAs strategically placed to guide booking actions.'
+                      }, lang)}
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Scrollable Image */}
+                {activeItem.strategyAndArchitecture.iaImage && (
+                  <HorizontalMapScroll url={activeItem.strategyAndArchitecture.iaImage} />
                 )}
               </div>
-              {activeItem.strategyAndArchitecture.iaImage && (
-                <HorizontalMapScroll url={activeItem.strategyAndArchitecture.iaImage} />
-              )}
-            </div>
+            ) : (
+              // Default Generic Strategy & Architecture
+              <div className="w-full mb-24 md:mb-40 mt-12">
+                <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                  <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.strategy}</h3></div>
+                  {activeItem.strategyAndArchitecture.description && (
+                    <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.strategyAndArchitecture.description, lang)}</p>
+                  )}
+                </div>
+                {activeItem.strategyAndArchitecture.iaImage && (
+                  <HorizontalMapScroll url={activeItem.strategyAndArchitecture.iaImage} />
+                )}
+              </div>
+            )
           )}
 
           {/* 04 Brand Identity */}
           {activeItem.brandIdentity && (
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
-              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.brand}</h3></div>
-
-              <div className="flex flex-col gap-12 lg:gap-16">
-                {/* 橫向滿版影片或 Logo */}
-                <div className={`w-full bg-[#EAE8F2] rounded-[2rem] flex items-center justify-center overflow-hidden ${activeItem.brandIdentity.motionVideoUrl ? 'aspect-video' : 'p-12 md:p-20 min-h-[300px]'}`}>
-                  {activeItem.brandIdentity.motionVideoUrl ? (
-                    <OptimizedVideo src={activeItem.brandIdentity.motionVideoUrl} className="w-full h-full object-cover" />
-                  ) : (
-                    <img src={activeItem.brandIdentity.logoImage} className="w-2/3 md:w-1/3 h-auto" alt="Logo" onError={(e) => e.target.style.display = 'none'} />
-                  )}
+            activeItem.id === 1 ? (
+              // Wisdome.ai Custom 企業識別系統 (CIS) - 全寬展示
+              <div className="w-full mb-24 md:mb-40 mt-12 bg-white">
+                {/* 頂部 */}
+                <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16">
+                  <div className="flex flex-col mb-12 border-b border-gray-100 pb-10">
+                    <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">
+                      {getSectionNum()}
+                    </h2>
+                    <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">
+                      {t({ zh: '企業識別系統', en: 'Corporate Identity System' }, lang)}
+                    </h3>
+                  </div>
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl">
+                    {t({
+                      zh: '為凸顯 Wisdome.ai 智慧教育的創新形象與科技核心，我們規劃了完整的視覺識別規範，建立一個兼具專業感、信賴感與前沿科技感的 CIS 系統。',
+                      en: 'To highlight Wisdome.ai\'s innovative image and technological core, we developed a complete visual identity system that builds a brand image combining professionalism, trust, and advanced EdTech aesthetics.'
+                    }, lang)}
+                  </p>
                 </div>
-                {/* Logo Showcase (交錯式排版) */}
-                {activeItem.brandIdentity.logos && activeItem.brandIdentity.logos.length > 0 && (
-                  <div className="flex flex-col mt-8 md:mt-16 mb-16 md:mb-24">
-                    <div className="flex items-center gap-4 mb-6">
-                      <h4 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">Logo Design</h4>
-                    </div>
-                    <div className="w-full h-[1px] bg-gray-300 mb-16 md:mb-24"></div>
 
-                    <div className="flex flex-col gap-16 md:gap-32">
-                      {activeItem.brandIdentity.logos.map((logo, index) => {
-                        const isEven = index % 2 === 0;
-                        return (
-                          <div key={index} className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-16 items-center`}>
-                            {/* Image Placeholder */}
-                            <div className="w-full md:w-1/2 aspect-[4/3] md:aspect-video bg-[#F5F5F5] rounded-3xl flex items-center justify-center border border-gray-100 overflow-hidden shadow-sm">
-                              {logo.imageUrl ? (
-                                <img src={logo.imageUrl} alt={logo.type} className="w-full h-full object-contain p-6 md:p-10" />
-                              ) : (
-                                <div className="text-gray-400 font-bold tracking-widest text-sm md:text-base flex flex-col items-center gap-2 uppercase">
-                                  <span>[ {logo.type} ]</span>
-                                  <span className="text-xs">Image Placeholder</span>
-                                </div>
-                              )}
-                            </div>
-                            {/* Text Content */}
-                            <div className="w-full md:w-1/2 flex flex-col justify-center py-4">
-                              <span className="text-sm font-bold text-orange-500 uppercase tracking-widest mb-4 inline-block">{logo.type}</span>
-                              <h4 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 font-['Noto_Sans_TC'] leading-tight">{logo.title}</h4>
-                              <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-lg">{logo.description}</p>
-                            </div>
+                {/* 子區塊容器 */}
+                <div className="max-w-[100rem] mx-auto px-6 md:px-12 space-y-32">
+                  
+                  {/* 1. Logo 展示 */}
+                  <div 
+                    ref={cisLogoRef}
+                    className={`transition-all duration-1000 ease-out transform ${
+                      cisLogoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                    }`}
+                  >
+                    <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">
+                      {t({ zh: '1. 標誌規範展示', en: '1. Brand Mark System' }, lang)}
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                      {[
+                        {
+                          title: { zh: '主版本標誌 (Main Version)', en: 'Main Brand Mark' },
+                          desc: { zh: '適用於官方主色底及多數主流數位與實體宣傳介面', en: 'Optimized for primary brand colors and mainstream digital layouts.' },
+                          bg: 'bg-white border border-gray-100',
+                          filter: 'none'
+                        },
+                        {
+                          title: { zh: '深色背景反白版 (Reversed Version)', en: 'Reversed Brand Mark' },
+                          desc: { zh: '適用於品牌深色頁尾、碳黑色看板及暗色模式介面', en: 'Tailored for dark footers, black backdrops, and dark modes.' },
+                          bg: 'bg-[#1A1A1E]',
+                          filter: 'brightness(0) invert(1)'
+                        },
+                        {
+                          title: { zh: '單色極簡版 (Monochrome Version)', en: 'Monochrome Mark' },
+                          desc: { zh: '適用於報表印刷、單色壓印或低色彩干擾之媒介', en: 'Suited for report printing, single-ink embossments, or low-chroma print.' },
+                          bg: 'bg-gray-50 border border-gray-100',
+                          filter: 'grayscale(100%) brightness(0.2)'
+                        }
+                      ].map((item, idx) => (
+                        <div key={idx} className="flex flex-col gap-4 transition-all duration-[800ms] ease-out transform" style={{ transitionDelay: `${idx * 100}ms` }}>
+                          <div className={`w-full aspect-[16/10] rounded-[2rem] flex items-center justify-center shadow-sm p-8 ${item.bg}`}>
+                            <img 
+                              src="/projects/wisdome.ai_web/wisdomeai_logo.svg" 
+                              alt={t(item.title, lang)} 
+                              className="max-h-[36px] max-w-[80%] object-contain select-none"
+                              style={{ filter: item.filter }}
+                            />
                           </div>
-                        );
-                      })}
+                          <div>
+                            <span className="block text-sm font-bold text-gray-800 mb-1 font-['Noto_Sans_TC']">{t(item.title, lang)}</span>
+                            <span className="block text-xs text-gray-400 font-medium font-['Noto_Sans_TC']">{t(item.desc, lang)}</span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                )}
 
-                {/* 色彩計畫與字體排印 */}
-                {activeItem.brandIdentity.combinedView ? (
-                  <div className="flex flex-col mt-8 md:mt-16">
-                    <div className="flex items-center gap-4 mb-6">
-                      <h4 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">Typography& Colors</h4>
-                    </div>
-                    <div className="w-full h-[1px] bg-gray-300 mb-16"></div>
-
-                    {/* Typography Section */}
-                    <div className="flex flex-col md:flex-row gap-12 md:gap-16 mb-24 md:mb-32">
-                      {/* Left Column: Font Names */}
-                      <div className="w-full md:w-1/3 flex flex-col gap-10">
-                        {activeItem.brandIdentity.typography?.en && (
-                          <div>
-                            <p className="text-sm font-bold text-gray-500 mb-2">English typography</p>
-                            <p className="text-4xl md:text-5xl font-bold text-[#282828]">{activeItem.brandIdentity.typography.en.name}</p>
-                          </div>
-                        )}
-                        {activeItem.brandIdentity.typography?.tc && (
-                          <div>
-                            <p className="text-sm font-bold text-gray-500 mb-2">Chinese typography</p>
-                            <p className="text-3xl md:text-4xl font-bold text-[#282828] font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.tc.name}</p>
-                          </div>
-                        )}
-                      </div>
-                      {/* Right Column: Previews */}
-                      <div className="w-full md:w-2/3 flex flex-col gap-10 justify-center overflow-hidden">
-                        {activeItem.brandIdentity.typography?.en && (
-                          <p className="text-5xl sm:text-7xl md:text-[6rem] lg:text-[7.5rem] font-bold text-[#282828] uppercase tracking-wide leading-none truncate md:overflow-visible">{activeItem.brandIdentity.typography.en.preview}</p>
-                        )}
-                        {activeItem.brandIdentity.typography?.tc && (
-                          <p className="text-4xl sm:text-6xl md:text-[4rem] lg:text-[5rem] font-bold text-[#282828] tracking-tight leading-tight font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.tc.preview}</p>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Colors Section */}
-                    <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-center">
-                      {/* Left Column: Description */}
-                      <div className="w-full md:w-1/3 mb-4 md:mb-0">
-                        <p className="text-base md:text-lg text-gray-800 leading-relaxed font-medium font-['Noto_Sans_TC']">
-                          {activeItem.brandIdentity.colorDesc}
+                  {/* 2. 色彩系統 */}
+                  <div 
+                    ref={cisColorRef}
+                    className={`transition-all duration-1000 ease-out transform ${
+                      cisColorVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                    }`}
+                  >
+                    <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">
+                      {t({ zh: '2. 品牌色彩系統', en: '2. Color Identity System' }, lang)}
+                    </h4>
+                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 items-start">
+                      {/* Left: Decision rationale */}
+                      <div className="space-y-6">
+                        <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                          {t({
+                            zh: '色彩計畫以明快的科技藍綠色（Accent Cyan）搭配深沉冷冽的碳黑色（Primary Dark）為主軸。藍綠色代表 AI 與雲端教育的創新活力，碳黑色則象徵教育管理系統的穩定、安全與專業。透過高對比的配色體系，確保網站在展現科技感的同時，仍能保持極佳的閱讀易用性。',
+                            en: 'The color palette features Tech Cyan as the accent shade and Charcoal Black as the primary background. Cyan communicates innovative AI EdTech vitality, while Charcoal symbolizes educational administration systems\' security and professionalism. This ensures high-contrast clarity alongside modern aesthetics.'
+                          }, lang)}
                         </p>
                       </div>
-                      {/* Right Column: Color Blocks */}
-                      <div className="w-full md:w-2/3 flex h-48 md:h-64 rounded-3xl overflow-hidden shadow-sm">
-                        {activeItem.brandIdentity.colors?.map(color => (
-                          <div key={color.hex} className="flex-1 p-6 md:p-8 flex items-end" style={{ backgroundColor: color.hex }}>
-                            <span className="text-white font-bold tracking-widest text-base md:text-xl">{color.hex}</span>
+                      
+                      {/* Right: Square swatches with hover tooltips */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+                        {[
+                          { hex: '#282828', name: 'Primary Dark', usage: { zh: '主文字與背景色，體現穩固與深度', en: 'Main text & panel fill, conveying depth.' } },
+                          { hex: '#00D2E2', name: 'Accent Cyan', usage: { zh: '科技點綴色，引導注意力與 CTA', en: 'Vibrant blue-green accent, leading CTA clicks.' } },
+                          { hex: '#FAFAFB', name: 'Secondary Base', usage: { zh: '輔助背景與卡片底色，建立留白層級', en: 'Card panels and soft background fills.' } },
+                          { hex: '#64748B', name: 'Slate Muted', usage: { zh: '次要輔助文字與框架，呈現精緻細節', en: 'Secondary labels, dividers, and muted copy.' } }
+                        ].map((color, cIdx) => (
+                          <div key={cIdx} className="group relative flex flex-col gap-3 transition-all duration-[800ms] ease-out transform" style={{ transitionDelay: `${cIdx * 100}ms` }}>
+                            <div 
+                              className="w-full aspect-square rounded-2xl shadow-sm flex items-center justify-center border border-gray-100 cursor-pointer relative overflow-hidden transition-all duration-300 group-hover:scale-105"
+                              style={{ backgroundColor: color.hex }}
+                            >
+                              {/* Hover details overlay */}
+                              <div className="absolute inset-0 bg-black/80 flex flex-col justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <span className="text-white font-mono font-bold text-xs mb-1">{color.hex}</span>
+                                <span className="text-white/80 font-['Noto_Sans_TC'] text-[10px] leading-snug">{t(color.usage, lang)}</span>
+                              </div>
+                            </div>
+                            <div>
+                              <span className="block text-sm font-bold text-gray-800">{color.name}</span>
+                              <span className="block text-xs text-gray-400 font-mono font-medium">{color.hex}</span>
+                            </div>
                           </div>
                         ))}
                       </div>
                     </div>
                   </div>
-                ) : (
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-                    {activeItem.brandIdentity.colors && (
-                      <div>
-                        <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">{I18N[lang].project.colorPalette}</h4>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                          {activeItem.brandIdentity.colors.map(color => (
-                            <div key={color.hex} className="flex flex-col gap-3">
-                              <div className="w-full aspect-square rounded-[1.5rem] shadow-sm flex items-end p-4 border border-gray-100" style={{ backgroundColor: color.hex }}></div>
-                              <span className="text-sm font-bold text-gray-800 tracking-wide">{t(color.name, lang)}</span>
-                              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{color.hex}</span>
+
+                  {/* 3. 字型系統 */}
+                  <div 
+                    ref={cisFontRef}
+                    className={`transition-all duration-1000 ease-out transform ${
+                      cisFontVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                    }`}
+                  >
+                    <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">
+                      {t({ zh: '3. 字型階層系統 (Typography)', en: '3. Typography hierarchy' }, lang)}
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
+                      {/* English System */}
+                      <div className="space-y-6 bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100">
+                        <span className="text-xs text-orange-500 font-bold uppercase tracking-wider block mb-4">English Typeface — Figtree</span>
+                        
+                        <div className="space-y-6">
+                          <div>
+                            <span className="text-[10px] text-gray-400 font-bold uppercase block mb-1">Heading H1 (900 Bold)</span>
+                            <span style={{ fontSize: '36px', fontWeight: '900', color: '#1E293B', lineHeight: '1.1', fontFamily: "'Inter', sans-serif" }} className="block">
+                              Designing Educational Futures
+                            </span>
+                          </div>
+                          
+                          <div>
+                            <span className="text-[10px] text-gray-400 font-bold uppercase block mb-1">Subtitle H3 (600 Semibold)</span>
+                            <span style={{ fontSize: '20px', fontWeight: '600', color: '#475569', lineHeight: '1.2', fontFamily: "'Inter', sans-serif" }} className="block">
+                              A modern AI platform for cram schools.
+                            </span>
+                          </div>
+                          
+                          <div>
+                            <span className="text-[10px] text-gray-400 font-bold uppercase block mb-1">Body Text (400 Regular)</span>
+                            <span style={{ fontSize: '15px', fontWeight: '400', color: '#64748B', lineHeight: '1.6', fontFamily: "'Inter', sans-serif" }} className="block">
+                              Simplify administration, engage teachers, and build trust with parents through our B2B SaaS platform.
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Chinese System */}
+                      <div className="space-y-6 bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100">
+                        <span className="text-xs text-orange-500 font-bold uppercase tracking-wider block mb-4">Chinese Typeface — Noto Sans TC</span>
+                        
+                        <div className="space-y-6">
+                          <div>
+                            <span className="text-[10px] text-gray-400 font-bold uppercase block mb-1">標題 H1 (700 Bold)</span>
+                            <span className="text-3xl font-bold text-gray-900 leading-tight font-['Noto_Sans_TC'] block">
+                              重塑線上教育新未來
+                            </span>
+                          </div>
+                          
+                          <div>
+                            <span className="text-[10px] text-gray-400 font-bold uppercase block mb-1">副標題 H3 (600 Medium)</span>
+                            <span className="text-lg font-semibold text-gray-700 leading-normal font-['Noto_Sans_TC'] block">
+                              專為補習班打造的智慧教務系統。
+                            </span>
+                          </div>
+                          
+                          <div>
+                            <span className="text-[10px] text-gray-400 font-bold uppercase block mb-1">內文 Body (400 Regular)</span>
+                            <span className="text-base font-normal text-gray-500 leading-relaxed font-['Noto_Sans_TC'] block">
+                              聚愢科技整合 AI、機器學習與人性化介面，協助傳統教務無縫轉型，開啟高效管理的新頁章。
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 4. CIS → 官網落地對比 */}
+                  <div 
+                    ref={cisCompareRef}
+                    className={`transition-all duration-1000 ease-out transform ${
+                      cisCompareVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                    }`}
+                  >
+                    <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">
+                      {t({ zh: '4. CIS 規範與官網落地對比', en: '4. CIS Specs vs Live Website' }, lang)}
+                    </h4>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 items-center bg-[#FAFAFB] p-8 md:p-12 border border-gray-100 rounded-[2rem]">
+                      {/* Left: CIS Spec Mockup Card */}
+                      <div className="flex flex-col gap-4 w-full">
+                        <div 
+                          className="w-full aspect-[4/3] rounded-2xl flex flex-col justify-between p-6 shadow-sm border border-gray-200 bg-white"
+                          style={{ backgroundImage: 'radial-gradient(#E2E8F0 1px, transparent 1px)', backgroundSize: '16px 16px' }}
+                        >
+                          <div className="flex justify-between items-center border-b border-gray-100 pb-3">
+                            <span className="text-xs text-gray-400 font-bold font-mono">CIS_SPEC_01.PDF</span>
+                            <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded font-bold">GRID FIXED</span>
+                          </div>
+                          
+                          <div className="flex-1 flex flex-col justify-center items-center relative my-4">
+                            <div className="border border-blue-200 border-dashed p-4 rounded-xl flex items-center justify-center">
+                              <img src="/projects/wisdome.ai_web/graph-logo.png" alt="CIS Logo Spec" className="max-h-[80px] object-contain opacity-80" />
+                            </div>
+                            {/* Blue drafting measurements overlay */}
+                            <div className="absolute top-[15%] left-[10%] text-[10px] text-blue-500 font-mono">margin = 1.5x</div>
+                            <div className="absolute bottom-[-10px] h-[1px] w-2/3 bg-blue-300 flex justify-between"><div className="w-[1px] h-2 bg-blue-400" /><div className="w-[1px] h-2 bg-blue-400" /></div>
+                          </div>
+                          <span className="text-xs font-bold text-gray-400 font-mono">CIS Brand Guideline Map</span>
+                        </div>
+                        <div>
+                          <span className="block text-sm font-bold text-gray-800 font-['Noto_Sans_TC']">{t({ zh: 'CIS 品牌標誌規範', en: 'CIS Mark Specifications' }, lang)}</span>
+                          <span className="block text-xs text-gray-400 font-medium font-['Noto_Sans_TC']">{t({ zh: '嚴謹定義標誌的幾何格線、色彩容差與安全留白區域', en: 'Strictly defines geometry lines, spacing tolerances, and margins.' }, lang)}</span>
+                        </div>
+                      </div>
+
+                      {/* Middle: Connecting Arrow Icon */}
+                      <div className="hidden lg:flex flex-col items-center gap-2 justify-center px-4">
+                        <div className="bg-orange-500 text-white rounded-full p-3 shadow-md flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                          </svg>
+                        </div>
+                        <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider font-['Noto_Sans_TC'] mt-2">{t({ zh: '落地應用', en: 'Live Apply' }, lang)}</span>
+                      </div>
+
+                      {/* Right: Live Web Screenshot Card */}
+                      <div className="flex flex-col gap-4 w-full">
+                        <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-white relative">
+                          {/* Live website preview screenshot */}
+                          <img src="/projects/wisdome.ai_web/cover.jpg" alt="Website Implementation" className="w-full h-full object-cover select-none" />
+                          
+                          {/* Green matching badge overlay */}
+                          <div className="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
+                            100% SPEC MATCHED
+                          </div>
+                        </div>
+                        <div>
+                          <span className="block text-sm font-bold text-gray-800 font-['Noto_Sans_TC']">{t({ zh: '企業官方網站落地', en: 'Live Corporate Website' }, lang)}</span>
+                          <span className="block text-xs text-gray-400 font-medium font-['Noto_Sans_TC']">{t({ zh: '在 Web 介面實現完美像素對齊，保持品牌一致的跨媒介體驗', en: 'Achieves pixel-perfect rendering to preserve cohesive brand experience.' }, lang)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            ) : (
+              // Default Generic Brand Identity (CIS)
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+                <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.brand}</h3></div>
+
+                <div className="flex flex-col gap-12 lg:gap-16">
+                  {/* 橫向滿版影片或 Logo */}
+                  <div className={`w-full bg-[#EAE8F2] rounded-[2rem] flex items-center justify-center overflow-hidden ${activeItem.brandIdentity.motionVideoUrl ? 'aspect-video' : 'p-12 md:p-20 min-h-[300px]'}`}>
+                    {activeItem.brandIdentity.motionVideoUrl ? (
+                      <OptimizedVideo src={activeItem.brandIdentity.motionVideoUrl} className="w-full h-full object-cover" />
+                    ) : (
+                      <img src={activeItem.brandIdentity.logoImage} className="w-2/3 md:w-1/3 h-auto" alt="Logo" onError={(e) => e.target.style.display = 'none'} />
+                    )}
+                  </div>
+                  {/* Logo Showcase (交錯式排版) */}
+                  {activeItem.brandIdentity.logos && activeItem.brandIdentity.logos.length > 0 && (
+                    <div className="flex flex-col mt-8 md:mt-16 mb-16 md:mb-24">
+                      <div className="flex items-center gap-4 mb-6">
+                        <h4 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">Logo Design</h4>
+                      </div>
+                      <div className="w-full h-[1px] bg-gray-300 mb-16 md:mb-24"></div>
+
+                      <div className="flex flex-col gap-16 md:gap-32">
+                        {activeItem.brandIdentity.logos.map((logo, index) => {
+                          const isEven = index % 2 === 0;
+                          return (
+                            <div key={index} className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-16 items-center`}>
+                              {/* Image Placeholder */}
+                              <div className="w-full md:w-1/2 aspect-[4/3] md:aspect-video bg-[#F5F5F5] rounded-3xl flex items-center justify-center border border-gray-100 overflow-hidden shadow-sm">
+                                {logo.imageUrl ? (
+                                  <img src={logo.imageUrl} alt={logo.type} className="w-full h-full object-contain p-6 md:p-10" />
+                                ) : (
+                                  <div className="text-gray-400 font-bold tracking-widest text-sm md:text-base flex flex-col items-center gap-2 uppercase">
+                                    <span>[ {logo.type} ]</span>
+                                    <span className="text-xs">Image Placeholder</span>
+                                  </div>
+                                )}
+                              </div>
+                              {/* Text Content */}
+                              <div className="w-full md:w-1/2 flex flex-col justify-center py-4">
+                                <span className="text-sm font-bold text-orange-500 uppercase tracking-widest mb-4 inline-block">{logo.type}</span>
+                                <h4 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 font-['Noto_Sans_TC'] leading-tight">{logo.title}</h4>
+                                <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-lg">{logo.description}</p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 色彩計畫與字體排印 */}
+                  {activeItem.brandIdentity.combinedView ? (
+                    <div className="flex flex-col mt-8 md:mt-16">
+                      <div className="flex items-center gap-4 mb-6">
+                        <h4 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">Typography& Colors</h4>
+                      </div>
+                      <div className="w-full h-[1px] bg-gray-300 mb-16"></div>
+
+                      {/* Typography Section */}
+                      <div className="flex flex-col md:flex-row gap-12 md:gap-16 mb-24 md:mb-32">
+                        {/* Left Column: Font Names */}
+                        <div className="w-full md:w-1/3 flex flex-col gap-10">
+                          {activeItem.brandIdentity.typography?.en && (
+                            <div>
+                              <p className="text-sm font-bold text-gray-500 mb-2">English typography</p>
+                              <p className="text-4xl md:text-5xl font-bold text-[#282828]">{activeItem.brandIdentity.typography.en.name}</p>
+                            </div>
+                          )}
+                          {activeItem.brandIdentity.typography?.tc && (
+                            <div>
+                              <p className="text-sm font-bold text-gray-500 mb-2">Chinese typography</p>
+                              <p className="text-3xl md:text-4xl font-bold text-[#282828] font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.tc.name}</p>
+                            </div>
+                          )}
+                        </div>
+                        {/* Right Column: Previews */}
+                        <div className="w-full md:w-2/3 flex flex-col gap-10 justify-center overflow-hidden">
+                          {activeItem.brandIdentity.typography?.en && (
+                            <p className="text-5xl sm:text-7xl md:text-[6rem] lg:text-[7.5rem] font-bold text-[#282828] uppercase tracking-wide leading-none truncate md:overflow-visible">{activeItem.brandIdentity.typography.en.preview}</p>
+                          )}
+                          {activeItem.brandIdentity.typography?.tc && (
+                            <p className="text-4xl sm:text-6xl md:text-[4rem] lg:text-[5rem] font-bold text-[#282828] tracking-tight leading-tight font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.tc.preview}</p>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Colors Section */}
+                      <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-center">
+                        {/* Left Column: Description */}
+                        <div className="w-full md:w-1/3 mb-4 md:mb-0">
+                          <p className="text-base md:text-lg text-gray-800 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                            {activeItem.brandIdentity.colorDesc}
+                          </p>
+                        </div>
+                        {/* Right Column: Color Blocks */}
+                        <div className="w-full md:w-2/3 flex h-48 md:h-64 rounded-3xl overflow-hidden shadow-sm">
+                          {activeItem.brandIdentity.colors?.map(color => (
+                            <div key={color.hex} className="flex-1 p-6 md:p-8 flex items-end" style={{ backgroundColor: color.hex }}>
+                              <span className="text-white font-bold tracking-widest text-base md:text-xl">{color.hex}</span>
                             </div>
                           ))}
                         </div>
                       </div>
-                    )}
-                    {activeItem.brandIdentity.typography && (
-                      <div className="bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100 h-full">
-                        <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">{I18N[lang].project.typography}</h4>
-                        <div className="space-y-8">
-                          <div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.primaryType}</p><p className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">{activeItem.brandIdentity.typography.primary}</p></div>
-                          {activeItem.brandIdentity.typography.secondary && (<div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.secondaryType}</p><p className="text-2xl md:text-4xl font-bold text-gray-900 font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.secondary}</p></div>)}
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                      {activeItem.brandIdentity.colors && (
+                        <div>
+                          <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">{I18N[lang].project.colorPalette}</h4>
+                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                            {activeItem.brandIdentity.colors.map(color => (
+                              <div key={color.hex} className="flex flex-col gap-3">
+                                <div className="w-full aspect-square rounded-[1.5rem] shadow-sm flex items-end p-4 border border-gray-100" style={{ backgroundColor: color.hex }}></div>
+                                <span className="text-sm font-bold text-gray-800 tracking-wide">{t(color.name, lang)}</span>
+                                <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{color.hex}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
-                )}
+                      )}
+                      {activeItem.brandIdentity.typography && (
+                        <div className="bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100 h-full">
+                          <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">{I18N[lang].project.typography}</h4>
+                          <div className="space-y-8">
+                            <div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.primaryType}</p><p className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">{activeItem.brandIdentity.typography.primary}</p></div>
+                            {activeItem.brandIdentity.typography.secondary && (<div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.secondaryType}</p><p className="text-2xl md:text-4xl font-bold text-gray-900 font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.secondary}</p></div>)}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            )
           )}
 
           {/* 05 Design */}
@@ -5277,6 +6074,233 @@ const PROJECTS = [
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
               <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{isApp ? I18N[lang].project.uiDesign : I18N[lang].project.webDesign}</h3></div>
               <div className="space-y-20">
+                {activeItem.id === 1 && (
+                  <>
+                    <div className="bg-[#FAFAFB] border border-gray-100 rounded-[2rem] p-8 md:p-12 shadow-sm mb-8">
+                      <div className="mb-8">
+                        <h4 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight mb-2">
+                          {lang === 'zh' ? '五個關鍵設計選擇' : 'Five Key Design Choices'}
+                        </h4>
+                        <p className="text-sm md:text-base text-gray-500 font-medium font-['Noto_Sans_TC']">
+                          {lang === 'zh' ? '每個選擇背後都有 UX 根據，不是美感偏好。' : 'Each choice is backed by UX rationale, not aesthetic preference.'}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2.5 mb-10 pb-6 border-b border-gray-200/50">
+                        {DECISION_TABS.map((tab) => {
+                          const isActive = activeDecisionTab === tab.id;
+                          return (
+                            <button
+                              key={tab.id}
+                              onClick={() => handleDecisionTabChange(tab.id)}
+                              className={`px-5 py-2.5 rounded-full text-sm md:text-base font-bold tracking-wide border transition-all duration-300 cursor-pointer ${
+                                isActive
+                                  ? 'bg-purple-50 border-purple-200 text-purple-900 shadow-sm'
+                                  : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                              }`}
+                            >
+                              {t(tab.title, lang)}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <div 
+                        className="space-y-6 md:space-y-8"
+                        style={{
+                          transition: 'opacity 150ms ease-in-out',
+                          opacity: isDecisionFading ? 0 : 1
+                        }}
+                      >
+                        {DECISION_TABS.find(t => t.id === activeDecisionTab)?.insights.map((insight, idx) => (
+                          <div key={idx} className="flex flex-col sm:flex-row items-start gap-4 md:gap-6">
+                            <span className={`w-28 flex-shrink-0 text-center font-bold text-xs py-1.5 rounded-lg border ${insight.badgeColor}`}>
+                              {t(insight.badge, lang)}
+                            </span>
+                            <p className="text-sm md:text-base text-gray-600 leading-relaxed font-semibold font-['Noto_Sans_TC'] flex-1">
+                              {t(insight.content, lang)}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 設計決策分割視圖 */}
+                    <div className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-6 items-start mb-16">
+                      <div className="rounded-[12px] p-[12px] flex items-center justify-center relative w-full aspect-[16/10]">
+                        {videoState === 'none' ? (
+                          <div className="w-full h-full relative flex items-center justify-start">
+                            {/* Desktop Web Showcase (Browser Mockup removed, no shadows) */}
+                            <div 
+                              className="w-[86%] h-full flex flex-col bg-[#080d19] rounded-xl overflow-hidden relative"
+                              onMouseLeave={() => setIsDesktopScrollActive(false)}
+                            >
+                              {/* Scrollable Webpage Content */}
+                              <div 
+                                ref={containerRef}
+                                className={`flex-1 overflow-y-auto scroll-smooth hide-scrollbar bg-[#080d19] relative ${isDesktopScrollActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                              >
+                                {activeItem.design.webShowcaseStrip.map((item, idx) => {
+                                  const sectionRef = 
+                                    idx === 0 ? heroRef : 
+                                    idx === 1 ? servicesRef : 
+                                    idx === 2 ? valuesRef : 
+                                    idx === 3 ? successRef :
+                                    idx === 4 ? ctaRef :
+                                    idx === 5 ? aboutRef :
+                                    idx === 6 ? contactRef :
+                                    idx === 7 ? footerRef : null;
+                                  
+                                  return (
+                                    <div 
+                                      key={idx} 
+                                      ref={sectionRef}
+                                      className="w-full relative select-none"
+                                      style={{ lineHeight: 0 }}
+                                    >
+                                      {item.type === 'video' ? (
+                                        <WebShowcaseVideo src={item.url} className="w-full h-auto block" />
+                                      ) : (
+                                        <WebShowcaseImage src={item.url} />
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+
+                              {/* Center Scroll Activation Overlay */}
+                              <div 
+                                className={`absolute inset-y-[20%] inset-x-[25%] z-30 bg-transparent ${isDesktopScrollActive ? 'pointer-events-none' : 'pointer-events-auto cursor-ns-resize'}`}
+                                onMouseEnter={() => setIsDesktopScrollActive(true)}
+                              />
+                            </div>
+
+                            {/* Mobile Showcase (Phone Mockup & Shadow removed, position adjusted to top-12, border added) */}
+                            <div 
+                              className="absolute top-12 -right-6 w-[28%] h-full bg-[#080d19] rounded-[2rem] border-[6px] border-[#1a1b20] overflow-hidden flex flex-col z-20"
+                              onMouseLeave={() => setIsMobileScrollActive(false)}
+                            >
+                              {/* Scrollable Mobile Viewport */}
+                              <div 
+                                ref={mobileContainerRef}
+                                className={`flex-1 overflow-y-auto scroll-smooth hide-scrollbar bg-[#080d19] relative ${isMobileScrollActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                              >
+                                {activeItem.design.webShowcaseStrip.map((item, idx) => {
+                                  if (!item.mobile) return null;
+                                  const mItem = item.mobile;
+                                  
+                                  const mRef = 
+                                    idx === 0 ? mHeroRef : 
+                                    idx === 1 ? mServicesRef : 
+                                    idx === 2 ? mValuesRef : 
+                                    idx === 3 ? mSuccessRef :
+                                    idx === 4 ? mCtaRef :
+                                    idx === 5 ? mAboutRef : null;
+
+                                  return (
+                                    <div 
+                                      key={idx} 
+                                      ref={mRef}
+                                      className="w-full relative select-none"
+                                      style={{ lineHeight: 0 }}
+                                    >
+                                      {mItem.type === 'video' ? (
+                                        <WebShowcaseVideo src={mItem.url} />
+                                      ) : (
+                                        <WebShowcaseImage src={mItem.url} />
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+
+                              {/* Center Scroll Activation Overlay */}
+                              <div 
+                                className={`absolute inset-y-[20%] inset-x-[20%] z-30 bg-transparent ${isMobileScrollActive ? 'pointer-events-none' : 'pointer-events-auto cursor-ns-resize'}`}
+                                onMouseEnter={() => setIsMobileScrollActive(true)}
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="w-full h-full relative flex items-center justify-center bg-black rounded-lg overflow-hidden">
+                            <video
+                              ref={videoRef}
+                              key={SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.videoUrl}
+                              src={SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.videoUrl}
+                              autoPlay
+                              controls
+                              className="w-full h-full object-contain"
+                              onEnded={() => setVideoState('ended')}
+                            />
+                            {videoState === 'ended' && (
+                              <div className="absolute inset-0 bg-black/85 flex flex-col items-center justify-center gap-4 z-10 animate-in fade-in duration-300">
+                                <span className="text-white font-medium text-sm md:text-base font-['Noto_Sans_TC']">
+                                  {lang === 'zh' ? '影片播放完畢' : 'Video playback completed'}
+                                </span>
+                                <div className="flex gap-4">
+                                  <button
+                                    onClick={() => {
+                                      setVideoState('playing');
+                                      if (videoRef.current) {
+                                        videoRef.current.currentTime = 0;
+                                        videoRef.current.play().catch(err => console.log(err));
+                                      }
+                                    }}
+                                    className="px-4 py-2 bg-[#534ab7] hover:bg-[#433b9c] text-white rounded-full text-xs md:text-sm font-bold transition-all shadow-md cursor-pointer"
+                                  >
+                                    {lang === 'zh' ? '重播 ↺' : 'Replay ↺'}
+                                  </button>
+                                  <button
+                                    onClick={() => setVideoState('none')}
+                                    className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-full text-xs md:text-sm font-bold transition-all shadow-md cursor-pointer"
+                                  >
+                                    {lang === 'zh' ? '關閉 ✕' : 'Close ✕'}
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Right Column: Interactive Chips */}
+                      <div className="flex flex-col gap-4 justify-center">
+                        {SPLIT_VIEW_CHIPS.map((chip) => {
+                          const isActive = activeChip === chip.id;
+                          return (
+                            <div
+                              key={chip.id}
+                              onClick={() => {
+                                if (!isActive) {
+                                  setActiveChip(chip.id);
+                                  setVideoState('none');
+                                }
+                              }}
+                              className={`border rounded-xl p-5 transition-all duration-300 cursor-pointer ${
+                                isActive
+                                  ? 'border-[#534ab7] bg-purple-50 text-purple-900 shadow-sm'
+                                  : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
+                              }`}
+                            >
+                              <h5 className={`font-bold text-base md:text-lg font-['Noto_Sans_TC'] transition-colors duration-300 ${isActive ? 'text-purple-900' : 'text-gray-800'}`}>
+                                {t(chip.title, lang)}
+                              </h5>
+
+                              {/* Expandable content */}
+                              <div className={`grid transition-all duration-300 ease-in-out ${isActive ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0 overflow-hidden'}`}>
+                                <div className="overflow-hidden min-h-0">
+                                  <p className="text-sm text-gray-600 leading-relaxed font-['Noto_Sans_TC']">
+                                    {t(chip.desc, lang)}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </>
+                )}
                 {activeItem.design.designSystemDesc && (
                   <div className="mb-12"><p className="text-lg md:text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl">{t(activeItem.design.designSystemDesc, lang)}</p></div>
                 )}
@@ -5450,12 +6474,12 @@ const PROJECTS = [
                   </div>
                 )}
 
-                {((activeItem.design.screens && activeItem.design.screens.length > 0) || (activeItem.design.screenGroups && activeItem.design.screenGroups.length > 0) || (activeItem.design.flowImages && activeItem.design.flowImages.length > 0) || activeItem.design.longScreenshot || activeItem.design.webShowcaseStrip) && (
+                {((activeItem.design.screens && activeItem.design.screens.length > 0) || (activeItem.design.screenGroups && activeItem.design.screenGroups.length > 0) || (activeItem.design.flowImages && activeItem.design.flowImages.length > 0) || activeItem.design.longScreenshot || (activeItem.design.webShowcaseStrip && activeItem.id !== 1)) && (
                   <div>
                     <h4 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.screens}</h4>
 
                     {/* 網站設計長條展示（影片＋圖片無縫拼接） */}
-                    {activeItem.design.webShowcaseStrip && (
+                    {activeItem.design.webShowcaseStrip && activeItem.id !== 1 && (
                       <WebShowcaseStrip items={activeItem.design.webShowcaseStrip} />
                     )}
 
@@ -5604,6 +6628,51 @@ const PROJECTS = [
                 {activeItem.design.usabilityTesting && (
                   <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.usability}</h4><p className="text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl whitespace-pre-line">{t(activeItem.design.usabilityTesting, lang)}</p></div>
                 )}
+              </div>
+            </div>
+          )}
+
+          {/* 反思與迭代區塊 */}
+          {activeItem.id === 1 && (
+            <div 
+              ref={reflectionRef}
+              className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12"
+            >
+              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10">
+                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">
+                  {getSectionNum()}
+                </h2>
+                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-900">
+                  {lang === 'zh' ? '成果與反思' : 'Reflection & Iteration'}
+                </h3>
+                <p className="text-sm md:text-base text-gray-500 font-semibold font-['Noto_Sans_TC'] mt-2">
+                  {lang === 'zh' ? '誠實評估，比展示光鮮更有說服力。' : 'Honest assessment is more convincing than a polished showcase.'}
+                </p>
+              </div>
+
+              {/* 2x2 Grid Layout */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {REFLECTION_CARDS.map((card, idx) => (
+                  <div
+                    key={idx}
+                    className={`bg-white border border-gray-200 rounded-[12px] p-4 flex gap-4 transition-all duration-700 ease-out transform ${
+                      reflectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                    }`}
+                    style={{ transitionDelay: `${idx * 100}ms` }}
+                  >
+                    <div className={`p-3 rounded-xl ${card.iconBg} ${card.iconColor} h-fit flex-shrink-0 flex items-center justify-center`}>
+                      {card.icon}
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="text-lg font-bold text-gray-900 font-['Noto_Sans_TC']">
+                        {t(card.title, lang)}
+                      </h4>
+                      <p className="text-sm text-gray-600 leading-relaxed font-['Noto_Sans_TC']">
+                        {t(card.desc, lang)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           )}

@@ -8,7 +8,6 @@ const IconMail = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" view
 const IconInstagram = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>;
 const IconLinkedin = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>;
 const IconGlobe = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10" /><line x1="2" x2="22" y1="12" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z" /></svg>;
-const IconPlus = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14" /><path d="M12 5v14" /></svg>;
 const IconMenu = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></svg>;
 const IconSearch = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>;
 const IconX = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>;
@@ -86,12 +85,13 @@ const TimelineItem = ({ year, title, subtitle, children, isLast }) => {
   );
 };
 
-const HorizontalMapScroll = ({ url }) => {
+const HorizontalMapScroll = ({ url, iaDots = null, lang = 'zh' }) => {
   const sectionRef = useRef(null);
   const imgRef = useRef(null);
   const [progress, setProgress] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
   const [hasError, setHasError] = useState(false);
+  const [activeIaDot, setActiveIaDot] = useState(null);
 
   const updateMaxScroll = useCallback(() => {
     const isMobile = window.innerWidth < 768;
@@ -184,18 +184,86 @@ const HorizontalMapScroll = ({ url }) => {
     <section ref={sectionRef} style={{ height: sectionHeight }} className="relative w-full bg-white z-20">
       <div className="md:sticky md:top-0 md:h-screen w-full flex items-center overflow-hidden">
         {/* Mobile View */}
-        <div className="md:hidden w-full overflow-x-auto hide-scrollbar py-12 px-6 snap-x snap-mandatory flex flex-shrink-0">
-          {hasError ? (
-            <div className="h-[50vh] w-[80vw] bg-gray-50 border-2 border-dashed border-gray-200 rounded-3xl mx-auto flex-shrink-0" />
-          ) : (
-            <img
-              src={url}
-              alt=""
-              className="h-[50vh] w-auto max-w-none snap-center flex-shrink-0"
-              onError={() => setHasError(true)}
-            />
+        <div className="md:hidden w-full flex flex-col items-center py-12 px-6">
+          <div className="w-full overflow-x-auto hide-scrollbar snap-x snap-mandatory flex flex-shrink-0">
+            {hasError ? (
+              <div className="h-[50vh] w-[80vw] bg-gray-50 border-2 border-dashed border-gray-200 rounded-3xl mx-auto flex-shrink-0" />
+            ) : (
+              <div className="relative flex-shrink-0">
+                <img
+                  src={url}
+                  alt=""
+                  className="h-[50vh] w-auto max-w-none snap-center block flex-shrink-0 select-none"
+                  onError={() => setHasError(true)}
+                />
+                {/* Dots overlay for mobile */}
+                {iaDots && (
+                  <div className="absolute inset-0 pointer-events-none">
+                    {iaDots.map((dot) => {
+                      const isActive = activeIaDot === dot.id;
+                      return (
+                        <div
+                          key={dot.id}
+                          style={{
+                            position: 'absolute',
+                            left: dot.left,
+                            top: dot.top,
+                            transform: 'translate(-50%, -50%)',
+                            zIndex: isActive ? 40 : 30,
+                            pointerEvents: 'auto'
+                          }}
+                        >
+                          <button
+                            onClick={() => setActiveIaDot(isActive ? null : dot.id)}
+                            className={`ia-dot ${isActive ? 'active' : ''}`}
+                            style={{
+                              width: '11px',
+                              height: '11px',
+                              borderRadius: '50%',
+                              backgroundColor: isActive ? '#E8601C' : '#ffffff',
+                              border: '2px solid #E8601C',
+                              padding: 0,
+                              cursor: 'pointer',
+                              outline: 'none',
+                              boxSizing: 'border-box',
+                              transform: isActive ? 'scale(1.2)' : 'scale(1)',
+                              transition: 'background-color 150ms ease, transform 150ms ease',
+                            }}
+                            title={t(dot.title, lang)}
+                          />
+                          
+                          {/* Bubble */}
+                          <div
+                            className={`ia-bubble ia-bubble-${dot.bubbleClass}`}
+                            style={{
+                              opacity: isActive ? 1 : 0,
+                              transform: isActive ? 'translateY(0)' : 'translateY(4px)',
+                              transition: 'opacity 180ms ease, transform 180ms ease',
+                              visibility: isActive ? 'visible' : 'hidden',
+                            }}
+                          >
+                            <strong className="font-bold block mb-[3px] text-white">
+                              {t(dot.title, lang)}
+                            </strong>
+                            <span className="text-white block font-medium">
+                              {t(dot.content, lang)}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          {iaDots && !hasError && (
+            <div className="text-center mt-3 text-tertiary text-[11px]">
+              {lang === 'zh' ? '點擊橘色圓點查看設計說明' : 'Click the orange dots to view design details'}
+            </div>
           )}
         </div>
+        
         {/* Desktop View */}
         <div
           style={{ transform: isDesktop ? `translateX(${-translateX}px)` : 'none' }}
@@ -204,27 +272,100 @@ const HorizontalMapScroll = ({ url }) => {
           {hasError ? (
             <div className="h-[70vh] w-[80vw] bg-gray-50 border-2 border-dashed border-gray-200 rounded-[3rem] mx-32 shadow-sm flex-shrink-0" />
           ) : (
-            <img
-              ref={imgRef}
-              src={url}
-              alt=""
-              className="h-[80vh] md:h-[85vh] w-auto max-w-none px-[10vw] block flex-shrink-0"
-              onLoad={handleImageLoad}
-              onError={() => setHasError(true)}
-            />
+            <div className="relative h-[80vh] md:h-[85vh] flex-shrink-0">
+              <img
+                ref={imgRef}
+                src={url}
+                alt=""
+                className="h-full w-auto max-w-none px-[10vw] block flex-shrink-0 select-none"
+                onLoad={handleImageLoad}
+                onError={() => setHasError(true)}
+              />
+              {/* Dots overlay for desktop */}
+              {iaDots && (
+                <div 
+                  className="absolute inset-y-0 pointer-events-none"
+                  style={{
+                    left: '10vw',
+                    right: '10vw',
+                  }}
+                >
+                  {iaDots.map((dot) => {
+                    const isActive = activeIaDot === dot.id;
+                    return (
+                      <div
+                        key={dot.id}
+                        style={{
+                          position: 'absolute',
+                          left: dot.left,
+                          top: dot.top,
+                          transform: 'translate(-50%, -50%)',
+                          zIndex: isActive ? 40 : 30,
+                          pointerEvents: 'auto'
+                        }}
+                      >
+                        <button
+                          onClick={() => setActiveIaDot(isActive ? null : dot.id)}
+                          className={`ia-dot ${isActive ? 'active' : ''}`}
+                          style={{
+                            width: '11px',
+                            height: '11px',
+                            borderRadius: '50%',
+                            backgroundColor: isActive ? '#E8601C' : '#ffffff',
+                            border: '2px solid #E8601C',
+                            padding: 0,
+                            cursor: 'pointer',
+                            outline: 'none',
+                            boxSizing: 'border-box',
+                            transform: isActive ? 'scale(1.2)' : 'scale(1)',
+                            transition: 'background-color 150ms ease, transform 150ms ease',
+                          }}
+                          title={t(dot.title, lang)}
+                        />
+                        
+                        {/* Bubble */}
+                        <div
+                          className={`ia-bubble ia-bubble-${dot.bubbleClass}`}
+                          style={{
+                            opacity: isActive ? 1 : 0,
+                            transform: isActive ? 'translateY(0)' : 'translateY(4px)',
+                            transition: 'opacity 180ms ease, transform 180ms ease',
+                            visibility: isActive ? 'visible' : 'hidden',
+                          }}
+                        >
+                          <strong className="font-bold block mb-[3px] text-white">
+                            {t(dot.title, lang)}
+                          </strong>
+                          <span className="text-white block font-medium">
+                            {t(dot.content, lang)}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           )}
         </div>
         {!hasError && isDesktop && (
-          <div className="hidden md:flex absolute bottom-12 left-1/2 -translate-x-1/2 items-center gap-4">
-            <div className="h-1 w-48 bg-gray-100 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-cyan-400 transition-all duration-300"
-                style={{ width: `${progress * 100}%` }}
-              />
+          <div className="hidden md:flex absolute bottom-12 left-1/2 -translate-x-1/2 flex-col items-center gap-2">
+            <div className="flex items-center gap-4">
+              <div className="h-1 w-48 bg-gray-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-cyan-400 transition-all duration-300"
+                  style={{ width: `${progress * 100}%` }}
+                />
+              </div>
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                Scroll to explore Map
+              </span>
             </div>
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-              Scroll to explore Map
-            </span>
+            {iaDots && (
+              <span className="text-[11px] text-tertiary">
+                {lang === 'zh' ? '點擊橘色圓點查看設計說明' : 'Click the orange dots to view design details'}
+              </span>
+            )}
           </div>
         )}
       </div>
@@ -332,7 +473,7 @@ const PROJECTS = [
       ]
     },
     design: {
-      designSystemDesc: '網站採用乾淨、現代的美學設計，強調可用性與無障礙體驗。我們專注於打造直覺的使用者旅程，透過清晰的資訊架構，精準傳達 AI 教育平台的核心價值與功能。',
+      designSystemDesc: '',
       componentsImages: ['/projects/wisdome.ai_web/components-1.jpg', '/projects/wisdome.ai_web/components-2.jpg'],
       webShowcaseStrip: [
         { type: 'video', url: '/projects/wisdome.ai_web/hero-page-web.mov', title: 'Hero Page', desc: '首頁主視覺區塊，以動態影片與品牌標語傳遞 AI 教育平台的創新形象與科技感。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-hero.mov' } },
@@ -558,6 +699,10 @@ const DECISION_TABS = [
   {
     id: 'long-page',
     title: { zh: '單頁長版', en: 'Long-form Page' },
+    subtitle: {
+      zh: '以完整「痛點-解決方案-價值驗證-行動呼籲」架構，建立高說服力的決策導引',
+      en: 'A complete "Pain-Solution-Validation-CTA" framework to guide B2B decision-making'
+    },
     insights: [
       {
         badge: { zh: '核心邏輯', en: 'Core Logic' },
@@ -588,6 +733,10 @@ const DECISION_TABS = [
   {
     id: 'pain-points',
     title: { zh: '痛點文案', en: 'Pain-point Copy' },
+    subtitle: {
+      zh: '將複雜 AI 特色轉化為直覺的省時、省力商業語言，貼近決策主管關切焦點',
+      en: 'Translate complex AI into clear time & cost savings that resonate with key executives'
+    },
     insights: [
       {
         badge: { zh: '核心邏輯', en: 'Core Logic' },
@@ -615,39 +764,14 @@ const DECISION_TABS = [
       }
     ]
   },
-  {
-    id: 'gifs',
-    title: { zh: '動態 GIF', en: 'Dynamic GIFs' },
-    insights: [
-      {
-        badge: { zh: '核心邏輯', en: 'Core Logic' },
-        badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-100 dark:bg-indigo-950/30 dark:text-indigo-300 dark:border-indigo-900/50',
-        content: {
-          zh: 'B2B SaaS 系統往往給人「複雜、難以上手」的刻板印象。在網頁上直接播放「一鍵生成排課」、「三秒批改考卷」的動態畫面，能以最直覺的方式證明產品易用性。',
-          en: 'B2B SaaS systems often carry a stereotype of being "complex and hard to use." Playing dynamic clips of "one-click scheduling" or "3-second grading" directly on the page builds an immediate intuition of ease-of-use.'
-        }
-      },
-      {
-        badge: { zh: '受眾考量', en: 'Audience' },
-        badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-900/50',
-        content: {
-          zh: '基層教務人員通常對新工具具有排斥心理。透過錄製好的簡短操作動態，展示極簡的 UI 與直覺的操作，能降低他們對「系統導入後學習成本太高」的集體焦慮。',
-          en: 'Frontline staff often resist new tools. Short operation clips showing minimal UI and intuitive steps reduce collective anxiety about high learning costs after system deployment.'
-        }
-      },
-      {
-        badge: { zh: '誠實取捨', en: 'Trade-off' },
-        badgeColor: 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-950/30 dark:text-amber-300 dark:border-amber-900/50',
-        content: {
-          zh: '動態圖檔對網頁性能影響極大。我們放棄了高清無損大圖，採用高效率 WebM 格式與適度壓縮的漸進式 GIF，並限制只有在該區塊進入視窗時才觸發播放。',
-          en: 'Dynamic images heavily impact web performance. We abandoned lossless HD graphics in favor of high-efficiency WebM format and optimized GIFs, and restricted auto-play to trigger only when the block is visible.'
-        }
-      }
-    ]
-  },
+
   {
     id: 'cta',
     title: { zh: 'CTA 策略', en: 'CTA Strategy' },
+    subtitle: {
+      zh: '聚焦「預約免費線上演示」，在價值展現點後配置 CTA，提高 B2B 客單轉換率',
+      en: 'Focus on booking a free demo and place CTAs dynamically to boost B2B lead generation'
+    },
     insights: [
       {
         badge: { zh: '核心邏輯', en: 'Core Logic' },
@@ -678,6 +802,10 @@ const DECISION_TABS = [
   {
     id: 'social-proof',
     title: { zh: '社會證明', en: 'Social Proof' },
+    subtitle: {
+      zh: '結合合作教育品牌 Logo 與真實校長推薦背書，打消新創科技系統的信任疑慮',
+      en: 'Use peer logos and real principal recommendations to eliminate EdTech platform doubts'
+    },
     insights: [
       {
         badge: { zh: '核心邏輯', en: 'Core Logic' },
@@ -846,25 +974,27 @@ const SPLIT_VIEW_CHIPS = [
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-      setIsMobile(window.innerWidth < 768);
       const handleScroll = () => {
-        if (trackRef.current) {
-          const rect = trackRef.current.getBoundingClientRect();
-          const scrollableHeight = rect.height - window.innerHeight;
-          if (scrollableHeight > 0) {
-            const rawProgress = -rect.top / scrollableHeight;
-            setProgress(Math.min(Math.max(rawProgress, 0), 1));
-          }
-        }
+        const scrollY = window.scrollY;
+        const vh = window.innerHeight;
+        const scrollableHeight = vh * 3; // 400vh height means 300vh scrollable
+        const rawProgress = scrollY / scrollableHeight;
+        setProgress(Math.min(Math.max(rawProgress, 0), 1));
       };
       
+      const handleResize = () => {
+        setIsMobile(window.innerWidth < 768);
+        handleScroll();
+      };
+      
+      setIsMobile(window.innerWidth < 768);
       window.addEventListener('scroll', handleScroll, { passive: true });
-      window.addEventListener('resize', handleScroll);
+      window.addEventListener('resize', handleResize);
       handleScroll();
       
       return () => {
         window.removeEventListener('scroll', handleScroll);
-        window.removeEventListener('resize', handleScroll);
+        window.removeEventListener('resize', handleResize);
       };
     }, []);
 
@@ -1159,79 +1289,6 @@ const SPLIT_VIEW_CHIPS = [
         >
           <IconArrowUp className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-y-1 transition-transform" />
         </button>
-      );
-    };
-
-    const AnnotationItem = ({ annotation, lang }) => {
-      const [ref, isVisible] = useOnScreen({ threshold: 0.1, rootMargin: '0px 0px -20% 0px' });
-      const { top, left, align, title, desc } = annotation;
-
-      return (
-        <div
-          ref={ref}
-          className="absolute z-20 flex items-center"
-          style={{ top, left, transform: 'translate(-50%, -50%)' }}
-        >
-          {/* 圓點 */}
-          <div className="relative">
-            <div className={`w-3 h-3 md:w-4 md:h-4 rounded-full bg-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.5)] transition-all duration-500 ${isVisible ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}></div>
-            <div className={`absolute inset-0 rounded-full bg-orange-500/30 animate-ping ${isVisible ? 'opacity-100' : 'opacity-0'}`}></div>
-          </div>
-
-          {/* 線段與文字框容器 */}
-          <div className={`absolute top-1/2 flex items-center ${align === 'right' ? 'left-full flex-row' : 'right-full flex-row-reverse'} -translate-y-1/2`}>
-            {/* 線段 */}
-            <div className={`h-[1px] bg-orange-500 transition-all duration-700 ease-out ${isVisible ? 'w-12 md:w-32' : 'w-0'}`}></div>
-
-            {/* 文字框 */}
-            <div className={`bg-white/95 backdrop-blur-md border border-gray-100 p-4 md:p-5 shadow-2xl rounded-xl w-48 md:w-64 transition-all duration-700 delay-500 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'} ${align === 'right' ? 'ml-3 md:ml-4' : 'mr-3 md:mr-4'}`}>
-              <h4 className="text-sm md:text-base font-bold text-gray-900 mb-1 md:mb-2">{title}</h4>
-              <p className="text-xs md:text-sm text-gray-500 leading-relaxed break-words whitespace-pre-wrap">{desc}</p>
-            </div>
-          </div>
-        </div>
-      );
-    };
-
-    const CustomSelect = ({ label, value, options, onChange, openUp = false }) => {
-      const [open, setOpen] = useState(false);
-      const ref = useRef(null);
-
-      useEffect(() => {
-        const handleClickOutside = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-      }, []);
-
-      return (
-        <div ref={ref} className="relative w-full">
-          <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1.5">{label.toUpperCase()}</span>
-          <button 
-            onClick={() => setOpen(!open)}
-            className="w-full h-11 px-4 flex items-center justify-between bg-white border border-[#E6E6E6] rounded-2xl text-xs font-bold text-[#0B132B] shadow-sm cursor-pointer outline-none transition-all hover:border-gray-300"
-          >
-            <span className="truncate">{value}</span>
-            <svg className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          {open && (
-            <div className={`absolute left-0 right-0 w-full bg-white border border-[#0B132B] rounded-2xl shadow-xl z-40 p-2 flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-1 duration-150 ${openUp ? 'bottom-full mb-2' : 'top-full mt-2'}`}>
-              {options.map((opt) => {
-                const isSelected = value === opt;
-                return (
-                  <button
-                    key={opt}
-                    onClick={() => { onChange(opt); setOpen(false); }}
-                    className={`w-full text-left px-3 py-2 text-xs font-bold rounded-xl transition-colors cursor-pointer ${isSelected ? 'bg-[#0B132B] text-white' : 'text-[#0B132B] bg-transparent hover:bg-gray-50'}`}
-                  >
-                    {opt}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-        </div>
       );
     };
 
@@ -2795,192 +2852,103 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
               </div>
 
-              {/* CORE DESIGN QUESTION */}
-              <div style={{
-                borderLeft: '3px solid #F97316',
-                padding: '24px 32px',
-                background: '#FAFAFE',
-                borderRadius: '0 8px 8px 0',
-                marginBottom: '48px'
-              }}>
-                <div style={{
-                  fontSize: '11px',
-                  textTransform: 'uppercase',
-                  color: '#EA580C',
-                  letterSpacing: '0.1em',
-                  marginBottom: '8px',
-                  fontWeight: '500'
-                }}>
-                  核心設計問題
+              {/* Layer 1 — Core question callout (top of section) */}
+              <div 
+                className="p-6 md:p-10 mb-10" 
+                style={{
+                  borderLeft: '3px solid #F97316',
+                  background: '#FFF7ED', // light orange
+                  borderRadius: '0 16px 16px 0',
+                  boxSizing: 'border-box'
+                }}
+              >
+                <div className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-3">
+                  {lang === 'zh' ? '核心設計問題' : 'Core Design Question'}
                 </div>
-                <p style={{
-                  fontSize: '22px',
-                  fontWeight: '500',
-                  lineHeight: '1.6',
-                  color: '#1A1A1A',
-                  margin: 0
-                }}>
-                  如何讓學生在沒有老師督促的情況下，自發地回來刷題、並且每次都感覺有所進步？
+                <p className="text-xl md:text-3xl font-bold text-gray-900 leading-relaxed font-sans">
+                  {lang === 'zh' 
+                    ? '如何讓學生在沒有老師督促的情況下，自發地回來刷題、並且每次都感覺有所進步？' 
+                    : 'How can we motivate students to return and practice questions voluntarily without teacher supervision, and feel progress every time?'}
                 </p>
               </div>
 
-              {/* PROJECT BACKGROUND */}
-              <div style={{ marginBottom: '48px' }}>
-                <p style={{
-                  fontSize: '16px',
-                  lineHeight: '1.8',
-                  color: '#1A1A1A',
-                  margin: '0 0 24px 0'
-                }}>
-                  Ms Lin 是一款專為國高中全年級學生（國一至高三）打造的刷題 App，題目內容涵蓋完整的六年學習階段，讓學生不論處於哪個年級、平時自學或升學備考，都能透過這款 App 建立持續性的學習習慣。
-                </p>
-                <p style={{
-                  fontSize: '16px',
-                  lineHeight: '1.8',
-                  color: '#1A1A1A',
-                  margin: 0
-                }}>
-                  台灣中學生的自主學習工具市場，長期以「題庫數量」作為主要競爭維度，卻鮮少有產品認真思考一個更根本的問題：學生為什麼願意持續回來使用？Ms Lin 從這個缺口出發，不以題量堆疊作為核心賣點，而是將設計重心放在「體驗」本身。
-                </p>
+              {/* Layer 2 — Info cards row (directly below the callout) */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+                {[
+                  { label: { zh: '角色', en: 'Role' }, value: { zh: 'UI/UX 設計師', en: 'UI/UX Designer' } },
+                  { label: { zh: '時程', en: 'Timeline' }, value: { zh: '2025.11 – 至今', en: '2025.11 – Present' } },
+                  { label: { zh: '工具', en: 'Tools' }, value: { zh: 'Figma', en: 'Figma' } },
+                  { label: { zh: '產業', en: 'Industry' }, value: { zh: '行動 App · 教育科技', en: 'Mobile App · EdTech' } }
+                ].map((card, idx) => (
+                  <div 
+                    key={idx} 
+                    className="bg-[#F5F5F5] rounded-2xl p-6 flex flex-col justify-center min-h-[100px] shadow-sm"
+                  >
+                    <span className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">
+                      {lang === 'zh' ? card.label.zh : card.label.en}
+                    </span>
+                    <span className="text-sm md:text-base font-bold text-gray-800 leading-snug">
+                      {lang === 'zh' ? card.value.zh : card.value.en}
+                    </span>
+                  </div>
+                ))}
               </div>
 
-              {/* TWO-COLUMN ROW */}
-              <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '64px', marginBottom: '48px' }}>
-                {/* Left - 我的角色 */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#A0A0A0', letterSpacing: '0.1em' }}>
-                    我的角色
+              {/* Layer 3 — Narrative text + deliverables (below the cards) */}
+              <div className="space-y-12">
+                {/* Narrative + Team Column Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 lg:gap-20">
+                  {/* Left Column: Narrative Background */}
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+                        {lang === 'zh' ? '專案背景' : 'Project Background'}
+                      </h4>
+                      <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC'] mb-4">
+                        {lang === 'zh'
+                          ? 'Ms Lin 是一款專為國高中全年級學生（國一至高三）打造的刷題 App，題目內容涵蓋完整的六年學習階段，讓學生不論處於哪個年級、平時自學或升學備考，都能透過這款 App 建立持續性的學習習慣。'
+                          : 'Ms Lin is a practice app tailored for students in junior and senior high school (grades 7-12). Covering six full years of curriculum, it helps students establish consistent study habits regardless of grade level or study purpose.'}
+                      </p>
+                      <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC'] mb-4">
+                        {lang === 'zh'
+                          ? '台灣中學生的自主學習工具市場，長期以「題庫數量」作為主要競爭維度，卻鮮少有產品認真思考一個更根本的問題：學生為什麼願意持續回來使用？Ms Lin 從這個缺口出發，不以題量堆疊作為核心賣點，而是將設計重心放在「體驗」本身。'
+                          : 'The self-study market for high schoolers in Taiwan has long focused on "question bank quantity." However, few products address a more fundamental question: why would students want to keep returning? Ms Lin targets this gap, prioritizing user experience over mere volume.'}
+                      </p>
+                      <p className="text-sm text-gray-500 leading-relaxed font-medium font-['Noto_Sans_TC'] italic pt-2">
+                        {lang === 'zh'
+                          ? '※ 開發脈絡：初版開發在資源與時程的限制下，未能進行正式使用者訪談。設計決策主要基於競品機制分析與行為心理學推論，並在初版上線後透過問卷調查與訪談進行驗證與修正。'
+                          : '* Note: Due to initial timeline and resource limits, formal user interviews were not conducted early on. Design decisions relied on competitive analysis and behavioral psychology, and were verified post-launch through surveys and user interviews.'}
+                      </p>
+                    </div>
                   </div>
-                  <div style={{ fontSize: '18px', fontWeight: '500', color: '#1A1A1A' }}>
-                    UI/UX 設計師
-                  </div>
-                  <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#6B6B6B', margin: 0 }}>
-                    負責從產品策略定調、資訊架構、使用者流程規劃，到視覺設計系統與畫面產出的全流程。
-                  </p>
-                  <div style={{ fontSize: '12px', fontStyle: 'italic', color: '#A0A0A0', marginTop: '4px' }}>
-                    前端工程師角色由本人兼任
+
+                  {/* Right Column: Team Composition */}
+                  <div className="space-y-4">
+                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+                      {lang === 'zh' ? '團隊組成' : 'Team Composition'}
+                    </h4>
+                    <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-['Noto_Sans_TC'] list-none pl-0">
+                      <li>• {lang === 'zh' ? 'UI/UX 設計師 (本人)' : 'UI/UX Designer (Self)'}</li>
+                      <li>• {lang === 'zh' ? '前端工程師 (本人兼任)' : 'Frontend Engineer (Self)'}</li>
+                      <li>• {lang === 'zh' ? '專案經理 x1' : 'Project Manager x1'}</li>
+                      <li>• {lang === 'zh' ? '後端工程師 x1' : 'Backend Engineer x1'}</li>
+                      <li>• {lang === 'zh' ? '內容工程師 x1' : 'Content Engineer x1'}</li>
+                    </ul>
                   </div>
                 </div>
 
-                {/* Right - 團隊組成 */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#A0A0A0', letterSpacing: '0.1em' }}>
-                    團隊組成
-                  </div>
-                  <ul style={{
-                    listStyle: 'none',
-                    padding: 0,
-                    margin: 0,
-                    fontSize: '13px',
-                    lineHeight: '2',
-                    color: '#6B6B6B'
-                  }}>
-                    <li>UI/UX 設計師（本人）</li>
-                    <li>前端工程師（本人兼任）</li>
-                    <li>PM x1</li>
-                    <li>後端工程師 x1</li>
-                    <li>內容工程師 x1</li>
+                {/* Deliverables Section (below both columns) */}
+                <div className="pt-8 border-t border-gray-100">
+                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
+                    {lang === 'zh' ? '交付物' : 'Deliverables'}
+                  </h4>
+                  <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm md:text-base text-gray-700 font-bold font-['Noto_Sans_TC'] list-disc pl-5">
+                    <li>{lang === 'zh' ? 'App 使用者介面設計' : 'Mobile App UI Design'}</li>
+                    <li>{lang === 'zh' ? 'App 互動元件原型' : 'Interactive Prototype'}</li>
+                    <li>{lang === 'zh' ? '設計系統與規範' : 'Design System & Styleguide'}</li>
+                    <li>{lang === 'zh' ? '使用者流程規劃' : 'User Flow Planning'}</li>
                   </ul>
                 </div>
-              </div>
-
-              {/* TIMELINE */}
-              <div style={{ marginBottom: '48px' }}>
-                {/* Timeline Graphic line & dots */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  position: 'relative',
-                  width: '100%',
-                  height: '8px',
-                  marginBottom: '16px'
-                }}>
-                  <div style={{
-                    position: 'absolute',
-                    left: '25%',
-                    right: '25%',
-                    height: '1px',
-                    backgroundColor: '#DDDDDD',
-                    zIndex: 1
-                  }}></div>
-                  <div style={{
-                    position: 'absolute',
-                    left: '25%',
-                    transform: 'translateX(-50%)',
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    backgroundColor: '#F97316',
-                    zIndex: 2
-                  }}></div>
-                  <div style={{
-                    position: 'absolute',
-                    left: '75%',
-                    transform: 'translateX(-50%)',
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    backgroundColor: '#F97316',
-                    zIndex: 2
-                  }}></div>
-                </div>
-                {/* Timeline content row */}
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  width: '100%',
-                  boxSizing: 'border-box'
-                }}>
-                  {/* Milestone 1 */}
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    padding: '0 16px',
-                    boxSizing: 'border-box'
-                  }}>
-                    <div style={{ fontSize: '13px', lineHeight: '1.6' }}>
-                      <span style={{ fontWeight: '500', color: '#1A1A1A', marginRight: '8px' }}>
-                        2025.11 — 2026.01
-                      </span>
-                      <span style={{ color: '#6B6B6B' }}>
-                        初版設計與開發
-                      </span>
-                    </div>
-                  </div>
-                  {/* Milestone 2 */}
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    padding: '0 16px',
-                    boxSizing: 'border-box'
-                  }}>
-                    <div style={{ fontSize: '13px', lineHeight: '1.6' }}>
-                      <span style={{ fontWeight: '500', color: '#1A1A1A', marginRight: '8px' }}>
-                        2026.02 — 至今
-                      </span>
-                      <span style={{ color: '#6B6B6B' }}>
-                        功能優化與新功能迭代
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* CONSTRAINT NOTE */}
-              <div style={{
-                border: '0.5px solid #EEEEEE',
-                borderRadius: '8px',
-                padding: '12px 16px',
-                background: '#FAFAFA',
-                fontSize: '13px',
-                color: '#6B6B6B',
-                lineHeight: '1.6'
-              }}>
-                初版開發在資源與時程的限制下，未能進行正式使用者訪談。設計決策主要基於競品機制分析與行為心理學推論，並在初版上線後透過問卷調查與訪談進行驗證與修正。
               </div>
             </section>
 
@@ -5322,8 +5290,6 @@ const SPLIT_VIEW_CHIPS = [
       const mSuccessRef = useRef(null);
       const mCtaRef = useRef(null);
       const mAboutRef = useRef(null);
-      const mContactRef = useRef(null);
-      const mFooterRef = useRef(null);
 
       const mSectionRefs = {
         hero: mHeroRef,
@@ -5376,12 +5342,7 @@ const SPLIT_VIEW_CHIPS = [
       }, [activeChip, videoState]);
 
       const handleDecisionTabChange = (tabId) => {
-        if (tabId === activeDecisionTab) return;
-        setIsDecisionFading(true);
-        setTimeout(() => {
-          setActiveDecisionTab(tabId);
-          setIsDecisionFading(false);
-        }, 150);
+        setActiveDecisionTab(prev => prev === tabId ? null : tabId);
       };
       const [wisdomeOverviewRef, wisdomeOverviewVisible] = useOnScreen({ threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
       const [wisdomeStrategyRef, wisdomeStrategyVisible] = useOnScreen({ threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
@@ -5478,65 +5439,50 @@ const SPLIT_VIEW_CHIPS = [
                 // Wisdome.ai Custom Project Overview
                 <div 
                   ref={wisdomeOverviewRef}
-                  className="grid grid-cols-1 lg:grid-cols-[6fr_4fr] gap-12 lg:gap-20 items-start"
+                  className="space-y-12"
                 >
-                  {/* Left Column (60%) */}
-                  <div className="space-y-6">
-                    <div>
-                      <p style={{
-                        fontSize: '11px',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.1em',
-                        fontWeight: '700',
-                        color: '#94A3B8',
-                        marginBottom: '12px',
-                        fontFamily: "'Inter', sans-serif"
-                      }}>
-                        {t({ zh: '專案背景', en: 'Project Background' }, lang)}
-                      </p>
-                      <p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC'] whitespace-pre-line mb-8">
-                        {t({
-                          zh: '為 Wisdome.ai 這個 AI 教務轉型新創設計企業官網，核心挑戰是讓不熟悉 AI 工具的補習班校長，在首次造訪時建立信任、理解價值主張，並採取預約諮詢的行動。',
-                          en: 'Designing the corporate website for Wisdome.ai, an AI educational administration transformation startup. The core challenge was to establish trust, convey value propositions, and drive booking consultations for cram school principals unfamiliar with AI tools upon their first visit.'
-                        }, lang)}
-                      </p>
-
-                      <p style={{
-                        fontSize: '11px',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.1em',
-                        fontWeight: '700',
-                        color: '#94A3B8',
-                        marginBottom: '12px',
-                        fontFamily: "'Inter', sans-serif"
-                      }}>
-                        {t({ zh: '交付物', en: 'Deliverables' }, lang)}
-                      </p>
-                      <ul className="space-y-2 text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] list-disc pl-5">
-                        <li>{t({ zh: '企業識別系統', en: 'Corporate Identity System' }, lang)}</li>
-                        <li>{t({ zh: '官方網站', en: 'Official Website' }, lang)}</li>
-                      </ul>
+                  {/* Layer 1 — Core question callout (top of section) */}
+                  <div 
+                    className={`p-6 md:p-10 transition-all duration-[800ms] ease-out transform ${
+                      wisdomeOverviewVisible 
+                        ? 'opacity-100 translate-y-0' 
+                        : 'opacity-0 translate-y-8'
+                    }`}
+                    style={{
+                      borderLeft: '3px solid #F97316',
+                      background: '#FFF7ED', // light orange
+                      borderRadius: '0 16px 16px 0',
+                      boxSizing: 'border-box'
+                    }}
+                  >
+                    <div className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-3">
+                      {t({ zh: '核心設計問題', en: 'Core Design Question' }, lang)}
                     </div>
+                    <p className="text-xl md:text-3xl font-bold text-gray-900 leading-relaxed font-sans">
+                      {t({
+                        zh: '如何讓不熟悉 AI 工具的教育機構決策者，在首次造訪時快速理解價值主張、建立信任，並主動採取諮詢行動？',
+                        en: 'How can we enable educational decision-makers unfamiliar with AI to quickly grasp the value proposition, establish trust, and proactively book a demo on their first visit?'
+                      }, lang)}
+                    </p>
                   </div>
-                  
-                  {/* Right Column (40%) */}
-                  <div className="grid grid-cols-2 gap-4">
+
+                  {/* Layer 2 — Info cards row (directly below the callout) */}
+                  <div 
+                    className={`grid grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-[800ms] delay-100 ease-out transform ${
+                      wisdomeOverviewVisible 
+                        ? 'opacity-100 translate-y-0' 
+                        : 'opacity-0 translate-y-8'
+                    }`}
+                  >
                     {[
                       { label: { zh: '角色', en: 'Role' }, value: { zh: 'UX 設計師 · 獨立執行', en: 'UX Designer · Solo Practitioner' } },
-                      { label: { zh: '時程', en: 'Timeline' }, value: { zh: '2024–2025', en: '2024–2025' } },
+                      { label: { zh: '時程', en: 'Timeline' }, value: { zh: '2023–2024', en: '2023–2024' } },
                       { label: { zh: '工具', en: 'Tools' }, value: { zh: 'Tools' }, displayVal: 'Framer' },
                       { label: { zh: '產業', en: 'Industry' }, value: { zh: 'B2B SaaS · 教育科技', en: 'B2B SaaS · EdTech' } }
                     ].map((card, idx) => (
-                      <div
-                        key={idx}
-                        className={`bg-[#FAFAFB] border border-gray-100 rounded-2xl p-6 flex flex-col justify-center min-h-[110px] shadow-sm transition-all duration-[800ms] ease-out transform ${
-                          wisdomeOverviewVisible 
-                            ? 'opacity-100 translate-y-0' 
-                            : 'opacity-0 translate-y-8'
-                        }`}
-                        style={{
-                          transitionDelay: `${idx * 80}ms`
-                        }}
+                      <div 
+                        key={idx} 
+                        className="bg-[#F5F5F5] rounded-2xl p-6 flex flex-col justify-center min-h-[100px] shadow-sm"
                       >
                         <span className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">
                           {t(card.label, lang)}
@@ -5546,6 +5492,64 @@ const SPLIT_VIEW_CHIPS = [
                         </span>
                       </div>
                     ))}
+                  </div>
+
+                  {/* Layer 3 — Narrative text + deliverables (below the cards) */}
+                  <div 
+                    className={`space-y-12 transition-all duration-[800ms] delay-200 ease-out transform ${
+                      wisdomeOverviewVisible 
+                        ? 'opacity-100 translate-y-0' 
+                        : 'opacity-0 translate-y-8'
+                    }`}
+                  >
+                    {/* Narrative + Team Column Grid */}
+                    <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 lg:gap-20">
+                      {/* Left Column: Narrative Background */}
+                      <div className="space-y-4">
+                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                          {t({ zh: '專案背景', en: 'Project Background' }, lang)}
+                        </h4>
+                        <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                          {t({
+                            zh: 'Wisdome.ai 是一家致力於使用 AI 技術打造全方位線上教育平台的新創公司，以 AI、機器學習以及教育為公司核心概念。我們面臨的核心挑戰在於：教育機構的校長與決策主管多數對 AI 技術感到陌生甚至排斥，如何透過網頁設計將複雜的 AI 概念具象化，進而轉化為信任？',
+                            en: 'Wisdome.ai is a startup dedicated to building a comprehensive online education platform using AI. The core challenge was that most school administrators and decision-makers are unfamiliar with or skeptical of AI tools. The website design must demystify complex AI concepts and convert visitor curiosity into trust.'
+                          }, lang)}
+                        </p>
+                        <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                          {t({
+                            zh: '為了解決這個信任痛點，本次專案聚焦於「體驗化設計」。我們不以堆疊技術名詞作為核心賣點，而是將功能與日常教務場景深度結合，透過直覺的資訊流、流暢的動態展現與極簡的視覺介面，建立起專業、可靠的品牌第一印象。',
+                            en: 'To bridge this trust gap, the redesign focuses on experiential communication. Rather than stacking technical jargon, we contextualized AI capabilities into daily teaching scenarios, establishing a professional and reliable brand presence through intuitive content flows, smooth micro-interactions, and a clean interface.'
+                          }, lang)}
+                        </p>
+                      </div>
+
+                      {/* Right Column: Team Composition */}
+                      <div className="space-y-4">
+                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                          {t({ zh: '團隊組成', en: 'Team Composition' }, lang)}
+                        </h4>
+                        <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-['Noto_Sans_TC'] list-none pl-0">
+                          <li>• {t({ zh: 'UI/UX 設計師 (本人)', en: 'UI/UX Designer (Self)' }, lang)}</li>
+                          <li>• {t({ zh: '前端工程師 (本人兼任)', en: 'Frontend Engineer (Self)' }, lang)}</li>
+                          <li>• {t({ zh: '專案經理 x1', en: 'Project Manager x1' }, lang)}</li>
+                          <li>• {t({ zh: '後端工程師 x1', en: 'Backend Engineer x1' }, lang)}</li>
+                          <li>• {t({ zh: 'AI 演算法團隊', en: 'AI Algorithm Team' }, lang)}</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Deliverables Section (below both columns) */}
+                    <div className="pt-8 border-t border-gray-100">
+                      <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
+                        {t({ zh: '交付物', en: 'Deliverables' }, lang)}
+                      </h4>
+                      <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm md:text-base text-gray-700 font-bold font-['Noto_Sans_TC'] list-disc pl-5">
+                        <li>{t({ zh: '企業視覺識別系統', en: 'Corporate Identity System' }, lang)}</li>
+                        <li>{t({ zh: '企業形象官網設計', en: 'Official Website Design' }, lang)}</li>
+                        <li>{t({ zh: '網頁互動元件設計', en: 'Interactive Web Components' }, lang)}</li>
+                        <li>{t({ zh: '產品功能展示動畫', en: 'Product Showcase Motion' }, lang)}</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -5646,10 +5650,95 @@ const SPLIT_VIEW_CHIPS = [
                   </ul>
                 </div>
 
-                {/* Scrollable Image */}
-                {activeItem.strategyAndArchitecture.iaImage && (
-                  <HorizontalMapScroll url={activeItem.strategyAndArchitecture.iaImage} />
-                )}
+                {/* Scrollable Image / Annotated IA Map */}
+                {activeItem.strategyAndArchitecture.iaImage && (() => {
+                  const iaDots = [
+                    {
+                      id: 1,
+                      left: '1.9%',
+                      top: '38%',
+                      title: { zh: '首頁 — 三層說服結構', en: 'Homepage — 3-Layer Persuasion' },
+                      content: {
+                        zh: '主標題說痛點、副標題說範疇、CTA 說行動。順序刻意安排：先讓訪客感覺被理解，才有動機繼續往下讀。',
+                        en: 'Hero states pain point, sub-header states scope, CTA drives action. Structured intentionally: first make visitors feel understood so they are motivated to read further.'
+                      },
+                      bubbleClass: 'bl'
+                    },
+                    {
+                      id: 2,
+                      left: '16.4%',
+                      top: '38%',
+                      title: { zh: '服務介紹 — 排列有內在邏輯', en: 'Service — Logical Progression' },
+                      content: {
+                        zh: '知識傳承 → 因材施教 → 規模擴張，從個人問題到機構需求。訪客的理解路徑從具體到抽象、從小到大，符合認知建立的自然順序。',
+                        en: 'Knowledge transfer → personalized learning → scaling up, from individual needs to institutional demands. Navigates from concrete to abstract, aligning with natural cognition.'
+                      },
+                      bubbleClass: 'bl'
+                    },
+                    {
+                      id: 3,
+                      left: '31.2%',
+                      top: '38%',
+                      title: { zh: '成功案例 — 涵蓋不同需求類型', en: 'Success Stories — Diverse Needs' },
+                      content: {
+                        zh: 'BrainBox × PMI 代表「建立全新 AI 能力」，驅勢代表「整合現有行政流程」，讓不同類型客戶都能找到相似案例。',
+                        en: 'BrainBox × PMI represents "establishing new AI capabilities," while Sunrise represents "integrating existing workflows," helping diverse clients find relevant success stories.'
+                      },
+                      bubbleClass: 'bl'
+                    },
+                    {
+                      id: 4,
+                      left: '48.8%',
+                      top: '38%',
+                      title: { zh: '關於我們 — 信任的延伸', en: 'About Us — Trust Extension' },
+                      content: {
+                        zh: '刻意排在成功案例之後。先看客戶成果（外部驗證），再認識團隊（內部說明），信任建立路徑更自然。',
+                        en: 'Placed intentionally after success stories. Reviewing client outcomes (external validation) before meeting the team (internal story) creates a more natural trust path.'
+                      },
+                      bubbleClass: 'bl'
+                    },
+                    {
+                      id: 5,
+                      left: '63.5%',
+                      top: '38%',
+                      title: { zh: '加入我們 — 移出主說服流程', en: 'Careers — Separate Flow' },
+                      content: {
+                        zh: '招募訊息放主頁面會讓潛在客戶分心。透過導覽列觸達；「近期職缺」子節點預留了公司成長後的擴展空間。',
+                        en: 'Placing recruitment info on the landing page distracts prospective clients. Accessed via navigation; "Recent Openings" reserves space for post-growth expansion.'
+                      },
+                      bubbleClass: 'br'
+                    },
+                    {
+                      id: 6,
+                      left: '63.5%',
+                      top: '91%',
+                      title: { zh: '近期職缺 — 前瞻性架構', en: 'Recent Openings — Future-Proof' },
+                      content: {
+                        zh: '「加入我們」下有「近期職缺」子節點——這說明你在做 IA 時已經考慮了公司規模成長後的內容需求。這是前瞻性的設計思維：現在可能只有一兩個職缺，但資訊架構已經預留了擴展空間。',
+                        en: 'Under "Careers," the "Recent Openings" sub-node demonstrates foresight in information architecture. Even with only one or two vacancies today, the system reserves space for future growth.'
+                      },
+                      bubbleClass: 'tl'
+                    },
+                    {
+                      id: 7,
+                      left: '91.5%',
+                      top: '38%',
+                      title: { zh: '頁尾導覽 — 信任訊號', en: 'Footer Navigation — Trust Signal' },
+                      content: {
+                        zh: '頁尾包含了所有主要頁面的快速連結，這是一個信任訊號——完整的頁尾讓公司看起來是一個有體制的組織，而不是臨時搭起來的 landing page。這個決策服務的是「已被說服、想進一步了解的訪客」。',
+                        en: 'The footer includes links to all main pages, serving as a trust signal. A comprehensive footer establishes organizational credibility over a temporary landing page, aiding visitors who seek deeper engagement.'
+                      },
+                      bubbleClass: 'br'
+                    }
+                  ];
+                  return (
+                    <HorizontalMapScroll 
+                      url={activeItem.strategyAndArchitecture.iaImage} 
+                      iaDots={iaDots}
+                      lang={lang}
+                    />
+                  );
+                })()}
               </div>
             ) : (
               // Default Generic Strategy & Architecture
@@ -5764,12 +5853,10 @@ const SPLIT_VIEW_CHIPS = [
                       </div>
                       
                       {/* Right: Square swatches with hover tooltips */}
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+                      <div className="grid grid-cols-2 gap-6 max-w-sm">
                         {[
                           { hex: '#282828', name: 'Primary Dark', usage: { zh: '主文字與背景色，體現穩固與深度', en: 'Main text & panel fill, conveying depth.' } },
-                          { hex: '#00D2E2', name: 'Accent Cyan', usage: { zh: '科技點綴色，引導注意力與 CTA', en: 'Vibrant blue-green accent, leading CTA clicks.' } },
-                          { hex: '#FAFAFB', name: 'Secondary Base', usage: { zh: '輔助背景與卡片底色，建立留白層級', en: 'Card panels and soft background fills.' } },
-                          { hex: '#64748B', name: 'Slate Muted', usage: { zh: '次要輔助文字與框架，呈現精緻細節', en: 'Secondary labels, dividers, and muted copy.' } }
+                          { hex: '#00D2E2', name: 'Accent Cyan', usage: { zh: '科技點綴色，引導注意力與 CTA', en: 'Vibrant blue-green accent, leading CTA clicks.' } }
                         ].map((color, cIdx) => (
                           <div key={cIdx} className="group relative flex flex-col gap-3 transition-all duration-[800ms] ease-out transform" style={{ transitionDelay: `${cIdx * 100}ms` }}>
                             <div 
@@ -6079,49 +6166,76 @@ const SPLIT_VIEW_CHIPS = [
                     <div className="bg-[#FAFAFB] border border-gray-100 rounded-[2rem] p-8 md:p-12 shadow-sm mb-8">
                       <div className="mb-8">
                         <h4 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight mb-2">
-                          {lang === 'zh' ? '五個關鍵設計選擇' : 'Five Key Design Choices'}
+                          {lang === 'zh' ? '四個關鍵設計選擇' : 'Four Key Design Choices'}
                         </h4>
                         <p className="text-sm md:text-base text-gray-500 font-medium font-['Noto_Sans_TC']">
                           {lang === 'zh' ? '每個選擇背後都有 UX 根據，不是美感偏好。' : 'Each choice is backed by UX rationale, not aesthetic preference.'}
                         </p>
                       </div>
 
-                      <div className="flex flex-wrap gap-2.5 mb-10 pb-6 border-b border-gray-200/50">
+                      <div className="space-y-4">
                         {DECISION_TABS.map((tab) => {
-                          const isActive = activeDecisionTab === tab.id;
+                          const isExpanded = activeDecisionTab === tab.id;
                           return (
-                            <button
+                            <div 
                               key={tab.id}
-                              onClick={() => handleDecisionTabChange(tab.id)}
-                              className={`px-5 py-2.5 rounded-full text-sm md:text-base font-bold tracking-wide border transition-all duration-300 cursor-pointer ${
-                                isActive
-                                  ? 'bg-purple-50 border-purple-200 text-purple-900 shadow-sm'
-                                  : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                              className={`border rounded-2xl bg-white p-6 transition-all duration-300 cursor-pointer ${
+                                isExpanded 
+                                  ? 'border-purple-200 shadow-md ring-1 ring-purple-100/30' 
+                                  : 'border-gray-100 hover:border-gray-200 hover:shadow-sm'
                               }`}
+                              onClick={() => handleDecisionTabChange(tab.id)}
                             >
-                              {t(tab.title, lang)}
-                            </button>
+                              {/* Card Header */}
+                              <div className="flex items-center justify-between gap-4 select-none">
+                                <div className="space-y-1 flex-1">
+                                  <h5 className={`text-lg md:text-xl font-bold transition-colors duration-200 ${
+                                    isExpanded ? 'text-purple-900' : 'text-gray-900'
+                                  }`}>
+                                    {t(tab.title, lang)}
+                                  </h5>
+                                  <p className="text-sm text-gray-500 font-medium font-['Noto_Sans_TC']">
+                                    {t(tab.subtitle, lang)}
+                                  </p>
+                                </div>
+                                <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-gray-50 transition-colors duration-200 ${
+                                  isExpanded ? 'bg-purple-50' : ''
+                                }`}>
+                                  <svg 
+                                    className={`w-5 h-5 transition-transform duration-300 ${
+                                      isExpanded ? 'transform rotate-180 text-purple-600' : 'text-gray-400'
+                                    }`} 
+                                    fill="none" 
+                                    viewBox="0 0 24 24" 
+                                    stroke="currentColor"
+                                  >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                                  </svg>
+                                </div>
+                              </div>
+
+                              {/* Card Body (Insights) */}
+                              <div 
+                                className={`transition-all duration-300 overflow-hidden ${
+                                  isExpanded ? 'max-h-[800px] opacity-100 mt-6 pt-6 border-t border-gray-100' : 'max-h-0 opacity-0 pointer-events-none'
+                                }`}
+                              >
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                                  {tab.insights.map((insight, idx) => (
+                                    <div key={idx} className="p-5 rounded-xl bg-gray-50/70 border border-gray-100/50 flex flex-col gap-3">
+                                      <span className={`inline-block self-start px-2.5 py-1 text-xs font-bold rounded-md border ${insight.badgeColor}`}>
+                                        {t(insight.badge, lang)}
+                                      </span>
+                                      <p className="text-sm text-gray-600 leading-relaxed font-semibold font-['Noto_Sans_TC']">
+                                        {t(insight.content, lang)}
+                                      </p>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
                           );
                         })}
-                      </div>
-
-                      <div 
-                        className="space-y-6 md:space-y-8"
-                        style={{
-                          transition: 'opacity 150ms ease-in-out',
-                          opacity: isDecisionFading ? 0 : 1
-                        }}
-                      >
-                        {DECISION_TABS.find(t => t.id === activeDecisionTab)?.insights.map((insight, idx) => (
-                          <div key={idx} className="flex flex-col sm:flex-row items-start gap-4 md:gap-6">
-                            <span className={`w-28 flex-shrink-0 text-center font-bold text-xs py-1.5 rounded-lg border ${insight.badgeColor}`}>
-                              {t(insight.badge, lang)}
-                            </span>
-                            <p className="text-sm md:text-base text-gray-600 leading-relaxed font-semibold font-['Noto_Sans_TC'] flex-1">
-                              {t(insight.content, lang)}
-                            </p>
-                          </div>
-                        ))}
                       </div>
                     </div>
 
@@ -6884,19 +6998,6 @@ export default function PortfolioApp() {
       window.scrollTo({ top: 0, behavior: 'auto' });
     });
   };
-
-  const getFormattedServiceTitle = (title) => {
-    if (title.includes('UI/UX')) return { big: 'UIUX', small: 'App / Web Design' };
-    if (title.includes('Motion')) return { big: 'MOTION GRAPHIC DESIGN', small: 'Animation / 2D' };
-    if (title.includes('Brand')) return { big: 'BRANDING DESIGN', small: 'Strategy / Identity' };
-    return { big: title, small: '' };
-  };
-
-
-
-
-
-
 
 
 

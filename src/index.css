@@ -88,3 +88,78 @@ html, body {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* IA Annotation Bubble Styles */
+.ia-bubble {
+  position: absolute;
+  background-color: #1e1e2e;
+  color: #ffffff;
+  font-size: 13px; /* enlarged from 11px */
+  line-height: 1.6;
+  border-radius: 8px;
+  padding: 12px 16px; /* enlarged from 9px 12px */
+  width: 260px; /* enlarged from 190px */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  z-index: 50;
+  box-sizing: border-box;
+}
+
+.ia-bubble::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* bubble-bl: Bubble is bottom-right, tail is top-left (pointing up-left) */
+.ia-bubble-bl {
+  top: 24px;
+  left: -15px;
+}
+.ia-bubble-bl::after {
+  top: -8px;
+  left: 15px;
+  border-width: 0 8px 8px 8px; /* enlarged from 6px */
+  border-color: transparent transparent #1e1e2e transparent;
+}
+
+/* bubble-tl: Bubble is top-left, tail is bottom-right (pointing down-right) */
+.ia-bubble-tl {
+  bottom: 24px;
+  right: -15px;
+}
+.ia-bubble-tl::after {
+  bottom: -8px;
+  right: 15px;
+  border-width: 8px 8px 0 8px; /* enlarged from 6px */
+  border-color: #1e1e2e transparent transparent transparent;
+}
+
+/* bubble-br: Bubble is bottom-left, tail is top-right (pointing up-right) */
+.ia-bubble-br {
+  top: 24px;
+  right: -15px;
+}
+.ia-bubble-br::after {
+  top: -8px;
+  right: 15px;
+  border-width: 0 8px 8px 8px; /* enlarged from 6px */
+  border-color: transparent transparent #1e1e2e transparent;
+}
+
+/* Hover & Active overrides for ia-dot */
+.ia-dot:hover {
+  background-color: #E8601C !important;
+  transform: scale(1.1) !important;
+}
+
+.ia-dot.active {
+  background-color: #E8601C !important;
+  transform: scale(1.2) !important;
+}
+
+.text-tertiary {
+  color: #9CA3AF;
+}

@@ -6821,8 +6821,13 @@ const SPLIT_VIEW_CHIPS = [
 
   const BrainBoxVisualProjectView = ({ activeItem, lang, transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, navigateTo }) => {
     const [videoError, setVideoError] = useState(false);
+    const [brandFilmError, setBrandFilmError] = useState(false);
     const [navBorder, setNavBorder] = useState(false);
     const [activeSection, setActiveSection] = useState('all');
+    
+    // Interactions state
+    const [activeMascotIndex, setActiveMascotIndex] = useState(0);
+    const [activeIconIndex, setActiveIconIndex] = useState(0);
 
     useEffect(() => {
       const handleScroll = () => {
@@ -6836,7 +6841,7 @@ const SPLIT_VIEW_CHIPS = [
     }, []);
 
     useEffect(() => {
-      const sectionIds = ['brand-identity', 'brand-mascot', 'illustration-system', 'icon-system', 'motion-design'];
+      const sectionIds = ['project-overview', 'brand-identity', 'brand-mascot', 'icon-system', 'illustration-animation', 'brand-film'];
       
       const observerCallback = (entries) => {
         entries.forEach(entry => {
@@ -6860,22 +6865,6 @@ const SPLIT_VIEW_CHIPS = [
       return () => observer.disconnect();
     }, []);
 
-    const handleBack = () => {
-      transitionTo(() => {
-        setCurrentPage('home');
-        setActiveItem(null);
-        setIsMobileMenuOpen(false);
-        setTimeout(() => {
-          const section = document.getElementById('featured-works');
-          if (section) {
-            window.scrollTo({ top: section.offsetTop, behavior: 'auto' });
-          } else {
-            window.scrollTo({ top: 0, behavior: 'auto' });
-          }
-        }, 10);
-      });
-    };
-
     const scrollToSection = (id) => {
       if (id === 'all') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6896,26 +6885,99 @@ const SPLIT_VIEW_CHIPS = [
       }
     };
 
-    const META_CARDS = [
-      { label: { zh: '角色', en: 'Role' }, value: 'Visual Designer' },
-      { label: { zh: '時程', en: 'Timeline' }, value: '2024' },
-      { label: { zh: '工具', en: 'Tools' }, value: 'Figma · After Effects' },
-      { label: { zh: '交付物', en: 'Deliverables' }, value: '5 個系統' }
+    // Asset Lists
+    const MASCOT_ASSETS = [
+      { label: '開心', emoji: '😊', status: '開心 (Happy)', desc: '吉祥物在學習進度達成或答題正確時的開心狀態。' },
+      { label: '思考', emoji: '🤔', status: '思考中 (Thinking)', desc: '吉祥物在系統進行智慧分析或使用者思考難題時的狀態。' },
+      { label: '待機', emoji: '😴', status: '待機 (Idle)', desc: '吉祥物在無操作、系統休眠或待機時的預設狀態。' },
+      { label: '慶祝', emoji: '🎉', status: '慶祝 (Celebrating)', desc: '吉祥物在完成測驗、獲得高分或破紀錄時的慶祝動態。' },
+      { label: '錯誤', emoji: '😟', status: '錯誤提示 (Error)', desc: '吉祥物在網路連線中斷、答題錯誤或系統警示時的提示狀態。' },
+      { label: '專注', emoji: '⚡', status: '專注 (Focused)', desc: '吉祥物在測驗進行中、倒數計時或深度學習時的專注狀態。' }
     ];
+
+    const ANIMATED_ICON_ASSETS = [
+      { label: '通知', emoji: '🔔', desc: '在接收新訊息、系統通知或學習提醒時播放的動態反饋。' },
+      { label: '完成', emoji: '✅', desc: '在單元學習結束、任務提交成功或題目回答正確時的打勾動態。' },
+      { label: '收藏', emoji: '🔖', desc: '使用者點擊收藏題目、加入書籤或記錄重點時的收納動態。' },
+      { label: '喜愛', emoji: '❤️', desc: '使用者點擊喜愛內容、標記最愛或按讚互動時的跳動動畫。' },
+      { label: '刪除', emoji: '🗑️', desc: '在清空暫存、刪除錯題紀錄或移除清單項目時的碎紙桶動態。' },
+      { label: '設定', emoji: '⚙️', desc: '點擊設定選單、展開進階調整或同步偏好選項時的齒輪旋轉動態。' }
+    ];
+
+    const META_CARDS = [
+      { label: lang === 'zh' ? '角色' : 'Role', value: 'Visual Designer' },
+      { label: lang === 'zh' ? '時程' : 'Timeline', value: '2023–2024' },
+      { label: lang === 'zh' ? '工具' : 'Tools', value: 'Figma · After Effects' },
+      { label: lang === 'zh' ? '交付物' : 'Deliverables', value: lang === 'zh' ? '5 個系統' : '5 Systems' }
+    ];
+
+    // Helper components to match custom layout guidelines
+    const SectionHeader = ({ num, title }) => (
+      <div className="flex flex-col mb-8 select-none">
+        <h2 
+          className="font-extrabold text-[#1a1a2e] tracking-[-2px] leading-none mb-2 font-['Inter']"
+          style={{ fontSize: 'clamp(48px, 6vw, 80px)' }}
+        >
+          {num}
+        </h2>
+        <h3 className="text-xl md:text-2xl font-bold text-gray-800 tracking-tight font-['Noto_Sans_TC']">
+          {title}
+        </h3>
+      </div>
+    );
+
+    const SubHeading = ({ children }) => (
+      <h4 className="border-l-[3px] border-[#E8734A] pl-2.5 text-[15px] font-semibold text-gray-800 uppercase tracking-wider mb-4 select-none">
+        {children}
+      </h4>
+    );
+
+    const ImagePlaceholder = ({ label, height = '160px', icon = 'photo', bg = 'bg-gray-50' }) => (
+      <div 
+        className={`w-full ${bg} border border-dashed border-gray-300 rounded-[10px] flex flex-col items-center justify-center p-4 select-none`}
+        style={{ height }}
+      >
+        {icon === 'photo' && (
+          <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+          </svg>
+        )}
+        {icon === 'play' && (
+          <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+          </svg>
+        )}
+        {icon === 'person' && (
+          <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+        )}
+        {icon === 'icon' && (
+          <svg className="w-6 h-6 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 21l8.904-4.43c.277-.138.56-.273.846-.403V9.07c-.288-.13-.572-.265-.849-.403L9 4.23l.813 5.1c.045.282.26.505.534.56l5.14.908-5.14.908c-.273.055-.489.278-.534.56z" />
+          </svg>
+        )}
+        <span className="text-[11px] text-gray-400 font-medium tracking-wide text-center leading-normal max-w-[90%]">
+          {label}
+        </span>
+      </div>
+    );
 
     return (
       <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
+        {/* SECTION 00 — HERO */}
         <div className="max-w-[1200px] mx-auto px-4 pt-32 md:pt-36">
           <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
           <h1 
             className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase" 
             style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
           >
-            {t(activeItem.title, lang)}
+            BRAINBOX VISUAL DESIGN
           </h1>
         </div>
 
-        <div className="w-full h-[40vh] md:h-[60vh] relative overflow-hidden bg-gray-100 mt-2 select-none">
+        <div className="w-screen relative left-1/2 -translate-x-1/2 h-[60vh] bg-gray-100 mt-0 select-none overflow-hidden">
           {!videoError ? (
             <video
               src="/videos/brainbox-hero.mp4"
@@ -6935,34 +6997,38 @@ const SPLIT_VIEW_CHIPS = [
             </div>
           )}
 
-          <div className="absolute bottom-0 left-0 right-0 h-[45%] bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
 
-          <div className="absolute bottom-4 left-4 right-4 md:right-auto z-10 flex flex-col md:flex-row gap-3">
-            <div className="grid grid-cols-2 md:flex md:flex-row gap-3">
-              {META_CARDS.map((card, idx) => (
-                <div 
-                  key={idx} 
-                  className="bg-white/[0.08] border border-white/[0.15] rounded-lg py-3 px-4 backdrop-blur-[8px] flex flex-col justify-center"
-                >
-                  <span className="text-[10px] text-white/50 mb-1 leading-none">{t(card.label, lang)}</span>
-                  <span className="text-[13px] font-medium text-white leading-none whitespace-nowrap">{card.value}</span>
-                </div>
-              ))}
+          <div className="absolute inset-0 flex items-end">
+            <div className="max-w-[1200px] w-full mx-auto px-4 pb-4">
+              <div className="flex flex-wrap gap-3">
+                {META_CARDS.map((card, idx) => (
+                  <div 
+                    key={idx} 
+                    className="bg-white/[0.08] border border-white/[0.15] backdrop-blur-[8px] rounded-lg py-3 px-4 flex flex-col justify-center"
+                  >
+                    <span className="text-[10px] text-white/50 mb-1 leading-none">{card.label}</span>
+                    <span className="text-[13px] font-medium text-white leading-none whitespace-nowrap">{card.value}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
+        {/* Sticky Nav Bar */}
         <div className={`sticky top-0 bg-white z-40 py-4 transition-all duration-200 mt-12 ${
           navBorder ? 'border-b border-gray-200' : 'border-b border-transparent'
         }`}>
           <div className="max-w-[1200px] mx-auto px-4 flex gap-2 overflow-x-auto hide-scrollbar scroll-smooth">
             {[
               { id: 'all', label: { zh: '全部', en: 'All' }, dotColor: null },
-              { id: 'brand-identity', label: { zh: '品牌識別', en: 'Brand' }, dotColor: '#534AB7' },
-              { id: 'brand-mascot', label: { zh: '吉祥物', en: 'Mascot' }, dotColor: '#993C1D' },
-              { id: 'illustration-system', label: { zh: '系統插圖', en: 'Illustration' }, dotColor: '#0F6E56' },
-              { id: 'icon-system', label: { zh: 'Icon', en: 'Icon' }, dotColor: '#854F0B' },
-              { id: 'motion-design', label: { zh: '動畫', en: 'Motion' }, dotColor: '#185FA5' }
+              { id: 'project-overview', label: { zh: '專案概述', en: 'Overview' }, dotColor: '#E8734A' },
+              { id: 'brand-identity', label: { zh: '品牌識別', en: 'Identity' }, dotColor: '#E8734A' },
+              { id: 'brand-mascot', label: { zh: '品牌吉祥物', en: 'Mascot' }, dotColor: '#E8734A' },
+              { id: 'icon-system', label: { zh: 'Icon系統', en: 'Icons' }, dotColor: '#E8734A' },
+              { id: 'illustration-animation', label: { zh: '插圖與動畫', en: 'Illustration' }, dotColor: '#E8734A' },
+              { id: 'brand-film', label: { zh: '形象動畫', en: 'Brand Film' }, dotColor: '#E8734A' }
             ].map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -6971,7 +7037,7 @@ const SPLIT_VIEW_CHIPS = [
                   onClick={() => scrollToSection(item.id)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     isActive 
-                      ? 'bg-[#f0f0f0] border-[#999] text-gray-900 shadow-none' 
+                      ? 'bg-gray-150 border-gray-400 text-gray-900 shadow-none' 
                       : 'bg-transparent border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-900'
                   }`}
                 >
@@ -6988,86 +7054,453 @@ const SPLIT_VIEW_CHIPS = [
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto px-4 mt-16 md:mt-24 space-y-16 md:space-y-24">
-          {BRAINBOX_SECTIONS.map((section) => {
-            return (
+        {/* Global Case Study Content */}
+        <div className="max-w-[1200px] mx-auto px-4 mt-8">
+          
+          {/* SECTION 01 — 專案概述 */}
+          <div id="project-overview" className="scroll-mt-24">
+            <SectionHeader num="01" title={lang === 'zh' ? '專案概述' : 'Project Overview'} />
+            
+            <div className="space-y-8">
+              {/* Problem box */}
               <div 
-                key={section.id} 
-                id={section.id}
-                className="pt-16 md:pt-24 border-t border-gray-100 first:border-t-0 first:pt-0"
+                className="border-l-4 border-[#E8734A] bg-[#FDF6F0] p-5 md:py-5 md:px-6 max-w-4xl"
+                style={{ borderRadius: '0 10px 10px 0' }}
               >
-                <ProjectSectionHeader num={section.num} title={t(section.title, lang)} />
+                <span className="text-[11px] font-bold text-[#E8734A] uppercase tracking-wider mb-1.5 block">
+                  {lang === 'zh' ? '核心視覺挑戰' : 'CORE VISUAL CHALLENGE'}
+                </span>
+                <p className="text-[15px] md:text-[16px] font-semibold text-gray-800 leading-[1.6] font-['Noto_Sans_TC']">
+                  {lang === 'zh' 
+                    ? '如何為全新的 SAT 線上備考系統建立完整視覺語言——從品牌識別到動態設計，讓產品在第一眼就傳遞專業與信任？'
+                    : 'How to build a complete visual language for a brand new SAT prep system—from brand identity to motion design—ensuring the product conveys professionalism and trust at first glance?'}
+                </p>
+              </div>
 
-                <div className="mt-8 space-y-8">
-                  {section.subtitle && (
-                    <p className="text-xl md:text-2xl text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-4xl">
-                      {t(section.subtitle, lang)}
-                    </p>
-                  )}
+              {/* 4 meta cards */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl">
+                {[
+                  { label: lang === 'zh' ? '角色' : 'Role', value: 'Visual Designer' },
+                  { label: lang === 'zh' ? '時程' : 'Timeline', value: '2023–2024' },
+                  { label: lang === 'zh' ? '工具' : 'Tools', value: 'Figma · After Effects' },
+                  { label: lang === 'zh' ? '產業' : 'Industry', value: 'EdTech · SaaS' }
+                ].map((item, idx) => (
+                  <div key={idx} className="bg-gray-50 border border-gray-100 rounded-[10px] p-4 flex flex-col justify-center select-none">
+                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1 leading-none">{item.label}</span>
+                    <span className="text-[13px] font-semibold text-gray-800 leading-none">{item.value}</span>
+                  </div>
+                ))}
+              </div>
 
-                  {/* Layer 1 - Role Scope Callout (Section 1 only) */}
-                  {section.id === 'brand-identity' && (
-                    <div className="border-l-[3px] border-[#AFA9EC] rounded-r-lg bg-[#F5F5F3] p-6 max-w-4xl">
-                      <div className="text-xs font-bold text-[#534AB7] mb-2 uppercase tracking-wider">
-                        {lang === 'zh' ? '我的角色範疇' : 'My Role Scope'}
-                      </div>
-                      <p className="text-[14px] md:text-[15px] leading-[1.7] text-gray-700 font-semibold font-['Noto_Sans_TC']">
-                        {lang === 'zh' 
-                          ? '負責整體視覺設計系統，包含品牌識別、插圖、icon 與動態設計。UI/UX 設計由協作設計師執行，視覺系統需與 UI 框架保持一致。'
-                          : 'Responsible for the overall visual design system, including brand identity, illustrations, icons, and motion design. UI/UX design is executed by co-designers, and the visual system must align with the UI framework.'}
-                      </p>
-                    </div>
-                  )}
+              {/* 2-column text block */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl pt-2">
+                <div>
+                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2.5 block select-none">
+                    {lang === 'zh' ? '專案背景' : 'PROJECT BACKGROUND'}
+                  </span>
+                  <p className="text-[13px] md:text-sm text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                    {lang === 'zh' 
+                      ? 'BrainBox 是由 Wisdome.ai 開發，為 SAT 考生打造的個性化線上備考系統。我負責整體視覺設計系統，包含品牌識別、插圖、icon 與動態設計，並與 UI/UX 設計師合作確保視覺與 UI 框架一致。'
+                      : 'BrainBox is a personalized online SAT prep system developed by Wisdome.ai. I was responsible for the overall visual design system, including brand identity, illustrations, icons, and motion design, collaborating with UI/UX designers to align the visual system with the UI framework.'}
+                  </p>
+                </div>
+                <div>
+                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2.5 block select-none">
+                    {lang === 'zh' ? '團隊組成' : 'TEAM COMPOSITION'}
+                  </span>
+                  <ul className="text-[13px] md:text-sm text-gray-600 leading-loose font-medium font-['Noto_Sans_TC'] list-none p-0 m-0">
+                    <li>· Visual Designer（{lang === 'zh' ? '本人' : 'Me'}）</li>
+                    <li>· UI/UX {lang === 'zh' ? '設計師 x1' : 'Designer x1'}</li>
+                    <li>· {lang === 'zh' ? '前端工程師 x1' : 'Frontend Engineer x1'}</li>
+                    <li>· {lang === 'zh' ? '產品經理 x1' : 'Product Manager x1'}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                  {/* Layer 2 - Info-card Grid for Deliverables */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl">
-                    {section.images.map((img, idx) => (
-                      <div 
-                        key={idx} 
-                        className="bg-[#F5F5F5] rounded-2xl p-6 flex flex-col justify-center min-h-[100px] shadow-sm select-none"
-                      >
-                        <span className="text-[10px] md:text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">
-                          {lang === 'zh' ? '設計交付物' : 'Deliverable'}
-                        </span>
-                        <span className="text-sm md:text-base font-bold text-gray-800 leading-snug">
-                          {t(img.label, lang)}
-                        </span>
+          <div className="w-full h-[0.5px] bg-[#e5e5e5] my-10" />
+
+          {/* SECTION 02 — 品牌識別系統 */}
+          <div id="brand-identity" className="scroll-mt-24">
+            <SectionHeader num="02" title={lang === 'zh' ? '品牌識別系統' : 'Brand Identity System'} />
+            
+            <p className="text-sm md:text-base text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-[600px] mb-10">
+              {lang === 'zh'
+                ? '建立兼具專業感與親和力的視覺識別規範，確保品牌在所有接觸點呈現一致形象。'
+                : 'Establish visual identity specs combining professionalism with approachability, ensuring a unified image across all touchpoints.'}
+            </p>
+
+            <div className="space-y-12">
+              {/* Sub-section 1 — 標誌規範展示 */}
+              <div>
+                <SubHeading>{lang === 'zh' ? '1. 標誌規範展示' : '1. Logo Standards Display'}</SubHeading>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <ImagePlaceholder label="主版本標誌 / Main Version" height="160px" icon="photo" />
+                    <div className="text-[12px] font-semibold text-gray-800 mt-2.5 leading-none">{lang === 'zh' ? '主版本標誌 (Main Version)' : 'Main Version Logo'}</div>
+                    <div className="text-[11px] text-gray-400 mt-1.5 font-medium leading-relaxed">{lang === 'zh' ? '適用於主色底及多數主流數位介面' : 'Applicable to main color backgrounds and most mainstream interfaces.'}</div>
+                  </div>
+                  <div>
+                    <ImagePlaceholder label="深色背景反白版 / Reversed Version" height="160px" icon="photo" bg="bg-[#1a1a1a]" />
+                    <div className="text-[12px] font-semibold text-gray-800 mt-2.5 leading-none">{lang === 'zh' ? '深色背景反白版 (Reversed Version)' : 'Reversed Version'}</div>
+                    <div className="text-[11px] text-gray-400 mt-1.5 font-medium leading-relaxed">{lang === 'zh' ? '適用於品牌深色頁尾、碳黑色看板及暗色模式介面' : 'Applicable to dark footers, charcoal billboards, and dark mode.'}</div>
+                  </div>
+                  <div>
+                    <ImagePlaceholder label="單色極簡版 / Monochrome Version" height="160px" icon="photo" />
+                    <div className="text-[12px] font-semibold text-gray-800 mt-2.5 leading-none">{lang === 'zh' ? '單色極簡版 (Monochrome Version)' : 'Monochrome Version'}</div>
+                    <div className="text-[11px] text-gray-400 mt-1.5 font-medium leading-relaxed">{lang === 'zh' ? '適用於報表印刷、單色壓印或低色彩干擾之媒介' : 'Applicable to reports printing, monochrome engraving, and low chroma media.'}</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sub-section 2 — 品牌色彩系統 */}
+              <div>
+                <SubHeading>{lang === 'zh' ? '2. 品牌色彩系統' : '2. Brand Color System'}</SubHeading>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                  <p className="text-[13px] text-gray-500 font-medium font-['Noto_Sans_TC'] leading-[1.8] max-w-[400px]">
+                    {lang === 'zh' 
+                      ? '為突顯科技感與智慧特質，我們以深沉安穩的 Primary Dark 作為視覺重心，搭配亮眼的 Accent Cyan 以傳遞活力與精準操作回饋；背景則選用高質感的灰白色 Background 降低視覺疲勞。' 
+                      : 'To highlight tech attributes, we use the stable Primary Dark as visual anchor, paired with Accent Cyan for action feedback, and neutral cool white Background to reduce fatigue.'}
+                  </p>
+                  
+                  <div className="grid grid-cols-3 gap-4 max-w-sm">
+                    {[
+                      { hex: '#282828', name: 'Primary Dark' },
+                      { hex: '#00D2E2', name: 'Accent Cyan' },
+                      { hex: '#F5F5F3', name: 'Background' }
+                    ].map((color, idx) => (
+                      <div key={idx} className="flex flex-col">
+                        <div className="rounded-[10px] aspect-square w-full border border-gray-100" style={{ backgroundColor: color.hex }} />
+                        <span className="text-[11px] font-semibold text-gray-800 mt-2.5 leading-none">{color.name}</span>
+                        <span className="text-[10px] text-gray-400 uppercase mt-1 leading-none">{color.hex}</span>
                       </div>
                     ))}
                   </div>
-
-                  {/* Layer 3 - Narrative Text & Deliverables tags */}
-                  {section.id === 'brand-identity' ? (
-                    <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 max-w-4xl">
-                      <div className="text-[15px] md:text-[16px] leading-[1.8] text-gray-600 font-medium font-['Noto_Sans_TC']">
-                        {t(section.desc, lang)}
-                      </div>
-                      <div className="flex flex-wrap gap-1.5 h-fit lg:justify-end">
-                        {['Logo design', 'Brand color', 'Illustration', 'Icon system', 'Motion design', 'Mascot'].map((tag, idx) => (
-                          <span 
-                            key={idx} 
-                            className="text-[11px] px-3 py-1 rounded-full border border-gray-300 text-gray-500 bg-transparent select-none font-medium"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <p className="text-[15px] md:text-[16px] leading-[1.8] text-gray-600 font-medium font-['Noto_Sans_TC'] max-w-4xl">
-                      {t(section.desc, lang)}
-                    </p>
-                  )}
                 </div>
               </div>
-            );
-          })}
+
+              {/* Sub-section 3 — 字型階層系統 */}
+              <div>
+                <SubHeading>{lang === 'zh' ? '3. 字型階層系統 (Typography)' : '3. Typography System'}</SubHeading>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* English Card */}
+                  <div className="bg-gray-50 border border-gray-100 rounded-[10px] p-6 flex flex-col space-y-4 select-none">
+                    <span className="text-[10px] font-bold text-[#E8734A] tracking-[0.5px] uppercase">ENGLISH TYPEFACE</span>
+                    <div className="space-y-4">
+                      <div>
+                        <span className="text-[9px] font-bold text-gray-400 block mb-1 uppercase">H1 / clamp(24px, 4vw, 36px)</span>
+                        <div className="text-2xl md:text-3xl font-extrabold font-['Inter'] text-gray-900 leading-tight">Designing Educational Futures</div>
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-bold text-gray-400 block mb-1 uppercase">H3 / 16px font-bold</span>
+                        <div className="text-base font-bold font-['Inter'] text-gray-700">A modern AI platform</div>
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-bold text-gray-400 block mb-1 uppercase">Body / 12px regular</span>
+                        <p className="text-[12px] text-gray-500 font-['Inter'] leading-relaxed">
+                          A premium intelligence engine designed to customize and accelerate high-stakes test preparation for students and administrators worldwide.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Chinese Card */}
+                  <div className="bg-gray-50 border border-gray-100 rounded-[10px] p-6 flex flex-col space-y-4 select-none">
+                    <span className="text-[10px] font-bold text-[#E8734A] tracking-[0.5px] uppercase">中文字型</span>
+                    <div className="space-y-4">
+                      <div>
+                        <span className="text-[9px] font-bold text-gray-400 block mb-1">大標題 H1 / 28px 特粗</span>
+                        <div className="text-2xl md:text-3xl font-extrabold font-['Noto_Sans_TC'] text-gray-900 leading-tight">打造學習新未來</div>
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-bold text-gray-400 block mb-1">次標題 H3 / 16px 粗體</span>
+                        <div className="text-base font-bold font-['Noto_Sans_TC'] text-gray-700">個性化備考體驗</div>
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-bold text-gray-400 block mb-1">內文 Body / 12px 中黑</span>
+                        <p className="text-[12px] text-gray-500 font-['Noto_Sans_TC'] leading-relaxed">
+                          為教育機構決策者與考生設計的現代智慧平台，透過數據 analysis 與視覺回饋，將枯燥的學習歷程轉化為直覺流暢的體驗。
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full h-[0.5px] bg-[#e5e5e5] my-10" />
+
+          {/* SECTION 03 — 品牌吉祥物 */}
+          <div id="brand-mascot" className="scroll-mt-24">
+            <SectionHeader num="03" title={lang === 'zh' ? '品牌吉祥物' : 'Brand Mascot'} />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 items-start">
+              {/* LEFT COLUMN: Main display + thumbnails */}
+              <div>
+                <ImagePlaceholder 
+                  label={`吉祥物大圖 / GIF（點擊下方縮圖切換）\n\n【當前展示狀態：${MASCOT_ASSETS[activeMascotIndex].status}】\n${MASCOT_ASSETS[activeMascotIndex].desc}`} 
+                  height="300px" 
+                  icon="photo" 
+                />
+                
+                {/* Thumbnails Row */}
+                <div className="grid grid-cols-6 gap-2 mt-4">
+                  {MASCOT_ASSETS.map((mascot, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveMascotIndex(idx)}
+                      className={`h-[60px] rounded-lg flex flex-col items-center justify-center p-1 select-none transition-all duration-200 cursor-pointer ${
+                        activeMascotIndex === idx 
+                          ? 'border-2 border-[#534AB7] bg-[#F5F3FF] text-[#534AB7]' 
+                          : 'border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 text-gray-400'
+                      }`}
+                    >
+                      <span className="text-lg mb-0.5">{mascot.emoji}</span>
+                      <span className="text-[9px] font-bold tracking-wide">{mascot.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* RIGHT COLUMN: Info details */}
+              <div className="space-y-6">
+                <div>
+                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-2 select-none">
+                    {lang === 'zh' ? '角色設計說明' : 'CHARACTER DESIGN BRIEF'}
+                  </span>
+                  <p className="text-[13px] text-gray-600 font-medium font-['Noto_Sans_TC'] leading-[1.8]">
+                    {lang === 'zh'
+                      ? '為了讓原本冷硬的備考系統更具趣味性，我們設計了品牌代表吉祥物 Brainy。Brainy 的臉部顯示屏幕會根據使用者的答題狀況與操作路徑做出即時表情反應，降低考生的考試焦慮，打造貼心無壓力的陪考氛圍。'
+                      : 'To make the test prep interface friendly, we designed mascot Brainy. Its face screen dynamically reacts to user actions and scores, mitigating student anxiety and establishing a cozy learning companion.'}
+                  </p>
+                </div>
+
+                <div>
+                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-3 select-none">
+                    {lang === 'zh' ? '情緒狀態涵蓋' : 'EMOTIONAL STATES'}
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {MASCOT_ASSETS.map((mascot, idx) => (
+                      <span 
+                        key={idx}
+                        className="text-[12px] font-semibold text-gray-700 bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-full flex items-center gap-1.5 select-none"
+                      >
+                        <span>{mascot.emoji}</span>
+                        <span>{mascot.label}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-2 select-none">
+                    {lang === 'zh' ? '使用情境' : 'USE CASES'}
+                  </span>
+                  <ul className="text-xs text-gray-600 font-semibold font-['Noto_Sans_TC'] list-none p-0 m-0 space-y-2">
+                    <li>· Onboarding 引導</li>
+                    <li>· 答題結果回饋</li>
+                    <li>· 空狀態頁面</li>
+                    <li>· Loading 等待</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full h-[0.5px] bg-[#e5e5e5] my-10" />
+
+          {/* SECTION 04 — Icon 設計系統 */}
+          <div id="icon-system" className="scroll-mt-24">
+            <SectionHeader num="04" title={lang === 'zh' ? 'Icon 設計系統' : 'Icon Design System'} />
+            
+            <div className="space-y-12">
+              {/* Sub-section 1 — Icon 架構系統 */}
+              <div>
+                <SubHeading>{lang === 'zh' ? '1. Icon 架構系統' : '1. Icon Architecture System'}</SubHeading>
+                <div className="space-y-4">
+                  <ImagePlaceholder label="Icon 分類架構圖（Navigation / Action / Status / Subject）" height="100px" icon="icon" />
+                  <p className="text-[13px] text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-[560px]">
+                    {lang === 'zh'
+                      ? 'Icon 系統分為四大類別，統一使用 24px grid、2px stroke 規範，確保跨尺寸一致性與視覺統一。'
+                      : 'The icon library spans 4 key types: Navigation, Action, Status, and Subject. All icons follow a 24px grid layout and 2px stroke grid to maintain aesthetic uniformity.'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Sub-section 2 — 靜態 Icon 總覽 */}
+              <div>
+                <SubHeading>{lang === 'zh' ? '2. 靜態 Icon 總覽' : '2. Static Icon Overview'}</SubHeading>
+                <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
+                  {Array.from({ length: 19 }).map((_, idx) => (
+                    <div key={idx} className="aspect-square bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center p-2 select-none hover:bg-gray-100/50 transition-colors">
+                      <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
+                      </svg>
+                    </div>
+                  ))}
+                  <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center p-1 select-none border border-gray-200">
+                    <span className="text-[11px] font-bold text-gray-500">+99 more</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sub-section 3 — 動態 Icon 展示 */}
+              <div>
+                <SubHeading>{lang === 'zh' ? '3. 動態 Icon 展示' : '3. Motion Icon Showcase'}</SubHeading>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                  <ImagePlaceholder 
+                    label={`動態 Icon 預覽：${ANIMATED_ICON_ASSETS[activeIconIndex].label}\n\n【當前展示元件：${ANIMATED_ICON_ASSETS[activeIconIndex].emoji} ${ANIMATED_ICON_ASSETS[activeIconIndex].label}】\n${ANIMATED_ICON_ASSETS[activeIconIndex].desc}`} 
+                    height="220px" 
+                    icon="play" 
+                  />
+                  
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-3 gap-2">
+                      {ANIMATED_ICON_ASSETS.map((icon, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setActiveIconIndex(idx)}
+                          className={`h-[64px] rounded-lg flex flex-col items-center justify-center p-1 select-none transition-all duration-200 cursor-pointer ${
+                            activeIconIndex === idx 
+                              ? 'border-2 border-[#534AB7] bg-[#F5F3FF] text-[#534AB7]' 
+                              : 'border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 text-gray-400'
+                          }`}
+                        >
+                          <span className="text-xl mb-1">{icon.emoji}</span>
+                          <span className="text-[10px] font-bold tracking-wide">{icon.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <p className="text-[12px] text-gray-400 font-medium font-['Noto_Sans_TC'] leading-relaxed">
+                      {lang === 'zh'
+                        ? '動態 icon 在觸發時播放一次性動畫，強化操作回饋感。'
+                        : 'Animated micro-icons execute a snappy one-time animation loop when triggered, adding a tactile feel of UI feedback.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full h-[0.5px] bg-[#e5e5e5] my-10" />
+
+          {/* SECTION 05 — 系統插圖與動畫 */}
+          <div id="illustration-animation" className="scroll-mt-24">
+            <SectionHeader num="05" title={lang === 'zh' ? '系統插圖與動畫' : 'Illustration & Animation'} />
+            
+            <p className="text-sm md:text-base text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-[560px] mb-10">
+              {lang === 'zh'
+                ? '涵蓋系統中所有情境插圖與動態內容，以一致的繪圖語言貫穿整個產品體驗。'
+                : 'Covers all contextual illustrations and micro-animations, weaving a coherent graphical language into the EdTech application.'}
+            </p>
+
+            <div className="space-y-12">
+              {/* Sub-section 1 — 用戶頭像系統 */}
+              <div>
+                <SubHeading>{lang === 'zh' ? '1. 用戶頭像系統' : '1. User Avatar Library'}</SubHeading>
+                <div className="flex flex-wrap gap-4 items-center">
+                  {Array.from({ length: 6 }).map((_, idx) => (
+                    <div 
+                      key={idx}
+                      className="w-[72px] h-[72px] rounded-full border border-dashed border-gray-300 bg-gray-50 flex items-center justify-center select-none"
+                    >
+                      <svg className="w-7 h-7 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                      </svg>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sub-section 2 — Loading 動畫 */}
+              <div>
+                <SubHeading>{lang === 'zh' ? '2. Loading 動畫' : '2. Loading Animations'}</SubHeading>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <ImagePlaceholder label="全頁 Loading / Full-screen Loading" height="130px" icon="play" />
+                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">{lang === 'zh' ? '全頁 Loading' : 'Full Page Loading'}</div>
+                  </div>
+                  <div>
+                    <ImagePlaceholder label="Skeleton Screen / 骨架結構載入" height="130px" icon="play" />
+                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">{lang === 'zh' ? 'Skeleton Screen' : 'Skeleton Screen'}</div>
+                  </div>
+                  <div>
+                    <ImagePlaceholder label="元件 Loading / Component Loading" height="130px" icon="play" />
+                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">{lang === 'zh' ? '元件 Loading' : 'Component Loading'}</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sub-section 3 — Onboarding 歡迎動畫 */}
+              <div>
+                <SubHeading>{lang === 'zh' ? '3. Onboarding 歡迎動畫' : '3. Onboarding Animations'}</SubHeading>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div>
+                    <ImagePlaceholder label="Welcome (歡迎動畫 / 動態影片)" height="160px" icon="play" />
+                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">Welcome</div>
+                  </div>
+                  <div>
+                    <ImagePlaceholder label="Step 1 (學習引導一 / 靜態插圖)" height="160px" icon="photo" />
+                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">Step 1</div>
+                  </div>
+                  <div>
+                    <ImagePlaceholder label="Step 2 (學習引導二 / 靜態插圖)" height="160px" icon="photo" />
+                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">Step 2</div>
+                  </div>
+                  <div>
+                    <ImagePlaceholder label="Step 3 (學習引導三 / 靜態插圖)" height="160px" icon="photo" />
+                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">Step 3</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full h-[0.5px] bg-[#e5e5e5] my-10" />
+
+          {/* SECTION 06 — 品牌形象動畫 */}
+          <div id="brand-film" className="scroll-mt-24 pb-12">
+            <SectionHeader num="06" title={lang === 'zh' ? '品牌形象動畫' : 'Brand Film'} />
+            
+            <p className="text-sm md:text-base text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-[560px]">
+              {lang === 'zh'
+                ? '整合 brand 所有視覺元素的動態展示影片，呈現完整視覺語言的一致性與生命力。'
+                : 'An integrated promotional film displaying all components of the brand visual language in a lively dynamic video.'}
+            </p>
+
+            <div className="w-full h-[40vh] md:h-[70vh] rounded-xl overflow-hidden bg-gray-50 border border-dashed border-gray-300 relative select-none mt-6 flex flex-col items-center justify-center p-4">
+              {brandFilmError ? (
+                <div className="flex flex-col items-center justify-center text-gray-400">
+                  <svg className="w-16 h-16 text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+                  </svg>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">{lang === 'zh' ? '品牌形象影片' : 'Brand Film'}</span>
+                  <span className="text-[10px] text-gray-300 mt-1">/videos/brainbox-brand-film.mp4</span>
+                </div>
+              ) : (
+                <video
+                  src="/videos/brainbox-brand-film.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover rounded-xl"
+                  onError={() => setBrandFilmError(true)}
+                />
+              )}
+            </div>
+          </div>
+
         </div>
 
         <FooterCTA navigateTo={navigateTo} lang={lang} />
       </div>
     );
   };
+
 
   const ProjectView = ({ activeItem, lang, transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, navigateTo }) => {
     if (!activeItem) return null;

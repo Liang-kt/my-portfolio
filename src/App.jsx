@@ -6913,21 +6913,18 @@ const SPLIT_VIEW_CHIPS = [
 
     // Helper components to match custom layout guidelines
     const SectionHeader = ({ num, title }) => (
-      <div className="flex flex-col mb-8 select-none">
-        <h2 
-          className="font-extrabold text-[#1a1a2e] tracking-[-2px] leading-none mb-2 font-['Inter']"
-          style={{ fontSize: 'clamp(48px, 6vw, 80px)' }}
-        >
+      <div className="flex flex-col mb-10 select-none">
+        <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-black font-['Inter'] leading-none text-[#111827] tracking-tighter mb-4">
           {num}
         </h2>
-        <h3 className="text-xl md:text-2xl font-bold text-gray-800 tracking-tight font-['Noto_Sans_TC']">
+        <h3 className="text-[24px] md:text-[36px] lg:text-[40px] font-bold font-['Noto_Sans_TC'] tracking-tight text-[#4B5563]">
           {title}
         </h3>
       </div>
     );
 
     const SubHeading = ({ children }) => (
-      <h4 className="border-l-[3px] border-[#E8734A] pl-2.5 text-[15px] font-semibold text-gray-800 uppercase tracking-wider mb-4 select-none">
+      <h4 className="border-l-[3px] border-[#E8734A] pl-3 text-base md:text-lg font-bold text-gray-800 uppercase tracking-wider mb-6 select-none">
         {children}
       </h4>
     );
@@ -6967,17 +6964,17 @@ const SPLIT_VIEW_CHIPS = [
     return (
       <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
         {/* SECTION 00 — HERO */}
-        <div className="max-w-[1200px] mx-auto px-4 pt-32 md:pt-36">
+        <div className="max-w-[100rem] mx-auto px-6 md:px-12 pt-32 md:pt-36">
           <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
           <h1 
-            className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase" 
-            style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
+            className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase md:whitespace-nowrap" 
+            style={{ fontSize: 'clamp(32px, 5.5vw, 84px)' }}
           >
             BRAINBOX VISUAL DESIGN
           </h1>
         </div>
 
-        <div className="w-screen relative left-1/2 -translate-x-1/2 h-[60vh] bg-gray-100 mt-0 select-none overflow-hidden">
+        <div className="w-screen relative left-1/2 -translate-x-1/2 bg-gray-100 mt-6 md:mt-8 select-none overflow-hidden h-auto">
           {!videoError ? (
             <video
               src="/videos/brainbox-hero.mp4"
@@ -6985,92 +6982,35 @@ const SPLIT_VIEW_CHIPS = [
               muted
               loop
               playsInline
-              className="w-full h-full object-cover"
+              className="w-full h-auto block"
               onError={() => setVideoError(true)}
             />
           ) : (
-            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+            <div className="w-full aspect-video bg-gray-200 flex items-center justify-center">
               <svg className="w-16 h-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
           )}
-
-          <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
-
-          <div className="absolute inset-0 flex items-end">
-            <div className="max-w-[1200px] w-full mx-auto px-4 pb-4">
-              <div className="flex flex-wrap gap-3">
-                {META_CARDS.map((card, idx) => (
-                  <div 
-                    key={idx} 
-                    className="bg-white/[0.08] border border-white/[0.15] backdrop-blur-[8px] rounded-lg py-3 px-4 flex flex-col justify-center"
-                  >
-                    <span className="text-[10px] text-white/50 mb-1 leading-none">{card.label}</span>
-                    <span className="text-[13px] font-medium text-white leading-none whitespace-nowrap">{card.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Sticky Nav Bar */}
-        <div className={`sticky top-0 bg-white z-40 py-4 transition-all duration-200 mt-12 ${
-          navBorder ? 'border-b border-gray-200' : 'border-b border-transparent'
-        }`}>
-          <div className="max-w-[1200px] mx-auto px-4 flex gap-2 overflow-x-auto hide-scrollbar scroll-smooth">
-            {[
-              { id: 'all', label: { zh: '全部', en: 'All' }, dotColor: null },
-              { id: 'project-overview', label: { zh: '專案概述', en: 'Overview' }, dotColor: '#E8734A' },
-              { id: 'brand-identity', label: { zh: '品牌識別', en: 'Identity' }, dotColor: '#E8734A' },
-              { id: 'brand-mascot', label: { zh: '品牌吉祥物', en: 'Mascot' }, dotColor: '#E8734A' },
-              { id: 'icon-system', label: { zh: 'Icon系統', en: 'Icons' }, dotColor: '#E8734A' },
-              { id: 'illustration-animation', label: { zh: '插圖與動畫', en: 'Illustration' }, dotColor: '#E8734A' },
-              { id: 'brand-film', label: { zh: '形象動畫', en: 'Brand Film' }, dotColor: '#E8734A' }
-            ].map((item) => {
-              const isActive = activeSection === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
-                    isActive 
-                      ? 'bg-gray-150 border-gray-400 text-gray-900 shadow-none' 
-                      : 'bg-transparent border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-900'
-                  }`}
-                >
-                  {item.dotColor && (
-                    <span 
-                      className="w-2.5 h-2.5 rounded-full" 
-                      style={{ backgroundColor: item.dotColor }}
-                    />
-                  )}
-                  {t(item.label, lang)}
-                </button>
-              );
-            })}
-          </div>
         </div>
 
         {/* Global Case Study Content */}
-        <div className="max-w-[1200px] mx-auto px-4 mt-8">
+        <div className="max-w-[100rem] mx-auto px-6 md:px-12 mt-8">
           
           {/* SECTION 01 — 專案概述 */}
           <div id="project-overview" className="scroll-mt-24">
             <SectionHeader num="01" title={lang === 'zh' ? '專案概述' : 'Project Overview'} />
             
-            <div className="space-y-8">
+            <div className="space-y-12">
               {/* Problem box */}
               <div 
-                className="border-l-4 border-[#E8734A] bg-[#FDF6F0] p-5 md:py-5 md:px-6 max-w-4xl"
-                style={{ borderRadius: '0 10px 10px 0' }}
+                className="border-l-[3px] border-[#E8734A] bg-[#FDF6F0] p-6 md:p-10 max-w-6xl rounded-r-2xl"
               >
-                <span className="text-[11px] font-bold text-[#E8734A] uppercase tracking-wider mb-1.5 block">
+                <span className="text-xs font-bold text-[#E8734A] uppercase tracking-widest mb-3 block">
                   {lang === 'zh' ? '核心視覺挑戰' : 'CORE VISUAL CHALLENGE'}
                 </span>
-                <p className="text-[15px] md:text-[16px] font-semibold text-gray-800 leading-[1.6] font-['Noto_Sans_TC']">
+                <p className="text-xl md:text-3xl font-bold text-gray-900 leading-relaxed font-['Noto_Sans_TC']">
                   {lang === 'zh' 
                     ? '如何為全新的 SAT 線上備考系統建立完整視覺語言——從品牌識別到動態設計，讓產品在第一眼就傳遞專業與信任？'
                     : 'How to build a complete visual language for a brand new SAT prep system—from brand identity to motion design—ensuring the product conveys professionalism and trust at first glance?'}
@@ -7078,41 +7018,41 @@ const SPLIT_VIEW_CHIPS = [
               </div>
 
               {/* 4 meta cards */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl">
                 {[
                   { label: lang === 'zh' ? '角色' : 'Role', value: 'Visual Designer' },
                   { label: lang === 'zh' ? '時程' : 'Timeline', value: '2023–2024' },
                   { label: lang === 'zh' ? '工具' : 'Tools', value: 'Figma · After Effects' },
                   { label: lang === 'zh' ? '產業' : 'Industry', value: 'EdTech · SaaS' }
                 ].map((item, idx) => (
-                  <div key={idx} className="bg-gray-50 border border-gray-100 rounded-[10px] p-4 flex flex-col justify-center select-none">
-                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1 leading-none">{item.label}</span>
-                    <span className="text-[13px] font-semibold text-gray-800 leading-none">{item.value}</span>
+                  <div key={idx} className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex flex-col justify-center min-h-[100px] select-none">
+                    <span className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2 leading-none">{item.label}</span>
+                    <span className="text-sm md:text-base font-bold text-gray-800 leading-snug">{item.value}</span>
                   </div>
                 ))}
               </div>
 
               {/* 2-column text block */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl pt-2">
+              <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 lg:gap-20 max-w-6xl pt-2">
                 <div>
-                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2.5 block select-none">
+                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
                     {lang === 'zh' ? '專案背景' : 'PROJECT BACKGROUND'}
                   </span>
-                  <p className="text-[13px] md:text-sm text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                  <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC']">
                     {lang === 'zh' 
                       ? 'BrainBox 是由 Wisdome.ai 開發，為 SAT 考生打造的個性化線上備考系統。我負責整體視覺設計系統，包含品牌識別、插圖、icon 與動態設計，並與 UI/UX 設計師合作確保視覺與 UI 框架一致。'
                       : 'BrainBox is a personalized online SAT prep system developed by Wisdome.ai. I was responsible for the overall visual design system, including brand identity, illustrations, icons, and motion design, collaborating with UI/UX designers to align the visual system with the UI framework.'}
                   </p>
                 </div>
                 <div>
-                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2.5 block select-none">
+                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
                     {lang === 'zh' ? '團隊組成' : 'TEAM COMPOSITION'}
                   </span>
-                  <ul className="text-[13px] md:text-sm text-gray-600 leading-loose font-medium font-['Noto_Sans_TC'] list-none p-0 m-0">
-                    <li>· Visual Designer（{lang === 'zh' ? '本人' : 'Me'}）</li>
-                    <li>· UI/UX {lang === 'zh' ? '設計師 x1' : 'Designer x1'}</li>
-                    <li>· {lang === 'zh' ? '前端工程師 x1' : 'Frontend Engineer x1'}</li>
-                    <li>· {lang === 'zh' ? '產品經理 x1' : 'Product Manager x1'}</li>
+                  <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-['Noto_Sans_TC'] list-none pl-0">
+                    <li>• Visual Designer（{lang === 'zh' ? '本人' : 'Me'}）</li>
+                    <li>• UI/UX {lang === 'zh' ? '設計師 x1' : 'Designer x1'}</li>
+                    <li>• {lang === 'zh' ? '前端工程師 x1' : 'Frontend Engineer x1'}</li>
+                    <li>• {lang === 'zh' ? '產品經理 x1' : 'Product Manager x1'}</li>
                   </ul>
                 </div>
               </div>
@@ -7125,7 +7065,7 @@ const SPLIT_VIEW_CHIPS = [
           <div id="brand-identity" className="scroll-mt-24">
             <SectionHeader num="02" title={lang === 'zh' ? '品牌識別系統' : 'Brand Identity System'} />
             
-            <p className="text-sm md:text-base text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-[600px] mb-10">
+            <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-3xl mb-12">
               {lang === 'zh'
                 ? '建立兼具專業感與親和力的視覺識別規範，確保品牌在所有接觸點呈現一致形象。'
                 : 'Establish visual identity specs combining professionalism with approachability, ensuring a unified image across all touchpoints.'}
@@ -7137,19 +7077,19 @@ const SPLIT_VIEW_CHIPS = [
                 <SubHeading>{lang === 'zh' ? '1. 標誌規範展示' : '1. Logo Standards Display'}</SubHeading>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
-                    <ImagePlaceholder label="主版本標誌 / Main Version" height="160px" icon="photo" />
-                    <div className="text-[12px] font-semibold text-gray-800 mt-2.5 leading-none">{lang === 'zh' ? '主版本標誌 (Main Version)' : 'Main Version Logo'}</div>
-                    <div className="text-[11px] text-gray-400 mt-1.5 font-medium leading-relaxed">{lang === 'zh' ? '適用於主色底及多數主流數位介面' : 'Applicable to main color backgrounds and most mainstream interfaces.'}</div>
+                    <ImagePlaceholder label="主版本標誌 / Main Version" height="220px" icon="photo" />
+                    <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '主版本標誌 (Main Version)' : 'Main Version Logo'}</div>
+                    <div className="text-xs md:text-sm text-gray-500 mt-2 font-medium leading-relaxed">{lang === 'zh' ? '適用於主色底及多數主流數位介面' : 'Applicable to main color backgrounds and most digital interfaces.'}</div>
                   </div>
                   <div>
-                    <ImagePlaceholder label="深色背景反白版 / Reversed Version" height="160px" icon="photo" bg="bg-[#1a1a1a]" />
-                    <div className="text-[12px] font-semibold text-gray-800 mt-2.5 leading-none">{lang === 'zh' ? '深色背景反白版 (Reversed Version)' : 'Reversed Version'}</div>
-                    <div className="text-[11px] text-gray-400 mt-1.5 font-medium leading-relaxed">{lang === 'zh' ? '適用於品牌深色頁尾、碳黑色看板及暗色模式介面' : 'Applicable to dark footers, charcoal billboards, and dark mode.'}</div>
+                    <ImagePlaceholder label="深色背景反白版 / Reversed Version" height="220px" icon="photo" bg="bg-[#1a1a1a]" />
+                    <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '深色背景反白版 (Reversed Version)' : 'Reversed Version'}</div>
+                    <div className="text-xs md:text-sm text-gray-500 mt-2 font-medium leading-relaxed">{lang === 'zh' ? '適用於品牌深色頁尾、碳黑色看板及暗色模式介面' : 'Applicable to dark footers, charcoal billboards, and dark mode.'}</div>
                   </div>
                   <div>
-                    <ImagePlaceholder label="單色極簡版 / Monochrome Version" height="160px" icon="photo" />
-                    <div className="text-[12px] font-semibold text-gray-800 mt-2.5 leading-none">{lang === 'zh' ? '單色極簡版 (Monochrome Version)' : 'Monochrome Version'}</div>
-                    <div className="text-[11px] text-gray-400 mt-1.5 font-medium leading-relaxed">{lang === 'zh' ? '適用於報表印刷、單色壓印或低色彩干擾之媒介' : 'Applicable to reports printing, monochrome engraving, and low chroma media.'}</div>
+                    <ImagePlaceholder label="單色極簡版 / Monochrome Version" height="220px" icon="photo" />
+                    <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '單色極簡版 (Monochrome Version)' : 'Monochrome Version'}</div>
+                    <div className="text-xs md:text-sm text-gray-500 mt-2 font-medium leading-relaxed">{lang === 'zh' ? '適用於報表印刷、單色壓印或低色彩干擾之媒介' : 'Applicable to report printing, monochrome engraving, and low chroma media.'}</div>
                   </div>
                 </div>
               </div>
@@ -7157,23 +7097,23 @@ const SPLIT_VIEW_CHIPS = [
               {/* Sub-section 2 — 品牌色彩系統 */}
               <div>
                 <SubHeading>{lang === 'zh' ? '2. 品牌色彩系統' : '2. Brand Color System'}</SubHeading>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                  <p className="text-[13px] text-gray-500 font-medium font-['Noto_Sans_TC'] leading-[1.8] max-w-[400px]">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                  <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-xl">
                     {lang === 'zh' 
                       ? '為突顯科技感與智慧特質，我們以深沉安穩的 Primary Dark 作為視覺重心，搭配亮眼的 Accent Cyan 以傳遞活力與精準操作回饋；背景則選用高質感的灰白色 Background 降低視覺疲勞。' 
                       : 'To highlight tech attributes, we use the stable Primary Dark as visual anchor, paired with Accent Cyan for action feedback, and neutral cool white Background to reduce fatigue.'}
                   </p>
                   
-                  <div className="grid grid-cols-3 gap-4 max-w-sm">
+                  <div className="grid grid-cols-3 gap-6 max-w-md w-full">
                     {[
                       { hex: '#282828', name: 'Primary Dark' },
                       { hex: '#00D2E2', name: 'Accent Cyan' },
                       { hex: '#F5F5F3', name: 'Background' }
                     ].map((color, idx) => (
                       <div key={idx} className="flex flex-col">
-                        <div className="rounded-[10px] aspect-square w-full border border-gray-100" style={{ backgroundColor: color.hex }} />
-                        <span className="text-[11px] font-semibold text-gray-800 mt-2.5 leading-none">{color.name}</span>
-                        <span className="text-[10px] text-gray-400 uppercase mt-1 leading-none">{color.hex}</span>
+                        <div className="rounded-2xl aspect-square w-full border border-gray-100" style={{ backgroundColor: color.hex }} />
+                        <span className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-none">{color.name}</span>
+                        <span className="text-xs text-gray-400 uppercase mt-1.5 leading-none">{color.hex}</span>
                       </div>
                     ))}
                   </div>
@@ -7183,22 +7123,22 @@ const SPLIT_VIEW_CHIPS = [
               {/* Sub-section 3 — 字型階層系統 */}
               <div>
                 <SubHeading>{lang === 'zh' ? '3. 字型階層系統 (Typography)' : '3. Typography System'}</SubHeading>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   {/* English Card */}
-                  <div className="bg-gray-50 border border-gray-100 rounded-[10px] p-6 flex flex-col space-y-4 select-none">
-                    <span className="text-[10px] font-bold text-[#E8734A] tracking-[0.5px] uppercase">ENGLISH TYPEFACE</span>
-                    <div className="space-y-4">
+                  <div className="bg-gray-50 border border-gray-100 rounded-2xl p-8 flex flex-col space-y-6 select-none">
+                    <span className="text-xs font-bold text-[#E8734A] tracking-[1px] uppercase">ENGLISH TYPEFACE</span>
+                    <div className="space-y-6">
                       <div>
-                        <span className="text-[9px] font-bold text-gray-400 block mb-1 uppercase">H1 / clamp(24px, 4vw, 36px)</span>
-                        <div className="text-2xl md:text-3xl font-extrabold font-['Inter'] text-gray-900 leading-tight">Designing Educational Futures</div>
+                        <span className="text-[10px] font-bold text-gray-400 block mb-1.5 uppercase">H1 / clamp(24px, 4vw, 36px)</span>
+                        <div className="text-3xl md:text-4xl font-extrabold font-['Inter'] text-gray-900 leading-tight">Designing Educational Futures</div>
                       </div>
                       <div>
-                        <span className="text-[9px] font-bold text-gray-400 block mb-1 uppercase">H3 / 16px font-bold</span>
-                        <div className="text-base font-bold font-['Inter'] text-gray-700">A modern AI platform</div>
+                        <span className="text-[10px] font-bold text-gray-400 block mb-1.5 uppercase">H3 / 16px font-bold</span>
+                        <div className="text-lg font-bold font-['Inter'] text-gray-800">A modern AI platform</div>
                       </div>
                       <div>
-                        <span className="text-[9px] font-bold text-gray-400 block mb-1 uppercase">Body / 12px regular</span>
-                        <p className="text-[12px] text-gray-500 font-['Inter'] leading-relaxed">
+                        <span className="text-[10px] font-bold text-gray-400 block mb-1.5 uppercase">Body / 12px regular</span>
+                        <p className="text-sm text-gray-600 font-['Inter'] leading-relaxed">
                           A premium intelligence engine designed to customize and accelerate high-stakes test preparation for students and administrators worldwide.
                         </p>
                       </div>
@@ -7206,20 +7146,20 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
 
                   {/* Chinese Card */}
-                  <div className="bg-gray-50 border border-gray-100 rounded-[10px] p-6 flex flex-col space-y-4 select-none">
-                    <span className="text-[10px] font-bold text-[#E8734A] tracking-[0.5px] uppercase">中文字型</span>
-                    <div className="space-y-4">
+                  <div className="bg-gray-50 border border-gray-100 rounded-2xl p-8 flex flex-col space-y-6 select-none">
+                    <span className="text-xs font-bold text-[#E8734A] tracking-[1px] uppercase">中文字型</span>
+                    <div className="space-y-6">
                       <div>
-                        <span className="text-[9px] font-bold text-gray-400 block mb-1">大標題 H1 / 28px 特粗</span>
-                        <div className="text-2xl md:text-3xl font-extrabold font-['Noto_Sans_TC'] text-gray-900 leading-tight">打造學習新未來</div>
+                        <span className="text-[10px] font-bold text-gray-400 block mb-1.5">大標題 H1 / 28px 特粗</span>
+                        <div className="text-3xl md:text-4xl font-extrabold font-['Noto_Sans_TC'] text-gray-900 leading-tight">打造學習新未來</div>
                       </div>
                       <div>
-                        <span className="text-[9px] font-bold text-gray-400 block mb-1">次標題 H3 / 16px 粗體</span>
-                        <div className="text-base font-bold font-['Noto_Sans_TC'] text-gray-700">個性化備考體驗</div>
+                        <span className="text-[10px] font-bold text-gray-400 block mb-1.5">次標題 H3 / 16px 粗體</span>
+                        <div className="text-lg font-bold font-['Noto_Sans_TC'] text-gray-800">個性化備考體驗</div>
                       </div>
                       <div>
-                        <span className="text-[9px] font-bold text-gray-400 block mb-1">內文 Body / 12px 中黑</span>
-                        <p className="text-[12px] text-gray-500 font-['Noto_Sans_TC'] leading-relaxed">
+                        <span className="text-[10px] font-bold text-gray-400 block mb-1.5">內文 Body / 12px 中黑</span>
+                        <p className="text-sm text-gray-600 font-['Noto_Sans_TC'] leading-relaxed">
                           為教育機構決策者與考生設計的現代智慧平台，透過數據 analysis 與視覺回饋，將枯燥的學習歷程轉化為直覺流暢的體驗。
                         </p>
                       </div>
@@ -7236,41 +7176,41 @@ const SPLIT_VIEW_CHIPS = [
           <div id="brand-mascot" className="scroll-mt-24">
             <SectionHeader num="03" title={lang === 'zh' ? '品牌吉祥物' : 'Brand Mascot'} />
             
-            <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12 items-start">
               {/* LEFT COLUMN: Main display + thumbnails */}
               <div>
                 <ImagePlaceholder 
                   label={`吉祥物大圖 / GIF（點擊下方縮圖切換）\n\n【當前展示狀態：${MASCOT_ASSETS[activeMascotIndex].status}】\n${MASCOT_ASSETS[activeMascotIndex].desc}`} 
-                  height="300px" 
+                  height="400px" 
                   icon="photo" 
                 />
                 
                 {/* Thumbnails Row */}
-                <div className="grid grid-cols-6 gap-2 mt-4">
+                <div className="grid grid-cols-6 gap-3 mt-6">
                   {MASCOT_ASSETS.map((mascot, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveMascotIndex(idx)}
-                      className={`h-[60px] rounded-lg flex flex-col items-center justify-center p-1 select-none transition-all duration-200 cursor-pointer ${
+                      className={`h-[72px] rounded-xl flex flex-col items-center justify-center p-1 select-none transition-all duration-200 cursor-pointer ${
                         activeMascotIndex === idx 
                           ? 'border-2 border-[#534AB7] bg-[#F5F3FF] text-[#534AB7]' 
                           : 'border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 text-gray-400'
                       }`}
                     >
-                      <span className="text-lg mb-0.5">{mascot.emoji}</span>
-                      <span className="text-[9px] font-bold tracking-wide">{mascot.label}</span>
+                      <span className="text-xl mb-1">{mascot.emoji}</span>
+                      <span className="text-[10px] font-bold tracking-wide">{mascot.label}</span>
                     </button>
                   ))}
                 </div>
               </div>
 
               {/* RIGHT COLUMN: Info details */}
-              <div className="space-y-6">
+              <div className="space-y-8">
                 <div>
-                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-2 select-none">
+                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-3 select-none">
                     {lang === 'zh' ? '角色設計說明' : 'CHARACTER DESIGN BRIEF'}
                   </span>
-                  <p className="text-[13px] text-gray-600 font-medium font-['Noto_Sans_TC'] leading-[1.8]">
+                  <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed">
                     {lang === 'zh'
                       ? '為了讓原本冷硬的備考系統更具趣味性，我們設計了品牌代表吉祥物 Brainy。Brainy 的臉部顯示屏幕會根據使用者的答題狀況與操作路徑做出即時表情反應，降低考生的考試焦慮，打造貼心無壓力的陪考氛圍。'
                       : 'To make the test prep interface friendly, we designed mascot Brainy. Its face screen dynamically reacts to user actions and scores, mitigating student anxiety and establishing a cozy learning companion.'}
@@ -7278,14 +7218,14 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
 
                 <div>
-                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-3 select-none">
+                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-3 select-none">
                     {lang === 'zh' ? '情緒狀態涵蓋' : 'EMOTIONAL STATES'}
                   </span>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3">
                     {MASCOT_ASSETS.map((mascot, idx) => (
                       <span 
                         key={idx}
-                        className="text-[12px] font-semibold text-gray-700 bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-full flex items-center gap-1.5 select-none"
+                        className="text-sm font-semibold text-gray-700 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full flex items-center gap-2 select-none"
                       >
                         <span>{mascot.emoji}</span>
                         <span>{mascot.label}</span>
@@ -7295,14 +7235,14 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
 
                 <div>
-                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-2 select-none">
+                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-3 select-none">
                     {lang === 'zh' ? '使用情境' : 'USE CASES'}
                   </span>
-                  <ul className="text-xs text-gray-600 font-semibold font-['Noto_Sans_TC'] list-none p-0 m-0 space-y-2">
-                    <li>· Onboarding 引導</li>
-                    <li>· 答題結果回饋</li>
-                    <li>· 空狀態頁面</li>
-                    <li>· Loading 等待</li>
+                  <ul className="text-sm md:text-base text-gray-600 font-semibold font-['Noto_Sans_TC'] list-none p-0 m-0 space-y-3">
+                    <li>• Onboarding 引導</li>
+                    <li>• 答題結果回饋</li>
+                    <li>• 空狀態頁面</li>
+                    <li>• Loading 等待</li>
                   </ul>
                 </div>
               </div>
@@ -7320,8 +7260,8 @@ const SPLIT_VIEW_CHIPS = [
               <div>
                 <SubHeading>{lang === 'zh' ? '1. Icon 架構系統' : '1. Icon Architecture System'}</SubHeading>
                 <div className="space-y-4">
-                  <ImagePlaceholder label="Icon 分類架構圖（Navigation / Action / Status / Subject）" height="100px" icon="icon" />
-                  <p className="text-[13px] text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-[560px]">
+                  <ImagePlaceholder label="Icon 分類架構圖（Navigation / Action / Status / Subject）" height="200px" icon="icon" />
+                  <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-3xl">
                     {lang === 'zh'
                       ? 'Icon 系統分為四大類別，統一使用 24px grid、2px stroke 規範，確保跨尺寸一致性與視覺統一。'
                       : 'The icon library spans 4 key types: Navigation, Action, Status, and Subject. All icons follow a 24px grid layout and 2px stroke grid to maintain aesthetic uniformity.'}
@@ -7332,16 +7272,16 @@ const SPLIT_VIEW_CHIPS = [
               {/* Sub-section 2 — 靜態 Icon 總覽 */}
               <div>
                 <SubHeading>{lang === 'zh' ? '2. 靜態 Icon 總覽' : '2. Static Icon Overview'}</SubHeading>
-                <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
+                <div className="grid grid-cols-5 sm:grid-cols-10 gap-3">
                   {Array.from({ length: 19 }).map((_, idx) => (
-                    <div key={idx} className="aspect-square bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center p-2 select-none hover:bg-gray-100/50 transition-colors">
-                      <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <div key={idx} className="aspect-square bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center p-3 select-none hover:bg-gray-100/50 transition-colors">
+                      <svg className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
                       </svg>
                     </div>
                   ))}
-                  <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center p-1 select-none border border-gray-200">
-                    <span className="text-[11px] font-bold text-gray-500">+99 more</span>
+                  <div className="aspect-square bg-gray-100 rounded-xl flex items-center justify-center p-2 select-none border border-gray-200">
+                    <span className="text-xs md:text-sm font-bold text-gray-500">+99 more</span>
                   </div>
                 </div>
               </div>
@@ -7349,31 +7289,31 @@ const SPLIT_VIEW_CHIPS = [
               {/* Sub-section 3 — 動態 Icon 展示 */}
               <div>
                 <SubHeading>{lang === 'zh' ? '3. 動態 Icon 展示' : '3. Motion Icon Showcase'}</SubHeading>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12 items-start">
                   <ImagePlaceholder 
                     label={`動態 Icon 預覽：${ANIMATED_ICON_ASSETS[activeIconIndex].label}\n\n【當前展示元件：${ANIMATED_ICON_ASSETS[activeIconIndex].emoji} ${ANIMATED_ICON_ASSETS[activeIconIndex].label}】\n${ANIMATED_ICON_ASSETS[activeIconIndex].desc}`} 
-                    height="220px" 
+                    height="320px" 
                     icon="play" 
                   />
                   
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-3 gap-2">
+                  <div className="space-y-6 w-full">
+                    <div className="grid grid-cols-3 gap-3">
                       {ANIMATED_ICON_ASSETS.map((icon, idx) => (
                         <button
                           key={idx}
                           onClick={() => setActiveIconIndex(idx)}
-                          className={`h-[64px] rounded-lg flex flex-col items-center justify-center p-1 select-none transition-all duration-200 cursor-pointer ${
+                          className={`h-[80px] rounded-xl flex flex-col items-center justify-center p-1 select-none transition-all duration-200 cursor-pointer ${
                             activeIconIndex === idx 
                               ? 'border-2 border-[#534AB7] bg-[#F5F3FF] text-[#534AB7]' 
                               : 'border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 text-gray-400'
                           }`}
                         >
-                          <span className="text-xl mb-1">{icon.emoji}</span>
-                          <span className="text-[10px] font-bold tracking-wide">{icon.label}</span>
+                          <span className="text-2xl mb-1.5">{icon.emoji}</span>
+                          <span className="text-xs font-bold tracking-wide">{icon.label}</span>
                         </button>
                       ))}
                     </div>
-                    <p className="text-[12px] text-gray-400 font-medium font-['Noto_Sans_TC'] leading-relaxed">
+                    <p className="text-sm md:text-base text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed">
                       {lang === 'zh'
                         ? '動態 icon 在觸發時播放一次性動畫，強化操作回饋感。'
                         : 'Animated micro-icons execute a snappy one-time animation loop when triggered, adding a tactile feel of UI feedback.'}
@@ -7390,7 +7330,7 @@ const SPLIT_VIEW_CHIPS = [
           <div id="illustration-animation" className="scroll-mt-24">
             <SectionHeader num="05" title={lang === 'zh' ? '系統插圖與動畫' : 'Illustration & Animation'} />
             
-            <p className="text-sm md:text-base text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-[560px] mb-10">
+            <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-3xl mb-12">
               {lang === 'zh'
                 ? '涵蓋系統中所有情境插圖與動態內容，以一致的繪圖語言貫穿整個產品體驗。'
                 : 'Covers all contextual illustrations and micro-animations, weaving a coherent graphical language into the EdTech application.'}
@@ -7404,9 +7344,9 @@ const SPLIT_VIEW_CHIPS = [
                   {Array.from({ length: 6 }).map((_, idx) => (
                     <div 
                       key={idx}
-                      className="w-[72px] h-[72px] rounded-full border border-dashed border-gray-300 bg-gray-50 flex items-center justify-center select-none"
+                      className="w-[96px] h-[96px] rounded-full border border-dashed border-gray-300 bg-gray-50 flex items-center justify-center select-none"
                     >
-                      <svg className="w-7 h-7 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <svg className="w-9 h-9 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                       </svg>
                     </div>
@@ -7417,18 +7357,18 @@ const SPLIT_VIEW_CHIPS = [
               {/* Sub-section 2 — Loading 動畫 */}
               <div>
                 <SubHeading>{lang === 'zh' ? '2. Loading 動畫' : '2. Loading Animations'}</SubHeading>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div>
-                    <ImagePlaceholder label="全頁 Loading / Full-screen Loading" height="130px" icon="play" />
-                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">{lang === 'zh' ? '全頁 Loading' : 'Full Page Loading'}</div>
+                    <ImagePlaceholder label="全頁 Loading / Full-screen Loading" height="200px" icon="play" />
+                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">{lang === 'zh' ? '全頁 Loading' : 'Full Page Loading'}</div>
                   </div>
                   <div>
-                    <ImagePlaceholder label="Skeleton Screen / 骨架結構載入" height="130px" icon="play" />
-                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">{lang === 'zh' ? 'Skeleton Screen' : 'Skeleton Screen'}</div>
+                    <ImagePlaceholder label="Skeleton Screen / 骨架結構載入" height="200px" icon="play" />
+                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">{lang === 'zh' ? 'Skeleton Screen' : 'Skeleton Screen'}</div>
                   </div>
                   <div>
-                    <ImagePlaceholder label="元件 Loading / Component Loading" height="130px" icon="play" />
-                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">{lang === 'zh' ? '元件 Loading' : 'Component Loading'}</div>
+                    <ImagePlaceholder label="元件 Loading / Component Loading" height="200px" icon="play" />
+                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">{lang === 'zh' ? '元件 Loading' : 'Component Loading'}</div>
                   </div>
                 </div>
               </div>
@@ -7436,22 +7376,22 @@ const SPLIT_VIEW_CHIPS = [
               {/* Sub-section 3 — Onboarding 歡迎動畫 */}
               <div>
                 <SubHeading>{lang === 'zh' ? '3. Onboarding 歡迎動畫' : '3. Onboarding Animations'}</SubHeading>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                   <div>
-                    <ImagePlaceholder label="Welcome (歡迎動畫 / 動態影片)" height="160px" icon="play" />
-                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">Welcome</div>
+                    <ImagePlaceholder label="Welcome (歡迎動畫 / 動態影片)" height="240px" icon="play" />
+                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">Welcome</div>
                   </div>
                   <div>
-                    <ImagePlaceholder label="Step 1 (學習引導一 / 靜態插圖)" height="160px" icon="photo" />
-                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">Step 1</div>
+                    <ImagePlaceholder label="Step 1 (學習引導一 / 靜態插圖)" height="240px" icon="photo" />
+                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">Step 1</div>
                   </div>
                   <div>
-                    <ImagePlaceholder label="Step 2 (學習引導二 / 靜態插圖)" height="160px" icon="photo" />
-                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">Step 2</div>
+                    <ImagePlaceholder label="Step 2 (學習引導二 / 靜態插圖)" height="240px" icon="photo" />
+                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">Step 2</div>
                   </div>
                   <div>
-                    <ImagePlaceholder label="Step 3 (學習引導三 / 靜態插圖)" height="160px" icon="photo" />
-                    <div className="text-[11px] font-bold text-gray-700 mt-2 text-center select-none">Step 3</div>
+                    <ImagePlaceholder label="Step 3 (學習引導三 / 靜態插圖)" height="240px" icon="photo" />
+                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">Step 3</div>
                   </div>
                 </div>
               </div>
@@ -7464,13 +7404,13 @@ const SPLIT_VIEW_CHIPS = [
           <div id="brand-film" className="scroll-mt-24 pb-12">
             <SectionHeader num="06" title={lang === 'zh' ? '品牌形象動畫' : 'Brand Film'} />
             
-            <p className="text-sm md:text-base text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-[560px]">
+            <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-3xl">
               {lang === 'zh'
                 ? '整合 brand 所有視覺元素的動態展示影片，呈現完整視覺語言的一致性與生命力。'
                 : 'An integrated promotional film displaying all components of the brand visual language in a lively dynamic video.'}
             </p>
 
-            <div className="w-full h-[40vh] md:h-[70vh] rounded-xl overflow-hidden bg-gray-50 border border-dashed border-gray-300 relative select-none mt-6 flex flex-col items-center justify-center p-4">
+            <div className="w-full h-[40vh] md:h-[70vh] rounded-2xl overflow-hidden bg-gray-50 border border-dashed border-gray-300 relative select-none mt-8 flex flex-col items-center justify-center p-4">
               {brandFilmError ? (
                 <div className="flex flex-col items-center justify-center text-gray-400">
                   <svg className="w-16 h-16 text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -7487,7 +7427,7 @@ const SPLIT_VIEW_CHIPS = [
                   muted
                   loop
                   playsInline
-                  className="absolute inset-0 w-full h-full object-cover rounded-xl"
+                  className="absolute inset-0 w-full h-full object-cover rounded-2xl"
                   onError={() => setBrandFilmError(true)}
                 />
               )}

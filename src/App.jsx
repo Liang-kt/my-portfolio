@@ -6924,17 +6924,12 @@ const SPLIT_VIEW_CHIPS = [
     return (
       <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
         <div className="max-w-[1200px] mx-auto px-4 pt-32 md:pt-36">
-          <button 
-            onClick={handleBack} 
-            className="text-xs md:text-sm font-medium text-gray-400 hover:text-black mb-6 transition-colors inline-flex items-center gap-1 select-none"
-          >
-            ← 返回 HOME
-          </button>
+          <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
           <h1 
-            className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter']" 
+            className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase" 
             style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
           >
-            BRAINBOX VISUAL DESIGN
+            {t(activeItem.title, lang)}
           </h1>
         </div>
 
@@ -7048,10 +7043,7 @@ const SPLIT_VIEW_CHIPS = [
                   className="flex items-center gap-4 p-5 cursor-pointer hover:bg-gray-50/50 transition-colors select-none"
                   onClick={() => toggleSection(section.id)}
                 >
-                  <div 
-                    className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs flex-shrink-0"
-                    style={{ backgroundColor: section.iconBg, color: section.iconColor }}
-                  >
+                  <div className="text-xl md:text-2xl font-black font-['Inter'] text-gray-900 w-8 flex-shrink-0 select-none">
                     {section.num}
                   </div>
 

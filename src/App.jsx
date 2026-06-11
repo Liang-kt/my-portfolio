@@ -6823,13 +6823,6 @@ const SPLIT_VIEW_CHIPS = [
     const [videoError, setVideoError] = useState(false);
     const [navBorder, setNavBorder] = useState(false);
     const [activeSection, setActiveSection] = useState('all');
-    const [openSections, setOpenSections] = useState({
-      'brand-identity': true,
-      'brand-mascot': false,
-      'illustration-system': false,
-      'icon-system': false,
-      'motion-design': false
-    });
 
     useEffect(() => {
       const handleScroll = () => {
@@ -6891,27 +6884,16 @@ const SPLIT_VIEW_CHIPS = [
       }
       const el = document.getElementById(id);
       if (el) {
-        setOpenSections(prev => ({ ...prev, [id]: true }));
-        
-        setTimeout(() => {
-          const offset = 100;
-          const bodyRect = document.body.getBoundingClientRect().top;
-          const elementRect = el.getBoundingClientRect().top;
-          const elementPosition = elementRect - bodyRect;
-          const offsetPosition = elementPosition - offset;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }, 50);
+        const offset = 100;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = el.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
       }
-    };
-
-    const toggleSection = (id) => {
-      setOpenSections(prev => ({
-        ...prev,
-        [id]: !prev[id]
-      }));
     };
 
     const META_CARDS = [
@@ -7006,112 +6988,76 @@ const SPLIT_VIEW_CHIPS = [
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto px-4 mt-8 space-y-4">
+        <div className="max-w-[1200px] mx-auto px-4 mt-16 md:mt-24 space-y-16 md:space-y-24">
           {BRAINBOX_SECTIONS.map((section) => {
-            const isOpen = openSections[section.id];
             return (
               <div 
                 key={section.id} 
                 id={section.id}
-                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-none transition-all duration-300"
+                className="pt-16 md:pt-24 border-t border-gray-100 first:border-t-0 first:pt-0"
               >
-                <div 
-                  className="flex items-center gap-4 p-5 cursor-pointer hover:bg-gray-50/50 transition-colors select-none"
-                  onClick={() => toggleSection(section.id)}
-                >
-                  <div className="text-xl md:text-2xl font-black font-['Inter'] text-gray-900 w-8 flex-shrink-0 select-none">
-                    {section.num}
-                  </div>
+                <ProjectSectionHeader num={section.num} title={t(section.title, lang)} />
 
-                  <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 flex-1">
-                    <div className="flex items-center">
-                      <span className="text-[13px] font-semibold text-gray-900 leading-none">
-                        {t(section.title, lang)}
-                      </span>
-                      <span className="text-[9px] font-bold text-gray-400 bg-gray-100 border border-gray-200/50 px-2 py-0.5 rounded-md ml-2 select-none uppercase tracking-wider">
-                        {section.badge}
-                      </span>
-                    </div>
-                    <span className="text-[12px] text-gray-400 font-medium font-['Noto_Sans_TC'] md:ml-3">
+                <div className="mt-8 space-y-8">
+                  {section.subtitle && (
+                    <p className="text-xl md:text-2xl text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-4xl">
                       {t(section.subtitle, lang)}
-                    </span>
-                  </div>
+                    </p>
+                  )}
 
-                  <div className="flex-shrink-0">
-                    <svg 
-                      className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${
-                        isOpen ? 'transform rotate-180 text-gray-600' : ''
-                      }`}
-                      fill="none" 
-                      viewBox="0 0 24 24" 
-                      stroke="currentColor"
-                      strokeWidth={2.5}
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
-                </div>
-
-                <div 
-                  className={`transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] overflow-hidden ${
-                    isOpen ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
-                  }`}
-                >
-                  <div className="border-t border-gray-100 p-6 space-y-6">
-                    {/* Layer 1 - Role Scope Callout (Section 1 only) */}
-                    {section.id === 'brand-identity' && (
-                      <div className="border-l-[3px] border-[#AFA9EC] rounded-r-lg bg-[#F5F5F3] p-4 md:py-3.5 md:px-[18px]">
-                        <div className="text-[11px] font-bold text-[#534AB7] mb-1 uppercase tracking-wider">
-                          {lang === 'zh' ? '我的角色範疇' : 'My Role Scope'}
-                        </div>
-                        <p className="text-[13px] leading-[1.7] text-gray-700 font-semibold font-['Noto_Sans_TC']">
-                          {lang === 'zh' 
-                            ? '負責整體視覺設計系統，包含品牌識別、插圖、icon 與動態設計。UI/UX 設計由協作設計師執行，視覺系統需與 UI 框架保持一致。'
-                            : 'Responsible for the overall visual design system, including brand identity, illustrations, icons, and motion design. UI/UX design is executed by co-designers, and the visual system must align with the UI framework.'}
-                        </p>
+                  {/* Layer 1 - Role Scope Callout (Section 1 only) */}
+                  {section.id === 'brand-identity' && (
+                    <div className="border-l-[3px] border-[#AFA9EC] rounded-r-lg bg-[#F5F5F3] p-6 max-w-4xl">
+                      <div className="text-xs font-bold text-[#534AB7] mb-2 uppercase tracking-wider">
+                        {lang === 'zh' ? '我的角色範疇' : 'My Role Scope'}
                       </div>
-                    )}
-
-                    {/* Layer 2 - Info-card Grid for Deliverables */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      {section.images.map((img, idx) => (
-                        <div 
-                          key={idx} 
-                          className="bg-[#F5F5F5] rounded-2xl p-6 flex flex-col justify-center min-h-[100px] shadow-sm select-none"
-                        >
-                          <span className="text-[10px] md:text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">
-                            {lang === 'zh' ? '設計交付物' : 'Deliverable'}
-                          </span>
-                          <span className="text-sm md:text-base font-bold text-gray-800 leading-snug">
-                            {t(img.label, lang)}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Layer 3 - Narrative Text & Deliverables tags (Section 1 only) */}
-                    {section.id === 'brand-identity' ? (
-                      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 pt-2">
-                        <div className="text-[14px] leading-[1.8] text-gray-600 font-medium font-['Noto_Sans_TC']">
-                          {t(section.desc, lang)}
-                        </div>
-                        <div className="flex flex-wrap gap-1.5 h-fit lg:justify-end">
-                          {['Logo design', 'Brand color', 'Illustration', 'Icon system', 'Motion design', 'Mascot'].map((tag, idx) => (
-                            <span 
-                              key={idx} 
-                              className="text-[11px] px-3 py-1 rounded-full border border-gray-300 text-gray-500 bg-transparent select-none font-medium"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      <p className="text-[14px] leading-[1.8] text-gray-600 font-medium font-['Noto_Sans_TC'] max-w-4xl pt-2">
-                        {t(section.desc, lang)}
+                      <p className="text-[14px] md:text-[15px] leading-[1.7] text-gray-700 font-semibold font-['Noto_Sans_TC']">
+                        {lang === 'zh' 
+                          ? '負責整體視覺設計系統，包含品牌識別、插圖、icon 與動態設計。UI/UX 設計由協作設計師執行，視覺系統需與 UI 框架保持一致。'
+                          : 'Responsible for the overall visual design system, including brand identity, illustrations, icons, and motion design. UI/UX design is executed by co-designers, and the visual system must align with the UI framework.'}
                       </p>
-                    )}
+                    </div>
+                  )}
+
+                  {/* Layer 2 - Info-card Grid for Deliverables */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl">
+                    {section.images.map((img, idx) => (
+                      <div 
+                        key={idx} 
+                        className="bg-[#F5F5F5] rounded-2xl p-6 flex flex-col justify-center min-h-[100px] shadow-sm select-none"
+                      >
+                        <span className="text-[10px] md:text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">
+                          {lang === 'zh' ? '設計交付物' : 'Deliverable'}
+                        </span>
+                        <span className="text-sm md:text-base font-bold text-gray-800 leading-snug">
+                          {t(img.label, lang)}
+                        </span>
+                      </div>
+                    ))}
                   </div>
+
+                  {/* Layer 3 - Narrative Text & Deliverables tags */}
+                  {section.id === 'brand-identity' ? (
+                    <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 max-w-4xl">
+                      <div className="text-[15px] md:text-[16px] leading-[1.8] text-gray-600 font-medium font-['Noto_Sans_TC']">
+                        {t(section.desc, lang)}
+                      </div>
+                      <div className="flex flex-wrap gap-1.5 h-fit lg:justify-end">
+                        {['Logo design', 'Brand color', 'Illustration', 'Icon system', 'Motion design', 'Mascot'].map((tag, idx) => (
+                          <span 
+                            key={idx} 
+                            className="text-[11px] px-3 py-1 rounded-full border border-gray-300 text-gray-500 bg-transparent select-none font-medium"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-[15px] md:text-[16px] leading-[1.8] text-gray-600 font-medium font-['Noto_Sans_TC'] max-w-4xl">
+                      {t(section.desc, lang)}
+                    </p>
+                  )}
                 </div>
               </div>
             );

@@ -6970,30 +6970,6 @@ const SPLIT_VIEW_CHIPS = [
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto px-4 mt-8 space-y-8">
-          <div className="max-w-[900px] border-l-[3px] border-[#AFA9EC] rounded-r-lg bg-[#F5F5F3] p-4 md:py-3.5 md:px-[18px]">
-            <div className="text-[11px] font-medium text-[#534AB7] mb-1 uppercase tracking-wider">
-              {lang === 'zh' ? '我的角色範疇' : 'My Role Scope'}
-            </div>
-            <p className="text-[13px] leading-[1.7] text-gray-700 font-medium font-['Noto_Sans_TC']">
-              {lang === 'zh' 
-                ? '負責整體視覺設計系統，包含品牌識別、插圖、icon 與動態設計。UI/UX 設計由協作設計師執行，視覺系統需與 UI 框架保持一致。'
-                : 'Responsible for the overall visual design system, including brand identity, illustrations, icons, and motion design. UI/UX design is executed by co-designers, and the visual system must align with the UI framework.'}
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-1.5">
-            {['Logo design', 'Brand color', 'Illustration', 'Icon system', 'Motion design', 'Mascot'].map((tag, idx) => (
-              <span 
-                key={idx} 
-                className="text-[11px] px-3 py-1 rounded-full border border-gray-300 text-gray-500 bg-transparent select-none font-medium"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
         <div className={`sticky top-0 bg-white z-40 py-4 transition-all duration-200 mt-12 ${
           navBorder ? 'border-b border-gray-200' : 'border-b border-transparent'
         }`}>
@@ -7081,23 +7057,60 @@ const SPLIT_VIEW_CHIPS = [
                     isOpen ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
                   }`}
                 >
-                  <div className="border-t border-gray-100 p-5 pt-5 space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="border-t border-gray-100 p-6 space-y-6">
+                    {/* Layer 1 - Role Scope Callout (Section 1 only) */}
+                    {section.id === 'brand-identity' && (
+                      <div className="border-l-[3px] border-[#AFA9EC] rounded-r-lg bg-[#F5F5F3] p-4 md:py-3.5 md:px-[18px]">
+                        <div className="text-[11px] font-bold text-[#534AB7] mb-1 uppercase tracking-wider">
+                          {lang === 'zh' ? '我的角色範疇' : 'My Role Scope'}
+                        </div>
+                        <p className="text-[13px] leading-[1.7] text-gray-700 font-semibold font-['Noto_Sans_TC']">
+                          {lang === 'zh' 
+                            ? '負責整體視覺設計系統，包含品牌識別、插圖、icon 與動態設計。UI/UX 設計由協作設計師執行，視覺系統需與 UI 框架保持一致。'
+                            : 'Responsible for the overall visual design system, including brand identity, illustrations, icons, and motion design. UI/UX design is executed by co-designers, and the visual system must align with the UI framework.'}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Layer 2 - Info-card Grid for Deliverables */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       {section.images.map((img, idx) => (
                         <div 
                           key={idx} 
-                          className="h-[140px] rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 flex items-center justify-center p-4 text-center"
+                          className="bg-[#F5F5F5] rounded-2xl p-6 flex flex-col justify-center min-h-[100px] shadow-sm select-none"
                         >
-                          <span className="text-[13px] font-semibold text-gray-400 font-['Noto_Sans_TC']">
+                          <span className="text-[10px] md:text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">
+                            {lang === 'zh' ? '設計交付物' : 'Deliverable'}
+                          </span>
+                          <span className="text-sm md:text-base font-bold text-gray-800 leading-snug">
                             {t(img.label, lang)}
                           </span>
                         </div>
                       ))}
                     </div>
 
-                    <p className="text-[13px] leading-[1.7] text-gray-600 font-medium font-['Noto_Sans_TC'] max-w-4xl">
-                      {t(section.desc, lang)}
-                    </p>
+                    {/* Layer 3 - Narrative Text & Deliverables tags (Section 1 only) */}
+                    {section.id === 'brand-identity' ? (
+                      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 pt-2">
+                        <div className="text-[14px] leading-[1.8] text-gray-600 font-medium font-['Noto_Sans_TC']">
+                          {t(section.desc, lang)}
+                        </div>
+                        <div className="flex flex-wrap gap-1.5 h-fit lg:justify-end">
+                          {['Logo design', 'Brand color', 'Illustration', 'Icon system', 'Motion design', 'Mascot'].map((tag, idx) => (
+                            <span 
+                              key={idx} 
+                              className="text-[11px] px-3 py-1 rounded-full border border-gray-300 text-gray-500 bg-transparent select-none font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="text-[14px] leading-[1.8] text-gray-600 font-medium font-['Noto_Sans_TC'] max-w-4xl pt-2">
+                        {t(section.desc, lang)}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

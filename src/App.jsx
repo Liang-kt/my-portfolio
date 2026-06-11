@@ -1238,11 +1238,23 @@ const SPLIT_VIEW_CHIPS = [
       return (
         <button
           onClick={handleBack}
-          className="flex items-center text-sm font-medium text-gray-400 hover:text-black mb-12 transition-colors"
+          className="flex items-center text-xs md:text-sm font-medium text-gray-400 hover:text-black mb-6 transition-colors select-none"
         >
-          <IconArrowLeft className="w-4 h-4 mr-2" />
-          <span className="uppercase">{I18N[lang].project.backTo} HOME</span>
+          ← {lang === 'zh' ? '返回' : 'BACK TO'} HOME
         </button>
+      );
+    };
+
+    const ProjectSectionHeader = ({ num, title }) => {
+      return (
+        <div className="flex flex-col mb-10 select-none">
+          <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-black font-['Inter'] leading-none text-[#111827] tracking-tighter mb-4">
+            {num}
+          </h2>
+          <h3 className="text-[24px] md:text-[36px] lg:text-[40px] font-bold font-['Inter'] tracking-tight text-[#4B5563]">
+            {title}
+          </h3>
+        </div>
       );
     };
 
@@ -2395,14 +2407,19 @@ const SPLIT_VIEW_CHIPS = [
 
       return (
         <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
-          <div className="pt-32 md:pt-40 px-6 md:px-12 max-w-[100rem] mx-auto mb-12">
+          <div className="pt-32 md:pt-36 px-6 md:px-12 max-w-[100rem] mx-auto">
             <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
-            <h1 className="text-4xl md:text-6xl lg:text-[7rem] font-black mb-8 md:mb-12 tracking-wide uppercase leading-tight md:leading-none font-bold text-gray-900">{t(activeItem.title, lang)}</h1>
+            <h1 
+              className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase" 
+              style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
+            >
+              {t(activeItem.title, lang)}
+            </h1>
           </div>
 
           {/* Hero Section */}
           {activeItem.heroMedia && (
-            <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden">
+            <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden mt-6 md:mt-8">
               {activeItem.heroMedia.type === 'video' ?
                 <div className="w-full h-auto z-10">
                   <OptimizedVideo src={activeItem.heroMedia.url} className="w-full h-auto" />
@@ -2415,7 +2432,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 01 Project Overview */}
           {activeItem.projectOverview && (
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
-              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.overview}</h3></div>
+              <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.overview} />
               <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
                 <div className="space-y-8">
                   {activeItem.projectOverview.clientLogoUrl && (
@@ -2449,7 +2466,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 02 Brand Identity */}
           {activeItem.brandIdentity && (
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
-              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.brand}</h3></div>
+              <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.brand} />
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
                 <div className="bg-[#EAE8F2] rounded-[2rem] p-12 md:p-20 flex items-center justify-center min-h-[300px] overflow-hidden">
                   {activeItem.brandIdentity.motionVideoUrl ? (
@@ -2476,7 +2493,7 @@ const SPLIT_VIEW_CHIPS = [
           {hasMascot && (
             <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
               <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-                <div className="flex flex-col mb-16 border-b border-gray-200 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.mascot}</h3></div>
+                <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.mascot} />
                 <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.mascotDesign.description, lang)}</p>
                 {activeItem.mascotDesign.images && activeItem.mascotDesign.images.length > 0 && (
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -2494,9 +2511,8 @@ const SPLIT_VIEW_CHIPS = [
           {/* 04 Icon System */}
           {activeItem.visuals?.iconSystem && (
             <div className="w-full mb-24 md:mb-40">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-100 pb-10">
-                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2>
-                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Icon System</h3>
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                <ProjectSectionHeader num={getSectionNum()} title="Icon System" />
               </div>
               <div className="max-w-[100rem] mx-auto px-6 md:px-12">
                 {activeItem.visuals.iconSystem.description && (
@@ -2520,9 +2536,8 @@ const SPLIT_VIEW_CHIPS = [
           {/* 05 Illustration & Animation */}
           {activeItem.visuals?.illustrationAnimation && (
             <div className="w-full bg-[#FAFAFA] py-24 md:py-32 mb-24 md:mb-40">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-200 pb-10">
-                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2>
-                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Illustration & Animation</h3>
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                <ProjectSectionHeader num={getSectionNum()} title="Illustration & Animation" />
               </div>
               <div className="max-w-[100rem] mx-auto px-6 md:px-12">
                 {activeItem.visuals.illustrationAnimation.description && (
@@ -2544,9 +2559,8 @@ const SPLIT_VIEW_CHIPS = [
           {/* 06 Application */}
           {activeItem.visuals?.application && (
             <div className="w-full mb-24 md:mb-40">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16 border-b border-gray-100 pb-10">
-                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2>
-                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">Application</h3>
+              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                <ProjectSectionHeader num={getSectionNum()} title="Application" />
               </div>
               <div className="max-w-[100rem] mx-auto px-6 md:px-12">
                 {activeItem.visuals.application.description && (
@@ -2744,33 +2758,18 @@ const SPLIT_VIEW_CHIPS = [
           {/* 1. PROJECT ENTRY AREA (full-width) */}
           <div style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', boxSizing: 'border-box' }}>
             {/* TITLE BLOCK */}
-            <div style={{ width: '100%', padding: '48px 48px 0 48px', boxSizing: 'border-box' }}>
-              <div style={{ marginBottom: '24px' }}>
-                <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
-              </div>
-              <h1 style={{
-                fontSize: 'clamp(48px, 8vw, 96px)',
-                fontWeight: '900',
-                color: '#1A1A1A',
-                margin: 0,
-                lineHeight: '1.1',
-                letterSpacing: '-0.03em'
-              }}>
+            <div className="max-w-[1200px] mx-auto px-6 md:px-12 pt-32 md:pt-36">
+              <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
+              <h1 
+                className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase"
+                style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
+              >
                 Ms Lin 刷題 App
               </h1>
             </div>
 
             {/* METADATA ROW */}
-            <div style={{
-              padding: '20px 48px',
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-              fontSize: '13px',
-              color: '#6B6B6B',
-              boxSizing: 'border-box',
-              lineHeight: '1.5'
-            }}>
+            <div className="max-w-[1200px] mx-auto px-6 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed">
               <span>UI/UX 設計師</span>
               <span style={{ borderLeft: '1px solid #DDDDDD', height: '12px', margin: '0 12px' }}></span>
               <span>前端工程師（兼任）</span>
@@ -2829,28 +2828,7 @@ const SPLIT_VIEW_CHIPS = [
                 boxSizing: 'border-box'
               }}
             >
-              {/* SECTION LABEL */}
-              <div style={{ marginBottom: '40px' }}>
-                <div style={{
-                  fontSize: 'clamp(60px, 8vw, 120px)',
-                  fontWeight: '900',
-                  fontFamily: "'Inter', sans-serif",
-                  lineHeight: '0.9',
-                  color: '#111827',
-                  letterSpacing: '-0.03em',
-                  marginBottom: '16px'
-                }}>
-                  01
-                </div>
-                <div style={{
-                  fontSize: 'clamp(24px, 4vw, 40px)',
-                  fontWeight: '700',
-                  color: '#4B5563',
-                  letterSpacing: '-0.02em'
-                }}>
-                  專案概述
-                </div>
-              </div>
+              <ProjectSectionHeader num="01" title={lang === 'zh' ? '專案概述' : 'Project Overview'} />
 
               {/* Layer 1 — Core question callout (top of section) */}
               <div 
@@ -2962,28 +2940,7 @@ const SPLIT_VIEW_CHIPS = [
                 boxSizing: 'border-box'
               }}
             >
-              {/* SECTION LABEL */}
-              <div style={{ marginBottom: '40px' }}>
-                <div style={{
-                  fontSize: 'clamp(60px, 8vw, 120px)',
-                  fontWeight: '900',
-                  fontFamily: "'Inter', sans-serif",
-                  lineHeight: '0.9',
-                  color: '#111827',
-                  letterSpacing: '-0.03em',
-                  marginBottom: '16px'
-                }}>
-                  02
-                </div>
-                <div style={{
-                  fontSize: 'clamp(24px, 4vw, 40px)',
-                  fontWeight: '700',
-                  color: '#4B5563',
-                  letterSpacing: '-0.02em'
-                }}>
-                  競品洞察與設計假設
-                </div>
-              </div>
+              <ProjectSectionHeader num="02" title={lang === 'zh' ? '競品洞察與設計假設' : 'Competitive Insights & Design Hypotheses'} />
 
               {/* CORE INSIGHT QUOTE BLOCK */}
               <div style={{
@@ -3317,28 +3274,7 @@ const SPLIT_VIEW_CHIPS = [
                 boxSizing: 'border-box'
               }}
             >
-              {/* SECTION LABEL */}
-              <div style={{ marginBottom: '40px' }}>
-                <div style={{
-                  fontSize: 'clamp(60px, 8vw, 120px)',
-                  fontWeight: '900',
-                  fontFamily: "'Inter', sans-serif",
-                  lineHeight: '0.9',
-                  color: '#111827',
-                  letterSpacing: '-0.03em',
-                  marginBottom: '16px'
-                }}>
-                  03
-                </div>
-                <div style={{
-                  fontSize: 'clamp(24px, 4vw, 40px)',
-                  fontWeight: '700',
-                  color: '#4B5563',
-                  letterSpacing: '-0.02em'
-                }}>
-                  策略定調與資訊架構
-                </div>
-              </div>
+              <ProjectSectionHeader num="03" title={lang === 'zh' ? '策略定調與資訊架構' : 'Design Strategy & Information Architecture'} />
 
               {/* FOUR PRINCIPLES */}
               <div style={{ marginBottom: '48px' }}>
@@ -3636,28 +3572,7 @@ const SPLIT_VIEW_CHIPS = [
                 boxSizing: 'border-box'
               }}
             >
-              {/* SECTION LABEL */}
-              <div style={{ marginBottom: '40px' }}>
-                <div style={{
-                  fontSize: 'clamp(60px, 8vw, 120px)',
-                  fontWeight: '900',
-                  fontFamily: "'Inter', sans-serif",
-                  lineHeight: '0.9',
-                  color: '#111827',
-                  letterSpacing: '-0.03em',
-                  marginBottom: '16px'
-                }}>
-                  04
-                </div>
-                <div style={{
-                  fontSize: 'clamp(24px, 4vw, 40px)',
-                  fontWeight: '700',
-                  color: '#4B5563',
-                  letterSpacing: '-0.02em'
-                }}>
-                  設計決策與 UI 展示
-                </div>
-              </div>
+              <ProjectSectionHeader num="04" title={lang === 'zh' ? '設計決策與 UI 展示' : 'Design Decisions & UI Showcase'} />
               <p style={{ fontSize: '15px', color: '#6B6B6B', margin: '0 0 48px 0', lineHeight: '1.6' }}>
                 每一個設計選擇背後都有對應的思考邏輯——以下依功能分別說明。
               </p>
@@ -4832,27 +4747,7 @@ const SPLIT_VIEW_CHIPS = [
                 boxSizing: 'border-box'
               }}
             >
-              <div style={{ marginBottom: '40px' }}>
-                <div style={{
-                  fontSize: 'clamp(60px, 8vw, 120px)',
-                  fontWeight: '900',
-                  fontFamily: "'Inter', sans-serif",
-                  lineHeight: '0.9',
-                  color: '#111827',
-                  letterSpacing: '-0.03em',
-                  marginBottom: '16px'
-                }}>
-                  05
-                </div>
-                <div style={{
-                  fontSize: 'clamp(24px, 4vw, 40px)',
-                  fontWeight: '700',
-                  color: '#4B5563',
-                  letterSpacing: '-0.02em'
-                }}>
-                  成果與反思
-                </div>
-              </div>
+              <ProjectSectionHeader num="05" title={lang === 'zh' ? '成果與反思' : 'Outcomes & Reflections'} />
 
               {/* HYPOTHESIS VALIDATION */}
               <div style={{ marginBottom: '64px' }}>
@@ -5413,14 +5308,19 @@ const SPLIT_VIEW_CHIPS = [
 
       return (
         <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
-          <div className="pt-32 md:pt-40 px-6 md:px-12 max-w-[100rem] mx-auto mb-12">
+          <div className="pt-32 md:pt-36 px-6 md:px-12 max-w-[100rem] mx-auto">
             <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
-            <h1 className="text-4xl md:text-6xl lg:text-[7rem] font-black mb-8 md:mb-12 tracking-wide uppercase leading-tight md:leading-none font-bold text-gray-900">{t(activeItem.title, lang)}</h1>
+            <h1 
+              className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase" 
+              style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
+            >
+              {t(activeItem.title, lang)}
+            </h1>
           </div>
 
           {/* Hero Section */}
           {activeItem.heroMedia && (
-            <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden">
+            <div className="w-full mb-16 md:mb-24 bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden mt-6 md:mt-8">
               {activeItem.heroMedia.type === 'video' ?
                 <div className="w-full h-auto z-10">
                   <OptimizedVideo src={activeItem.heroMedia.url} className="w-full h-auto" />
@@ -5433,7 +5333,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 01 Project Overview */}
           {activeItem.projectOverview && (
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
-              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.overview}</h3></div>
+              <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.overview} />
               
               {activeItem.id === 1 ? (
                 // Wisdome.ai Custom Project Overview
@@ -5589,7 +5489,7 @@ const SPLIT_VIEW_CHIPS = [
           {activeItem.research && (
             <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
               <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-                <div className="flex flex-col mb-16 border-b border-gray-200 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.research}</h3></div>
+                <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.research} />
                 <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.research.description, lang)}</p>
                 {activeItem.research.images && activeItem.research.images.length > 0 && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -5611,14 +5511,7 @@ const SPLIT_VIEW_CHIPS = [
                 ref={wisdomeStrategyRef}
               >
                 {/* Standard Header */}
-                <div className="flex flex-col mb-12 border-b border-gray-100 pb-10">
-                  <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">
-                    {getSectionNum()}
-                  </h2>
-                  <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">
-                    {I18N[lang].project.strategy}
-                  </h3>
-                </div>
+                <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.strategy} />
 
                 {/* Text Content */}
                 <div className="space-y-6 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">
@@ -5744,7 +5637,7 @@ const SPLIT_VIEW_CHIPS = [
               // Default Generic Strategy & Architecture
               <div className="w-full mb-24 md:mb-40 mt-12">
                 <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-                  <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.strategy}</h3></div>
+                  <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.strategy} />
                   {activeItem.strategyAndArchitecture.description && (
                     <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.strategyAndArchitecture.description, lang)}</p>
                   )}
@@ -5763,14 +5656,7 @@ const SPLIT_VIEW_CHIPS = [
               <div className="w-full mb-24 md:mb-40 mt-12 bg-white">
                 {/* 頂部 */}
                 <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16">
-                  <div className="flex flex-col mb-12 border-b border-gray-100 pb-10">
-                    <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">
-                      {getSectionNum()}
-                    </h2>
-                    <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">
-                      {t({ zh: '企業識別系統', en: 'Corporate Identity System' }, lang)}
-                    </h3>
-                  </div>
+                  <ProjectSectionHeader num={getSectionNum()} title={t({ zh: '企業識別系統', en: 'Corporate Identity System' }, lang)} />
                   <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl">
                     {t({
                       zh: '為凸顯 Wisdome.ai 智慧教育的創新形象與科技核心，我們規劃了完整的視覺識別規範，建立一個兼具專業感、信賴感與前沿科技感的 CIS 系統。',
@@ -6022,7 +5908,7 @@ const SPLIT_VIEW_CHIPS = [
             ) : (
               // Default Generic Brand Identity (CIS)
               <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
-                <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.brand}</h3></div>
+                <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.brand} />
 
                 <div className="flex flex-col gap-12 lg:gap-16">
                   {/* 橫向滿版影片或 Logo */}
@@ -6159,7 +6045,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 05 Design */}
           {activeItem.design && (
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
-              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{isApp ? I18N[lang].project.uiDesign : I18N[lang].project.webDesign}</h3></div>
+              <ProjectSectionHeader num={getSectionNum()} title={isApp ? I18N[lang].project.uiDesign : I18N[lang].project.webDesign} />
               <div className="space-y-20">
                 {activeItem.id === 1 && (
                   <>
@@ -6752,17 +6638,10 @@ const SPLIT_VIEW_CHIPS = [
               ref={reflectionRef}
               className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12"
             >
-              <div className="flex flex-col mb-12 border-b border-gray-100 pb-10">
-                <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">
-                  {getSectionNum()}
-                </h2>
-                <h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-900">
-                  {lang === 'zh' ? '成果與反思' : 'Reflection & Iteration'}
-                </h3>
-                <p className="text-sm md:text-base text-gray-500 font-semibold font-['Noto_Sans_TC'] mt-2">
-                  {lang === 'zh' ? '誠實評估，比展示光鮮更有說服力。' : 'Honest assessment is more convincing than a polished showcase.'}
-                </p>
-              </div>
+              <ProjectSectionHeader num={getSectionNum()} title={lang === 'zh' ? '成果與反思' : 'Reflection & Iteration'} />
+              <p className="text-sm md:text-base text-gray-500 font-semibold font-['Noto_Sans_TC'] -mt-6 mb-8 select-none">
+                {lang === 'zh' ? '誠實評估，比展示光鮮更有說服力。' : 'Honest assessment is more convincing than a polished showcase.'}
+              </p>
 
               {/* 2x2 Grid Layout */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -6795,7 +6674,7 @@ const SPLIT_VIEW_CHIPS = [
           {hasMascot && (
             <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
               <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-                <div className="flex flex-col mb-16 border-b border-gray-200 pb-10"><h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-bold font-['Inter'] leading-none text-gray-900 tracking-tighter">{getSectionNum()}</h2><h3 className="text-[32px] md:text-[52px] lg:text-[64px] font-bold font-['Inter'] tracking-tight mt-2 text-gray-500">{I18N[lang].project.mascot}</h3></div>
+                <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.mascot} />
                 <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.mascotDesign.description, lang)}</p>
                 {activeItem.mascotDesign.images && activeItem.mascotDesign.images.length > 0 && (
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-6">

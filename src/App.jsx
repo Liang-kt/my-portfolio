@@ -6847,8 +6847,409 @@ const SPLIT_VIEW_CHIPS = [
       );
     };
 
+  const BRAINBOX_SECTIONS = [
+    {
+      id: 'brand-identity',
+      num: '01',
+      title: { zh: '品牌識別系統', en: 'Brand Identity System' },
+      badge: 'Brand Identity',
+      subtitle: { zh: '建立品牌核心視覺規範，包含 Logo 設計、標準字與品牌色彩計畫。', en: 'Core brand visual specs including logo, typography, and color schemes.' },
+      iconBg: '#EEEDFE',
+      iconColor: '#534AB7',
+      images: [
+        { label: { zh: 'Logo 概念發展', en: 'Logo Concept Development' } },
+        { label: { zh: '品牌色彩系統', en: 'Brand Color System' } },
+        { label: { zh: '規範文件', en: 'Guidelines Documentation' } }
+      ],
+      desc: {
+        zh: '智慧教育系統的品牌視覺起點。我們以代表智慧的紫色與科技感十足的冷灰色調為核心，設計出俐落具現代感的標誌與標準字。透過嚴格的色彩與應用規範，確保產品在各個接觸點皆能傳遞一致、專業的企業形象。',
+        en: 'The start of the smart education brand vision. We used wisdom purple and tech cool grey as our core to design a sleek, modern mark and typography. Strict color and application rules ensure the brand stays consistent and professional across all touchpoints.'
+      }
+    },
+    {
+      id: 'brand-mascot',
+      num: '02',
+      title: { zh: '品牌吉祥物', en: 'Brand Mascot' },
+      badge: 'Brand Mascot',
+      subtitle: { zh: '設計代表性品牌吉祥物，拉近與使用者的距離，增加互動趣味。', en: 'Create a brand mascot to connect with users and make learning fun.' },
+      iconBg: '#FAECE7',
+      iconColor: '#993C1D',
+      images: [
+        { label: { zh: '角色設計稿', en: 'Character Design Drafts' } },
+        { label: { zh: '情境插圖', en: 'Contextual Illustrations' } },
+        { label: { zh: '吉祥物動畫', en: 'Mascot Animation' } }
+      ],
+      desc: {
+        zh: '為了讓看似冰冷的教育科技系統更具溫度與親和力，我們打造了專屬吉祥物「Brainy」。從初期的草稿設定、三視圖、各類教學情境的插圖應用，到簡單的 UI 反饋動畫，讓吉祥物成為學習旅程中陪伴學生的好夥伴。',
+        en: 'To bring warmth and approachability to EdTech software, we crafted our dedicated mascot "Brainy." From sketches, three-view turnarounds, and learning scenario illustrations to simple UI feedback animations, the mascot accompanies students along their journey.'
+      }
+    },
+    {
+      id: 'illustration-system',
+      num: '03',
+      title: { zh: '系統插圖', en: 'Illustration System' },
+      badge: 'Illustration System',
+      subtitle: { zh: '規劃全站式系統插圖系統，提升畫面美感並傳遞指引資訊。', en: 'Plan a system-wide illustration library to raise aesthetic appeal and deliver guidance.' },
+      iconBg: '#E1F5EE',
+      iconColor: '#0F6E56',
+      images: [
+        { label: { zh: 'Empty state', en: 'Empty State Screens' } },
+        { label: { zh: 'Onboarding', en: 'Onboarding Flows' } },
+        { label: { zh: '功能說明插圖', en: 'Feature Explainers' } }
+      ],
+      desc: {
+        zh: '為提升系統的易用性與視覺層次，我們規劃了一套完整的向量插圖系統。涵蓋了 Onboarding 引導、功能說明，以及各類 Empty States（如無資料、連線中斷等頁面），用圖像化的方式輔助引導使用者進行操作。',
+        en: 'To upgrade usability and styling layers, we organized a vector illustration package. This covers onboarding guidance, feature explainers, and various empty states (like no-data or disconnected screens) to assist user actions graphically.'
+      }
+    },
+    {
+      id: 'icon-system',
+      num: '04',
+      title: { zh: 'Icon 設計系統', en: 'Icon System' },
+      badge: 'Icon System',
+      subtitle: { zh: '統整全站靜態與動態 Icon 規範，維持介面一致性。', en: 'Harmonize static and motion icon rules for interface consistency.' },
+      iconBg: '#FAEEDA',
+      iconColor: '#854F0B',
+      images: [
+        { label: { zh: '靜態 Icon 總覽', en: 'Static Icon Library' } },
+        { label: { zh: '動態 Icon', en: 'Animated Micro-Icons' } },
+        { label: { zh: '規範文件', en: 'Guidelines Documentation' } }
+      ],
+      desc: {
+        zh: '針對教師與學生雙端複雜的功能入口，我們重新梳理並設計了整套 Icon 系統。遵循統一的格線（24x24px）、筆畫粗細與圓角規範，並針對關鍵操作入口加入滑鼠 hover 觸發的微動態 Icon，提升產品的精緻度與回饋感。',
+        en: 'Addressing complex dashboard entries for teachers and students, we rebuilt the icon library. Following uniform grids (24x24px), stroke weights, and corner rules, we added hover-triggered micro-animated icons at main actions for premium delight.'
+      }
+    },
+    {
+      id: 'motion-design',
+      num: '05',
+      title: { zh: '系統動畫', en: 'Motion Design' },
+      badge: 'Motion Design',
+      subtitle: { zh: '規劃關鍵操作微互動與 Loading 動畫，創造流暢介面體驗。', en: 'Plan micro-interactions and loading animations for fluid interactions.' },
+      iconBg: '#E6F1FB',
+      iconColor: '#185FA5',
+      images: [
+        { label: { zh: 'Loading 動畫', en: 'Loading Animation' } },
+        { label: { zh: '介面轉場', en: 'Interface Transitions' } },
+        { label: { zh: '動態規範', en: 'Motion Guidelines' } }
+      ],
+      desc: {
+        zh: '精緻的微交互是卓越產品的關鍵。我們設計了啟動 Loading 動畫、答題反饋、以及頁面與彈窗的過渡轉場動態。透過流暢的貝氏曲線數值設定，使介面動作自然且毫不拖沓，並制定了完整的 Motion Style Guide。',
+        en: 'Polished micro-interactions define great products. We designed loading screens, answers feedback, and smooth transitions for popups. Custom Bezier curves keep actions natural and snappy, all documented in our Motion Style Guide.'
+      }
+    }
+  ];
+
+  const BrainBoxVisualProjectView = ({ activeItem, lang, transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, navigateTo }) => {
+    const [videoError, setVideoError] = useState(false);
+    const [navBorder, setNavBorder] = useState(false);
+    const [activeSection, setActiveSection] = useState('all');
+    const [openSections, setOpenSections] = useState({
+      'brand-identity': true,
+      'brand-mascot': false,
+      'illustration-system': false,
+      'icon-system': false,
+      'motion-design': false
+    });
+
+    useEffect(() => {
+      const handleScroll = () => {
+        setNavBorder(window.scrollY > 450);
+        if (window.scrollY < 300) {
+          setActiveSection('all');
+        }
+      };
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+      const sectionIds = ['brand-identity', 'brand-mascot', 'illustration-system', 'icon-system', 'motion-design'];
+      
+      const observerCallback = (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      };
+      
+      const observer = new IntersectionObserver(observerCallback, {
+        root: null,
+        rootMargin: '-120px 0px -60% 0px',
+        threshold: 0
+      });
+      
+      sectionIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+
+      return () => observer.disconnect();
+    }, []);
+
+    const handleBack = () => {
+      transitionTo(() => {
+        setCurrentPage('home');
+        setActiveItem(null);
+        setIsMobileMenuOpen(false);
+        setTimeout(() => {
+          const section = document.getElementById('featured-works');
+          if (section) {
+            window.scrollTo({ top: section.offsetTop, behavior: 'auto' });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'auto' });
+          }
+        }, 10);
+      });
+    };
+
+    const scrollToSection = (id) => {
+      if (id === 'all') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setActiveSection('all');
+        return;
+      }
+      const el = document.getElementById(id);
+      if (el) {
+        setOpenSections(prev => ({ ...prev, [id]: true }));
+        
+        setTimeout(() => {
+          const offset = 100;
+          const bodyRect = document.body.getBoundingClientRect().top;
+          const elementRect = el.getBoundingClientRect().top;
+          const elementPosition = elementRect - bodyRect;
+          const offsetPosition = elementPosition - offset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }, 50);
+      }
+    };
+
+    const toggleSection = (id) => {
+      setOpenSections(prev => ({
+        ...prev,
+        [id]: !prev[id]
+      }));
+    };
+
+    const META_CARDS = [
+      { label: { zh: '角色', en: 'Role' }, value: 'Visual Designer' },
+      { label: { zh: '時程', en: 'Timeline' }, value: '2024' },
+      { label: { zh: '工具', en: 'Tools' }, value: 'Figma · After Effects' },
+      { label: { zh: '交付物', en: 'Deliverables' }, value: '5 個系統' }
+    ];
+
+    return (
+      <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
+        <div className="max-w-[1200px] mx-auto px-4 pt-32 md:pt-36">
+          <button 
+            onClick={handleBack} 
+            className="text-xs md:text-sm font-medium text-gray-400 hover:text-black mb-6 transition-colors inline-flex items-center gap-1 select-none"
+          >
+            ← 返回 HOME
+          </button>
+          <h1 
+            className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter']" 
+            style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
+          >
+            BRAINBOX VISUAL DESIGN
+          </h1>
+        </div>
+
+        <div className="w-full h-[40vh] md:h-[60vh] relative overflow-hidden bg-gray-100 mt-2 select-none">
+          {!videoError ? (
+            <video
+              src="/videos/brainbox-hero.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+              onError={() => setVideoError(true)}
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+              <svg className="w-16 h-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          )}
+
+          <div className="absolute bottom-0 left-0 right-0 h-[45%] bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
+
+          <div className="absolute bottom-4 left-4 right-4 md:right-auto z-10 flex flex-col md:flex-row gap-3">
+            <div className="grid grid-cols-2 md:flex md:flex-row gap-3">
+              {META_CARDS.map((card, idx) => (
+                <div 
+                  key={idx} 
+                  className="bg-white/[0.08] border border-white/[0.15] rounded-lg py-3 px-4 backdrop-blur-[8px] flex flex-col justify-center"
+                >
+                  <span className="text-[10px] text-white/50 mb-1 leading-none">{t(card.label, lang)}</span>
+                  <span className="text-[13px] font-medium text-white leading-none whitespace-nowrap">{card.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-[1200px] mx-auto px-4 mt-8 space-y-8">
+          <div className="max-w-[900px] border-l-[3px] border-[#AFA9EC] rounded-r-lg bg-[#F5F5F3] p-4 md:py-3.5 md:px-[18px]">
+            <div className="text-[11px] font-medium text-[#534AB7] mb-1 uppercase tracking-wider">
+              {lang === 'zh' ? '我的角色範疇' : 'My Role Scope'}
+            </div>
+            <p className="text-[13px] leading-[1.7] text-gray-700 font-medium font-['Noto_Sans_TC']">
+              {lang === 'zh' 
+                ? '負責整體視覺設計系統，包含品牌識別、插圖、icon 與動態設計。UI/UX 設計由協作設計師執行，視覺系統需與 UI 框架保持一致。'
+                : 'Responsible for the overall visual design system, including brand identity, illustrations, icons, and motion design. UI/UX design is executed by co-designers, and the visual system must align with the UI framework.'}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5">
+            {['Logo design', 'Brand color', 'Illustration', 'Icon system', 'Motion design', 'Mascot'].map((tag, idx) => (
+              <span 
+                key={idx} 
+                className="text-[11px] px-3 py-1 rounded-full border border-gray-300 text-gray-500 bg-transparent select-none font-medium"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className={`sticky top-0 bg-white z-40 py-4 transition-all duration-200 mt-12 ${
+          navBorder ? 'border-b border-gray-200' : 'border-b border-transparent'
+        }`}>
+          <div className="max-w-[1200px] mx-auto px-4 flex gap-2 overflow-x-auto hide-scrollbar scroll-smooth">
+            {[
+              { id: 'all', label: { zh: '全部', en: 'All' }, dotColor: null },
+              { id: 'brand-identity', label: { zh: '品牌識別', en: 'Brand' }, dotColor: '#534AB7' },
+              { id: 'brand-mascot', label: { zh: '吉祥物', en: 'Mascot' }, dotColor: '#993C1D' },
+              { id: 'illustration-system', label: { zh: '系統插圖', en: 'Illustration' }, dotColor: '#0F6E56' },
+              { id: 'icon-system', label: { zh: 'Icon', en: 'Icon' }, dotColor: '#854F0B' },
+              { id: 'motion-design', label: { zh: '動畫', en: 'Motion' }, dotColor: '#185FA5' }
+            ].map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                    isActive 
+                      ? 'bg-[#f0f0f0] border-[#999] text-gray-900 shadow-none' 
+                      : 'bg-transparent border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-900'
+                  }`}
+                >
+                  {item.dotColor && (
+                    <span 
+                      className="w-2.5 h-2.5 rounded-full" 
+                      style={{ backgroundColor: item.dotColor }}
+                    />
+                  )}
+                  {t(item.label, lang)}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="max-w-[1200px] mx-auto px-4 mt-8 space-y-4">
+          {BRAINBOX_SECTIONS.map((section) => {
+            const isOpen = openSections[section.id];
+            return (
+              <div 
+                key={section.id} 
+                id={section.id}
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-none transition-all duration-300"
+              >
+                <div 
+                  className="flex items-center gap-4 p-5 cursor-pointer hover:bg-gray-50/50 transition-colors select-none"
+                  onClick={() => toggleSection(section.id)}
+                >
+                  <div 
+                    className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs flex-shrink-0"
+                    style={{ backgroundColor: section.iconBg, color: section.iconColor }}
+                  >
+                    {section.num}
+                  </div>
+
+                  <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 flex-1">
+                    <div className="flex items-center">
+                      <span className="text-[13px] font-semibold text-gray-900 leading-none">
+                        {t(section.title, lang)}
+                      </span>
+                      <span className="text-[9px] font-bold text-gray-400 bg-gray-100 border border-gray-200/50 px-2 py-0.5 rounded-md ml-2 select-none uppercase tracking-wider">
+                        {section.badge}
+                      </span>
+                    </div>
+                    <span className="text-[12px] text-gray-400 font-medium font-['Noto_Sans_TC'] md:ml-3">
+                      {t(section.subtitle, lang)}
+                    </span>
+                  </div>
+
+                  <div className="flex-shrink-0">
+                    <svg 
+                      className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${
+                        isOpen ? 'transform rotate-180 text-gray-600' : ''
+                      }`}
+                      fill="none" 
+                      viewBox="0 0 24 24" 
+                      stroke="currentColor"
+                      strokeWidth={2.5}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+
+                <div 
+                  className={`transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] overflow-hidden ${
+                    isOpen ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
+                  }`}
+                >
+                  <div className="border-t border-gray-100 p-5 pt-5 space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {section.images.map((img, idx) => (
+                        <div 
+                          key={idx} 
+                          className="h-[140px] rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 flex items-center justify-center p-4 text-center"
+                        >
+                          <span className="text-[13px] font-semibold text-gray-400 font-['Noto_Sans_TC']">
+                            {t(img.label, lang)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <p className="text-[13px] leading-[1.7] text-gray-600 font-medium font-['Noto_Sans_TC'] max-w-4xl">
+                      {t(section.desc, lang)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <FooterCTA navigateTo={navigateTo} lang={lang} />
+      </div>
+    );
+  };
+
   const ProjectView = ({ activeItem, lang, transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, navigateTo }) => {
     if (!activeItem) return null;
+
+    if (activeItem.id === 3) {
+      return (
+        <>
+          <BrainBoxVisualProjectView activeItem={activeItem} lang={lang} transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} navigateTo={navigateTo} />
+          <BackToTopButton />
+        </>
+      );
+    }
 
     // --- 封裝重複的返回按鈕元件 (直接回到首頁的精選作品區塊) ---
 

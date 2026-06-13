@@ -105,6 +105,15 @@ html, body {
   box-sizing: border-box;
 }
 
+@media (max-width: 767px) {
+  .ia-bubble {
+    width: 200px;
+    font-size: 11px;
+    padding: 8px 12px;
+  }
+}
+
+
 .ia-bubble::after {
   content: '';
   position: absolute;

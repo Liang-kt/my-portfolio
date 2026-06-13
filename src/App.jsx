@@ -1024,7 +1024,7 @@ const SPLIT_VIEW_CHIPS = [
       <div className="bg-[#F6F6F6]">
         {/* Set explicit inline style heights to guarantee viewport scaling is 100% robust across all browsers */}
         <div ref={trackRef} style={{ height: '400vh' }} className="w-full relative">
-          <section style={{ height: '100vh' }} className="sticky top-0 w-full flex flex-col md:flex-row items-center justify-between px-6 md:px-12 overflow-hidden bg-[#F6F6F6] z-0">
+          <section style={{ height: '100vh' }} className="sticky top-0 w-full flex flex-col md:flex-row items-center justify-between px-4 md:px-12 overflow-hidden bg-[#F6F6F6] z-0">
             {/* Phase 1: Original Left Text Container */}
             <div className="w-full md:w-[75%] pt-40 md:pt-0 z-30 pointer-events-none will-change-transform animate-in fade-in duration-700" style={{ transform: `translateX(${textTranslateX}vw)`, opacity: textOpacity }}>
               <h2 className="text-xl md:text-2xl text-orange-600 mb-6 font-medium flex items-center gap-2"><span className="text-4xl leading-none -mt-2">*</span> We are digital design</h2>
@@ -1070,7 +1070,7 @@ const SPLIT_VIEW_CHIPS = [
           </section>
         </div>
         <div id="featured-works" className="relative z-30 bg-white rounded-t-[3rem] md:rounded-t-[4rem] w-full mt-[-2rem] md:mt-[-4rem] shadow-[0_-20px_60px_rgba(0,0,0,0.08)]">
-          <div className="py-24 md:py-32 px-6 md:px-12 max-w-[100rem] mx-auto bg-white rounded-t-[3rem] md:rounded-t-[4rem]">
+          <div className="py-24 md:py-32 px-4 md:px-12 max-w-[100rem] mx-auto bg-white rounded-t-[3rem] md:rounded-t-[4rem]">
             <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-16 gap-8">
               <div className="max-w-2xl">
                 <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">{I18N[lang].home.selectedWorks}</h2>
@@ -1128,7 +1128,7 @@ const SPLIT_VIEW_CHIPS = [
 
   const WorksView = ({ navigateTo, lang }) => (
     <div className="bg-[#F6F6F6] animate-in fade-in duration-700 min-h-screen">
-      <div className="bg-white pt-32 md:pt-40 pb-16 md:pb-32 px-6 md:px-12 rounded-b-[2rem] md:rounded-b-[4rem] relative z-10 shadow-[0_20px_60px_rgba(0,0,0,0.05)]">
+      <div className="bg-white pt-32 md:pt-40 pb-16 md:pb-32 px-4 md:px-12 rounded-b-[2rem] md:rounded-b-[4rem] relative z-10 shadow-[0_20px_60px_rgba(0,0,0,0.05)]">
         <div className="max-w-[100rem] mx-auto"><h3 className="text-orange-500 font-bold tracking-widest uppercase mb-2 md:mb-4 text-sm md:text-base">Portfolio</h3><h1 className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-wide text-gray-900 leading-none uppercase">Works</h1><p className="mt-6 md:mt-8 text-base md:text-xl lg:text-2xl text-gray-500 max-w-3xl leading-relaxed tracking-wide font-medium">Explore my selected projects across UI/UX Design, Motion Graphics, and Branding. 透過不同領域的視覺敘事，探索我的精選作品。</p></div>
       </div>
       <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-16 md:pt-20 pb-20 md:pb-32 relative z-0">{CATEGORIES.map((cat, idx) => { const coverProject = PROJECTS.find(p => p.categoryId === cat.id && p.coverMedia && p.coverMedia.url); return <WorkCategoryCard key={cat.id} cat={cat} idx={idx} isLast={idx === CATEGORIES.length - 1} navigateTo={navigateTo} coverUrl={coverProject?.coverMedia.url} isVideo={coverProject?.coverMedia.type === 'video'} lang={lang} />; })}</div>
@@ -1141,7 +1141,7 @@ const SPLIT_VIEW_CHIPS = [
     useEffect(() => { window.scrollTo(0, 0); }, []);
     return (
       <div className="min-h-screen bg-[#F6F6F6] pb-20 md:pb-32 animate-in fade-in duration-700">
-        <div className="bg-white pt-32 md:pt-40 pb-16 md:pb-24 px-6 md:px-12 mb-10 md:mb-16 rounded-b-[2rem] md:rounded-b-[4rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)]"><div className="max-w-[100rem] mx-auto"><button onClick={() => navigateTo('works')} className="flex items-center text-sm md:text-base text-gray-400 hover:text-black transition-colors mb-8 md:mb-12 tracking-wide font-medium"><IconArrowLeft className="w-5 h-5 mr-2" /> <span className="font-medium uppercase">Back to works</span></button><h3 className="text-orange-500 font-bold tracking-widest uppercase mb-2 md:mb-4 text-xs md:text-sm">{categoryInfo?.subtitle} WORKS</h3><h1 className="text-4xl md:text-6xl lg:text-[8rem] font-black tracking-tight leading-none text-gray-900 uppercase">{categoryInfo?.title}</h1><p className="mt-6 md:mt-8 text-base md:text-xl text-gray-500 max-w-3xl leading-relaxed tracking-wide font-medium">{categoryInfo?.description}</p></div></div>
+        <div className="bg-white pt-32 md:pt-40 pb-16 md:pb-24 px-4 md:px-12 mb-10 md:mb-16 rounded-b-[2rem] md:rounded-b-[4rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)]"><div className="max-w-[100rem] mx-auto"><button onClick={() => navigateTo('works')} className="flex items-center text-sm md:text-base text-gray-400 hover:text-black transition-colors mb-8 md:mb-12 tracking-wide font-medium"><IconArrowLeft className="w-5 h-5 mr-2" /> <span className="font-medium uppercase">Back to works</span></button><h3 className="text-orange-500 font-bold tracking-widest uppercase mb-2 md:mb-4 text-xs md:text-sm">{categoryInfo?.subtitle} WORKS</h3><h1 className="text-4xl md:text-6xl lg:text-[8rem] font-black tracking-tight leading-none text-gray-900 uppercase">{categoryInfo?.title}</h1><p className="mt-6 md:mt-8 text-base md:text-xl text-gray-500 max-w-3xl leading-relaxed tracking-wide font-medium">{categoryInfo?.description}</p></div></div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 max-w-[100rem] mx-auto px-4 md:px-8 lg:px-12">{filteredProjects.map(p => (<div key={p.id} onClick={() => navigateTo('project', p)} className="group cursor-pointer"><div className={`aspect-square rounded-[1.5rem] md:rounded-[2.5rem] ${p.thumb} overflow-hidden relative transition-all duration-500 shadow-sm hover:shadow-xl`}><div className="w-full h-full transform group-hover:scale-105 transition-transform duration-1000 ease-out">{p.coverMedia.type === 'video' ? <OptimizedVideo src={p.coverMedia.url} className="w-full h-full" /> : p.coverMedia.url ? <img src={p.coverMedia.url} className="w-full h-full object-cover" alt={p.title} /> : null}</div><div className="absolute inset-x-0 bottom-0 h-2/3 md:h-1/2 bg-gradient-to-t from-black/70 md:from-black/60 to-transparent pointer-events-none"></div><div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center"><div className="hidden md:flex bg-white text-black px-6 py-3 rounded-full font-bold items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform tracking-wider uppercase">View Project <IconArrowUpRight className="w-4 h-4 ml-1" /></div></div><div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 flex flex-col items-start transform group-hover:translate-y-0 md:group-hover:translate-y-[-4px] transition-transform duration-500 z-10 pointer-events-none pr-6"><h3 className="text-white text-xl md:text-3xl font-bold tracking-tight mb-3 drop-shadow-md leading-tight">{p.title}</h3><div className="flex flex-wrap gap-2">{p.tags.map(tag => (<span key={tag} className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-bold tracking-wide uppercase">{tag}</span>))}</div></div></div></div>))}</div>
       </div>
     );
@@ -1422,7 +1422,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 下側：三個狀態切換器（改為與附圖二一致的 Segmented Control 樣式） */}
           <div className="flex flex-col gap-2 w-full mt-auto">
             {/* Size Selector */}
-            <div className="w-full bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1">
+            <div className="w-full bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1 flex-wrap sm:flex-nowrap">
               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">Size</span>
               <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap justify-end gap-0.5">
                 {['L', 'M', 'S', 'Ex S'].map((sz) => {
@@ -1431,7 +1431,7 @@ const SPLIT_VIEW_CHIPS = [
                     <button 
                       key={sz}
                       onClick={() => setBtnSize(sz)} 
-                      className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                      className={`px-3 py-1.5 md:py-1 text-[11px] md:text-[10px] font-bold rounded-md transition-all active:scale-95 cursor-pointer ${
                         isCurrent 
                           ? 'bg-white text-gray-900 shadow-sm' 
                           : 'text-gray-400 hover:text-gray-700'
@@ -1445,7 +1445,7 @@ const SPLIT_VIEW_CHIPS = [
             </div>
 
             {/* Style Selector */}
-            <div className="w-full bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1">
+            <div className="w-full bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1 flex-wrap sm:flex-nowrap">
               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">Style</span>
               <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap justify-end gap-0.5">
                 {['Primary', 'Outline', 'Ghost'].map((st) => {
@@ -1454,7 +1454,7 @@ const SPLIT_VIEW_CHIPS = [
                     <button 
                       key={st}
                       onClick={() => setBtnStyle(st)} 
-                      className={`px-2.5 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                      className={`px-2.5 py-1.5 md:py-1 text-[11px] md:text-[10px] font-bold rounded-md transition-all active:scale-95 cursor-pointer ${
                         isCurrent 
                           ? 'bg-white text-gray-900 shadow-sm' 
                           : 'text-gray-400 hover:text-gray-700'
@@ -1468,7 +1468,7 @@ const SPLIT_VIEW_CHIPS = [
             </div>
 
             {/* State Selector */}
-            <div className="w-full bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1">
+            <div className="w-full bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1 flex-wrap sm:flex-nowrap">
               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">State</span>
               <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap justify-end gap-0.5">
                 {['Default', 'Active', 'Disable'].map((stat) => {
@@ -1477,7 +1477,7 @@ const SPLIT_VIEW_CHIPS = [
                     <button 
                       key={stat}
                       onClick={() => setBtnStatus(stat)} 
-                      className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                      className={`px-3 py-1.5 md:py-1 text-[11px] md:text-[10px] font-bold rounded-md transition-all active:scale-95 cursor-pointer ${
                         isCurrent 
                           ? 'bg-white text-gray-900 shadow-sm' 
                           : 'text-gray-400 hover:text-gray-700'
@@ -1562,7 +1562,7 @@ const SPLIT_VIEW_CHIPS = [
           </div>
 
           {/* 下側：控制項選項 */}
-          <div className="w-full mt-auto bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-2 flex items-center justify-between gap-1">
+          <div className="w-full mt-auto bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1 flex-wrap sm:flex-nowrap">
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">Tab</span>
             <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap justify-end gap-0.5">
               {tabs.map((tab) => {
@@ -1573,7 +1573,7 @@ const SPLIT_VIEW_CHIPS = [
                     onClick={() => {
                       setActiveTab(tab.id);
                     }} 
-                    className={`px-2 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                    className={`px-2.5 py-1.5 md:py-1 text-[11px] md:text-[10px] font-bold rounded-md transition-all active:scale-95 cursor-pointer ${
                       isCurrent 
                         ? 'bg-white text-gray-900 shadow-sm' 
                         : 'text-gray-400 hover:text-gray-700'
@@ -1676,18 +1676,18 @@ const SPLIT_VIEW_CHIPS = [
           </div>
 
           {/* 下側：控制項選項 */}
-          <div className="w-full mt-auto bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-2 flex items-center justify-between gap-2">
+          <div className="w-full mt-auto bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1 flex-wrap sm:flex-nowrap">
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">State</span>
-            <div className="flex bg-gray-100 rounded-lg p-0.5 flex-shrink-0">
+            <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap justify-end gap-0.5">
               <button 
                 onClick={() => { setDropdownState('Interactive'); }} 
-                className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${dropdownState === 'Interactive' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400 hover:text-gray-700'}`}
+                className={`px-3 py-1.5 md:py-1 text-[11px] md:text-[10px] font-bold rounded-md transition-all active:scale-95 cursor-pointer ${dropdownState === 'Interactive' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400 hover:text-gray-700'}`}
               >
                 {lang === 'zh' ? '預設' : 'Active'}
               </button>
               <button 
                 onClick={() => { setDropdownState('Disabled'); setIsOpen(false); }} 
-                className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${dropdownState === 'Disabled' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400 hover:text-gray-700'}`}
+                className={`px-3 py-1.5 md:py-1 text-[11px] md:text-[10px] font-bold rounded-md transition-all active:scale-95 cursor-pointer ${dropdownState === 'Disabled' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400 hover:text-gray-700'}`}
               >
                 {lang === 'zh' ? '禁用' : 'Disabled'}
               </button>
@@ -1781,9 +1781,9 @@ const SPLIT_VIEW_CHIPS = [
           </div>
 
           {/* 下側：控制項選項 */}
-          <div className="w-full mt-auto bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-2 flex items-center justify-between gap-1">
+          <div className="w-full mt-auto bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1 flex-wrap sm:flex-nowrap">
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">State</span>
-            <div className="flex bg-gray-100 rounded-lg p-0.5 flex-nowrap justify-end gap-0.5">
+            <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap justify-end gap-0.5">
               {['Default', 'Focus', 'Disable', 'Erro'].map((st) => {
                 const isCurrent = inputState === st;
                 return (
@@ -1792,7 +1792,7 @@ const SPLIT_VIEW_CHIPS = [
                     onClick={() => {
                       setInputState(st);
                     }} 
-                    className={`px-1.5 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                    className={`px-2 py-1.5 md:py-1 text-[11px] md:text-[10px] font-bold rounded-md transition-all active:scale-95 cursor-pointer ${
                       isCurrent 
                         ? 'bg-white text-gray-900 shadow-sm' 
                         : 'text-gray-400 hover:text-gray-700'
@@ -1924,7 +1924,7 @@ const SPLIT_VIEW_CHIPS = [
           </div>
 
           {/* Bottom subject filter switcher (replaces mode switcher) */}
-          <div className="w-full mt-auto bg-gray-100/90 rounded-2xl p-1 flex justify-between items-center gap-0.5 select-none border border-gray-200/40">
+          <div className="w-full mt-auto bg-gray-100/90 rounded-2xl p-1 flex justify-start md:justify-between items-center gap-1 md:gap-0.5 overflow-x-auto hide-scrollbar select-none border border-gray-200/40">
             {subjects.map((sub) => {
               const isActive = activeSubId === sub.id;
               const name = lang === 'zh' ? sub.zhName : sub.enName;
@@ -1932,7 +1932,7 @@ const SPLIT_VIEW_CHIPS = [
                 <button
                   key={sub.id}
                   onClick={() => setActiveSubId(sub.id)}
-                  className={`flex-1 py-1.5 text-[11px] font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap text-center ${
+                  className={`flex-none md:flex-1 px-3 md:px-0 py-2 md:py-1.5 text-[11px] font-bold rounded-xl transition-all active:scale-95 cursor-pointer whitespace-nowrap text-center ${
                     isActive
                       ? 'bg-white text-gray-900 shadow-sm border border-gray-200/30 font-extrabold'
                       : 'text-gray-400 hover:text-gray-700 font-semibold'
@@ -1944,7 +1944,7 @@ const SPLIT_VIEW_CHIPS = [
             })}
             <button
               onClick={() => setActiveSubId('add')}
-              className={`py-1.5 px-3 text-[11px] font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap text-center ${
+              className={`flex-none px-3 py-2 md:py-1.5 text-[11px] font-bold rounded-xl transition-all active:scale-95 cursor-pointer whitespace-nowrap text-center ${
                 activeSubId === 'add'
                   ? 'bg-[#FFE1E8] text-[#8E3148] border border-[#FF8AA4]/30 font-extrabold'
                   : 'text-gray-400 hover:text-gray-700 hover:bg-gray-200/20 font-semibold'
@@ -1982,7 +1982,7 @@ const SPLIT_VIEW_CHIPS = [
             {/* 步驟指示器 (Step Indicator) - 參考附圖三設計：4個步驟、打勾與數值狀態切換 */}
             <div className="w-full px-2 flex items-center justify-between relative">
               {/* 底層軌道與進度啟用軌道 */}
-              <div className="absolute left-8 right-8 top-1/2 -translate-y-1/2 h-[2px] bg-gray-100 rounded-full z-0">
+              <div className="absolute left-7 right-7 md:left-8 md:right-8 top-1/2 -translate-y-1/2 h-[2px] bg-gray-100 rounded-full z-0">
                 <div 
                   className="h-full bg-[#7878FF] rounded-full transition-all duration-500 ease-out" 
                   style={{
@@ -2003,7 +2003,7 @@ const SPLIT_VIEW_CHIPS = [
                   <div key={stepNum} className="flex flex-col items-center z-10 relative">
                     <button 
                       onClick={() => setCurrentState(stepNum)}
-                      className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-base transition-all duration-300 transform active:scale-95 border cursor-pointer ${
+                      className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-bold text-sm md:text-base transition-all duration-300 transform active:scale-95 border cursor-pointer ${
                         isActive
                           ? 'bg-white border-2 border-[#7878FF] text-[#7878ff] shadow-[0_0_16px_rgba(120,120,255,0.2)]'
                           : isCompleted
@@ -2012,7 +2012,7 @@ const SPLIT_VIEW_CHIPS = [
                       }`}
                     >
                       {isCompleted ? (
-                        <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3.5">
+                        <svg className="w-4 h-4 md:w-5 md:h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3.5">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                       ) : (
@@ -2026,18 +2026,18 @@ const SPLIT_VIEW_CHIPS = [
           </div>
 
           {/* 底部 0-5 切換按鈕區 */}
-          <div className="w-full mt-auto bg-gray-100/90 rounded-2xl p-1 flex justify-between items-center gap-0.5 border border-gray-200/40 select-none">
+          <div className="w-full mt-auto bg-gray-100/90 rounded-2xl p-1.5 flex justify-between items-center gap-1 border border-gray-200/40 select-none flex-wrap sm:flex-nowrap">
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2.5 flex-shrink-0">
               {lang === 'zh' ? '進度切換' : 'Select Stage'}
             </span>
-            <div className="flex bg-gray-200/20 rounded-xl p-0.5 justify-end gap-0.5 flex-1 max-w-[200px]">
+            <div className="flex bg-gray-200/20 rounded-xl p-0.5 justify-end gap-0.5 flex-1 max-w-[200px] flex-wrap">
               {[0, 1, 2, 3, 4, 5].map((num) => {
                 const isActive = currentState === num;
                 return (
                   <button
                     key={num}
                     onClick={() => setCurrentState(num)}
-                    className={`flex-1 py-1 text-[11px] font-extrabold rounded-lg transition-all cursor-pointer text-center ${
+                    className={`flex-1 py-1.5 md:py-1 text-[11px] font-extrabold rounded-lg transition-all active:scale-95 cursor-pointer text-center ${
                       isActive
                         ? 'bg-white text-gray-900 shadow-sm border border-gray-200/30'
                         : 'text-gray-400 hover:text-gray-700'
@@ -2190,11 +2190,11 @@ const SPLIT_VIEW_CHIPS = [
           </div>
 
           {/* 下側：狀態選擇器 */}
-          <div className="w-full mt-auto bg-gray-100/90 rounded-2xl p-1 flex justify-between items-center gap-0.5 border border-gray-200/40 select-none">
+          <div className="w-full mt-auto bg-gray-100/90 rounded-2xl p-1.5 flex justify-between items-center gap-1 border border-gray-200/40 select-none flex-wrap sm:flex-nowrap">
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2.5 flex-shrink-0">
               {lang === 'zh' ? '狀態模擬' : 'Select Stage'}
             </span>
-            <div className="flex bg-gray-200/20 rounded-xl p-0.5 justify-end gap-0.5 flex-1 max-w-[240px]">
+            <div className="flex bg-gray-200/20 rounded-xl p-0.5 justify-end gap-0.5 flex-1 max-w-[240px] flex-wrap">
               {[
                 { id: 'Default', label: 'default' },
                 { id: 'Expand', label: 'expand' },
@@ -2205,7 +2205,7 @@ const SPLIT_VIEW_CHIPS = [
                   <button 
                     key={st.id}
                     onClick={() => setSimulatedState(st.id)} 
-                    className={`flex-1 py-1 text-[10px] font-extrabold rounded-lg transition-all cursor-pointer text-center ${
+                    className={`flex-1 py-1.5 md:py-1 text-[11px] md:text-[10px] font-extrabold rounded-lg transition-all active:scale-95 cursor-pointer text-center ${
                       isCurrent 
                         ? 'bg-white text-gray-900 shadow-sm border border-gray-200/30' 
                         : 'text-gray-400 hover:text-gray-700'
@@ -2226,9 +2226,17 @@ const SPLIT_VIEW_CHIPS = [
       if (!items || items.length === 0) return null;
       const mobileItems = items.filter(item => item.mobile).map(item => item.mobile);
 
+      const [isMobileScreen, setIsMobileScreen] = useState(false);
+      useEffect(() => {
+        const handleResize = () => setIsMobileScreen(window.innerWidth < 768);
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
+
       // 靠左對齊標題橘色圖標：桌面 60% + 手機 20%，重疊 50px
       const desktopLeft = '0';
-      const desktopWidth = '60%';
+      const desktopWidth = isMobileScreen ? '100%' : '60%';
       const mobileLeft = 'calc(60% - 50px)';
       const mobileWidth = '20%';
 
@@ -2407,7 +2415,7 @@ const SPLIT_VIEW_CHIPS = [
 
       return (
         <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
-          <div className="pt-32 md:pt-36 px-6 md:px-12 max-w-[100rem] mx-auto">
+          <div className="pt-32 md:pt-36 px-4 md:px-12 max-w-[100rem] mx-auto">
             <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
             <h1 
               className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase" 
@@ -2431,7 +2439,7 @@ const SPLIT_VIEW_CHIPS = [
 
           {/* 01 Project Overview */}
           {activeItem.projectOverview && (
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+            <div className="max-w-[100rem] mx-auto px-4 md:px-12 mb-24 md:mb-40 mt-12">
               <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.overview} />
               <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
                 <div className="space-y-8">
@@ -2465,7 +2473,7 @@ const SPLIT_VIEW_CHIPS = [
 
           {/* 02 Brand Identity */}
           {activeItem.brandIdentity && (
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+            <div className="max-w-[100rem] mx-auto px-4 md:px-12 mb-24 md:mb-40 mt-12">
               <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.brand} />
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
                 <div className="bg-[#EAE8F2] rounded-[2rem] p-12 md:p-20 flex items-center justify-center min-h-[300px] overflow-hidden">
@@ -2492,7 +2500,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 03 Mascot Design */}
           {hasMascot && (
             <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+              <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.mascot} />
                 <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.mascotDesign.description, lang)}</p>
                 {activeItem.mascotDesign.images && activeItem.mascotDesign.images.length > 0 && (
@@ -2511,10 +2519,10 @@ const SPLIT_VIEW_CHIPS = [
           {/* 04 Icon System */}
           {activeItem.visuals?.iconSystem && (
             <div className="w-full mb-24 md:mb-40">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+              <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 <ProjectSectionHeader num={getSectionNum()} title="Icon System" />
               </div>
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+              <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 {activeItem.visuals.iconSystem.description && (
                   <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.iconSystem.description, lang)}</p>
                 )}
@@ -2536,10 +2544,10 @@ const SPLIT_VIEW_CHIPS = [
           {/* 05 Illustration & Animation */}
           {activeItem.visuals?.illustrationAnimation && (
             <div className="w-full bg-[#FAFAFA] py-24 md:py-32 mb-24 md:mb-40">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+              <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 <ProjectSectionHeader num={getSectionNum()} title="Illustration & Animation" />
               </div>
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+              <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 {activeItem.visuals.illustrationAnimation.description && (
                   <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.illustrationAnimation.description, lang)}</p>
                 )}
@@ -2559,10 +2567,10 @@ const SPLIT_VIEW_CHIPS = [
           {/* 06 Application */}
           {activeItem.visuals?.application && (
             <div className="w-full mb-24 md:mb-40">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+              <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 <ProjectSectionHeader num={getSectionNum()} title="Application" />
               </div>
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+              <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 {activeItem.visuals.application.description && (
                   <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.application.description, lang)}</p>
                 )}
@@ -2758,7 +2766,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 1. PROJECT ENTRY AREA (full-width) */}
           <div style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', boxSizing: 'border-box' }}>
             {/* TITLE BLOCK */}
-            <div className="max-w-[1200px] mx-auto px-6 md:px-12 pt-32 md:pt-36">
+            <div className="max-w-[1200px] mx-auto px-4 md:px-12 pt-32 md:pt-36">
               <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
               <h1 
                 className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase"
@@ -2769,7 +2777,7 @@ const SPLIT_VIEW_CHIPS = [
             </div>
 
             {/* METADATA ROW */}
-            <div className="max-w-[1200px] mx-auto px-6 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed">
+            <div className="max-w-[1200px] mx-auto px-4 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed">
               <span>UI/UX 設計師</span>
               <span style={{ borderLeft: '1px solid #DDDDDD', height: '12px', margin: '0 12px' }}></span>
               <span>前端工程師（兼任）</span>
@@ -2809,9 +2817,9 @@ const SPLIT_VIEW_CHIPS = [
             }}></div>
           </div>
 
-          {/* 2. CONTENT AREA (max-width: 1600px, margin: 0 auto, padding: px-6 md:px-12) */}
+          {/* 2. CONTENT AREA (max-width: 1600px, margin: 0 auto, padding: px-4 md:px-12) */}
           <div 
-            className="px-6 md:px-12"
+            className="px-4 md:px-12"
             style={{
               maxWidth: '1600px',
               margin: '0 auto',
@@ -5308,7 +5316,7 @@ const SPLIT_VIEW_CHIPS = [
 
       return (
         <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
-          <div className="pt-32 md:pt-36 px-6 md:px-12 max-w-[100rem] mx-auto">
+          <div className="pt-32 md:pt-36 px-4 md:px-12 max-w-[100rem] mx-auto">
             <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
             <h1 
               className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase" 
@@ -5332,7 +5340,7 @@ const SPLIT_VIEW_CHIPS = [
 
           {/* 01 Project Overview */}
           {activeItem.projectOverview && (
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+            <div className="max-w-[100rem] mx-auto px-4 md:px-12 mb-24 md:mb-40 mt-12">
               <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.overview} />
               
               {activeItem.id === 1 ? (
@@ -5488,7 +5496,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 02 Research */}
           {activeItem.research && (
             <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+              <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.research} />
                 <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.research.description, lang)}</p>
                 {activeItem.research.images && activeItem.research.images.length > 0 && (
@@ -5507,7 +5515,7 @@ const SPLIT_VIEW_CHIPS = [
             activeItem.id === 1 ? (
               // Wisdome.ai Custom Strategy & Architecture
               <div 
-                className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12"
+                className="max-w-[100rem] mx-auto px-4 md:px-12 mb-24 md:mb-40 mt-12"
                 ref={wisdomeStrategyRef}
               >
                 {/* Standard Header */}
@@ -5636,7 +5644,7 @@ const SPLIT_VIEW_CHIPS = [
             ) : (
               // Default Generic Strategy & Architecture
               <div className="w-full mb-24 md:mb-40 mt-12">
-                <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+                <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                   <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.strategy} />
                   {activeItem.strategyAndArchitecture.description && (
                     <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.strategyAndArchitecture.description, lang)}</p>
@@ -5655,7 +5663,7 @@ const SPLIT_VIEW_CHIPS = [
               // Wisdome.ai Custom 企業識別系統 (CIS) - 全寬展示
               <div className="w-full mb-24 md:mb-40 mt-12 bg-white">
                 {/* 頂部 */}
-                <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-16">
+                <div className="max-w-[100rem] mx-auto px-4 md:px-12 mb-16">
                   <ProjectSectionHeader num={getSectionNum()} title={t({ zh: '企業識別系統', en: 'Corporate Identity System' }, lang)} />
                   <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl">
                     {t({
@@ -5666,7 +5674,7 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
 
                 {/* 子區塊容器 */}
-                <div className="max-w-[100rem] mx-auto px-6 md:px-12 space-y-32">
+                <div className="max-w-[100rem] mx-auto px-4 md:px-12 space-y-32">
                   
                   {/* 1. Logo 展示 */}
                   <div 
@@ -5907,7 +5915,7 @@ const SPLIT_VIEW_CHIPS = [
               </div>
             ) : (
               // Default Generic Brand Identity (CIS)
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+              <div className="max-w-[100rem] mx-auto px-4 md:px-12 mb-24 md:mb-40 mt-12">
                 <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.brand} />
 
                 <div className="flex flex-col gap-12 lg:gap-16">
@@ -6044,7 +6052,7 @@ const SPLIT_VIEW_CHIPS = [
 
           {/* 05 Design */}
           {activeItem.design && (
-            <div className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12">
+            <div className="max-w-[100rem] mx-auto px-4 md:px-12 mb-24 md:mb-40 mt-12">
               <ProjectSectionHeader num={getSectionNum()} title={isApp ? I18N[lang].project.uiDesign : I18N[lang].project.webDesign} />
               <div className="space-y-20">
                 {activeItem.id === 1 && (
@@ -6320,7 +6328,7 @@ const SPLIT_VIEW_CHIPS = [
 
                     {/* Bento Box Grid */}
                     {activeItem.design.bentoComponents && activeItem.design.bentoComponents.length > 0 && (
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-16">
                         {(() => {
                           const comps = activeItem.design.bentoComponents;
                           const hasInputAndNav = comps.some(c => c.liveComponent === 'input') && comps.some(c => c.liveComponent === 'navigation');
@@ -6329,7 +6337,7 @@ const SPLIT_VIEW_CHIPS = [
                             return comps.map((comp, idx) => (
                               <div
                                 key={idx}
-                                className={`relative bg-[#FAFAFA] rounded-[2rem] p-6 shadow-sm border border-gray-100 min-h-[200px] flex flex-col transition-all ${comp.liveComponent ? '' : 'overflow-hidden'} ${comp.colSpan === 2 ? 'col-span-2' : 'col-span-1 md:col-span-1'}`}
+                                className={`relative bg-[#FAFAFA] rounded-[2rem] p-4 md:p-6 shadow-sm border border-gray-100 min-h-[200px] flex flex-col transition-all ${comp.liveComponent ? '' : 'overflow-hidden'} ${comp.colSpan === 2 ? 'col-span-1 md:col-span-2 lg:col-span-2' : 'col-span-1 md:col-span-1 lg:col-span-1'}`}
                               >
                                 <span className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">{comp.name}</span>
 
@@ -6384,7 +6392,7 @@ const SPLIT_VIEW_CHIPS = [
                             return (
                               <div
                                 key={comp.name}
-                                className={`relative bg-[#FAFAFA] rounded-[2rem] p-6 shadow-sm border border-gray-100 flex flex-col transition-all ${isLive ? '' : 'overflow-hidden'} ${customClassName}`}
+                                className={`relative bg-[#FAFAFA] rounded-[2rem] p-4 md:p-6 shadow-sm border border-gray-100 flex flex-col transition-all ${isLive ? '' : 'overflow-hidden'} ${customClassName}`}
                               >
                                 <span className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">{comp.name}</span>
 
@@ -6427,25 +6435,25 @@ const SPLIT_VIEW_CHIPS = [
                           return (
                             <>
                               {/* 1. Buttons (col-span-1) */}
-                              {renderCard(buttonComp, 'col-span-1 md:col-span-1 min-h-[200px]')}
+                              {renderCard(buttonComp, 'col-span-1 md:col-span-1 lg:col-span-1 min-h-[200px]')}
 
                               {/* 2. Vertical Stack (Inputs & Forms + Navigation Bar) (col-span-1) */}
-                              <div className="col-span-1 md:col-span-1 flex flex-col gap-4 md:gap-6 h-full">
+                              <div className="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col gap-4 md:gap-6 h-full">
                                 {renderCard(inputComp, 'flex-1')}
                                 {renderCard(navComp, 'flex-1')}
                               </div>
 
                               {/* 3. Dropdowns & Menus (col-span-1) */}
-                              {renderCard(dropdownComp, 'col-span-1 md:col-span-1 min-h-[200px]')}
+                              {renderCard(dropdownComp, 'col-span-1 md:col-span-1 lg:col-span-1 min-h-[200px]')}
 
                               {/* 4. Subject Cards (col-span-1) */}
-                              {renderCard(subjectComp, 'col-span-1 md:col-span-1 min-h-[200px]')}
+                              {renderCard(subjectComp, 'col-span-1 md:col-span-1 lg:col-span-1 min-h-[200px]')}
 
                               {/* 5. Cards & Containers (col-span-2) */}
-                              {renderCard(cardsComp, 'col-span-2 md:col-span-2 min-h-[200px]')}
+                              {renderCard(cardsComp, 'col-span-1 md:col-span-2 lg:col-span-2 min-h-[200px]')}
 
                               {/* 6. Accordion (col-span-2) */}
-                              {renderCard(accordionComp, 'col-span-2 md:col-span-2 min-h-[200px]')}
+                              {renderCard(accordionComp, 'col-span-1 md:col-span-2 lg:col-span-2 min-h-[200px]')}
                             </>
                           );
                         })()}
@@ -6636,7 +6644,7 @@ const SPLIT_VIEW_CHIPS = [
           {activeItem.id === 1 && (
             <div 
               ref={reflectionRef}
-              className="max-w-[100rem] mx-auto px-6 md:px-12 mb-24 md:mb-40 mt-12"
+              className="max-w-[100rem] mx-auto px-4 md:px-12 mb-24 md:mb-40 mt-12"
             >
               <ProjectSectionHeader num={getSectionNum()} title={lang === 'zh' ? '成果與反思' : 'Reflection & Iteration'} />
               <p className="text-sm md:text-base text-gray-500 font-semibold font-['Noto_Sans_TC'] -mt-6 mb-8 select-none">
@@ -6673,7 +6681,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 06 Mascot Design */}
           {hasMascot && (
             <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
-              <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+              <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.mascot} />
                 <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.mascotDesign.description, lang)}</p>
                 {activeItem.mascotDesign.images && activeItem.mascotDesign.images.length > 0 && (
@@ -6964,7 +6972,7 @@ const SPLIT_VIEW_CHIPS = [
     return (
       <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
         {/* SECTION 00 — HERO */}
-        <div className="max-w-[100rem] mx-auto px-6 md:px-12 pt-32 md:pt-36">
+        <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-32 md:pt-36">
           <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
           <h1 
             className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase md:whitespace-nowrap" 
@@ -6974,7 +6982,7 @@ const SPLIT_VIEW_CHIPS = [
           </h1>
         </div>
 
-        <div className="w-screen relative left-1/2 -translate-x-1/2 bg-gray-100 mt-6 md:mt-8 select-none overflow-hidden h-auto">
+        <div className="w-full md:w-screen md:relative md:left-1/2 md:-translate-x-1/2 rounded-2xl md:rounded-none bg-gray-100 mt-6 md:mt-8 select-none overflow-hidden h-auto">
           {!videoError ? (
             <video
               src="/videos/brainbox-hero.mp4"
@@ -6996,7 +7004,7 @@ const SPLIT_VIEW_CHIPS = [
         </div>
 
         {/* Global Case Study Content */}
-        <div className="max-w-[100rem] mx-auto px-6 md:px-12 mt-8">
+        <div className="max-w-[100rem] mx-auto px-4 md:px-12 mt-8">
           
           {/* SECTION 01 — 專案概述 */}
           <div id="project-overview" className="scroll-mt-24">

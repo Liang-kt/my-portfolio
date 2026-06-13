@@ -4718,27 +4718,27 @@ const SPLIT_VIEW_CHIPS = [
                   </p>
 
                   {/* Component Embed Showcase Grid */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-8">
                     {/* 1. Buttons (col-span-1) */}
-                    {renderCard(buttonComp, 'col-span-1 md:col-span-1 min-h-[200px]')}
+                    {renderCard(buttonComp, 'col-span-1 md:col-span-1 lg:col-span-1 min-h-[200px]')}
 
                     {/* 2. Vertical Stack (Inputs & Forms + Navigation Bar) (col-span-1) */}
-                    <div className="col-span-1 md:col-span-1 flex flex-col gap-4 md:gap-6 h-full">
+                    <div className="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col gap-4 md:gap-6 h-full">
                       {renderCard(inputComp, 'flex-1')}
                       {renderCard(navComp, 'flex-1')}
                     </div>
 
                     {/* 3. Dropdowns & Menus (col-span-1) */}
-                    {renderCard(dropdownComp, 'col-span-1 md:col-span-1 min-h-[200px]')}
+                    {renderCard(dropdownComp, 'col-span-1 md:col-span-1 lg:col-span-1 min-h-[200px]')}
 
                     {/* 4. Subject Cards (col-span-1) */}
-                    {renderCard(subjectComp, 'col-span-1 md:col-span-1 min-h-[200px]')}
+                    {renderCard(subjectComp, 'col-span-1 md:col-span-1 lg:col-span-1 min-h-[200px]')}
 
                     {/* 5. Progress Bar and Step Indicator (col-span-2) */}
-                    {renderCard(cardsComp, 'col-span-2 md:col-span-2 min-h-[200px]')}
+                    {renderCard(cardsComp, 'col-span-1 md:col-span-2 lg:col-span-2 min-h-[200px]')}
 
                     {/* 6. Accordion (col-span-2) */}
-                    {renderCard(accordionComp, 'col-span-2 md:col-span-2 min-h-[200px]')}
+                    {renderCard(accordionComp, 'col-span-1 md:col-span-2 lg:col-span-2 min-h-[200px]')}
                   </div>
                 </div>
               </div>

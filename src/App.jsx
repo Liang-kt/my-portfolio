@@ -493,7 +493,7 @@ const PROJECTS = [
     platform: 'app',
     title: 'Ms. Lin 學測刷題app',
     thumb: 'bg-[#F2EFE9]',
-    coverMedia: { type: 'image', url: '' },
+    coverMedia: { type: 'image', url: '/projects/mslin-app/img/cover-photo.jpg' },
     heroMedia: { type: 'image', url: '/projects/msline/hero.jpg' },
     tags: ['UI/UX', 'App Design'],
     description: '專為高中生打造的學測刷題 App，提供流暢的測驗體驗與個人化錯題本功能。',
@@ -2766,7 +2766,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 1. PROJECT ENTRY AREA (full-width) */}
           <div style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', boxSizing: 'border-box' }}>
             {/* TITLE BLOCK */}
-            <div className="max-w-[1200px] mx-auto px-4 md:px-12 pt-32 md:pt-36">
+            <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-32 md:pt-36">
               <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
               <h1 
                 className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase"
@@ -2777,7 +2777,7 @@ const SPLIT_VIEW_CHIPS = [
             </div>
 
             {/* METADATA ROW */}
-            <div className="max-w-[1200px] mx-auto px-4 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed">
+            <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed">
               <span>UI/UX 設計師</span>
               <span style={{ borderLeft: '1px solid #DDDDDD', height: '12px', margin: '0 12px' }}></span>
               <span>前端工程師（兼任）</span>
@@ -2790,24 +2790,18 @@ const SPLIT_VIEW_CHIPS = [
             {/* FULL-WIDTH VISUAL BLOCK */}
             <div style={{
               width: '100vw',
-              minHeight: '60vh',
-              background: '#E8E8E8',
+              backgroundColor: '#F6F6F6',
+              overflow: 'hidden',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '48px 0',
               boxSizing: 'border-box'
             }}>
-              {/* Centered phone mockup placeholder */}
-              <div style={{
-                width: '280px',
-                aspectRatio: '9 / 19.5',
-                borderRadius: '36px',
-                border: '8px solid #000000',
-                backgroundColor: '#D0CCEA',
-                boxShadow: '0 24px 64px rgba(0,0,0,0.12)',
-                boxSizing: 'border-box'
-              }}></div>
+              <img 
+                src="/projects/mslin-app/img/ms.lin-hero.jpg" 
+                alt="Ms Lin 刷題 App Hero" 
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
             </div>
 
             {/* Thin full-width divider */}
@@ -2859,7 +2853,7 @@ const SPLIT_VIEW_CHIPS = [
               </div>
 
               {/* Layer 2 — Info cards row (directly below the callout) */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 {[
                   { label: { zh: '角色', en: 'Role' }, value: { zh: 'UI/UX 設計師', en: 'UI/UX Designer' } },
                   { label: { zh: '時程', en: 'Timeline' }, value: { zh: '2025.11 – 至今', en: '2025.11 – Present' } },
@@ -2878,6 +2872,26 @@ const SPLIT_VIEW_CHIPS = [
                     </span>
                   </div>
                 ))}
+              </div>
+
+              {/* Project Outcome Summary Callout */}
+              <div 
+                className="p-6 md:p-8 mb-12" 
+                style={{
+                  borderLeft: '3px solid #534AB7',
+                  background: '#F5F3FF', // light purple/indigo
+                  borderRadius: '0 16px 16px 0',
+                  boxSizing: 'border-box'
+                }}
+              >
+                <div className="text-xs font-bold text-[#534AB7] uppercase tracking-widest mb-3">
+                  {lang === 'zh' ? '專案成果摘要' : 'Project Summary'}
+                </div>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                  {lang === 'zh' 
+                    ? 'App 已正式上線。在資源有限、無法進行前期用戶訪談的條件下，設計決策以競品機制分析與行為心理學為基礎，聚焦於「進步感」與「回訪動機」的體驗設計。上線後透過問卷與訪談持續驗證假設，並依回饋進行修正迭代。'
+                    : 'The App is officially launched. Under limited resources and without early user interviews, design decisions were based on competitive analysis and behavioral psychology, focusing on "feeling of progress" and "motivation to return." Post-launch, hypotheses were validated through surveys and interviews for iterative improvements.'}
+                </p>
               </div>
 
               {/* Layer 3 — Narrative text + deliverables (below the cards) */}
@@ -3766,147 +3780,257 @@ const SPLIT_VIEW_CHIPS = [
                     2-A｜數學
                   </div>
 
-                  {/* BEFORE/AFTER SLIDER CONTAINER */}
-                  <div 
-                    ref={sliderContainerRef}
-                    onMouseDown={() => setIsDragging(true)}
-                    onTouchStart={() => setIsDragging(true)}
-                    style={{
-                      width: '100%',
-                      maxWidth: '100%',
-                      height: '420px',
-                      borderRadius: '16px',
-                      overflow: 'hidden',
-                      position: 'relative',
-                      userSelect: 'none',
-                      cursor: 'ew-resize',
-                      margin: '0 auto 20px auto',
-                      boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
-                      boxSizing: 'border-box'
-                    }}
-                  >
-                    {/* Left (Before) Layer: bg #F0F0F0 */}
-                    <div style={{
-                      position: 'absolute',
-                      left: 0,
-                      top: 0,
-                      width: '100%',
-                      height: '100%',
-                      backgroundColor: '#F0F0F0',
-                      padding: '40px',
-                      boxSizing: 'border-box',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center'
-                    }}>
+                  {/* Four phone mockups in responsive grid (1 interactive + 3 static) */}
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    gap: '32px 20px',
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    padding: '0 16px',
+                    justifyItems: 'center',
+                    marginBottom: '32px'
+                  }}>
+                    {/* Item 1: 微積分導函數（拖拉動態對照） */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
                       <div style={{
-                        position: 'absolute',
-                        top: '16px',
-                        left: '16px',
+                        width: '290px',
+                        height: '628px', // aspect ratio 9/19.5
+                        borderRadius: '36px',
+                        border: '8px solid #000000',
                         backgroundColor: '#FFFFFF',
-                        color: '#6B6B6B',
-                        border: '0.5px solid #EEEEEE',
-                        padding: '4px 8px',
-                        borderRadius: '4px',
-                        fontSize: '11px',
-                        fontWeight: '500'
+                        boxShadow: '0 24px 64px rgba(0,0,0,0.12)',
+                        boxSizing: 'border-box',
+                        position: 'relative',
+                        overflow: 'hidden'
                       }}>
-                        競品：直接給答案
-                      </div>
-                      
-                      <div style={{ maxWidth: '400px' }}>
-                        <div style={{ fontSize: '15px', color: '#888888', marginBottom: '8px' }}>Q: 已知 f(x) = 3x² + 2x - 5，求 f'(2) 之值。</div>
-                        <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#FF4D4D', margin: '20px 0' }}>答案為 14</div>
-                        <div style={{ fontSize: '12px', color: '#A0A0A0', lineHeight: '1.6', borderTop: '0.5px solid #E0E0E0', paddingTop: '16px' }}>
-                          解析文字：根據導函數定義，f'(x) = d/dx (3x² + 2x - 5) = 6x + 2。將 x=2 代入得 f'(2) = 6(2) + 2 = 14。答案為 14。
+                        {/* BEFORE/AFTER SLIDER CONTAINER */}
+                        <div 
+                          ref={sliderContainerRef}
+                          onMouseDown={() => setIsDragging(true)}
+                          onTouchStart={() => setIsDragging(true)}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            overflow: 'hidden',
+                            position: 'relative',
+                            userSelect: 'none',
+                            cursor: 'ew-resize',
+                            boxSizing: 'border-box'
+                          }}
+                        >
+                          {/* Left (Before) Layer: bg #F0F0F0 */}
+                          <div style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: '#F0F0F0',
+                            padding: '20px',
+                            boxSizing: 'border-box',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            textAlign: 'center'
+                          }}>
+                            <div style={{
+                              position: 'absolute',
+                              top: '20px',
+                              left: '16px',
+                              backgroundColor: '#FFFFFF',
+                              color: '#6B6B6B',
+                              border: '0.5px solid #EEEEEE',
+                              padding: '4px 8px',
+                              borderRadius: '4px',
+                              fontSize: '11px',
+                              fontWeight: '500',
+                              zIndex: 10
+                            }}>
+                              競品：直接給答案
+                            </div>
+                            
+                            <div style={{ width: '100%', maxWidth: '240px', textAlign: 'left' }}>
+                              <div style={{ fontSize: '13px', fontWeight: 'bold', color: '#111827', marginBottom: '16px', lineHeight: '1.4' }}>
+                                Q: 已知 f(x) = 3x² + 2x - 5，求 f'(2) 之值。
+                              </div>
+                              <div style={{ fontSize: '20px', fontWeight: '800', color: '#EF4444', margin: '24px 0', textAlign: 'center', fontFamily: 'monospace' }}>
+                                答案為 14
+                              </div>
+                              <div style={{ fontSize: '11px', color: '#6B7280', lineHeight: '1.6', borderTop: '0.5px solid #E5E7EB', paddingTop: '16px' }}>
+                                <strong style={{ color: '#374151' }}>完整解析：</strong><br/>
+                                根據導函數定義，<br/>
+                                f'(x) = d/dx (3x² + 2x - 5) = 6x + 2。<br/>
+                                將 x = 2 代入得 f'(2) = 6(2) + 2 = 14。<br/>
+                                故答案為 14。
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Right (After) Layer: bg #FFF1E6 */}
+                          <div style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: '#FFF1E6',
+                            clipPath: `polygon(${sliderVal}% 0, 100% 0, 100% 100%, ${sliderVal}% 100%)`,
+                            padding: '20px',
+                            boxSizing: 'border-box',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            textAlign: 'center'
+                          }}>
+                            <div style={{
+                              position: 'absolute',
+                              top: '20px',
+                              right: '16px',
+                              backgroundColor: '#534AB7',
+                              color: '#FFFFFF',
+                              padding: '4px 8px',
+                              borderRadius: '4px',
+                              fontSize: '11px',
+                              fontWeight: '500',
+                              zIndex: 10
+                            }}>
+                              Ms Lin：步驟引導
+                            </div>
+
+                            <div style={{ width: '100%', maxWidth: '240px', textAlign: 'left' }}>
+                              <div style={{ fontSize: '13px', fontWeight: 'bold', color: '#534AB7', marginBottom: '12px', lineHeight: '1.4' }}>
+                                Q: 已知 f(x) = 3x² + 2x - 5，求 f'(2) 之值。
+                              </div>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', margin: '12px 0' }}>
+                                <div style={{ backgroundColor: '#FFFFFF', padding: '10px 12px', borderRadius: '12px', borderLeft: '3px solid #F97316', boxShadow: '0 2px 8px rgba(0,0,0,0.02)', boxSizing: 'border-box' }}>
+                                  <div style={{ color: '#EA580C', fontWeight: 'bold', fontSize: '10px', marginBottom: '2px' }}>第一步：</div>
+                                  <div style={{ color: '#4B5563', fontSize: '11px', lineHeight: '1.3' }}>請先求出導函數 f'(x)。</div>
+                                  <div style={{ fontFamily: 'monospace', color: '#111827', fontSize: '12px', fontWeight: 'bold', marginTop: '2px' }}>f'(x) = 6x + 2</div>
+                                </div>
+                                <div style={{ backgroundColor: '#FFFFFF', padding: '10px 12px', borderRadius: '12px', borderLeft: '3px solid #10B981', boxShadow: '0 2px 8px rgba(0,0,0,0.02)', boxSizing: 'border-box' }}>
+                                  <div style={{ color: '#10B981', fontWeight: 'bold', fontSize: '10px', marginBottom: '2px' }}>第二步：</div>
+                                  <div style={{ color: '#4B5563', fontSize: '11px', lineHeight: '1.3' }}>將 x = 2 代入求值。</div>
+                                  <div style={{ fontFamily: 'monospace', color: '#111827', fontSize: '12px', fontWeight: 'bold', marginTop: '2px' }}>f'(2) = 6(2) + 2 = 14</div>
+                                </div>
+                              </div>
+                              <div style={{ fontSize: '11px', color: '#10B981', fontWeight: '700', textAlign: 'center', marginTop: '8px', backgroundColor: '#ECFDF5', padding: '6px', borderRadius: '8px' }}>
+                                🎉 答對了！你成功自己解答了此題！
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Divider Line */}
+                          <div style={{
+                            position: 'absolute',
+                            left: `${sliderVal}%`,
+                            top: 0,
+                            bottom: 0,
+                            width: '2px',
+                            backgroundColor: '#FFFFFF',
+                            zIndex: 20,
+                            transform: 'translateX(-50%)'
+                          }}></div>
+
+                          {/* Handle */}
+                          <div style={{
+                            position: 'absolute',
+                            left: `${sliderVal}%`,
+                            top: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: '32px',
+                            height: '32px',
+                            borderRadius: '50%',
+                            backgroundColor: '#FFFFFF',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'ew-resize',
+                            zIndex: 21,
+                            pointerEvents: 'none'
+                          }}>
+                            <span style={{ fontSize: '11px', color: '#EA580C', fontWeight: 'bold' }}>◀▶</span>
+                          </div>
                         </div>
                       </div>
+                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                        微積分導函數（拖拉動態對照）
+                      </span>
                     </div>
 
-                    {/* Right (After) Layer: bg #FFF1E6 */}
-                    <div style={{
-                      position: 'absolute',
-                      left: 0,
-                      top: 0,
-                      width: '100%',
-                      height: '100%',
-                      backgroundColor: '#FFF1E6',
-                      clipPath: `polygon(${sliderVal}% 0, 100% 0, 100% 100%, ${sliderVal}% 100%)`,
-                      padding: '40px',
-                      boxSizing: 'border-box',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center'
-                    }}>
+                    {/* Item 2: 等差數列與調薪 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
                       <div style={{
-                        position: 'absolute',
-                        top: '16px',
-                        right: '16px',
-                        backgroundColor: '#F97316',
-                        color: '#FFFFFF',
-                        padding: '4px 8px',
-                        borderRadius: '4px',
-                        fontSize: '11px',
-                        fontWeight: '500'
+                        width: '290px',
+                        height: '628px',
+                        borderRadius: '36px',
+                        border: '8px solid #000000',
+                        backgroundColor: '#FFFFFF',
+                        boxShadow: '0 24px 64px rgba(0,0,0,0.12)',
+                        boxSizing: 'border-box',
+                        position: 'relative',
+                        overflow: 'hidden'
                       }}>
-                        Ms Lin：步驟引導
+                        <img 
+                          src="/projects/mslin-app/screens/math6.jpg" 
+                          alt="等差數列與條件分析（調薪問題）" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
                       </div>
-
-                      <div style={{ maxWidth: '400px' }}>
-                        <div style={{ fontSize: '15px', color: '#534AB7', marginBottom: '8px', fontWeight: '500' }}>Q: 已知 f(x) = 3x² + 2x - 5，求 f'(2) 之值。</div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', margin: '16px 0', textAlign: 'left' }}>
-                          <div style={{ backgroundColor: '#FFFFFF', padding: '12px 16px', borderRadius: '8px', borderLeft: '3px solid #F97316', fontSize: '13px' }}>
-                            <span style={{ color: '#EA580C', fontWeight: 'bold' }}>第一步：</span>
-                            請先寫出此函數的導函數 f'(x)。<br/>
-                            <span style={{ fontFamily: 'monospace', color: '#333333', fontSize: '14px', fontWeight: 'bold' }}>f'(x) = 6x + 2</span>
-                          </div>
-                          <div style={{ backgroundColor: '#FFFFFF', padding: '12px 16px', borderRadius: '8px', borderLeft: '3px solid #1D9E75', fontSize: '13px' }}>
-                            <span style={{ color: '#1D9E75', fontWeight: 'bold' }}>第二步：</span>
-                            將 x = 2 代入上式求值。<br/>
-                            <span style={{ fontFamily: 'monospace', color: '#333333', fontSize: '14px', fontWeight: 'bold' }}>f'(2) = 6(2) + 2 = 14</span>
-                          </div>
-                        </div>
-                        <div style={{ fontSize: '12px', color: '#EA580C', fontWeight: '500' }}>
-                          🎉 答對了！藉由引導步驟，你成功自己解答了此題！
-                        </div>
-                      </div>
+                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                        等差數列與條件分析（調薪問題）
+                      </span>
                     </div>
 
-                    {/* Divider Line */}
-                    <div style={{
-                      position: 'absolute',
-                      left: `${sliderVal}%`,
-                      top: 0,
-                      bottom: 0,
-                      width: '2px',
-                      backgroundColor: '#FFFFFF',
-                      zIndex: 20,
-                      transform: 'translateX(-50%)'
-                    }}></div>
+                    {/* Item 3: 貝氏定理與機率 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                      <div style={{
+                        width: '290px',
+                        height: '628px',
+                        borderRadius: '36px',
+                        border: '8px solid #000000',
+                        backgroundColor: '#FFFFFF',
+                        boxShadow: '0 24px 64px rgba(0,0,0,0.12)',
+                        boxSizing: 'border-box',
+                        position: 'relative',
+                        overflow: 'hidden'
+                      }}>
+                        <img 
+                          src="/projects/mslin-app/screens/math11.png" 
+                          alt="貝氏定理與條件機率（過敏檢測）" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </div>
+                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                        貝氏定理與條件機率（過敏檢測）
+                      </span>
+                    </div>
 
-                    {/* Handle */}
-                    <div style={{
-                      position: 'absolute',
-                      left: `${sliderVal}%`,
-                      top: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      width: '32px',
-                      height: '32px',
-                      borderRadius: '50%',
-                      backgroundColor: '#FFFFFF',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'ew-resize',
-                      zIndex: 21,
-                      pointerEvents: 'none'
-                    }}>
-                      <span style={{ fontSize: '11px', color: '#EA580C', fontWeight: 'bold' }}>◀▶</span>
+                    {/* Item 4: 二階方陣與矩陣運算 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                      <div style={{
+                        width: '290px',
+                        height: '628px',
+                        borderRadius: '36px',
+                        border: '8px solid #000000',
+                        backgroundColor: '#FFFFFF',
+                        boxShadow: '0 24px 64px rgba(0,0,0,0.12)',
+                        boxSizing: 'border-box',
+                        position: 'relative',
+                        overflow: 'hidden'
+                      }}>
+                        <img 
+                          src="/projects/mslin-app/screens/math13.png" 
+                          alt="二階方陣與矩陣運算（學測模擬）" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </div>
+                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                        二階方陣與矩陣運算（學測模擬）
+                      </span>
                     </div>
                   </div>
 
@@ -3933,150 +4057,61 @@ const SPLIT_VIEW_CHIPS = [
                     依照學科特徵與學生的認知需求，我們為國文科設計了五種專屬的互動形式，透過動態連線與即時挖空操作將抽象語意視覺化。
                   </p>
 
-                  {/* Two phone mockups side by side with annotation dots */}
-                  <div style={{ display: 'flex', gap: '32px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', boxSizing: 'border-box', padding: '0 16px' }}>
-                    {/* Left Mockup: 字音字形配對 */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '300px' }}>
-                      <div style={{ position: 'relative', width: '100%', aspectRatio: '9 / 19.5', borderRadius: '28px', border: '6px solid #000000', backgroundColor: '#D0CCEA', boxShadow: '0 12px 32px rgba(0,0,0,0.08)', boxSizing: 'border-box', overflow: 'hidden' }}>
-                        <div style={{ position: 'absolute', top: '12%', left: '50%', transform: 'translateX(-50%)', width: '85%', textAlign: 'center', color: '#26215C', fontSize: '13px', fontWeight: 'bold' }}>
-                          字音字形配對
-                        </div>
-                        
-                        <div style={{ position: 'absolute', top: '25%', left: '10%', right: '10%', display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                            <div style={{ padding: '6px 12px', background: '#FFFFFF', borderRadius: '6px', border: '1px solid #F97316' }}>縝</div>
-                            <div style={{ padding: '6px 12px', background: '#FFFFFF', borderRadius: '6px' }}>嗔</div>
-                            <div style={{ padding: '6px 12px', background: '#FFFFFF', borderRadius: '6px' }}>慎</div>
-                          </div>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                            <div style={{ padding: '6px 12px', background: '#FFFFFF', borderRadius: '6px' }}>chēn</div>
-                            <div style={{ padding: '6px 12px', background: '#FFFFFF', borderRadius: '6px', border: '1px solid #F97316' }}>zhěn</div>
-                            <div style={{ padding: '6px 12px', background: '#FFFFFF', borderRadius: '6px' }}>shèn</div>
-                          </div>
-                        </div>
-                        <svg style={{ position: 'absolute', top: '25%', left: '10%', width: '80%', height: '55%', pointerEvents: 'none' }}>
-                          <line x1="45" y1="18" x2="115" y2="72" stroke="#F97316" strokeWidth="2" strokeDasharray="3,3" />
-                        </svg>
-
-                        {/* Pulse Dot 1 */}
-                        <div 
-                          onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 1 ? null : 1); }}
-                          className="pulse-dot-annotation"
-                          style={{
-                            position: 'absolute',
-                            top: '32%',
-                            left: '30%',
-                            width: '10px',
-                            height: '10px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FFFFFF',
-                            border: '2px solid #F97316',
-                            cursor: 'pointer',
-                            zIndex: 30
-                          }}
-                        >
-                          {activeTooltip === 1 && (
-                            <div style={{ position: 'absolute', bottom: '130%', left: '50%', transform: 'translateX(-50%)', width: '200px', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '8px 12px', borderRadius: '6px', fontSize: '11px', zIndex: 100, boxShadow: '0 4px 12px rgba(0,0,0,0.15)', textAlign: 'left', lineHeight: '1.4', pointerEvents: 'auto' }}>
-                              左右連線：拖曳字音與字形配對，加強視覺與肌肉記憶。
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Pulse Dot 2 */}
-                        <div 
-                          onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 2 ? null : 2); }}
-                          className="pulse-dot-annotation"
-                          style={{
-                            position: 'absolute',
-                            top: '58%',
-                            left: '70%',
-                            width: '10px',
-                            height: '10px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FFFFFF',
-                            border: '2px solid #F97316',
-                            cursor: 'pointer',
-                            zIndex: 30
-                          }}
-                        >
-                          {activeTooltip === 2 && (
-                            <div style={{ position: 'absolute', bottom: '130%', left: '50%', transform: 'translateX(-50%)', width: '200px', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '8px 12px', borderRadius: '6px', fontSize: '11px', zIndex: 100, boxShadow: '0 4px 12px rgba(0,0,0,0.15)', textAlign: 'left', lineHeight: '1.4', pointerEvents: 'auto' }}>
-                              即時回饋：連線正確時發出輕微震動與綠色連線動畫。
-                            </div>
-                          )}
-                        </div>
+                  {/* Four phone mockups side by side (Before / After Comparison) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', width: '100%', boxSizing: 'border-box', padding: '0 16px' }}>
+                    {/* Item 1: 字音字形配對 - 作答前 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ position: 'relative', width: '100%', maxWidth: '240px', aspectRatio: '9 / 19.5', borderRadius: '24px', border: '5px solid #000000', backgroundColor: '#D0CCEA', boxShadow: '0 10px 24px rgba(0,0,0,0.06)', boxSizing: 'border-box', overflow: 'hidden' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/chinese2.png" 
+                          alt="字音字形配對 - 作答前" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
                       </div>
-                      <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
-                        字音字形配對 — 左右連線操作，視覺化呈現配對關係
+                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                        字音字形配對（作答前）
                       </span>
                     </div>
 
-                    {/* Right Mockup: 文言文逐句翻譯 */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '300px' }}>
-                      <div style={{ position: 'relative', width: '100%', aspectRatio: '9 / 19.5', borderRadius: '28px', border: '6px solid #000000', backgroundColor: '#D0CCEA', boxShadow: '0 12px 32px rgba(0,0,0,0.08)', boxSizing: 'border-box', overflow: 'hidden' }}>
-                        <div style={{ position: 'absolute', top: '12%', left: '50%', transform: 'translateX(-50%)', width: '85%', textAlign: 'center', color: '#26215C', fontSize: '13px', fontWeight: 'bold' }}>
-                          文言文逐句翻譯
-                        </div>
-                        
-                        <div style={{ position: 'absolute', top: '22%', left: '10%', right: '10%', fontSize: '11px', color: '#333333', lineHeight: '1.6' }}>
-                          <div style={{ backgroundColor: '#FFFFFF', padding: '8px', borderRadius: '6px', marginBottom: '8px' }}>
-                            <strong>原文：</strong>「余憶童稚時，能張目對日，明察秋毫。」
-                          </div>
-                          <div style={{ backgroundColor: '#FFFFFF', padding: '8px', borderRadius: '6px' }}>
-                            <strong>翻譯：</strong>我回想童年幼小的時候，能夠睜大眼睛對著太陽，連極微小的東西也能看得 <span style={{ borderBottom: '1.5px solid #F97316', color: '#EA580C', fontWeight: 'bold', padding: '0 2px' }}>[ 清楚 ]</span>。
-                          </div>
-                        </div>
-
-                        {/* Pulse Dot 3 */}
-                        <div 
-                          onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 3 ? null : 3); }}
-                          className="pulse-dot-annotation"
-                          style={{
-                            position: 'absolute',
-                            top: '32%',
-                            left: '40%',
-                            width: '10px',
-                            height: '10px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FFFFFF',
-                            border: '2px solid #F97316',
-                            cursor: 'pointer',
-                            zIndex: 30
-                          }}
-                        >
-                          {activeTooltip === 3 && (
-                            <div style={{ position: 'absolute', bottom: '130%', left: '50%', transform: 'translateX(-50%)', width: '200px', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '8px 12px', borderRadius: '6px', fontSize: '11px', zIndex: 100, boxShadow: '0 4px 12px rgba(0,0,0,0.15)', textAlign: 'left', lineHeight: '1.4', pointerEvents: 'auto' }}>
-                              逐句釋譯：將長篇文言文拆解為單句，降低學生的閱讀理解門檻。
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Pulse Dot 4 */}
-                        <div 
-                          onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 4 ? null : 4); }}
-                          className="pulse-dot-annotation"
-                          style={{
-                            position: 'absolute',
-                            top: '68%',
-                            left: '60%',
-                            width: '10px',
-                            height: '10px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FFFFFF',
-                            border: '2px solid #F97316',
-                            cursor: 'pointer',
-                            zIndex: 30
-                          }}
-                        >
-                          {activeTooltip === 4 && (
-                            <div style={{ position: 'absolute', bottom: '130%', left: '50%', transform: 'translateX(-50%)', width: '200px', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '8px 12px', borderRadius: '6px', fontSize: '11px', zIndex: 100, boxShadow: '0 4px 12px rgba(0,0,0,0.15)', textAlign: 'left', lineHeight: '1.4', pointerEvents: 'auto' }}>
-                              點擊填空：可選字詞按鈕點擊填入，取代傳統打字的挫折感。
-                            </div>
-                          )}
-                        </div>
+                    {/* Item 2: 字音字形配對 - 作答後 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ position: 'relative', width: '100%', maxWidth: '240px', aspectRatio: '9 / 19.5', borderRadius: '24px', border: '5px solid #000000', backgroundColor: '#D0CCEA', boxShadow: '0 10px 24px rgba(0,0,0,0.06)', boxSizing: 'border-box', overflow: 'hidden' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/chinese3.png" 
+                          alt="字音字形配對 - 作答後" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
                       </div>
-                      <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
-                        文言文逐句翻譯 — 關鍵詞填空，主動建構語意
+                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                        字音字形配對（作答後）
+                      </span>
+                    </div>
+
+                    {/* Item 3: 文言文逐句翻譯 - 作答前 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ position: 'relative', width: '100%', maxWidth: '240px', aspectRatio: '9 / 19.5', borderRadius: '24px', border: '5px solid #000000', backgroundColor: '#D0CCEA', boxShadow: '0 10px 24px rgba(0,0,0,0.06)', boxSizing: 'border-box', overflow: 'hidden' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/chinese17.png" 
+                          alt="文言文逐句翻譯 - 作答前" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </div>
+                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                        文言文翻譯（作答前）
+                      </span>
+                    </div>
+
+                    {/* Item 4: 文言文逐句翻譯 - 作答後 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ position: 'relative', width: '100%', maxWidth: '240px', aspectRatio: '9 / 19.5', borderRadius: '24px', border: '5px solid #000000', backgroundColor: '#D0CCEA', boxShadow: '0 10px 24px rgba(0,0,0,0.06)', boxSizing: 'border-box', overflow: 'hidden' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/chinese18.png" 
+                          alt="文言文逐句翻譯 - 作答後" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </div>
+                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                        文言文翻譯（作答後）
                       </span>
                     </div>
                   </div>
@@ -4176,151 +4211,61 @@ const SPLIT_VIEW_CHIPS = [
                     英文學習涵蓋字彙、文法與篇章結構，我們針對每種核心技能設計專屬題型，利用點擊重組與段位嵌入將語法結構化。
                   </p>
 
-                  {/* Two phone mockups side by side with annotation dots */}
-                  <div style={{ display: 'flex', gap: '32px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', boxSizing: 'border-box', padding: '0 16px' }}>
-                    {/* Left Mockup: 文法造句重組 */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '300px' }}>
-                      <div style={{ position: 'relative', width: '100%', aspectRatio: '9 / 19.5', borderRadius: '28px', border: '6px solid #000000', backgroundColor: '#D0CCEA', boxShadow: '0 12px 32px rgba(0,0,0,0.08)', boxSizing: 'border-box', overflow: 'hidden' }}>
-                        <div style={{ position: 'absolute', top: '12%', left: '50%', transform: 'translateX(-50%)', width: '85%', textAlign: 'center', color: '#26215C', fontSize: '13px', fontWeight: 'bold' }}>
-                          文法造句重組
-                        </div>
-                        
-                        <div style={{ position: 'absolute', top: '22%', left: '10%', right: '10%', fontSize: '11px', color: '#333333', lineHeight: '1.6' }}>
-                          <div style={{ backgroundColor: '#FFFFFF', padding: '8px', borderRadius: '6px', marginBottom: '8px', textAlign: 'center' }}>
-                            <strong>中譯：</strong>「讀書使我們有智慧。」
-                          </div>
-                          <div style={{ minHeight: '36px', backgroundColor: '#FFFFFF', padding: '6px', borderRadius: '6px', marginBottom: '8px', display: 'flex', flexWrap: 'wrap', gap: '4px', border: '1px dashed #F97316' }}>
-                            <span style={{ backgroundColor: '#FFF1E6', padding: '2px 4px', borderRadius: '4px', fontSize: '10px' }}>Reading</span>
-                            <span style={{ backgroundColor: '#FFF1E6', padding: '2px 4px', borderRadius: '4px', fontSize: '10px' }}>makes</span>
-                            <span style={{ backgroundColor: '#FFF1E6', padding: '2px 4px', borderRadius: '4px', fontSize: '10px' }}>us</span>
-                          </div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', justifyContent: 'center', marginTop: '12px' }}>
-                            <span style={{ backgroundColor: '#FFFFFF', padding: '4px 6px', borderRadius: '4px', border: '0.5px solid #CCCCCC' }}>wise</span>
-                            <span style={{ backgroundColor: '#FFFFFF', padding: '4px 6px', borderRadius: '4px', border: '0.5px solid #CCCCCC', opacity: 0.4 }}>makes</span>
-                            <span style={{ backgroundColor: '#FFFFFF', padding: '4px 6px', borderRadius: '4px', border: '0.5px solid #CCCCCC', opacity: 0.4 }}>us</span>
-                          </div>
-                        </div>
-
-                        {/* Pulse Dot 5 */}
-                        <div 
-                          onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 5 ? null : 5); }}
-                          className="pulse-dot-annotation"
-                          style={{
-                            position: 'absolute',
-                            top: '38%',
-                            left: '30%',
-                            width: '10px',
-                            height: '10px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FFFFFF',
-                            border: '2px solid #F97316',
-                            cursor: 'pointer',
-                            zIndex: 30
-                          }}
-                        >
-                          {activeTooltip === 5 && (
-                            <div style={{ position: 'absolute', bottom: '130%', left: '50%', transform: 'translateX(-50%)', width: '200px', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '8px 12px', borderRadius: '6px', fontSize: '11px', zIndex: 100, boxShadow: '0 4px 12px rgba(0,0,0,0.15)', textAlign: 'left', lineHeight: '1.4', pointerEvents: 'auto' }}>
-                              字詞排列：拖曳或點擊底部的字詞卡片，順暢重組出完整句子。
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Pulse Dot 6 */}
-                        <div 
-                          onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 6 ? null : 6); }}
-                          className="pulse-dot-annotation"
-                          style={{
-                            position: 'absolute',
-                            top: '65%',
-                            left: '70%',
-                            width: '10px',
-                            height: '10px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FFFFFF',
-                            border: '2px solid #F97316',
-                            cursor: 'pointer',
-                            zIndex: 30
-                          }}
-                        >
-                          {activeTooltip === 6 && (
-                            <div style={{ position: 'absolute', bottom: '130%', left: '50%', transform: 'translateX(-50%)', width: '200px', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '8px 12px', borderRadius: '6px', fontSize: '11px', zIndex: 100, boxShadow: '0 4px 12px rgba(0,0,0,0.15)', textAlign: 'left', lineHeight: '1.4', pointerEvents: 'auto' }}>
-                              文法提醒：錯誤擺放時字卡會彈回，並提供弱文法顏色提示。
-                            </div>
-                          )}
-                        </div>
+                  {/* Four phone mockups side by side (Before / After Comparison) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', width: '100%', boxSizing: 'border-box', padding: '0 16px' }}>
+                    {/* Item 1: 文法造句重組 - 作答前 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ position: 'relative', width: '100%', maxWidth: '240px', aspectRatio: '9 / 19.5', borderRadius: '24px', border: '5px solid #000000', backgroundColor: '#D0CCEA', boxShadow: '0 10px 24px rgba(0,0,0,0.06)', boxSizing: 'border-box', overflow: 'hidden' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/english-sentence1.png" 
+                          alt="文法造句重組 - 作答前" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
                       </div>
-                      <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
-                        文法造句重組 — 字詞點擊排列，操作中內化句型結構
+                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                        文法造句重組（作答前）
                       </span>
                     </div>
 
-                    {/* Right Mockup: 文意選填 */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '300px' }}>
-                      <div style={{ position: 'relative', width: '100%', aspectRatio: '9 / 19.5', borderRadius: '28px', border: '6px solid #000000', backgroundColor: '#D0CCEA', boxShadow: '0 12px 32px rgba(0,0,0,0.08)', boxSizing: 'border-box', overflow: 'hidden' }}>
-                        <div style={{ position: 'absolute', top: '12%', left: '50%', transform: 'translateX(-50%)', width: '85%', textAlign: 'center', color: '#26215C', fontSize: '13px', fontWeight: 'bold' }}>
-                          文意選填
-                        </div>
-                        
-                        <div style={{ position: 'absolute', top: '22%', left: '10%', right: '10%', fontSize: '11px', color: '#333333', lineHeight: '1.6' }}>
-                          <div style={{ backgroundColor: '#FFFFFF', padding: '8px', borderRadius: '6px', marginBottom: '8px' }}>
-                            Living in a big city is very (1) <span style={{ borderBottom: '1.5px solid #F97316', color: '#EA580C', fontWeight: 'bold', padding: '0 2px' }}>[ convenient ]</span>. There are many shops and MRT lines...
-                          </div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', justifyContent: 'center', marginTop: '12px' }}>
-                            <span style={{ backgroundColor: '#FFFFFF', padding: '4px 6px', borderRadius: '4px', border: '0.5px solid #CCCCCC', opacity: 0.4 }}>convenient</span>
-                            <span style={{ backgroundColor: '#FFFFFF', padding: '4px 6px', borderRadius: '4px', border: '0.5px solid #CCCCCC' }}>crowded</span>
-                          </div>
-                        </div>
-
-                        {/* Pulse Dot 7 */}
-                        <div 
-                          onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 7 ? null : 7); }}
-                          className="pulse-dot-annotation"
-                          style={{
-                            position: 'absolute',
-                            top: '38%',
-                            left: '35%',
-                            width: '10px',
-                            height: '10px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FFFFFF',
-                            border: '2px solid #F97316',
-                            cursor: 'pointer',
-                            zIndex: 30
-                          }}
-                        >
-                          {activeTooltip === 7 && (
-                            <div style={{ position: 'absolute', bottom: '130%', left: '50%', transform: 'translateX(-50%)', width: '200px', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '8px 12px', borderRadius: '6px', fontSize: '11px', zIndex: 100, boxShadow: '0 4px 12px rgba(0,0,0,0.15)', textAlign: 'left', lineHeight: '1.4', pointerEvents: 'auto' }}>
-                              語境填空：將單字卡直接拖曳拖入段落空格，模擬真實閱讀題型。
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Pulse Dot 8 */}
-                        <div 
-                          onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 8 ? null : 8); }}
-                          className="pulse-dot-annotation"
-                          style={{
-                            position: 'absolute',
-                            top: '65%',
-                            left: '65%',
-                            width: '10px',
-                            height: '10px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FFFFFF',
-                            border: '2px solid #F97316',
-                            cursor: 'pointer',
-                            zIndex: 30
-                          }}
-                        >
-                          {activeTooltip === 8 && (
-                            <div style={{ position: 'absolute', bottom: '130%', left: '50%', transform: 'translateX(-50%)', width: '200px', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '8px 12px', borderRadius: '6px', fontSize: '11px', zIndex: 100, boxShadow: '0 4px 12px rgba(0,0,0,0.15)', textAlign: 'left', lineHeight: '1.4', pointerEvents: 'auto' }}>
-                              詞性提示：雙擊空白處可查看該空格建議的文意詞性提示。
-                            </div>
-                          )}
-                        </div>
+                    {/* Item 2: 文法造句重組 - 作答後 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ position: 'relative', width: '100%', maxWidth: '240px', aspectRatio: '9 / 19.5', borderRadius: '24px', border: '5px solid #000000', backgroundColor: '#D0CCEA', boxShadow: '0 10px 24px rgba(0,0,0,0.06)', boxSizing: 'border-box', overflow: 'hidden' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/english-sentence2.png" 
+                          alt="文法造句重組 - 作答後" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
                       </div>
-                      <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
-                        文意選填 — 數字空格嵌入段落，真實語境判斷詞彙
+                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                        文法造句重組（作答後）
+                      </span>
+                    </div>
+
+                    {/* Item 3: 文意選填 - 作答前 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ position: 'relative', width: '100%', maxWidth: '240px', aspectRatio: '9 / 19.5', borderRadius: '24px', border: '5px solid #000000', backgroundColor: '#D0CCEA', boxShadow: '0 10px 24px rgba(0,0,0,0.06)', boxSizing: 'border-box', overflow: 'hidden' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/english-close1.png" 
+                          alt="文意選填 - 作答前" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </div>
+                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                        文意選填（作答前）
+                      </span>
+                    </div>
+
+                    {/* Item 4: 文意選填 - 作答後 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ position: 'relative', width: '100%', maxWidth: '240px', aspectRatio: '9 / 19.5', borderRadius: '24px', border: '5px solid #000000', backgroundColor: '#D0CCEA', boxShadow: '0 10px 24px rgba(0,0,0,0.06)', boxSizing: 'border-box', overflow: 'hidden' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/english-close2.png" 
+                          alt="文意選填 - 作答後" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </div>
+                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                        文意選填（作答後）
                       </span>
                     </div>
                   </div>
@@ -4435,37 +4380,84 @@ const SPLIT_VIEW_CHIPS = [
                   學習記錄應該是個人的數位學習資產，而非僅僅是分數的成績單。我們將答錯的題目定義為「還沒解鎖的挑戰」，收錄於錯題庫中，並以中性且富含引導性的語言取代「錯誤」或「不及格」等負面標籤。收藏庫則讓學生在刷題過程中自主儲存值得反思的優質題型，給予他們對學習內容的完全自主感。
                 </p>
 
-                {/* Two phone mockups side by side */}
-                <div style={{ display: 'flex', gap: '32px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', boxSizing: 'border-box', padding: '0 16px' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '300px' }}>
+                {/* Four phone mockups side by side (Before / After Comparison) */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', width: '100%', boxSizing: 'border-box', padding: '0 16px' }}>
+                  {/* Item 1: 錯題挑戰列表 */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
                     <div style={{
                       width: '100%',
+                      maxWidth: '240px',
                       aspectRatio: '9 / 19.5',
-                      borderRadius: '28px',
-                      border: '6px solid #000000',
+                      borderRadius: '24px',
+                      border: '5px solid #000000',
                       backgroundColor: '#D0CCEA',
-                      boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
-                      boxSizing: 'border-box'
-                    }}></div>
-                    <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
-                      錯題庫 — 中性語言取代負面標籤
+                      boxShadow: '0 10px 24px rgba(0,0,0,0.06)',
+                      boxSizing: 'border-box',
+                      position: 'relative',
+                      overflow: 'hidden'
+                    }}>
+                      <img 
+                        src="/projects/mslin-app/screens/base2.png" 
+                        alt="錯題庫 - 錯題挑戰列表" 
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      />
+                    </div>
+                    <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                      錯題庫（錯題挑戰列表）
                     </span>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '300px' }}>
+                  {/* Item 2: 錯題解析與訂正 */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
                     <div style={{
                       width: '100%',
+                      maxWidth: '240px',
                       aspectRatio: '9 / 19.5',
-                      borderRadius: '28px',
-                      border: '6px solid #000000',
+                      borderRadius: '24px',
+                      border: '5px solid #000000',
                       backgroundColor: '#D0CCEA',
-                      boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
-                      boxSizing: 'border-box'
-                    }}></div>
-                    <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
-                      收藏庫 — 主動儲存給予自主感
+                      boxShadow: '0 10px 24px rgba(0,0,0,0.06)',
+                      boxSizing: 'border-box',
+                      position: 'relative',
+                      overflow: 'hidden'
+                    }}>
+                      <img 
+                        src="/projects/mslin-app/screens/base3.png" 
+                        alt="錯題庫 - 解鎖詳解與訂正" 
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      />
+                    </div>
+                    <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                      錯題庫（解鎖詳解與訂正）
                     </span>
                   </div>
+
+                  {/* Item 3: 我的收藏列表 */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                    <div style={{
+                      width: '100%',
+                      maxWidth: '240px',
+                      aspectRatio: '9 / 19.5',
+                      borderRadius: '24px',
+                      border: '5px solid #000000',
+                      backgroundColor: '#D0CCEA',
+                      boxShadow: '0 10px 24px rgba(0,0,0,0.06)',
+                      boxSizing: 'border-box',
+                      position: 'relative',
+                      overflow: 'hidden'
+                    }}>
+                      <img 
+                        src="/projects/mslin-app/screens/base1.png" 
+                        alt="收藏庫 - 我的收藏列表" 
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      />
+                    </div>
+                    <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4', fontWeight: '500' }}>
+                      收藏庫（我的收藏列表）
+                    </span>
+                  </div>
+
+
                 </div>
               </div>
 
@@ -5187,6 +5179,7 @@ const SPLIT_VIEW_CHIPS = [
       };
 
       const mobileContainerRef = useRef(null);
+      const mobileTabsContainerRef = useRef(null);
       const mHeroRef = useRef(null);
       const mServicesRef = useRef(null);
       const mValuesRef = useRef(null);
@@ -6134,177 +6127,237 @@ const SPLIT_VIEW_CHIPS = [
                     </div>
 
                     {/* 設計決策分割視圖 */}
-                    <div className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-6 items-start mb-16">
-                      <div className="rounded-[12px] p-[12px] flex items-center justify-center relative w-full aspect-[16/10]">
-                        {videoState === 'none' ? (
-                          <div className="w-full h-full relative flex items-center justify-start">
-                            {/* Desktop Web Showcase (Browser Mockup removed, no shadows) */}
-                            <div 
-                              className="w-[86%] h-full flex flex-col bg-[#080d19] rounded-xl overflow-hidden relative"
-                              onMouseLeave={() => setIsDesktopScrollActive(false)}
-                            >
-                              {/* Scrollable Webpage Content */}
-                              <div 
-                                ref={containerRef}
-                                className={`flex-1 overflow-y-auto scroll-smooth hide-scrollbar bg-[#080d19] relative ${isDesktopScrollActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                    <div className="flex flex-col gap-6 mb-16">
+                      
+                      {/* Mobile / Tablet layout tabs (visible on < xl) */}
+                      <div className="block xl:hidden w-full">
+                        {/* Tab Switcher Buttons */}
+                        <div 
+                          ref={mobileTabsContainerRef}
+                          className="flex gap-2 overflow-x-auto pb-3 hide-scrollbar border-b border-gray-100"
+                        >
+                          {SPLIT_VIEW_CHIPS.map((chip) => {
+                            const isActive = activeChip === chip.id;
+                            return (
+                              <button
+                                key={chip.id}
+                                onClick={(e) => {
+                                  if (!isActive) {
+                                    setActiveChip(chip.id);
+                                    setVideoState('none');
+                                    
+                                    // Scroll clicked tab to center of the horizontal scroll container dynamically
+                                    const button = e.currentTarget;
+                                    const container = mobileTabsContainerRef.current;
+                                    if (button && container) {
+                                      const containerWidth = container.offsetWidth;
+                                      const buttonOffsetLeft = button.offsetLeft;
+                                      const buttonWidth = button.offsetWidth;
+                                      const targetScrollLeft = buttonOffsetLeft - (containerWidth / 2) + (buttonWidth / 2);
+                                      container.scrollTo({
+                                        left: targetScrollLeft,
+                                        behavior: 'smooth'
+                                      });
+                                    }
+                                  }
+                                }}
+                                className={`flex-shrink-0 px-4 py-2 text-xs md:text-sm font-bold font-['Noto_Sans_TC'] rounded-full border transition-all duration-300 cursor-pointer ${
+                                  isActive
+                                    ? 'bg-[#534ab7] border-[#534ab7] text-white shadow-sm'
+                                    : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
+                                }`}
                               >
-                                {activeItem.design.webShowcaseStrip.map((item, idx) => {
-                                  const sectionRef = 
-                                    idx === 0 ? heroRef : 
-                                    idx === 1 ? servicesRef : 
-                                    idx === 2 ? valuesRef : 
-                                    idx === 3 ? successRef :
-                                    idx === 4 ? ctaRef :
-                                    idx === 5 ? aboutRef :
-                                    idx === 6 ? contactRef :
-                                    idx === 7 ? footerRef : null;
-                                  
-                                  return (
-                                    <div 
-                                      key={idx} 
-                                      ref={sectionRef}
-                                      className="w-full relative select-none"
-                                      style={{ lineHeight: 0 }}
-                                    >
-                                      {item.type === 'video' ? (
-                                        <WebShowcaseVideo src={item.url} className="w-full h-auto block" />
-                                      ) : (
-                                        <WebShowcaseImage src={item.url} />
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              </div>
-
-                              {/* Center Scroll Activation Overlay */}
-                              <div 
-                                className={`absolute inset-y-[20%] inset-x-[25%] z-30 bg-transparent ${isDesktopScrollActive ? 'pointer-events-none' : 'pointer-events-auto cursor-ns-resize'}`}
-                                onMouseEnter={() => setIsDesktopScrollActive(true)}
-                              />
-                            </div>
-
-                            {/* Mobile Showcase (Phone Mockup & Shadow removed, position adjusted to top-12, border added) */}
-                            <div 
-                              className="absolute top-12 -right-6 w-[28%] h-full bg-[#080d19] rounded-[2rem] border-[6px] border-[#1a1b20] overflow-hidden flex flex-col z-20"
-                              onMouseLeave={() => setIsMobileScrollActive(false)}
-                            >
-                              {/* Scrollable Mobile Viewport */}
-                              <div 
-                                ref={mobileContainerRef}
-                                className={`flex-1 overflow-y-auto scroll-smooth hide-scrollbar bg-[#080d19] relative ${isMobileScrollActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
-                              >
-                                {activeItem.design.webShowcaseStrip.map((item, idx) => {
-                                  if (!item.mobile) return null;
-                                  const mItem = item.mobile;
-                                  
-                                  const mRef = 
-                                    idx === 0 ? mHeroRef : 
-                                    idx === 1 ? mServicesRef : 
-                                    idx === 2 ? mValuesRef : 
-                                    idx === 3 ? mSuccessRef :
-                                    idx === 4 ? mCtaRef :
-                                    idx === 5 ? mAboutRef : null;
-
-                                  return (
-                                    <div 
-                                      key={idx} 
-                                      ref={mRef}
-                                      className="w-full relative select-none"
-                                      style={{ lineHeight: 0 }}
-                                    >
-                                      {mItem.type === 'video' ? (
-                                        <WebShowcaseVideo src={mItem.url} />
-                                      ) : (
-                                        <WebShowcaseImage src={mItem.url} />
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              </div>
-
-                              {/* Center Scroll Activation Overlay */}
-                              <div 
-                                className={`absolute inset-y-[20%] inset-x-[20%] z-30 bg-transparent ${isMobileScrollActive ? 'pointer-events-none' : 'pointer-events-auto cursor-ns-resize'}`}
-                                onMouseEnter={() => setIsMobileScrollActive(true)}
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="w-full h-full relative flex items-center justify-center bg-black rounded-lg overflow-hidden">
-                            <video
-                              ref={videoRef}
-                              key={SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.videoUrl}
-                              src={SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.videoUrl}
-                              autoPlay
-                              controls
-                              className="w-full h-full object-contain"
-                              onEnded={() => setVideoState('ended')}
-                            />
-                            {videoState === 'ended' && (
-                              <div className="absolute inset-0 bg-black/85 flex flex-col items-center justify-center gap-4 z-10 animate-in fade-in duration-300">
-                                <span className="text-white font-medium text-sm md:text-base font-['Noto_Sans_TC']">
-                                  {lang === 'zh' ? '影片播放完畢' : 'Video playback completed'}
-                                </span>
-                                <div className="flex gap-4">
-                                  <button
-                                    onClick={() => {
-                                      setVideoState('playing');
-                                      if (videoRef.current) {
-                                        videoRef.current.currentTime = 0;
-                                        videoRef.current.play().catch(err => console.log(err));
-                                      }
-                                    }}
-                                    className="px-4 py-2 bg-[#534ab7] hover:bg-[#433b9c] text-white rounded-full text-xs md:text-sm font-bold transition-all shadow-md cursor-pointer"
-                                  >
-                                    {lang === 'zh' ? '重播 ↺' : 'Replay ↺'}
-                                  </button>
-                                  <button
-                                    onClick={() => setVideoState('none')}
-                                    className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-full text-xs md:text-sm font-bold transition-all shadow-md cursor-pointer"
-                                  >
-                                    {lang === 'zh' ? '關閉 ✕' : 'Close ✕'}
-                                  </button>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        )}
+                                {t(chip.title, lang)}
+                              </button>
+                            );
+                          })}
+                        </div>
+                        
+                        {/* Active Tab Description */}
+                        <div className="mt-4 p-5 bg-purple-50/50 border border-purple-100/30 rounded-2xl">
+                          <h6 className="font-bold text-sm text-[#534ab7] mb-2 font-['Noto_Sans_TC']">
+                            {t(SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.title, lang)}
+                          </h6>
+                          <p className="text-xs md:text-sm text-gray-600 leading-relaxed font-['Noto_Sans_TC']">
+                            {t(SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.desc, lang)}
+                          </p>
+                        </div>
                       </div>
 
-                      {/* Right Column: Interactive Chips */}
-                      <div className="flex flex-col gap-4 justify-center">
-                        {SPLIT_VIEW_CHIPS.map((chip) => {
-                          const isActive = activeChip === chip.id;
-                          return (
-                            <div
-                              key={chip.id}
-                              onClick={() => {
-                                if (!isActive) {
-                                  setActiveChip(chip.id);
-                                  setVideoState('none');
-                                }
-                              }}
-                              className={`border rounded-xl p-5 transition-all duration-300 cursor-pointer ${
-                                isActive
-                                  ? 'border-[#534ab7] bg-purple-50 text-purple-900 shadow-sm'
-                                  : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
-                              }`}
-                            >
-                              <h5 className={`font-bold text-base md:text-lg font-['Noto_Sans_TC'] transition-colors duration-300 ${isActive ? 'text-purple-900' : 'text-gray-800'}`}>
-                                {t(chip.title, lang)}
-                              </h5>
-
-                              {/* Expandable content */}
-                              <div className={`grid transition-all duration-300 ease-in-out ${isActive ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0 overflow-hidden'}`}>
-                                <div className="overflow-hidden min-h-0">
-                                  <p className="text-sm text-gray-600 leading-relaxed font-['Noto_Sans_TC']">
-                                    {t(chip.desc, lang)}
-                                  </p>
+                      {/* Main Layout Grid */}
+                      <div className="grid grid-cols-1 xl:grid-cols-[3fr_1fr] gap-6 items-start">
+                        {/* Left/Top: Mockups Wrapper */}
+                        <div className="rounded-[12px] lg:p-[12px] flex flex-col lg:flex-row lg:items-center lg:justify-start relative w-full aspect-none lg:aspect-[16/10] gap-6 lg:gap-0">
+                          {videoState === 'none' ? (
+                            <div className="w-full h-full relative flex flex-col lg:flex-row lg:items-center lg:justify-start">
+                              {/* Desktop Web Showcase (Browser Mockup removed, no shadows) */}
+                              <div 
+                                className="w-full lg:w-[86%] aspect-[16/10] lg:aspect-none lg:h-full flex flex-col bg-[#080d19] rounded-2xl lg:rounded-xl overflow-hidden relative"
+                                onMouseLeave={() => setIsDesktopScrollActive(false)}
+                              >
+                                {/* Scrollable Webpage Content */}
+                                <div 
+                                  ref={containerRef}
+                                  className={`flex-1 overflow-y-auto scroll-smooth hide-scrollbar bg-[#080d19] relative ${isDesktopScrollActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                                >
+                                  {activeItem.design.webShowcaseStrip.map((item, idx) => {
+                                    const sectionRef = 
+                                      idx === 0 ? heroRef : 
+                                      idx === 1 ? servicesRef : 
+                                      idx === 2 ? valuesRef : 
+                                      idx === 3 ? successRef :
+                                      idx === 4 ? ctaRef :
+                                      idx === 5 ? aboutRef :
+                                      idx === 6 ? contactRef :
+                                      idx === 7 ? footerRef : null;
+                                    
+                                    return (
+                                      <div 
+                                        key={idx} 
+                                        ref={sectionRef}
+                                        className="w-full relative select-none"
+                                        style={{ lineHeight: 0 }}
+                                      >
+                                        {item.type === 'video' ? (
+                                          <WebShowcaseVideo src={item.url} className="w-full h-auto block" />
+                                        ) : (
+                                          <WebShowcaseImage src={item.url} />
+                                        )}
+                                      </div>
+                                    );
+                                  })}
                                 </div>
+  
+                                {/* Center Scroll Activation Overlay */}
+                                <div 
+                                  className={`absolute inset-y-[20%] inset-x-[25%] z-30 bg-transparent ${isDesktopScrollActive ? 'pointer-events-none' : 'pointer-events-auto cursor-ns-resize'}`}
+                                  onMouseEnter={() => setIsDesktopScrollActive(true)}
+                                />
+                              </div>
+  
+                              {/* Mobile Showcase (Phone Mockup & Shadow removed, border added) */}
+                              <div 
+                                className="relative lg:absolute lg:top-12 lg:-right-6 w-[200px] sm:w-[240px] lg:w-[28%] aspect-[9/19.5] lg:aspect-none lg:h-full mt-6 lg:mt-0 mx-auto lg:mx-0 bg-[#080d19] rounded-[2rem] border-[6px] border-[#1a1b20] overflow-hidden flex flex-col z-20"
+                                onMouseLeave={() => setIsMobileScrollActive(false)}
+                              >
+                                {/* Scrollable Mobile Viewport */}
+                                <div 
+                                  ref={mobileContainerRef}
+                                  className={`flex-1 overflow-y-auto scroll-smooth hide-scrollbar bg-[#080d19] relative ${isMobileScrollActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                                >
+                                  {activeItem.design.webShowcaseStrip.map((item, idx) => {
+                                    if (!item.mobile) return null;
+                                    const mItem = item.mobile;
+                                    
+                                    const mRef = 
+                                      idx === 0 ? mHeroRef : 
+                                      idx === 1 ? mServicesRef : 
+                                      idx === 2 ? mValuesRef : 
+                                      idx === 3 ? mSuccessRef :
+                                      idx === 4 ? mCtaRef :
+                                      idx === 5 ? mAboutRef : null;
+  
+                                    return (
+                                      <div 
+                                        key={idx} 
+                                        ref={mRef}
+                                        className="w-full relative select-none"
+                                        style={{ lineHeight: 0 }}
+                                      >
+                                        {mItem.type === 'video' ? (
+                                          <WebShowcaseVideo src={mItem.url} />
+                                        ) : (
+                                          <WebShowcaseImage src={mItem.url} />
+                                        )}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+  
+                                {/* Center Scroll Activation Overlay */}
+                                <div 
+                                  className={`absolute inset-y-[20%] inset-x-[20%] z-30 bg-transparent ${isMobileScrollActive ? 'pointer-events-none' : 'pointer-events-auto cursor-ns-resize'}`}
+                                  onMouseEnter={() => setIsMobileScrollActive(true)}
+                                />
                               </div>
                             </div>
-                          );
-                        })}
+                          ) : (
+                            <div className="w-full aspect-[16/10] lg:aspect-none lg:h-full relative flex items-center justify-center bg-black rounded-lg overflow-hidden">
+                              <video
+                                ref={videoRef}
+                                key={SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.videoUrl}
+                                src={SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.videoUrl}
+                                autoPlay
+                                controls
+                                className="w-full h-full object-contain"
+                                onEnded={() => setVideoState('ended')}
+                              />
+                              {videoState === 'ended' && (
+                                <div className="absolute inset-0 bg-black/85 flex flex-col items-center justify-center gap-4 z-10 animate-in fade-in duration-300">
+                                  <span className="text-white font-medium text-sm md:text-base font-['Noto_Sans_TC']">
+                                    {lang === 'zh' ? '影片播放完畢' : 'Video playback completed'}
+                                  </span>
+                                  <div className="flex gap-4">
+                                    <button
+                                      onClick={() => {
+                                        setVideoState('playing');
+                                        if (videoRef.current) {
+                                          videoRef.current.currentTime = 0;
+                                          videoRef.current.play().catch(err => console.log(err));
+                                        }
+                                      }}
+                                      className="px-4 py-2 bg-[#534ab7] hover:bg-[#433b9c] text-white rounded-full text-xs md:text-sm font-bold transition-all shadow-md cursor-pointer"
+                                    >
+                                      {lang === 'zh' ? '重播 ↺' : 'Replay ↺'}
+                                    </button>
+                                    <button
+                                      onClick={() => setVideoState('none')}
+                                      className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-full text-xs md:text-sm font-bold transition-all shadow-md cursor-pointer"
+                                    >
+                                      {lang === 'zh' ? '關閉 ✕' : 'Close ✕'}
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+  
+                        {/* Right Column: Interactive Chips (Only visible on xl screens) */}
+                        <div className="hidden xl:flex flex-col gap-4 justify-center">
+                          {SPLIT_VIEW_CHIPS.map((chip) => {
+                            const isActive = activeChip === chip.id;
+                            return (
+                              <div
+                                key={chip.id}
+                                onClick={() => {
+                                  if (!isActive) {
+                                    setActiveChip(chip.id);
+                                    setVideoState('none');
+                                  }
+                                }}
+                                className={`border rounded-xl p-5 transition-all duration-300 cursor-pointer ${
+                                  isActive
+                                    ? 'border-[#534ab7] bg-purple-50 text-purple-900 shadow-sm'
+                                    : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
+                                }`}
+                              >
+                                <h5 className={`font-bold text-base md:text-lg font-['Noto_Sans_TC'] transition-colors duration-300 ${isActive ? 'text-purple-900' : 'text-gray-800'}`}>
+                                  {t(chip.title, lang)}
+                                </h5>
+  
+                                {/* Expandable content */}
+                                <div className={`grid transition-all duration-300 ease-in-out ${isActive ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0 overflow-hidden'}`}>
+                                  <div className="overflow-hidden min-h-0">
+                                    <p className="text-sm text-gray-600 leading-relaxed font-['Noto_Sans_TC']">
+                                      {t(chip.desc, lang)}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
                     </div>
                   </>

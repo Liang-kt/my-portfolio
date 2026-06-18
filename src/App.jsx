@@ -2830,128 +2830,240 @@ const SPLIT_VIEW_CHIPS = [
                 boxSizing: 'border-box'
               }}
             >
-              <ProjectSectionHeader num="01" title={lang === 'zh' ? '專案概述' : 'Project Overview'} />
+              {/* SECTION LABEL */}
+              <div style={{
+                fontSize: '11px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                color: '#A0A0A0',
+                marginBottom: '40px',
+                fontWeight: 'bold'
+              }}>
+                01 — 專案概述
+              </div>
 
-              {/* Layer 1 — Core question callout (top of section) */}
-              <div 
-                className="p-6 md:p-10 mb-10" 
-                style={{
-                  borderLeft: '3px solid #F97316',
-                  background: '#FFF7ED', // light orange
-                  borderRadius: '0 16px 16px 0',
-                  boxSizing: 'border-box'
-                }}
-              >
-                <div className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-3">
+              {/* CORE DESIGN QUESTION */}
+              <div style={{
+                borderLeft: '3px solid #7F77DD',
+                borderRadius: '0 8px 8px 0',
+                padding: '24px 32px',
+                background: '#FAFAFE',
+                boxSizing: 'border-box',
+                marginBottom: '40px'
+              }}>
+                <div style={{
+                  fontSize: '11px',
+                  textTransform: 'uppercase',
+                  color: '#7F77DD',
+                  fontWeight: 'bold',
+                  letterSpacing: '0.05em',
+                  marginBottom: '8px'
+                }}>
                   {lang === 'zh' ? '核心設計問題' : 'Core Design Question'}
                 </div>
-                <p className="text-xl md:text-3xl font-bold text-gray-900 leading-relaxed font-sans">
+                <div style={{
+                  fontSize: '22px',
+                  fontWeight: '500',
+                  lineHeight: '1.6',
+                  color: '#1A1A1A'
+                }}>
                   {lang === 'zh' 
-                    ? '如何讓學生在沒有老師督促的情況下，自發地回來刷題、並且每次都感覺有所進步？' 
-                    : 'How can we motivate students to return and practice questions voluntarily without teacher supervision, and feel progress every time?'}
-                </p>
-              </div>
-
-              {/* Layer 2 — Info cards row (directly below the callout) */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                {[
-                  { label: { zh: '角色', en: 'Role' }, value: { zh: 'UI/UX 設計師', en: 'UI/UX Designer' } },
-                  { label: { zh: '時程', en: 'Timeline' }, value: { zh: '2025.11 – 至今', en: '2025.11 – Present' } },
-                  { label: { zh: '工具', en: 'Tools' }, value: { zh: 'Figma', en: 'Figma' } },
-                  { label: { zh: '產業', en: 'Industry' }, value: { zh: '行動 App · 教育科技', en: 'Mobile App · EdTech' } }
-                ].map((card, idx) => (
-                  <div 
-                    key={idx} 
-                    className="bg-[#F5F5F5] rounded-2xl p-6 flex flex-col justify-center min-h-[100px] shadow-sm"
-                  >
-                    <span className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">
-                      {lang === 'zh' ? card.label.zh : card.label.en}
-                    </span>
-                    <span className="text-sm md:text-base font-bold text-gray-800 leading-snug">
-                      {lang === 'zh' ? card.value.zh : card.value.en}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Project Outcome Summary Callout */}
-              <div 
-                className="p-6 md:p-8 mb-12" 
-                style={{
-                  borderLeft: '3px solid #534AB7',
-                  background: '#F5F3FF', // light purple/indigo
-                  borderRadius: '0 16px 16px 0',
-                  boxSizing: 'border-box'
-                }}
-              >
-                <div className="text-xs font-bold text-[#534AB7] uppercase tracking-widest mb-3">
-                  {lang === 'zh' ? '專案成果摘要' : 'Project Summary'}
+                    ? '如何讓學生在不同的學習情境下——不論是主動備考還是考後解惑——都能形成完整的學習閉環，而不只是「用完就走」？'
+                    : 'How can we help students form a complete learning loop in different learning contexts—whether active exam prep or post-exam review—rather than just "use and leave"?'}
                 </div>
-                <p className="text-sm md:text-base text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC']">
-                  {lang === 'zh' 
-                    ? 'App 已正式上線。在資源有限、無法進行前期用戶訪談的條件下，設計決策以競品機制分析與行為心理學為基礎，聚焦於「進步感」與「回訪動機」的體驗設計。上線後透過問卷與訪談持續驗證假設，並依回饋進行修正迭代。'
-                    : 'The App is officially launched. Under limited resources and without early user interviews, design decisions were based on competitive analysis and behavioral psychology, focusing on "feeling of progress" and "motivation to return." Post-launch, hypotheses were validated through surveys and interviews for iterative improvements.'}
-                </p>
               </div>
 
-              {/* Layer 3 — Narrative text + deliverables (below the cards) */}
-              <div className="space-y-12">
-                {/* Narrative + Team Column Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 lg:gap-20">
-                  {/* Left Column: Narrative Background */}
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-                        {lang === 'zh' ? '專案背景' : 'Project Background'}
-                      </h4>
-                      <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC'] mb-4">
-                        {lang === 'zh'
-                          ? 'Ms Lin 是一款專為國高中全年級學生（國一至高三）打造的刷題 App，題目內容涵蓋完整的六年學習階段，讓學生不論處於哪個年級、平時自學或升學備考，都能透過這款 App 建立持續性的學習習慣。'
-                          : 'Ms Lin is a practice app tailored for students in junior and senior high school (grades 7-12). Covering six full years of curriculum, it helps students establish consistent study habits regardless of grade level or study purpose.'}
-                      </p>
-                      <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC'] mb-4">
-                        {lang === 'zh'
-                          ? '台灣中學生的自主學習工具市場，長期以「題庫數量」作為主要競爭維度，卻鮮少有產品認真思考一個更根本的問題：學生為什麼願意持續回來使用？Ms Lin 從這個缺口出發，不以題量堆疊作為核心賣點，而是將設計重心放在「體驗」本身。'
-                          : 'The self-study market for high schoolers in Taiwan has long focused on "question bank quantity." However, few products address a more fundamental question: why would students want to keep returning? Ms Lin targets this gap, prioritizing user experience over mere volume.'}
-                      </p>
-                      <p className="text-sm text-gray-500 leading-relaxed font-medium font-['Noto_Sans_TC'] italic pt-2">
-                        {lang === 'zh'
-                          ? '※ 開發脈絡：初版開發在資源與時程的限制下，未能進行正式使用者訪談。設計決策主要基於競品機制分析與行為心理學推論，並在初版上線後透過問卷調查與訪談進行驗證與修正。'
-                          : '* Note: Due to initial timeline and resource limits, formal user interviews were not conducted early on. Design decisions relied on competitive analysis and behavioral psychology, and were verified post-launch through surveys and user interviews.'}
-                      </p>
+              {/* DUAL LOOP INTRO */}
+              <div style={{ marginTop: '40px', marginBottom: '40px' }}>
+                <div style={{
+                  fontSize: '11px',
+                  textTransform: 'uppercase',
+                  color: '#A0A0A0',
+                  fontWeight: 'bold',
+                  letterSpacing: '0.05em',
+                  marginBottom: '16px'
+                }}>
+                  {lang === 'zh' ? '兩條學習閉環' : 'Two Learning Loops'}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
+                  {/* Left Card */}
+                  <div style={{
+                    background: '#EEEDFE',
+                    borderRadius: '12px',
+                    padding: '20px 24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    boxSizing: 'border-box'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#7F77DD' }}></div>
+                      <span style={{ fontSize: '14px', fontWeight: '500', color: '#26215C' }}>
+                        {lang === 'zh' ? '閉環一｜刷題閉環' : 'Loop 1 | Practice Loop'}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#534AB7', fontWeight: '500' }}>
+                      {lang === 'zh' ? '主動練習路徑' : 'Active Practice Path'}
+                    </div>
+                    <div style={{ marginTop: '12px', fontSize: '12px', color: '#3C3489', lineHeight: '2', fontWeight: '500' }}>
+                      {lang === 'zh' 
+                        ? 'App 內刷題 → 即時解析 → 錯題庫收藏 → 複習強化'
+                        : 'In-App Practice → Instant Explanations → Wrong Question Collection → Review & Reinforcement'}
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#534AB7', marginTop: '8px', fontWeight: '500' }}>
+                      {lang === 'zh' ? '適合：日常自學、科目備考' : 'Best for: Daily self-study, exam preparation'}
                     </div>
                   </div>
 
-                  {/* Right Column: Team Composition */}
-                  <div className="space-y-4">
-                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-                      {lang === 'zh' ? '團隊組成' : 'Team Composition'}
-                    </h4>
-                    <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-['Noto_Sans_TC'] list-none pl-0">
-                      <li>• {lang === 'zh' ? 'UI/UX 設計師 (本人)' : 'UI/UX Designer (Self)'}</li>
-                      <li>• {lang === 'zh' ? '前端工程師 (本人兼任)' : 'Frontend Engineer (Self)'}</li>
-                      <li>• {lang === 'zh' ? '專案經理 x1' : 'Project Manager x1'}</li>
-                      <li>• {lang === 'zh' ? '後端工程師 x1' : 'Backend Engineer x1'}</li>
-                      <li>• {lang === 'zh' ? '內容工程師 x1' : 'Content Engineer x1'}</li>
-                    </ul>
+                  {/* Right Card */}
+                  <div style={{
+                    background: '#E1F5EE',
+                    borderRadius: '12px',
+                    padding: '20px 24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    boxSizing: 'border-box'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#1D9E75' }}></div>
+                      <span style={{ fontSize: '14px', fontWeight: '500', color: '#063D29' }}>
+                        {lang === 'zh' ? '閉環二｜複習閉環' : 'Loop 2 | Review Loop'}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#0F6E56', fontWeight: '500' }}>
+                      {lang === 'zh' ? '即時解惑路徑' : 'Instant Clarification Path'}
+                    </div>
+                    <div style={{ marginTop: '12px', fontSize: '12px', color: '#085041', lineHeight: '2', fontWeight: '500' }}>
+                      {lang === 'zh' 
+                        ? '實體考卷拍照 → AI 解析 → 相似題練習'
+                        : 'Photo of Paper Exam → AI Analysis → Similar Questions Practice'}
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#0F6E56', marginTop: '8px', fontWeight: '500' }}>
+                      {lang === 'zh' ? '適合：考後檢討、課堂練習後' : 'Best for: Post-exam review, class exercises'}
+                    </div>
                   </div>
                 </div>
 
-                {/* Deliverables Section (below both columns) */}
-                <div className="pt-8 border-t border-gray-100">
-                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
-                    {lang === 'zh' ? '交付物' : 'Deliverables'}
-                  </h4>
-                  <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm md:text-base text-gray-700 font-bold font-['Noto_Sans_TC'] list-disc pl-5">
-                    <li>{lang === 'zh' ? 'App 使用者介面設計' : 'Mobile App UI Design'}</li>
-                    <li>{lang === 'zh' ? 'App 互動元件原型' : 'Interactive Prototype'}</li>
-                    <li>{lang === 'zh' ? '設計系統與規範' : 'Design System & Styleguide'}</li>
-                    <li>{lang === 'zh' ? '使用者流程規劃' : 'User Flow Planning'}</li>
-                  </ul>
+                <div style={{
+                  fontSize: '13px',
+                  color: '#6B6B6B',
+                  fontStyle: 'italic',
+                  textAlign: 'center',
+                  marginTop: '16px'
+                }}>
+                  {lang === 'zh' 
+                    ? '兩條路徑共用同一套學習資產系統：XP 積分 · 段位排行 · 錯題庫 · 收藏庫'
+                    : 'Both paths share the same learning asset system: XP points · Tier ranking · Wrong questions · Collections'}
                 </div>
               </div>
-            </section>
 
+              {/* PROJECT BACKGROUND */}
+              <div style={{ marginTop: '40px', marginBottom: '40px' }}>
+                <p style={{
+                  fontSize: '16px',
+                  lineHeight: '1.8',
+                  color: '#374151',
+                  marginBottom: '16px',
+                  textAlign: 'justify'
+                }}>
+                  {lang === 'zh' 
+                    ? 'Ms Lin 是一款專為國高中全年級學生（國一至高三）打造的學習 App，題目內容涵蓋完整的六年學習階段，讓學生不論處於哪個年級、平時自學或升學備考，都能透過這款 App 建立持續性的學習習慣。'
+                    : 'Ms Lin is a practice app tailored for junior and senior high school students (grades 7-12). Covering six full years of curriculum, it helps students establish consistent study habits regardless of grade level or study purpose.'}
+                </p>
+                <p style={{
+                  fontSize: '16px',
+                  lineHeight: '1.8',
+                  color: '#374151',
+                  marginBottom: '0',
+                  textAlign: 'justify'
+                }}>
+                  {lang === 'zh'
+                    ? '台灣中學生的自主學習工具市場，長期以「題庫數量」作為主要競爭維度，卻鮮少有產品認真思考一個更根本的問題：學生為什麼願意持續回來使用？Ms Lin 從這個缺口出發，聚焦在「學習情境的完整性」——讓每一次學習行為，不論從哪個入口進入，都能形成有起點、有過程、有終點的完整閉環。'
+                    : 'The self-study tool market for high schoolers in Taiwan has long competed on "question bank quantity," but few products address a more fundamental question: why would students want to keep returning? Ms Lin starts from this gap, focusing on the "integrity of learning scenarios"—ensuring every study behavior, from any entry point, forms a complete loop with a clear beginning, process, and end.'}
+                </p>
+              </div>
+
+              {/* TWO-COLUMN INFO ROW */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-[64px]" style={{ marginTop: '40px', marginBottom: '32px' }}>
+                {/* Left - My Role */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#A0A0A0', fontWeight: 'bold', letterSpacing: '0.05em' }}>
+                    {lang === 'zh' ? '我的角色' : 'My Role'}
+                  </div>
+                  <div style={{ fontSize: '18px', fontWeight: '500', color: '#111827' }}>
+                    {lang === 'zh' ? 'UI/UX 設計師' : 'UI/UX Designer'}
+                  </div>
+                  <div style={{ fontSize: '14px', lineHeight: '1.6', color: '#4B5563' }}>
+                    {lang === 'zh' 
+                      ? '負責從產品策略定調、資訊架構、使用者流程規劃，到視覺設計系統與畫面產出的全流程。'
+                      : 'Responsible for the entire process from product strategy definition, information architecture, user flows planning, to visual design system and final deliverables.'}
+                  </div>
+                  <div style={{ fontSize: '12px', fontStyle: 'italic', color: '#A0A0A0', marginTop: '4px' }}>
+                    {lang === 'zh' ? '※ 前端工程師角色由本人兼任' : '* Frontend engineer role served concurrently by self'}
+                  </div>
+                </div>
+
+                {/* Right - Team Composition */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#A0A0A0', fontWeight: 'bold', letterSpacing: '0.05em' }}>
+                    {lang === 'zh' ? '團隊組成' : 'Team Composition'}
+                  </div>
+                  <div style={{ fontSize: '13px', lineHeight: '2', color: '#4B5563', fontWeight: '500' }}>
+                    <div>· {lang === 'zh' ? 'UI/UX 設計師（本人）' : 'UI/UX Designer (Self)'}</div>
+                    <div>· {lang === 'zh' ? '前端工程師（本人兼任）' : 'Frontend Engineer (Self, concurrently)'}</div>
+                    <div>· {lang === 'zh' ? 'PM × 1 / 後端工程師 × 1 / 內容工程師 × 1' : 'PM × 1 / Backend Engineer × 1 / Content Engineer × 1'}</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* TIMELINE */}
+              <div style={{ marginTop: '32px', marginBottom: '32px' }}>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center w-full" style={{ gap: '16px 0' }}>
+                  {/* Node 1 */}
+                  <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#7F77DD', marginRight: '12px' }}></div>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>2025.11 — 2026.01</span>
+                      <span style={{ fontSize: '13px', color: '#6B6B6B' }}>
+                        {lang === 'zh' ? '初版設計與開發' : 'Initial Design & Development'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Connector Line */}
+                  <div className="hidden sm:block flex-grow" style={{ height: '1px', borderTop: '1px solid #DDDDDD', margin: '0 24px' }}></div>
+                  <div className="block sm:hidden" style={{ width: '1px', height: '24px', borderLeft: '1px solid #DDDDDD', marginLeft: '3px' }}></div>
+
+                  {/* Node 2 */}
+                  <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#7F77DD', marginRight: '12px' }}></div>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>2026.02 — {lang === 'zh' ? '至今' : 'Present'}</span>
+                      <span style={{ fontSize: '13px', color: '#6B6B6B' }}>
+                        {lang === 'zh' ? '功能優化與新功能迭代' : 'Feature Optimization & Iteration'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* CONSTRAINT NOTE */}
+              <div style={{
+                border: '0.5px solid #EEEEEE',
+                borderRadius: '8px',
+                padding: '12px 16px',
+                background: '#FAFAFA',
+                fontSize: '13px',
+                color: '#6B6B6B',
+                lineHeight: '1.6',
+                marginTop: '32px',
+                boxSizing: 'border-box'
+              }}>
+                {lang === 'zh'
+                  ? '初版開發在資源與時程的限制下，未能進行正式使用者訪談。設計決策主要基於競品機制分析與行為心理學推論，並在初版上線後透過問卷調查與訪談進行驗證與修正。'
+                  : 'Due to resource and timeline constraints in the initial version, formal user interviews were not conducted early on. Design decisions were based on competitive analysis and behavioral psychology inferences, and were validated and refined through surveys and interviews post-launch.'}
+              </div>
+            </section>
             {/* 02 — Research */}
             <section
               id="research"

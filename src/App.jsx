@@ -3009,254 +3009,319 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
               </div>
 
-              {/* DUAL LOOP INTRO (ANIMATED SVG) & PROJECT BACKGROUND GRID */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center" style={{ marginTop: '40px', marginBottom: '40px' }}>
-                {/* Left Column: Text & Info */}
-                <div className="lg:col-span-5 flex flex-col justify-center">
-                  <p style={{
-                    fontSize: '16px',
-                    lineHeight: '1.8',
-                    color: '#374151',
-                    marginBottom: '16px',
-                    textAlign: 'justify'
-                  }}>
-                    {lang === 'zh' 
-                      ? 'Ms Lin 是一款專為國高中全年級學生（國一至高三）打造的學習 App，題目內容涵蓋完整的六年學習階段，讓學生不論處於哪個年級、平時自學或升學備考，都能透過這款 App 建立持續性的學習習慣。'
-                      : 'Ms Lin is a practice app tailored for junior and senior high school students (grades 7-12). Covering six full years of curriculum, it helps students establish consistent study habits regardless of grade level or study purpose.'}
-                  </p>
-                  <p style={{
-                    fontSize: '16px',
-                    lineHeight: '1.8',
-                    color: '#374151',
-                    marginBottom: '0',
-                    textAlign: 'justify'
-                  }}>
-                    {lang === 'zh'
-                      ? '台灣中學生的自主學習工具市場，長期以「題庫數量」作為主要競爭維度，卻鮮少有產品認真思考一個更根本的問題：學生為什麼願意持續回來使用？Ms Lin 從這個缺口出發，聚焦在「學習情境的完整性」——讓每一次學習行為，不論從哪個入口進入，都能形成有起點、有過程、有終點的完整閉環。'
-                      : 'The self-study tool market for high schoolers in Taiwan has long competed on "question bank quantity," but few products address a more fundamental question: why would students want to keep returning? Ms Lin starts from this gap, focusing on the "integrity of learning scenarios"—ensuring every study behavior, from any entry point, forms a complete loop with a clear beginning, process, and end.'}
-                  </p>
-
-                  {/* Info Blocks Under Text */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '32px' }}>
-                    {/* My Role */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                      <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#A0A0A0', fontWeight: 'bold', letterSpacing: '0.05em' }}>
-                        {lang === 'zh' ? '我的角色' : 'My Role'}
-                      </div>
-                      <div style={{ fontSize: '18px', fontWeight: '500', color: '#111827' }}>
-                        {lang === 'zh' ? 'UI/UX 設計師' : 'UI/UX Designer'}
-                      </div>
-                      <div style={{ fontSize: '14px', lineHeight: '1.6', color: '#4B5563' }}>
-                        {lang === 'zh' 
-                          ? '負責從產品策略定調、資訊架構、使用者流程規劃，到視覺設計系統與畫面產出的全流程。'
-                          : 'Responsible for the entire process from product strategy definition, information architecture, user flows planning, to visual design system and final deliverables.'}
-                      </div>
-                      <div style={{ fontSize: '12px', fontStyle: 'italic', color: '#A0A0A0', marginTop: '4px' }}>
-                        {lang === 'zh' ? '※ 前端工程師角色由本人兼任' : '* Frontend engineer role served concurrently by self'}
-                      </div>
-                    </div>
-
-                    {/* Team Composition */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                      <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#A0A0A0', fontWeight: 'bold', letterSpacing: '0.05em' }}>
-                        {lang === 'zh' ? '團隊組成' : 'Team Composition'}
-                      </div>
-                      <div style={{ fontSize: '13px', lineHeight: '2', color: '#4B5563', fontWeight: '500' }}>
-                        <div>· {lang === 'zh' ? 'UI/UX 設計師（本人）' : 'UI/UX Designer (Self)'}</div>
-                        <div>· {lang === 'zh' ? '前端工程師（本人兼任）' : 'Frontend Engineer (Self, concurrently)'}</div>
-                        <div>· {lang === 'zh' ? 'PM × 1 / 後端工程師 × 1 / 內容工程師 × 1' : 'PM × 1 / Backend Engineer × 1 / Content Engineer × 1'}</div>
-                      </div>
-                    </div>
+              {/* 4 Meta Cards */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8 mb-12">
+                {[
+                  { 
+                    label: lang === 'zh' ? '角色' : 'Role', 
+                    value: lang === 'zh' ? 'UI/UX 設計 & 前端開發' : 'UI/UX Design & Frontend Dev' 
+                  },
+                  { 
+                    label: lang === 'zh' ? '時程' : 'Timeline', 
+                    value: lang === 'zh' ? '2025.11 — 至今' : 'Nov 2025 — Present' 
+                  },
+                  { 
+                    label: lang === 'zh' ? '工具' : 'Tools', 
+                    value: 'Figma · React Native' 
+                  },
+                  { 
+                    label: lang === 'zh' ? '產業' : 'Industry', 
+                    value: lang === 'zh' ? '行動應用 · 教育科技' : 'Mobile App · EdTech' 
+                  }
+                ].map((item, idx) => (
+                  <div key={idx} className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex flex-col justify-center min-h-[100px] select-none">
+                    <span className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2 leading-none">{item.label}</span>
+                    <span className="text-sm md:text-base font-bold text-gray-800 leading-snug">{item.value}</span>
                   </div>
-                </div>
-
-                {/* Right Column: Animated SVG */}
-                <div className="lg:col-span-7 flex justify-center">
-                  <div style={{ width: '100%', maxWidth: '850px' }}>
-                    <svg id="animated-loops-svg" width="100%" viewBox="0 0 680 460" style={{ fontFamily: 'system-ui', display: 'block', userSelect: 'none' }}>
-                  <defs>
-                    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="context-stroke" />
-                    </marker>
-                  </defs>
-
-                  {/* Section Label */}
-                  <text id="sec-label" x="340" y="22" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#8E8E93', fontWeight: '500' }}>
-                    {lang === 'zh' ? '兩條學習閉環' : 'Two Learning Loops'}
-                  </text>
-
-                  {/* LOOP 1 Header */}
-                  <g id="l1-header">
-                    <text x="22" y="52" textAnchor="middle" dominantBaseline="central" style={{ textAnchor: 'start', fontSize: '14px', fontWeight: 500, fill: '#26215C' }}>
-                      {lang === 'zh' ? '閉環一｜刷題閉環' : 'Loop 1 | Practice Loop'}
-                    </text>
-                    <text x="22" y="68" textAnchor="middle" dominantBaseline="central" style={{ textAnchor: 'start', fontSize: '12px', fill: '#8E8E93' }}>
-                      {lang === 'zh' ? '主動練習路徑' : 'Active Practice Path'}
-                    </text>
-                  </g>
-
-                  {/* Loop 1 Nodes */}
-                  <g id="l1-n1">
-                    <rect x="22" y="82" width="120" height="56" rx="12" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
-                    <text x="82" y="104" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#3C3489' }}>
-                      {lang === 'zh' ? 'App 內刷題' : 'In-App Practice'}
-                    </text>
-                    <text x="82" y="122" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#534AB7' }}>
-                      {lang === 'zh' ? '多科互動題型' : 'Interactive Types'}
-                    </text>
-                  </g>
-
-                  <line id="l1-a1" x1="168" y1="110" x2="142" y2="110" stroke="#7F77DD" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
-
-                  <g id="l1-n2">
-                    <rect x="168" y="82" width="120" height="56" rx="12" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
-                    <text x="228" y="104" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#3C3489' }}>
-                      {lang === 'zh' ? '即時解析' : 'Instant Analysis'}
-                    </text>
-                    <text x="228" y="122" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#534AB7' }}>
-                      {lang === 'zh' ? '答案 + 詳解' : 'Answer + Solution'}
-                    </text>
-                  </g>
-
-                  <line id="l1-a2" x1="314" y1="110" x2="288" y2="110" stroke="#7F77DD" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
-
-                  <g id="l1-n3">
-                    <rect x="314" y="82" width="120" height="56" rx="12" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
-                    <text x="374" y="104" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#3C3489' }}>
-                      {lang === 'zh' ? '錯題庫收藏' : 'Incorrect Save'}
-                    </text>
-                    <text x="374" y="122" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#534AB7' }}>
-                      {lang === 'zh' ? '建立學習資產' : 'Build Learning Asset'}
-                    </text>
-                  </g>
-
-                  {/* Loop 1 Return */}
-                  <path id="l1-arc" d="M226 138 Q226 160 300 160 Q374 160 374 138" stroke="#AFA9EC" strokeWidth="1" strokeDasharray="4 3" markerStart="url(#arrow)" fill="none" />
-                  <text id="l1-arc-label" x="300" y="175" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#8E8E93' }}>
-                    {lang === 'zh' ? '↻ 複習強化，再來一輪' : '↻ Reinforce & repeat'}
-                  </text>
-
-                  {/* Loop 1 N3 to Shared */}
-                  <line id="l1-to-shared" x1="460" y1="200" x2="434" y2="110" stroke="#7F77DD" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
-
-                  {/* LOOP 2 Header */}
-                  <g id="l2-header">
-                    <text x="22" y="278" textAnchor="middle" dominantBaseline="central" style={{ textAnchor: 'start', fontSize: '14px', fontWeight: 500, fill: '#063D29' }}>
-                      {lang === 'zh' ? '閉環二｜複習閉環' : 'Loop 2 | Review Loop'}
-                    </text>
-                    <text x="22" y="294" textAnchor="middle" dominantBaseline="central" style={{ textAnchor: 'start', fontSize: '12px', fill: '#8E8E93' }}>
-                      {lang === 'zh' ? '即時解惑路徑' : 'Instant Clarification'}
-                    </text>
-                  </g>
-
-                  {/* Loop 2 Nodes */}
-                  <g id="l2-n1">
-                    <rect x="22" y="308" width="120" height="56" rx="12" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
-                    <text x="82" y="330" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#085041' }}>
-                      {lang === 'zh' ? '考卷拍照' : 'Photo Graded Paper'}
-                    </text>
-                    <text x="82" y="350" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#0F6E56' }}>
-                      {lang === 'zh' ? '即時上傳解惑' : 'Instant Explanation'}
-                    </text>
-                  </g>
-
-                  <line id="l2-a1" x1="168" y1="336" x2="142" y2="336" stroke="#1D9E75" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
-
-                  <g id="l2-n2">
-                    <rect x="168" y="308" width="120" height="56" rx="12" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
-                    <text x="228" y="330" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#085041' }}>
-                      {lang === 'zh' ? 'AI 解析' : 'AI Analysis'}
-                    </text>
-                    <text x="228" y="350" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#0F6E56' }}>
-                      {lang === 'zh' ? '辨識 + 詳解' : 'OCR + Solution'}
-                    </text>
-                  </g>
-
-                  <line id="l2-a2" x1="314" y1="336" x2="288" y2="336" stroke="#1D9E75" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
-
-                  <g id="l2-n3">
-                    <rect x="314" y="308" width="120" height="56" rx="12" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
-                    <text x="374" y="330" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#085041' }}>
-                      {lang === 'zh' ? '相似題練習' : 'Similar Practice'}
-                    </text>
-                    <text x="374" y="350" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#0F6E56' }}>
-                      {lang === 'zh' ? '弱點強化' : 'Weakness Reinforcement'}
-                    </text>
-                  </g>
-
-                  {/* Loop 2 Return */}
-                  <path id="l2-arc" d="M226 308 Q226 286 300 286 Q374 286 374 308" stroke="#5DCAA5" strokeWidth="1" strokeDasharray="4 3" markerStart="url(#arrow)" fill="none" />
-                  <text id="l2-arc-label" x="300" y="276" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#8E8E93' }}>
-                    {lang === 'zh' ? '↻ 加入錯題庫，繼續練習' : '↻ Add to wrong book & practice'}
-                  </text>
-
-                  {/* Loop 2 N3 to Shared */}
-                  <line id="l2-to-shared" x1="460" y1="248" x2="434" y2="336" stroke="#1D9E75" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
-
-                  {/* Shared Card */}
-                  <g id="shared-card">
-                    <rect x="460" y="196" width="198" height="56" rx="16" fill="#FAEEDA" stroke="#BA7517" strokeWidth="1" />
-                    <text x="559" y="218" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#412402' }}>
-                      {lang === 'zh' ? '共用學習資產系統' : 'Shared Learning Asset System'}
-                    </text>
-                    <text x="559" y="238" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#633806' }}>
-                      {lang === 'zh' ? 'XP · 段位排行 · 錯題庫 · 收藏庫' : 'XP · Ranking · Wrong Book · Saved'}
-                    </text>
-                  </g>
-                </svg>
-                  </div>
-                </div>
+                ))}
               </div>
 
-
-
-              {/* TIMELINE */}
-              <div style={{ marginTop: '32px', marginBottom: '32px' }}>
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center w-full" style={{ gap: '16px 0' }}>
-                  {/* Node 1 */}
-                  <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#7F77DD', marginRight: '12px' }}></div>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <span style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>2025.11 — 2026.01</span>
-                      <span style={{ fontSize: '13px', color: '#6B6B6B' }}>
-                        {lang === 'zh' ? '初版設計與開發' : 'Initial Design & Development'}
-                      </span>
-                    </div>
+              {/* Narrative & Team Info Block */}
+              <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 lg:gap-20 mb-16">
+                {/* Left Column: Background & Constraints */}
+                <div className="space-y-8">
+                  <div>
+                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
+                      {lang === 'zh' ? '專案背景' : 'PROJECT BACKGROUND'}
+                    </h4>
+                    <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC'] mb-4 text-justify">
+                      {lang === 'zh' 
+                        ? 'Ms Lin 是一款專為國高中全年級學生（國一至高三）打造的學習 App，題目內容涵蓋完整的六年學習階段，讓學生不論處於哪個年級、平時自學或升學備考，都能透過這款 App 建立持續性的學習習慣。'
+                        : 'Ms Lin is a practice app tailored for junior and senior high school students (grades 7-12). Covering six full years of curriculum, it helps students establish consistent study habits regardless of grade level or study purpose.'}
+                    </p>
+                    <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC'] text-justify">
+                      {lang === 'zh'
+                        ? '台灣中學生的自主學習工具市場，長期以「題庫數量」作為主要競爭維度，卻鮮少有產品認真思考一個更根本的問題：學生為什麼願意持續回來使用？Ms Lin 從這個缺口出發，聚焦在「學習情境的完整性」——讓每一次學習行為，不論從哪個入口進入，都能形成有起點、有過程、有終點的完整閉環。'
+                        : 'The self-study tool market for high schoolers in Taiwan has long competed on "question bank quantity," but few products address a more fundamental question: why would students want to keep returning? Ms Lin starts from this gap, focusing on the "integrity of learning scenarios"—ensuring every study behavior, from any entry point, forms a complete loop with a clear beginning, process, and end.'}
+                    </p>
                   </div>
 
-                  {/* Connector Line */}
-                  <div className="hidden sm:block flex-grow" style={{ height: '1px', borderTop: '1px solid #DDDDDD', margin: '0 24px' }}></div>
-                  <div className="block sm:hidden" style={{ width: '1px', height: '24px', borderLeft: '1px solid #DDDDDD', marginLeft: '3px' }}></div>
+                  <div>
+                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
+                      {lang === 'zh' ? '設計限制與挑戰' : 'DESIGN CONSTRAINTS & CHALLENGES'}
+                    </h4>
+                    <div style={{
+                      border: '0.5px solid #EEEEEE',
+                      borderRadius: '12px',
+                      padding: '16px 20px',
+                      background: '#FAFAFA',
+                      fontSize: '14px',
+                      color: '#4B5563',
+                      lineHeight: '1.7',
+                      boxSizing: 'border-box'
+                    }}>
+                      {lang === 'zh'
+                        ? '初版開發在資源與時程的限制下，未能進行正式使用者訪談。設計決策主要基於競品機制分析與行為心理學推論，並在初版上線後透過問卷調查與訪談進行驗證與修正。'
+                        : 'Due to resource and timeline constraints in the initial version, formal user interviews were not conducted early on. Design decisions were based on competitive analysis and behavioral psychology inferences, and were validated and refined through surveys and interviews post-launch.'}
+                    </div>
+                  </div>
+                </div>
 
-                  {/* Node 2 */}
-                  <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#7F77DD', marginRight: '12px' }}></div>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <span style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>2026.02 — {lang === 'zh' ? '至今' : 'Present'}</span>
-                      <span style={{ fontSize: '13px', color: '#6B6B6B' }}>
-                        {lang === 'zh' ? '功能優化與新功能迭代' : 'Feature Optimization & Iteration'}
-                      </span>
+                {/* Right Column: Team & Timeline Details */}
+                <div className="space-y-8">
+                  <div>
+                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
+                      {lang === 'zh' ? '團隊組成' : 'TEAM COMPOSITION'}
+                    </h4>
+                    <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-['Noto_Sans_TC'] list-none pl-0">
+                      <li>• {lang === 'zh' ? 'UI/UX 設計師（本人）' : 'UI/UX Designer (Self)'}</li>
+                      <li>• {lang === 'zh' ? '前端工程師（本人兼任）' : 'Frontend Engineer (Self, concurrently)'}</li>
+                      <li>• PM × 1 / {lang === 'zh' ? '後端工程師' : 'Backend Engineer'} × 1 / {lang === 'zh' ? '內容工程師' : 'Content Engineer'} × 1</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
+                      {lang === 'zh' ? '專案時程' : 'PROJECT TIMELINE'}
+                    </h4>
+                    <div className="space-y-4">
+                      <div className="flex items-start">
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#7F77DD', marginTop: '6px', marginRight: '12px', flexShrink: 0 }}></div>
+                        <div className="flex flex-col">
+                          <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#111827' }}>2025.11 — 2026.01</span>
+                          <span style={{ fontSize: '13px', color: '#6B6B6B' }}>
+                            {lang === 'zh' ? '初版設計與開發' : 'Initial Design & Development'}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-start">
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#7F77DD', marginTop: '6px', marginRight: '12px', flexShrink: 0 }}></div>
+                        <div className="flex flex-col">
+                          <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#111827' }}>2026.02 — {lang === 'zh' ? '至今' : 'Present'}</span>
+                          <span style={{ fontSize: '13px', color: '#6B6B6B' }}>
+                            {lang === 'zh' ? '功能優化與新功能迭代' : 'Feature Optimization & Iteration'}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* CONSTRAINT NOTE */}
-              <div style={{
-                border: '0.5px solid #EEEEEE',
-                borderRadius: '8px',
-                padding: '12px 16px',
-                background: '#FAFAFA',
-                fontSize: '13px',
-                color: '#6B6B6B',
-                lineHeight: '1.6',
-                marginTop: '32px',
-                boxSizing: 'border-box'
-              }}>
-                {lang === 'zh'
-                  ? '初版開發在資源與時程的限制下，未能進行正式使用者訪談。設計決策主要基於競品機制分析與行為心理學推論，並在初版上線後透過問卷調查與訪談進行驗證與修正。'
-                  : 'Due to resource and timeline constraints in the initial version, formal user interviews were not conducted early on. Design decisions were based on competitive analysis and behavioral psychology inferences, and were validated and refined through surveys and interviews post-launch.'}
+              {/* Metrics Block */}
+              <div 
+                style={{ 
+                  marginTop: '48px',
+                  '--color-text-primary': '#111827',
+                  '--color-text-secondary': '#4B5563',
+                  '--color-text-tertiary': '#9CA3AF',
+                  '--color-background-secondary': '#FAFAFA',
+                  '--color-border-tertiary': '#E5E7EB',
+                  '--border-radius-lg': '16px'
+                }}
+              >
+                {/* 專案成果 - Enlarge to 2nd level heading */}
+                <h4 style={{ fontSize: '28px', fontWeight: 'bold', fontFamily: "'Inter', 'Noto Sans TC', sans-serif", color: 'var(--color-text-primary)', marginBottom: '8px', letterSpacing: '-0.02em', selectNone: true }}>
+                  {lang === 'zh' ? '專案成果' : 'PROJECT OUTCOMES'}
+                </h4>
+                {/* 前期研究驗證 - Subheading */}
+                <div style={{ fontSize: '16px', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '24px' }}>
+                  {lang === 'zh' ? '前期研究驗證' : 'Pre-Research Validation'}
+                </div>
+
+                {/* Side-by-Side Grid Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                  {/* Left Column: Loop Diagram */}
+                  <div className="lg:col-span-9 flex justify-start w-full">
+                    <div style={{ width: '100%', maxWidth: '920px', background: 'none', padding: 0, boxSizing: 'border-box' }}>
+                      <svg id="animated-loops-svg" width="100%" viewBox="22 0 658 330" style={{ fontFamily: 'system-ui', display: 'block', userSelect: 'none' }}>
+                        <defs>
+                          <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="context-stroke" />
+                          </marker>
+                        </defs>
+
+                        {/* Section Label */}
+                        <text id="sec-label" x="340" y="22" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#8E8E93', fontWeight: '500' }}>
+                          {lang === 'zh' ? '兩條學習閉環' : 'Two Learning Loops'}
+                        </text>
+
+                        {/* LOOP 1 Header */}
+                        <g id="l1-header">
+                          <text x="22" y="52" textAnchor="middle" dominantBaseline="central" style={{ textAnchor: 'start', fontSize: '14px', fontWeight: 500, fill: '#26215C' }}>
+                            {lang === 'zh' ? '閉環一｜刷題閉環' : 'Loop 1 | Practice Loop'}
+                          </text>
+                          <text x="22" y="68" textAnchor="middle" dominantBaseline="central" style={{ textAnchor: 'start', fontSize: '12px', fill: '#8E8E93' }}>
+                            {lang === 'zh' ? '主動練習路徑' : 'Active Practice Path'}
+                          </text>
+                        </g>
+
+                        {/* Loop 1 Nodes */}
+                        <g id="l1-n1">
+                          <rect x="22" y="82" width="120" height="56" rx="12" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
+                          <text x="82" y="104" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#3C3489' }}>
+                            {lang === 'zh' ? 'App 內刷題' : 'In-App Practice'}
+                          </text>
+                          <text x="82" y="122" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#534AB7' }}>
+                            {lang === 'zh' ? '多科互動題型' : 'Interactive Types'}
+                          </text>
+                        </g>
+
+                        <line id="l1-a1" x1="168" y1="110" x2="142" y2="110" stroke="#7F77DD" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
+
+                        <g id="l1-n2">
+                          <rect x="168" y="82" width="120" height="56" rx="12" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
+                          <text x="228" y="104" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#3C3489' }}>
+                            {lang === 'zh' ? '即時解析' : 'Instant Analysis'}
+                          </text>
+                          <text x="228" y="122" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#534AB7' }}>
+                            {lang === 'zh' ? '答案 + 詳解' : 'Answer + Solution'}
+                          </text>
+                        </g>
+
+                        <line id="l1-a2" x1="314" y1="110" x2="288" y2="110" stroke="#7F77DD" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
+
+                        <g id="l1-n3">
+                          <rect x="314" y="82" width="120" height="56" rx="12" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
+                          <text x="374" y="104" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#3C3489' }}>
+                            {lang === 'zh' ? '錯題庫收藏' : 'Incorrect Save'}
+                          </text>
+                          <text x="374" y="122" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#534AB7' }}>
+                            {lang === 'zh' ? '建立學習資產' : 'Build Learning Asset'}
+                          </text>
+                        </g>
+
+                        {/* Loop 1 Return */}
+                        <path id="l1-arc" d="M226 138 Q226 160 300 160 Q374 160 374 138" stroke="#AFA9EC" strokeWidth="1" strokeDasharray="4 3" markerStart="url(#arrow)" fill="none" />
+                        <text id="l1-arc-label" x="300" y="175" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#8E8E93' }}>
+                          {lang === 'zh' ? '↻ 複習強化，再來一輪' : '↻ Reinforce & repeat'}
+                        </text>
+
+                        {/* Loop 1 N3 to Shared */}
+                        <line id="l1-to-shared" x1="460" y1="170" x2="434" y2="110" stroke="#7F77DD" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
+
+                        {/* LOOP 2 Header (shifted by -70px) */}
+                        <g id="l2-header">
+                          <text x="22" y="208" textAnchor="middle" dominantBaseline="central" style={{ textAnchor: 'start', fontSize: '14px', fontWeight: 500, fill: '#063D29' }}>
+                            {lang === 'zh' ? '閉環二｜複習閉環' : 'Loop 2 | Review Loop'}
+                          </text>
+                          <text x="22" y="224" textAnchor="middle" dominantBaseline="central" style={{ textAnchor: 'start', fontSize: '12px', fill: '#8E8E93' }}>
+                            {lang === 'zh' ? '即時解惑路徑' : 'Instant Clarification'}
+                          </text>
+                        </g>
+
+                        {/* Loop 2 Nodes (shifted by -70px) */}
+                        <g id="l2-n1">
+                          <rect x="22" y="238" width="120" height="56" rx="12" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
+                          <text x="82" y="260" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#085041' }}>
+                            {lang === 'zh' ? '考卷拍照' : 'Photo Graded Paper'}
+                          </text>
+                          <text x="82" y="280" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#0F6E56' }}>
+                            {lang === 'zh' ? '即時上傳解惑' : 'Instant Explanation'}
+                          </text>
+                        </g>
+
+                        <line id="l2-a1" x1="168" y1="266" x2="142" y2="266" stroke="#1D9E75" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
+
+                        <g id="l2-n2">
+                          <rect x="168" y="238" width="120" height="56" rx="12" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
+                          <text x="228" y="260" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#085041' }}>
+                            {lang === 'zh' ? 'AI 解析' : 'AI Analysis'}
+                          </text>
+                          <text x="228" y="280" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#0F6E56' }}>
+                            {lang === 'zh' ? '辨識 + 詳解' : 'OCR + Solution'}
+                          </text>
+                        </g>
+
+                        <line id="l2-a2" x1="314" y1="266" x2="288" y2="266" stroke="#1D9E75" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
+
+                        <g id="l2-n3">
+                          <rect x="314" y="238" width="120" height="56" rx="12" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
+                          <text x="374" y="260" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#085041' }}>
+                            {lang === 'zh' ? '相似題練習' : 'Similar Practice'}
+                          </text>
+                          <text x="374" y="280" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#0F6E56' }}>
+                            {lang === 'zh' ? '弱點強化' : 'Weakness Reinforcement'}
+                          </text>
+                        </g>
+
+                        {/* Loop 2 Return (shifted by -70px) */}
+                        <path id="l2-arc" d="M226 238 Q226 216 300 216 Q374 216 374 238" stroke="#5DCAA5" strokeWidth="1" strokeDasharray="4 3" markerStart="url(#arrow)" fill="none" />
+                        <text id="l2-arc-label" x="300" y="206" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#8E8E93' }}>
+                          {lang === 'zh' ? '↻ 加入錯題庫，繼續練習' : '↻ Add to wrong book & practice'}
+                        </text>
+
+                        {/* Loop 2 N3 to Shared */}
+                        <line id="l2-to-shared" x1="460" y1="218" x2="434" y2="266" stroke="#1D9E75" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
+
+                        {/* Shared Card (shifted by -30px) */}
+                        <g id="shared-card">
+                          <rect x="460" y="166" width="198" height="56" rx="16" fill="#FAEEDA" stroke="#BA7517" strokeWidth="1" />
+                          <text x="559" y="188" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#412402' }}>
+                            {lang === 'zh' ? '共用學習資產系統' : 'Shared Learning Asset System'}
+                          </text>
+                          <text x="559" y="208" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#633806' }}>
+                            {lang === 'zh' ? 'XP · 段位排行 · 錯題庫 · 收藏庫' : 'XP · Ranking · Wrong Book · Saved'}
+                          </text>
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Right Column: 3 Metrics Cards Stacked Vertically */}
+                  <div className="lg:col-span-3 flex flex-col gap-4 w-full">
+                    {/* Card 1 */}
+                    <div style={{ background: 'none', padding: '8px 0' }}>
+                      <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
+                        {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
+                      </div>
+                      <div style={{ fontSize: '64px', fontWeight: 'bold', color: 'var(--color-text-primary)', lineHeight: '1.1' }}>
+                        50<span style={{ fontSize: '24px', fontWeight: '400', color: 'var(--color-text-secondary)' }}>%</span>
+                      </div>
+                      <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
+                        {lang === 'zh' ? '認為五題一輪 loop 完成感適中' : 'Felt a 5-question loop offered a balanced sense of completion'}
+                      </div>
+                    </div>
+
+                    {/* Card 2 */}
+                    <div style={{ background: 'none', padding: '8px 0' }}>
+                      <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
+                        {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
+                      </div>
+                      <div style={{ fontSize: '64px', fontWeight: 'bold', color: 'var(--color-text-primary)', lineHeight: '1.1' }}>
+                        66.7<span style={{ fontSize: '24px', fontWeight: '400', color: 'var(--color-text-secondary)' }}>%</span>
+                      </div>
+                      <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
+                        {lang === 'zh' ? '認為步驟解題密度合適，能在關鍵折點提供提示' : 'Found step-by-step guidance density appropriate, offering hints at key pivots'}
+                      </div>
+                    </div>
+
+                    {/* Card 3 */}
+                    <div style={{ background: 'none', padding: '8px 0' }}>
+                      <div style={{ background: 'transparent', color: 'var(--color-text-secondary)', border: '0.5px solid var(--color-border-tertiary)', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
+                        {lang === 'zh' ? '問卷訪談' : 'Survey & Interview'}
+                      </div>
+                      <div style={{ fontSize: '64px', fontWeight: 'bold', color: 'var(--color-text-primary)', lineHeight: '1.1' }}>
+                        7<span style={{ fontSize: '24px', fontWeight: '400', color: 'var(--color-text-secondary)' }}> {lang === 'zh' ? '人' : ' users'}</span>
+                      </div>
+                      <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
+                        {lang === 'zh' ? '參與前期問卷與使用者訪談' : 'Participated in pre-research surveys and user interviews'}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+
             </section>
             {/* 02 — Research */}
             <section

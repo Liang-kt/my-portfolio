@@ -2643,6 +2643,9 @@ const SPLIT_VIEW_CHIPS = [
           'l2-arc-label': { id: 'l2-arc-label', type: 'fade', delay: 6200 },
           'l2-to-shared': { id: 'l2-to-shared', type: 'draw', delay: 5800 },
           'shared-card': { id: 'shared-card', type: 'scale', delay: 6500 },
+          'metric-card-1': { id: 'metric-card-1', type: 'fade', delay: 7000 },
+          'metric-card-2': { id: 'metric-card-2', type: 'fade', delay: 7300 },
+          'metric-card-3': { id: 'metric-card-3', type: 'fade', delay: 7600 },
         };
 
         const getElementLength = (el) => {
@@ -3281,7 +3284,7 @@ const SPLIT_VIEW_CHIPS = [
                   {/* Right Column: 3 Metrics Cards Stacked Vertically */}
                   <div className="lg:col-span-4 flex flex-col gap-8 lg:gap-12 w-full">
                     {/* Card 1 */}
-                    <div style={{ background: 'none', padding: '12px 0' }}>
+                    <div id="metric-card-1" style={{ background: 'none', padding: '12px 0' }}>
                       <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
                         {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
                       </div>
@@ -3294,7 +3297,7 @@ const SPLIT_VIEW_CHIPS = [
                     </div>
 
                     {/* Card 2 */}
-                    <div style={{ background: 'none', padding: '12px 0' }}>
+                    <div id="metric-card-2" style={{ background: 'none', padding: '12px 0' }}>
                       <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
                         {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
                       </div>
@@ -3307,7 +3310,7 @@ const SPLIT_VIEW_CHIPS = [
                     </div>
 
                     {/* Card 3 */}
-                    <div style={{ background: 'none', padding: '12px 0' }}>
+                    <div id="metric-card-3" style={{ background: 'none', padding: '12px 0' }}>
                       <div style={{ background: 'transparent', color: 'var(--color-text-secondary)', border: '0.5px solid var(--color-border-tertiary)', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
                         {lang === 'zh' ? '問卷訪談' : 'Survey & Interview'}
                       </div>

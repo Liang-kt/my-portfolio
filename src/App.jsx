@@ -3140,9 +3140,9 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
 
                 {/* Side-by-Side Grid Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
                   {/* Left Column: Loop Diagram */}
-                  <div className="lg:col-span-9 flex justify-start w-full">
+                  <div className="lg:col-span-8 flex justify-start w-full">
                     <div style={{ width: '100%', maxWidth: '920px', background: 'none', padding: 0, boxSizing: 'border-box' }}>
                       <svg id="animated-loops-svg" width="100%" viewBox="22 0 658 330" style={{ fontFamily: 'system-ui', display: 'block', userSelect: 'none' }}>
                         <defs>
@@ -3279,9 +3279,9 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
 
                   {/* Right Column: 3 Metrics Cards Stacked Vertically */}
-                  <div className="lg:col-span-3 flex flex-col gap-4 w-full">
+                  <div className="lg:col-span-4 flex flex-col gap-8 lg:gap-12 w-full">
                     {/* Card 1 */}
-                    <div style={{ background: 'none', padding: '8px 0' }}>
+                    <div style={{ background: 'none', padding: '12px 0' }}>
                       <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
                         {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
                       </div>
@@ -3294,7 +3294,7 @@ const SPLIT_VIEW_CHIPS = [
                     </div>
 
                     {/* Card 2 */}
-                    <div style={{ background: 'none', padding: '8px 0' }}>
+                    <div style={{ background: 'none', padding: '12px 0' }}>
                       <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
                         {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
                       </div>
@@ -3307,7 +3307,7 @@ const SPLIT_VIEW_CHIPS = [
                     </div>
 
                     {/* Card 3 */}
-                    <div style={{ background: 'none', padding: '8px 0' }}>
+                    <div style={{ background: 'none', padding: '12px 0' }}>
                       <div style={{ background: 'transparent', color: 'var(--color-text-secondary)', border: '0.5px solid var(--color-border-tertiary)', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
                         {lang === 'zh' ? '問卷訪談' : 'Survey & Interview'}
                       </div>

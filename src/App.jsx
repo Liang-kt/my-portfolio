@@ -2595,6 +2595,13 @@ const SPLIT_VIEW_CHIPS = [
     const MsLinProjectView = ({ activeItem, lang, transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, navigateTo }) => {
       const [activeSection, setActiveSection] = useState('overview');
       const [expandedCards, setExpandedCards] = useState([false, false, false]);
+      const [activeLoopOneTab, setActiveLoopOneTab] = useState('1A');
+
+      const loopOneTabs = [
+        { id: '1A', num: 'FEATURE 1A', zhLabel: '刷題 Loop', enLabel: 'Practice Loop' },
+        { id: '1B', num: 'FEATURE 1B', zhLabel: '多科互動題型', enLabel: 'Interactive Questions' },
+        { id: '1C', num: 'FEATURE 1C', zhLabel: '錯題庫與收藏庫', enLabel: 'Incorrect & Saved' }
+      ];
 
       const toggleCard = (idx) => {
         setExpandedCards(prev => {
@@ -2610,6 +2617,143 @@ const SPLIT_VIEW_CHIPS = [
       const [chineseAllExpanded, setChineseAllExpanded] = useState(false);
       const [englishAllExpanded, setEnglishAllExpanded] = useState(false);
       const sliderContainerRef = useRef(null);
+
+      useEffect(() => {
+        const svg = document.getElementById('animated-loops-svg');
+        if (!svg) return;
+
+        const elements = {
+          'sec-label': { id: 'sec-label', type: 'fade', delay: 0 },
+          'l1-header': { id: 'l1-header', type: 'fade', delay: 200 },
+          'l1-n1': { id: 'l1-n1', type: 'fade', delay: 400 },
+          'l1-a1': { id: 'l1-a1', type: 'draw', delay: 800 },
+          'l1-n2': { id: 'l1-n2', type: 'fade', delay: 1300 },
+          'l1-a2': { id: 'l1-a2', type: 'draw', delay: 1700 },
+          'l1-n3': { id: 'l1-n3', type: 'fade', delay: 2200 },
+          'l1-arc': { id: 'l1-arc', type: 'draw', delay: 2600 },
+          'l1-arc-label': { id: 'l1-arc-label', type: 'fade', delay: 3100 },
+          'l1-to-shared': { id: 'l1-to-shared', type: 'draw', delay: 2700 },
+          'l2-header': { id: 'l2-header', type: 'fade', delay: 3300 },
+          'l2-n1': { id: 'l2-n1', type: 'fade', delay: 3500 },
+          'l2-a1': { id: 'l2-a1', type: 'draw', delay: 3900 },
+          'l2-n2': { id: 'l2-n2', type: 'fade', delay: 4400 },
+          'l2-a2': { id: 'l2-a2', type: 'draw', delay: 4800 },
+          'l2-n3': { id: 'l2-n3', type: 'fade', delay: 5300 },
+          'l2-arc': { id: 'l2-arc', type: 'draw', delay: 5700 },
+          'l2-arc-label': { id: 'l2-arc-label', type: 'fade', delay: 6200 },
+          'l2-to-shared': { id: 'l2-to-shared', type: 'draw', delay: 5800 },
+          'shared-card': { id: 'shared-card', type: 'scale', delay: 6500 },
+        };
+
+        const getElementLength = (el) => {
+          if (el.tagName === 'path') {
+            return el.getTotalLength();
+          } else if (el.tagName === 'line') {
+            const x1 = parseFloat(el.getAttribute('x1') || '0');
+            const y1 = parseFloat(el.getAttribute('y1') || '0');
+            const x2 = parseFloat(el.getAttribute('x2') || '0');
+            const y2 = parseFloat(el.getAttribute('y2') || '0');
+            return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+          }
+          return 0;
+        };
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Initialize styles
+        Object.keys(elements).forEach(key => {
+          const item = elements[key];
+          const el = document.getElementById(item.id);
+          if (!el) return;
+
+          if (prefersReducedMotion) {
+            el.style.opacity = '1';
+            if (item.type === 'draw') {
+              el.style.strokeDasharray = 'none';
+              el.style.strokeDashoffset = '0';
+            } else {
+              el.style.transform = 'none';
+            }
+            return;
+          }
+
+          // Initial state
+          if (item.type === 'draw') {
+            const len = getElementLength(el);
+            el.style.strokeDasharray = `${len} ${len}`;
+            el.style.strokeDashoffset = `${len}`;
+            el.style.opacity = '0';
+            el.style.transition = 'stroke-dashoffset 800ms ease-in-out, opacity 10ms linear';
+          } else if (item.type === 'fade') {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(8px)';
+            el.style.transition = 'opacity 500ms ease-out, transform 500ms ease-out';
+          } else if (item.type === 'scale') {
+            el.style.opacity = '0';
+            el.style.transform = 'scale(1.04)';
+            el.style.transformOrigin = '559px 224px';
+            el.style.transition = 'opacity 500ms ease-out, transform 500ms ease-out';
+          }
+        });
+
+        if (prefersReducedMotion) return;
+
+        const timeouts = [];
+
+        const startAnimation = () => {
+          // Run animations
+          Object.keys(elements).forEach(key => {
+            const item = elements[key];
+            const el = document.getElementById(item.id);
+            if (!el) return;
+
+            const t = setTimeout(() => {
+              el.style.opacity = '1';
+              if (item.type === 'draw') {
+                el.style.strokeDashoffset = '0';
+              } else if (item.type === 'fade') {
+                el.style.transform = 'translateY(0)';
+              } else if (item.type === 'scale') {
+                el.style.transform = 'scale(1)';
+              }
+
+              // Cleanup transform
+              setTimeout(() => {
+                if (item.type === 'fade' || item.type === 'scale') {
+                  el.style.transform = 'none';
+                }
+              }, 500);
+            }, item.delay);
+
+            timeouts.push(t);
+          });
+        };
+
+        // Trigger animation when scrolled into view, delayed to wait for navigation transition
+        let observer;
+        const initTimeout = setTimeout(() => {
+          observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                startAnimation();
+                observer.unobserve(entry.target);
+              }
+            });
+          }, {
+            root: null,
+            threshold: 0.15
+          });
+          observer.observe(svg);
+        }, 350);
+
+        return () => {
+          clearTimeout(initTimeout);
+          timeouts.forEach(clearTimeout);
+          if (observer) {
+            observer.disconnect();
+          }
+        };
+      }, [lang]);
 
       useEffect(() => {
         const sections = ['overview', 'research', 'strategy', 'design', 'outcomes'];
@@ -2831,17 +2975,8 @@ const SPLIT_VIEW_CHIPS = [
                 boxSizing: 'border-box'
               }}
             >
-              {/* SECTION LABEL */}
-              <div style={{
-                fontSize: '11px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-                color: '#A0A0A0',
-                marginBottom: '40px',
-                fontWeight: 'bold'
-              }}>
-                01 — 專案概述
-              </div>
+              {/* SECTION HEADER */}
+              <ProjectSectionHeader num="01" title={lang === 'zh' ? '專案概述' : 'Project Overview'} />
 
               {/* CORE DESIGN QUESTION */}
               <div style={{
@@ -2874,148 +3009,206 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
               </div>
 
-              {/* DUAL LOOP INTRO */}
-              <div style={{ marginTop: '40px', marginBottom: '40px' }}>
-                <div style={{
-                  fontSize: '11px',
-                  textTransform: 'uppercase',
-                  color: '#A0A0A0',
-                  fontWeight: 'bold',
-                  letterSpacing: '0.05em',
-                  marginBottom: '16px'
-                }}>
-                  {lang === 'zh' ? '兩條學習閉環' : 'Two Learning Loops'}
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
-                  {/* Left Card */}
-                  <div style={{
-                    background: '#EEEDFE',
-                    borderRadius: '12px',
-                    padding: '20px 24px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    boxSizing: 'border-box'
+              {/* DUAL LOOP INTRO (ANIMATED SVG) & PROJECT BACKGROUND GRID */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center" style={{ marginTop: '40px', marginBottom: '40px' }}>
+                {/* Left Column: Text & Info */}
+                <div className="lg:col-span-5 flex flex-col justify-center">
+                  <p style={{
+                    fontSize: '16px',
+                    lineHeight: '1.8',
+                    color: '#374151',
+                    marginBottom: '16px',
+                    textAlign: 'justify'
                   }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#7F77DD' }}></div>
-                      <span style={{ fontSize: '14px', fontWeight: '500', color: '#26215C' }}>
-                        {lang === 'zh' ? '閉環一｜刷題閉環' : 'Loop 1 | Practice Loop'}
-                      </span>
-                    </div>
-                    <div style={{ fontSize: '12px', color: '#534AB7', fontWeight: '500' }}>
-                      {lang === 'zh' ? '主動練習路徑' : 'Active Practice Path'}
-                    </div>
-                    <div style={{ marginTop: '12px', fontSize: '12px', color: '#3C3489', lineHeight: '2', fontWeight: '500' }}>
-                      {lang === 'zh' 
-                        ? 'App 內刷題 → 即時解析 → 錯題庫收藏 → 複習強化'
-                        : 'In-App Practice → Instant Explanations → Wrong Question Collection → Review & Reinforcement'}
-                    </div>
-                    <div style={{ fontSize: '11px', color: '#534AB7', marginTop: '8px', fontWeight: '500' }}>
-                      {lang === 'zh' ? '適合：日常自學、科目備考' : 'Best for: Daily self-study, exam preparation'}
-                    </div>
-                  </div>
-
-                  {/* Right Card */}
-                  <div style={{
-                    background: '#E1F5EE',
-                    borderRadius: '12px',
-                    padding: '20px 24px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    boxSizing: 'border-box'
-                  }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#1D9E75' }}></div>
-                      <span style={{ fontSize: '14px', fontWeight: '500', color: '#063D29' }}>
-                        {lang === 'zh' ? '閉環二｜複習閉環' : 'Loop 2 | Review Loop'}
-                      </span>
-                    </div>
-                    <div style={{ fontSize: '12px', color: '#0F6E56', fontWeight: '500' }}>
-                      {lang === 'zh' ? '即時解惑路徑' : 'Instant Clarification Path'}
-                    </div>
-                    <div style={{ marginTop: '12px', fontSize: '12px', color: '#085041', lineHeight: '2', fontWeight: '500' }}>
-                      {lang === 'zh' 
-                        ? '實體考卷拍照 → AI 解析 → 相似題練習'
-                        : 'Photo of Paper Exam → AI Analysis → Similar Questions Practice'}
-                    </div>
-                    <div style={{ fontSize: '11px', color: '#0F6E56', marginTop: '8px', fontWeight: '500' }}>
-                      {lang === 'zh' ? '適合：考後檢討、課堂練習後' : 'Best for: Post-exam review, class exercises'}
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{
-                  fontSize: '13px',
-                  color: '#6B6B6B',
-                  fontStyle: 'italic',
-                  textAlign: 'center',
-                  marginTop: '16px'
-                }}>
-                  {lang === 'zh' 
-                    ? '兩條路徑共用同一套學習資產系統：XP 積分 · 段位排行 · 錯題庫 · 收藏庫'
-                    : 'Both paths share the same learning asset system: XP points · Tier ranking · Wrong questions · Collections'}
-                </div>
-              </div>
-
-              {/* PROJECT BACKGROUND */}
-              <div style={{ marginTop: '40px', marginBottom: '40px' }}>
-                <p style={{
-                  fontSize: '16px',
-                  lineHeight: '1.8',
-                  color: '#374151',
-                  marginBottom: '16px',
-                  textAlign: 'justify'
-                }}>
-                  {lang === 'zh' 
-                    ? 'Ms Lin 是一款專為國高中全年級學生（國一至高三）打造的學習 App，題目內容涵蓋完整的六年學習階段，讓學生不論處於哪個年級、平時自學或升學備考，都能透過這款 App 建立持續性的學習習慣。'
-                    : 'Ms Lin is a practice app tailored for junior and senior high school students (grades 7-12). Covering six full years of curriculum, it helps students establish consistent study habits regardless of grade level or study purpose.'}
-                </p>
-                <p style={{
-                  fontSize: '16px',
-                  lineHeight: '1.8',
-                  color: '#374151',
-                  marginBottom: '0',
-                  textAlign: 'justify'
-                }}>
-                  {lang === 'zh'
-                    ? '台灣中學生的自主學習工具市場，長期以「題庫數量」作為主要競爭維度，卻鮮少有產品認真思考一個更根本的問題：學生為什麼願意持續回來使用？Ms Lin 從這個缺口出發，聚焦在「學習情境的完整性」——讓每一次學習行為，不論從哪個入口進入，都能形成有起點、有過程、有終點的完整閉環。'
-                    : 'The self-study tool market for high schoolers in Taiwan has long competed on "question bank quantity," but few products address a more fundamental question: why would students want to keep returning? Ms Lin starts from this gap, focusing on the "integrity of learning scenarios"—ensuring every study behavior, from any entry point, forms a complete loop with a clear beginning, process, and end.'}
-                </p>
-              </div>
-
-              {/* TWO-COLUMN INFO ROW */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-[64px]" style={{ marginTop: '40px', marginBottom: '32px' }}>
-                {/* Left - My Role */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#A0A0A0', fontWeight: 'bold', letterSpacing: '0.05em' }}>
-                    {lang === 'zh' ? '我的角色' : 'My Role'}
-                  </div>
-                  <div style={{ fontSize: '18px', fontWeight: '500', color: '#111827' }}>
-                    {lang === 'zh' ? 'UI/UX 設計師' : 'UI/UX Designer'}
-                  </div>
-                  <div style={{ fontSize: '14px', lineHeight: '1.6', color: '#4B5563' }}>
                     {lang === 'zh' 
-                      ? '負責從產品策略定調、資訊架構、使用者流程規劃，到視覺設計系統與畫面產出的全流程。'
-                      : 'Responsible for the entire process from product strategy definition, information architecture, user flows planning, to visual design system and final deliverables.'}
-                  </div>
-                  <div style={{ fontSize: '12px', fontStyle: 'italic', color: '#A0A0A0', marginTop: '4px' }}>
-                    {lang === 'zh' ? '※ 前端工程師角色由本人兼任' : '* Frontend engineer role served concurrently by self'}
+                      ? 'Ms Lin 是一款專為國高中全年級學生（國一至高三）打造的學習 App，題目內容涵蓋完整的六年學習階段，讓學生不論處於哪個年級、平時自學或升學備考，都能透過這款 App 建立持續性的學習習慣。'
+                      : 'Ms Lin is a practice app tailored for junior and senior high school students (grades 7-12). Covering six full years of curriculum, it helps students establish consistent study habits regardless of grade level or study purpose.'}
+                  </p>
+                  <p style={{
+                    fontSize: '16px',
+                    lineHeight: '1.8',
+                    color: '#374151',
+                    marginBottom: '0',
+                    textAlign: 'justify'
+                  }}>
+                    {lang === 'zh'
+                      ? '台灣中學生的自主學習工具市場，長期以「題庫數量」作為主要競爭維度，卻鮮少有產品認真思考一個更根本的問題：學生為什麼願意持續回來使用？Ms Lin 從這個缺口出發，聚焦在「學習情境的完整性」——讓每一次學習行為，不論從哪個入口進入，都能形成有起點、有過程、有終點的完整閉環。'
+                      : 'The self-study tool market for high schoolers in Taiwan has long competed on "question bank quantity," but few products address a more fundamental question: why would students want to keep returning? Ms Lin starts from this gap, focusing on the "integrity of learning scenarios"—ensuring every study behavior, from any entry point, forms a complete loop with a clear beginning, process, and end.'}
+                  </p>
+
+                  {/* Info Blocks Under Text */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '32px' }}>
+                    {/* My Role */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#A0A0A0', fontWeight: 'bold', letterSpacing: '0.05em' }}>
+                        {lang === 'zh' ? '我的角色' : 'My Role'}
+                      </div>
+                      <div style={{ fontSize: '18px', fontWeight: '500', color: '#111827' }}>
+                        {lang === 'zh' ? 'UI/UX 設計師' : 'UI/UX Designer'}
+                      </div>
+                      <div style={{ fontSize: '14px', lineHeight: '1.6', color: '#4B5563' }}>
+                        {lang === 'zh' 
+                          ? '負責從產品策略定調、資訊架構、使用者流程規劃，到視覺設計系統與畫面產出的全流程。'
+                          : 'Responsible for the entire process from product strategy definition, information architecture, user flows planning, to visual design system and final deliverables.'}
+                      </div>
+                      <div style={{ fontSize: '12px', fontStyle: 'italic', color: '#A0A0A0', marginTop: '4px' }}>
+                        {lang === 'zh' ? '※ 前端工程師角色由本人兼任' : '* Frontend engineer role served concurrently by self'}
+                      </div>
+                    </div>
+
+                    {/* Team Composition */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#A0A0A0', fontWeight: 'bold', letterSpacing: '0.05em' }}>
+                        {lang === 'zh' ? '團隊組成' : 'Team Composition'}
+                      </div>
+                      <div style={{ fontSize: '13px', lineHeight: '2', color: '#4B5563', fontWeight: '500' }}>
+                        <div>· {lang === 'zh' ? 'UI/UX 設計師（本人）' : 'UI/UX Designer (Self)'}</div>
+                        <div>· {lang === 'zh' ? '前端工程師（本人兼任）' : 'Frontend Engineer (Self, concurrently)'}</div>
+                        <div>· {lang === 'zh' ? 'PM × 1 / 後端工程師 × 1 / 內容工程師 × 1' : 'PM × 1 / Backend Engineer × 1 / Content Engineer × 1'}</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                {/* Right - Team Composition */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#A0A0A0', fontWeight: 'bold', letterSpacing: '0.05em' }}>
-                    {lang === 'zh' ? '團隊組成' : 'Team Composition'}
-                  </div>
-                  <div style={{ fontSize: '13px', lineHeight: '2', color: '#4B5563', fontWeight: '500' }}>
-                    <div>· {lang === 'zh' ? 'UI/UX 設計師（本人）' : 'UI/UX Designer (Self)'}</div>
-                    <div>· {lang === 'zh' ? '前端工程師（本人兼任）' : 'Frontend Engineer (Self, concurrently)'}</div>
-                    <div>· {lang === 'zh' ? 'PM × 1 / 後端工程師 × 1 / 內容工程師 × 1' : 'PM × 1 / Backend Engineer × 1 / Content Engineer × 1'}</div>
+                {/* Right Column: Animated SVG */}
+                <div className="lg:col-span-7 flex justify-center">
+                  <div style={{ width: '100%', maxWidth: '850px' }}>
+                    <svg id="animated-loops-svg" width="100%" viewBox="0 0 680 460" style={{ fontFamily: 'system-ui', display: 'block', userSelect: 'none' }}>
+                  <defs>
+                    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="context-stroke" />
+                    </marker>
+                  </defs>
+
+                  {/* Section Label */}
+                  <text id="sec-label" x="340" y="22" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#8E8E93', fontWeight: '500' }}>
+                    {lang === 'zh' ? '兩條學習閉環' : 'Two Learning Loops'}
+                  </text>
+
+                  {/* LOOP 1 Header */}
+                  <g id="l1-header">
+                    <text x="22" y="52" textAnchor="middle" dominantBaseline="central" style={{ textAnchor: 'start', fontSize: '14px', fontWeight: 500, fill: '#26215C' }}>
+                      {lang === 'zh' ? '閉環一｜刷題閉環' : 'Loop 1 | Practice Loop'}
+                    </text>
+                    <text x="22" y="68" textAnchor="middle" dominantBaseline="central" style={{ textAnchor: 'start', fontSize: '12px', fill: '#8E8E93' }}>
+                      {lang === 'zh' ? '主動練習路徑' : 'Active Practice Path'}
+                    </text>
+                  </g>
+
+                  {/* Loop 1 Nodes */}
+                  <g id="l1-n1">
+                    <rect x="22" y="82" width="120" height="56" rx="12" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
+                    <text x="82" y="104" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#3C3489' }}>
+                      {lang === 'zh' ? 'App 內刷題' : 'In-App Practice'}
+                    </text>
+                    <text x="82" y="122" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#534AB7' }}>
+                      {lang === 'zh' ? '多科互動題型' : 'Interactive Types'}
+                    </text>
+                  </g>
+
+                  <line id="l1-a1" x1="168" y1="110" x2="142" y2="110" stroke="#7F77DD" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
+
+                  <g id="l1-n2">
+                    <rect x="168" y="82" width="120" height="56" rx="12" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
+                    <text x="228" y="104" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#3C3489' }}>
+                      {lang === 'zh' ? '即時解析' : 'Instant Analysis'}
+                    </text>
+                    <text x="228" y="122" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#534AB7' }}>
+                      {lang === 'zh' ? '答案 + 詳解' : 'Answer + Solution'}
+                    </text>
+                  </g>
+
+                  <line id="l1-a2" x1="314" y1="110" x2="288" y2="110" stroke="#7F77DD" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
+
+                  <g id="l1-n3">
+                    <rect x="314" y="82" width="120" height="56" rx="12" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
+                    <text x="374" y="104" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#3C3489' }}>
+                      {lang === 'zh' ? '錯題庫收藏' : 'Incorrect Save'}
+                    </text>
+                    <text x="374" y="122" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#534AB7' }}>
+                      {lang === 'zh' ? '建立學習資產' : 'Build Learning Asset'}
+                    </text>
+                  </g>
+
+                  {/* Loop 1 Return */}
+                  <path id="l1-arc" d="M226 138 Q226 160 300 160 Q374 160 374 138" stroke="#AFA9EC" strokeWidth="1" strokeDasharray="4 3" markerStart="url(#arrow)" fill="none" />
+                  <text id="l1-arc-label" x="300" y="175" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#8E8E93' }}>
+                    {lang === 'zh' ? '↻ 複習強化，再來一輪' : '↻ Reinforce & repeat'}
+                  </text>
+
+                  {/* Loop 1 N3 to Shared */}
+                  <line id="l1-to-shared" x1="460" y1="200" x2="434" y2="110" stroke="#7F77DD" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
+
+                  {/* LOOP 2 Header */}
+                  <g id="l2-header">
+                    <text x="22" y="278" textAnchor="middle" dominantBaseline="central" style={{ textAnchor: 'start', fontSize: '14px', fontWeight: 500, fill: '#063D29' }}>
+                      {lang === 'zh' ? '閉環二｜複習閉環' : 'Loop 2 | Review Loop'}
+                    </text>
+                    <text x="22" y="294" textAnchor="middle" dominantBaseline="central" style={{ textAnchor: 'start', fontSize: '12px', fill: '#8E8E93' }}>
+                      {lang === 'zh' ? '即時解惑路徑' : 'Instant Clarification'}
+                    </text>
+                  </g>
+
+                  {/* Loop 2 Nodes */}
+                  <g id="l2-n1">
+                    <rect x="22" y="308" width="120" height="56" rx="12" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
+                    <text x="82" y="330" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#085041' }}>
+                      {lang === 'zh' ? '考卷拍照' : 'Photo Graded Paper'}
+                    </text>
+                    <text x="82" y="350" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#0F6E56' }}>
+                      {lang === 'zh' ? '即時上傳解惑' : 'Instant Explanation'}
+                    </text>
+                  </g>
+
+                  <line id="l2-a1" x1="168" y1="336" x2="142" y2="336" stroke="#1D9E75" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
+
+                  <g id="l2-n2">
+                    <rect x="168" y="308" width="120" height="56" rx="12" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
+                    <text x="228" y="330" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#085041' }}>
+                      {lang === 'zh' ? 'AI 解析' : 'AI Analysis'}
+                    </text>
+                    <text x="228" y="350" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#0F6E56' }}>
+                      {lang === 'zh' ? '辨識 + 詳解' : 'OCR + Solution'}
+                    </text>
+                  </g>
+
+                  <line id="l2-a2" x1="314" y1="336" x2="288" y2="336" stroke="#1D9E75" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
+
+                  <g id="l2-n3">
+                    <rect x="314" y="308" width="120" height="56" rx="12" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
+                    <text x="374" y="330" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#085041' }}>
+                      {lang === 'zh' ? '相似題練習' : 'Similar Practice'}
+                    </text>
+                    <text x="374" y="350" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#0F6E56' }}>
+                      {lang === 'zh' ? '弱點強化' : 'Weakness Reinforcement'}
+                    </text>
+                  </g>
+
+                  {/* Loop 2 Return */}
+                  <path id="l2-arc" d="M226 308 Q226 286 300 286 Q374 286 374 308" stroke="#5DCAA5" strokeWidth="1" strokeDasharray="4 3" markerStart="url(#arrow)" fill="none" />
+                  <text id="l2-arc-label" x="300" y="276" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#8E8E93' }}>
+                    {lang === 'zh' ? '↻ 加入錯題庫，繼續練習' : '↻ Add to wrong book & practice'}
+                  </text>
+
+                  {/* Loop 2 N3 to Shared */}
+                  <line id="l2-to-shared" x1="460" y1="248" x2="434" y2="336" stroke="#1D9E75" strokeWidth="1.5" markerStart="url(#arrow)" fill="none" />
+
+                  {/* Shared Card */}
+                  <g id="shared-card">
+                    <rect x="460" y="196" width="198" height="56" rx="16" fill="#FAEEDA" stroke="#BA7517" strokeWidth="1" />
+                    <text x="559" y="218" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 500, fill: '#412402' }}>
+                      {lang === 'zh' ? '共用學習資產系統' : 'Shared Learning Asset System'}
+                    </text>
+                    <text x="559" y="238" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '12px', fill: '#633806' }}>
+                      {lang === 'zh' ? 'XP · 段位排行 · 錯題庫 · 收藏庫' : 'XP · Ranking · Wrong Book · Saved'}
+                    </text>
+                  </g>
+                </svg>
                   </div>
                 </div>
               </div>
+
+
 
               {/* TIMELINE */}
               <div style={{ marginTop: '32px', marginBottom: '32px' }}>
@@ -3708,17 +3901,7 @@ const SPLIT_VIEW_CHIPS = [
               }}
               onClick={() => setActiveTooltip(null)}
             >
-              {/* SECTION LABEL */}
-              <div style={{
-                fontSize: '11px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-                color: '#A0A0A0',
-                marginBottom: '12px',
-                fontWeight: 'bold'
-              }}>
-                04 — 設計決策與 UI 展示
-              </div>
+              <ProjectSectionHeader num="04" title={lang === 'zh' ? '設計決策與 UI 展示' : 'Design Decisions & UI Showcase'} />
               <p style={{ fontSize: '15px', color: '#6B6B6B', margin: '0 0 48px 0', lineHeight: '1.6' }}>
                 以兩條學習閉環組織設計決策，說明每個功能如何在完整的體驗弧線中發揮作用。
               </p>
@@ -3738,174 +3921,246 @@ const SPLIT_VIEW_CHIPS = [
               `}} />
 
               {/* LOOP ONE HEADER */}
-              <div style={{
-                background: '#EEEDFE',
-                borderRadius: '12px',
-                padding: '16px 24px',
-                marginBottom: '32px',
-                borderLeft: '4px solid #7F77DD',
-                boxSizing: 'border-box'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#7F77DD' }}></div>
-                  <span style={{ fontSize: '16px', fontWeight: '500', color: '#26215C' }}>
-                    {lang === 'zh' ? '閉環一｜刷題閉環' : 'Loop 1 | Practice Loop'}
-                  </span>
+              <div style={{ marginBottom: '48px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+                  <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#7F77DD', flexShrink: 0 }}></div>
+                  <h3 className="text-[20px] md:text-[28px] lg:text-[32px] font-bold text-[#26215C] leading-tight">
+                    {lang === 'zh' ? '閉環一｜刷題閉環，主動練習路徑' : 'Loop 1 | Practice Loop, Active Practice Path'}
+                  </h3>
                 </div>
-                <div style={{ fontSize: '13px', color: '#534AB7' }}>
-                  {lang === 'zh' ? '主動練習 → 即時解析 → 錯題資產' : 'Active Practice → Instant Analysis → Incorrect Question Asset'}
+                
+                <svg width="100%" viewBox="0 0 680 200" style={{ fontFamily: 'system-ui', display: 'block', marginBottom: '24px' }}>
+                  <defs>
+                    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#7F77DD" />
+                    </marker>
+                  </defs>
+                  
+                  {/* Node 1 */}
+                  <rect x="40" y="88" width="128" height="84" rx="16" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
+                  <text x="104" y="122" textAnchor="middle" fill="#3C3489" fontSize="14" fontWeight="500">
+                    {lang === 'zh' ? 'App 內刷題' : 'In-App Practice'}
+                  </text>
+                  <text x="104" y="146" textAnchor="middle" fill="#534AB7" fontSize="12">
+                    {lang === 'zh' ? '多科互動題型' : 'Interactive Types'}
+                  </text>
+
+                  {/* Node 2 */}
+                  <rect x="236" y="88" width="128" height="84" rx="16" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
+                  <text x="300" y="122" textAnchor="middle" fill="#3C3489" fontSize="14" fontWeight="500">
+                    {lang === 'zh' ? '即時解析' : 'Instant Analysis'}
+                  </text>
+                  <text x="300" y="146" textAnchor="middle" fill="#534AB7" fontSize="12">
+                    {lang === 'zh' ? '答案 + 詳解' : 'Answer + Solution'}
+                  </text>
+
+                  {/* Node 3 */}
+                  <rect x="432" y="88" width="128" height="84" rx="16" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
+                  <text x="496" y="122" textAnchor="middle" fill="#3C3489" fontSize="14" fontWeight="500">
+                    {lang === 'zh' ? '錯題庫收藏' : 'Incorrect Save'}
+                  </text>
+                  <text x="496" y="146" textAnchor="middle" fill="#534AB7" fontSize="12">
+                    {lang === 'zh' ? '建立學習資產' : 'Build Learning Asset'}
+                  </text>
+
+                  {/* Connectors */}
+                  <line x1="168" y1="130" x2="232" y2="130" stroke="#7F77DD" strokeWidth="1.5" markerEnd="url(#arrow-purple)" fill="none" />
+                  <line x1="364" y1="130" x2="428" y2="130" stroke="#7F77DD" strokeWidth="1.5" markerEnd="url(#arrow-purple)" fill="none" />
+
+                  {/* Return Arc */}
+                  <path d="M 560 88 Q 560 40 300 40 Q 40 40 40 88" fill="none" stroke="#AFA9EC" strokeWidth="1.5" strokeDasharray="5 3" markerEnd="url(#arrow-purple)" />
+
+                  {/* Return Label */}
+                  <text x="300" y="30" textAnchor="middle" fill="#534AB7" fontSize="12">
+                    {lang === 'zh' ? '複習強化 ↻' : 'Reinforcement ↻'}
+                  </text>
+                </svg>
+
+                {/* Tab Switcher */}
+                <div className="flex justify-center mt-6">
+                  <div className="flex bg-[#F5F3FF] rounded-2xl p-1 border border-[#7F77DD]/10 max-w-[640px] w-full shadow-inner select-none">
+                    {loopOneTabs.map((tab) => {
+                      const isCurrent = activeLoopOneTab === tab.id;
+                      return (
+                        <button
+                          key={tab.id}
+                          onClick={() => setActiveLoopOneTab(tab.id)}
+                          className={`flex-1 text-center py-2.5 px-4 rounded-xl transition-all duration-300 active:scale-95 cursor-pointer ${
+                            isCurrent
+                              ? 'bg-white text-[#534AB7] shadow-sm font-bold'
+                              : 'text-gray-400 hover:text-gray-700 font-medium'
+                          }`}
+                          style={{
+                            border: 'none',
+                            outline: 'none'
+                          }}
+                        >
+                          <span className="block text-[10px] opacity-75 font-['Inter'] uppercase tracking-widest mb-0.5">
+                            {tab.num}
+                          </span>
+                          <span className="block text-xs md:text-sm leading-tight">
+                            {lang === 'zh' ? tab.zhLabel : tab.enLabel}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
 
               {/* FEATURE 1A: 刷題 Loop */}
-              <div style={{ marginBottom: '64px' }}>
-                <span style={{
-                  display: 'inline-block',
-                  fontSize: '12px',
-                  fontWeight: '500',
-                  padding: '4px 12px',
-                  borderRadius: '20px',
-                  backgroundColor: '#EEEDFE',
-                  color: '#534AB7',
-                  marginBottom: '12px'
-                }}>
-                  功能 1A
-                </span>
-                <h3 style={{ fontSize: '22px', fontWeight: '600', color: '#1A1A1A', margin: '0 0 16px 0' }}>
-                  {lang === 'zh' ? '刷題 Loop（5 / 10 / 15 題）' : 'Practice Loop (5 / 10 / 15 questions)'}
-                </h3>
-                <p style={{
-                  fontSize: '16px',
-                  lineHeight: '1.8',
-                  color: '#6B6B6B',
-                  maxWidth: '680px',
-                  margin: '0 0 32px 0',
-                  textAlign: 'justify'
-                }}>
-                  {lang === 'zh' 
-                    ? `五題是刷題閉環的預設輪次，也是整個設計最關鍵的數字決策。太少（1–2 題）沒有儀式感；太多（10 題以上）容易中途放棄。五題對應一次短時間的專注週期，做完剛好有點累又覺得「差點就更多」，這個微妙的張力是讓人想再開一輪的關鍵。\n\n進階學生可選擇 10 題或 15 題的輪次，規模倍率隨之提升（Perfect 完成 15 題可獲 1.6x XP 加成），鼓勵有餘力的學生挑戰更長的練習輪次。\n\n結果頁設計了清楚的分數回饋、逐題對錯檢視、XP 動畫結算，以及「再來一輪」的主要 CTA——讓學生在投入感最高點有個明確的下一步。`
-                    : `Five questions is the default round of the practice loop, which is also the most critical numeric decision in the design. Too few (1-2 questions) feels unceremonious; too many (10+ questions) leads to mid-way abandonment. Five questions corresponds to a short focus cycle, finishing just when slightly fatigued but feeling "almost more"—this subtle tension is key to motivating another round.\n\nAdvanced students can select 10 or 15 question rounds, with scaled reward multipliers (Perfect 15 questions yields a 1.6x XP boost) to encourage students to challenge longer practice rounds.\n\nThe results page features clear score feedback, question-by-question check, XP animation settlement, and the primary "Play Another Round" CTA—giving students a clear next step at the peak of engagement.`}
-                </p>
+              {activeLoopOneTab === '1A' && (
+                <div style={{ marginBottom: '64px' }}>
+                  <span style={{
+                    display: 'inline-block',
+                    fontSize: '12px',
+                    fontWeight: '500',
+                    padding: '4px 12px',
+                    borderRadius: '20px',
+                    backgroundColor: '#EEEDFE',
+                    color: '#534AB7',
+                    marginBottom: '12px'
+                  }}>
+                    功能 1A
+                  </span>
+                  <h3 style={{ fontSize: '22px', fontWeight: '600', color: '#1A1A1A', margin: '0 0 24px 0' }}>
+                    {lang === 'zh' ? '刷題 Loop（5 / 10 / 15 題）' : 'Practice Loop (5 / 10 / 15 questions)'}
+                  </h3>
+                  
+                  <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start mb-8">
+                    {/* Left Column: Description */}
+                    <div className="flex-1 w-full">
+                      <p style={{
+                        fontSize: '16px',
+                        lineHeight: '1.8',
+                        color: '#6B6B6B',
+                        margin: 0,
+                        textAlign: 'justify'
+                      }}>
+                        {lang === 'zh' 
+                          ? `五題是刷題閉環的預設輪次，也是整個設計最關鍵的數字決策。太少（1–2 題）沒有儀式感；太多（10 題以上）容易中途放棄。五題對應一次短時間的專注週期，做完剛好有點累又覺得「差點就更多」，這個微妙的張力是讓人想再開一輪的關鍵。\n\n進階學生可選擇 10 題或 15 題的輪次，規模倍率隨之提升（Perfect 完成 15 題可獲 1.6x XP 加成），鼓勵有餘力的學生挑戰更長的練習輪次。\n\n結果頁設計了清楚的分數回饋、逐題對錯檢視、XP 動畫結算，以及「再來一輪」的主要 CTA——讓學生在投入感最高點有個明確的下一步。`
+                          : `Five questions is the default round of the practice loop, which is also the most critical numeric decision in the design. Too few (1-2 questions) feels unceremonious; too many (10+ questions) leads to mid-way abandonment. Five questions corresponds to a short focus cycle, finishing just when slightly fatigued but feeling "almost more"—this subtle tension is key to motivating another round.\n\nAdvanced students can select 10 or 15 question rounds, with scaled reward multipliers (Perfect 15 questions yields a 1.6x XP boost) to encourage students to challenge longer practice rounds.\n\nThe results page features clear score feedback, question-by-question check, XP animation settlement, and the primary "Play Another Round" CTA—giving students a clear next step at the peak of engagement.`}
+                      </p>
+                    </div>
 
-                {/* Experience arc SVG inline */}
-                <div style={{
-                  maxWidth: '600px',
-                  margin: '0 auto 32px auto',
-                  background: '#FAFAFD',
-                  borderRadius: '12px',
-                  padding: '20px',
-                  boxSizing: 'border-box'
-                }}>
-                  <svg viewBox="0 0 700 260" width="100%" height="auto" style={{ display: 'block' }}>
-                    <defs>
-                      <marker id="arrow-small" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#BA7517" />
-                      </marker>
-                      <linearGradient id="purpleGlow-small" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#7F77DD" stopOpacity="0.15" />
-                        <stop offset="100%" stopColor="#7F77DD" stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-
-                    {/* Effort accumulation zone dotted box */}
-                    <rect x="110" y="70" width="380" height="110" fill="url(#purpleGlow-small)" stroke="#7F77DD" strokeWidth="1" strokeDasharray="3,3" rx="8" />
-                    <text x="300" y="105" textAnchor="middle" fill="#534AB7" fontSize="12" fontWeight="600" letterSpacing="0.05em">努力成本累積區</text>
-                    <text x="300" y="125" textAnchor="middle" fill="#534AB7" fontSize="11" opacity="0.8">高互動密度、持續操作、長度適中</text>
-
-                    {/* X Axis line (subtle) */}
-                    <line x1="50" y1="180" x2="650" y2="180" stroke="#EAEAEA" strokeWidth="1" />
-
-                    {/* Rising line */}
-                    <path d="M 60,180 L 150,166 L 240,152 L 330,138 L 420,124 L 510,110" fill="none" stroke="#7F77DD" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-
-                    {/* Green spike */}
-                    <path d="M 510,110 L 600,45" fill="none" stroke="#1D9E75" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-
-                    {/* Amber return line */}
-                    <path d="M 600,55 Q 330,225 65,185" fill="none" stroke="#BA7517" strokeWidth="2" strokeDasharray="4,4" markerEnd="url(#arrow-small)" />
-                    <text x="330" y="240" textAnchor="middle" fill="#BA7517" fontSize="11" fontWeight="500">重新進入刷題 Loop</text>
-
-                    {/* Points Dots */}
-                    <circle cx="60" cy="180" r="4" fill="#7F77DD" stroke="#FFFFFF" strokeWidth="1.5" />
-                    <circle cx="150" cy="166" r="4" fill="#7F77DD" stroke="#FFFFFF" strokeWidth="1.5" />
-                    <circle cx="240" cy="152" r="4" fill="#7F77DD" stroke="#FFFFFF" strokeWidth="1.5" />
-                    <circle cx="330" cy="138" r="4" fill="#7F77DD" stroke="#FFFFFF" strokeWidth="1.5" />
-                    <circle cx="420" cy="124" r="4" fill="#7F77DD" stroke="#FFFFFF" strokeWidth="1.5" />
-                    <circle cx="510" cy="110" r="4" fill="#7F77DD" stroke="#FFFFFF" strokeWidth="1.5" />
-                    <circle cx="600" cy="45" r="6" fill="#1D9E75" stroke="#FFFFFF" strokeWidth="2" />
-
-                    {/* Dot labels */}
-                    <text x="60" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">進入</text>
-                    <text x="150" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">題1</text>
-                    <text x="240" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">題2</text>
-                    <text x="330" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">題3</text>
-                    <text x="420" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">題4</text>
-                    <text x="510" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">題5</text>
-                    <text x="600" y="202" textAnchor="middle" fill="#1A1A1A" fontSize="11" fontWeight="bold">結果</text>
-
-                    {/* Annotation: "回饋釋放點" */}
-                    <g>
-                      <rect x="540" y="8" width="120" height="24" fill="#E8F8F2" rx="4" />
-                      <text x="600" y="24" textAnchor="middle" fill="#1D9E75" fontSize="11" fontWeight="600">回饋釋放點 ●</text>
-                      <path d="M 600,32 L 600,40" stroke="#1D9E75" strokeWidth="1" strokeDasharray="1,1" />
-                    </g>
-                  </svg>
-                </div>
-
-                {/* Two phone mockup placeholders side by side */}
-                <div style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', boxSizing: 'border-box', padding: '0 16px' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '220px' }}>
+                    {/* Right Column: Experience arc SVG */}
                     <div style={{
-                      width: '100%',
-                      aspectRatio: '9 / 19.5',
-                      borderRadius: '28px',
-                      border: '6px solid #1A1A1A',
-                      backgroundColor: '#D0CCEA',
-                      boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
-                      boxSizing: 'border-box'
-                    }}></div>
-                    <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
-                      刷題畫面 — 進度條顯示第幾題 / 共幾題
-                    </span>
+                      background: '#FAFAFD',
+                      borderRadius: '12px',
+                      padding: '20px',
+                      boxSizing: 'border-box',
+                      width: '100%'
+                    }} className="flex-[1.2]">
+                      <svg viewBox="0 0 700 260" width="100%" height="auto" style={{ display: 'block' }}>
+                        <defs>
+                          <marker id="arrow-small" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#BA7517" />
+                          </marker>
+                          <linearGradient id="purpleGlow-small" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#7F77DD" stopOpacity="0.15" />
+                            <stop offset="100%" stopColor="#7F77DD" stopOpacity="0" />
+                          </linearGradient>
+                        </defs>
+
+                        {/* Effort accumulation zone dotted box */}
+                        <rect x="110" y="70" width="380" height="110" fill="url(#purpleGlow-small)" stroke="#7F77DD" strokeWidth="1" strokeDasharray="3,3" rx="8" />
+                        <text x="300" y="105" textAnchor="middle" fill="#534AB7" fontSize="12" fontWeight="600" letterSpacing="0.05em">努力成本累積區</text>
+                        <text x="300" y="125" textAnchor="middle" fill="#534AB7" fontSize="11" opacity="0.8">高互動密度、持續操作、長度適中</text>
+
+                        {/* X Axis line (subtle) */}
+                        <line x1="50" y1="180" x2="650" y2="180" stroke="#EAEAEA" strokeWidth="1" />
+
+                        {/* Rising line */}
+                        <path d="M 60,180 L 150,166 L 240,152 L 330,138 L 420,124 L 510,110" fill="none" stroke="#7F77DD" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+
+                        {/* Green spike */}
+                        <path d="M 510,110 L 600,45" fill="none" stroke="#1D9E75" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+
+                        {/* Amber return line */}
+                        <path d="M 600,55 Q 330,225 65,185" fill="none" stroke="#BA7517" strokeWidth="2" strokeDasharray="4,4" markerEnd="url(#arrow-small)" />
+                        <text x="330" y="240" textAnchor="middle" fill="#BA7517" fontSize="11" fontWeight="500">重新進入刷題 Loop</text>
+
+                        {/* Points Dots */}
+                        <circle cx="60" cy="180" r="4" fill="#7F77DD" stroke="#FFFFFF" strokeWidth="1.5" />
+                        <circle cx="150" cy="166" r="4" fill="#7F77DD" stroke="#FFFFFF" strokeWidth="1.5" />
+                        <circle cx="240" cy="152" r="4" fill="#7F77DD" stroke="#FFFFFF" strokeWidth="1.5" />
+                        <circle cx="330" cy="138" r="4" fill="#7F77DD" stroke="#FFFFFF" strokeWidth="1.5" />
+                        <circle cx="420" cy="124" r="4" fill="#7F77DD" stroke="#FFFFFF" strokeWidth="1.5" />
+                        <circle cx="510" cy="110" r="4" fill="#7F77DD" stroke="#FFFFFF" strokeWidth="1.5" />
+                        <circle cx="600" cy="45" r="6" fill="#1D9E75" stroke="#FFFFFF" strokeWidth="2" />
+
+                        {/* Dot labels */}
+                        <text x="60" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">進入</text>
+                        <text x="150" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">題1</text>
+                        <text x="240" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">題2</text>
+                        <text x="330" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">題3</text>
+                        <text x="420" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">題4</text>
+                        <text x="510" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">題5</text>
+                        <text x="600" y="202" textAnchor="middle" fill="#1A1A1A" fontSize="11" fontWeight="bold">結果</text>
+
+                        {/* Annotation: "回饋釋放點" */}
+                        <g>
+                          <rect x="540" y="8" width="120" height="24" fill="#E8F8F2" rx="4" />
+                          <text x="600" y="24" textAnchor="middle" fill="#1D9E75" fontSize="11" fontWeight="600">回饋釋放點 ●</text>
+                          <path d="M 600,32 L 600,40" stroke="#1D9E75" strokeWidth="1" strokeDasharray="1,1" />
+                        </g>
+                      </svg>
+                    </div>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '220px' }}>
-                    <div style={{
-                      width: '100%',
-                      aspectRatio: '9 / 19.5',
-                      borderRadius: '28px',
-                      border: '6px solid #1A1A1A',
-                      backgroundColor: '#D0CCEA',
-                      boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
-                      boxSizing: 'border-box'
-                    }}></div>
-                    <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
-                      結果頁 — XP 動畫結算 + 再來一輪 CTA
-                    </span>
+                  {/* Two phone mockup placeholders side by side */}
+                  <div style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', boxSizing: 'border-box', padding: '0 16px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '220px' }}>
+                      <div style={{
+                        width: '100%',
+                        aspectRatio: '9 / 19.5',
+                        borderRadius: '28px',
+                        border: '6px solid #1A1A1A',
+                        backgroundColor: '#D0CCEA',
+                        boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
+                        boxSizing: 'border-box'
+                      }}></div>
+                      <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
+                        刷題畫面 — 進度條顯示第幾題 / 共幾題
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '220px' }}>
+                      <div style={{
+                        width: '100%',
+                        aspectRatio: '9 / 19.5',
+                        borderRadius: '28px',
+                        border: '6px solid #1A1A1A',
+                        backgroundColor: '#D0CCEA',
+                        boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
+                        boxSizing: 'border-box'
+                      }}></div>
+                      <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
+                        結果頁 — XP 動畫結算 + 再來一輪 CTA
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Separator between Feature 1A and Feature 1B */}
-              <div style={{ width: '100%', borderBottom: '0.5px solid #F0F0F0', margin: '48px 0' }}></div>
+              )}
 
               {/* FEATURE 1B: 多科互動題型 */}
-              <div style={{ marginBottom: '64px' }}>
-                <span style={{
-                  display: 'inline-block',
-                  fontSize: '12px',
-                  fontWeight: '500',
-                  padding: '4px 12px',
-                  borderRadius: '20px',
-                  backgroundColor: '#EEEDFE',
-                  color: '#534AB7',
-                  marginBottom: '12px'
-                }}>
-                  功能 1B
-                </span>
-                <h3 style={{ fontSize: '22px', fontWeight: '600', color: '#1A1A1A', margin: '0 0 16px 0' }}>
-                  {lang === 'zh' ? '多科互動題型設計' : 'Multi-Subject Interactive Question Types'}
-                </h3>
+              {activeLoopOneTab === '1B' && (
+                <div style={{ marginBottom: '64px' }}>
+                  <span style={{
+                    display: 'inline-block',
+                    fontSize: '12px',
+                    fontWeight: '500',
+                    padding: '4px 12px',
+                    borderRadius: '20px',
+                    backgroundColor: '#EEEDFE',
+                    color: '#534AB7',
+                    marginBottom: '12px'
+                  }}>
+                    功能 1B
+                  </span>
+                  <h3 style={{ fontSize: '22px', fontWeight: '600', color: '#1A1A1A', margin: '0 0 16px 0' }}>
+                    {lang === 'zh' ? '多科互動題型設計' : 'Multi-Subject Interactive Question Types'}
+                  </h3>
                 <p style={{
                   fontSize: '16px',
                   lineHeight: '1.8',
@@ -4714,11 +4969,151 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
                 </div>
               </div>
-
-              {/* Divider between Feature 1B and Feature 1C */}
-              <div style={{ width: '100%', borderBottom: '0.5px solid #F0F0F0', margin: '48px 0' }}></div>
+            )}
 
               {/* ── FEATURE 1C: 錯題庫＋收藏庫 ── */}
+              {activeLoopOneTab === '1C' && (
+                <div style={{ marginBottom: '64px' }}>
+                  <span style={{
+                    display: 'inline-block',
+                    fontSize: '12px',
+                    fontWeight: '500',
+                    padding: '4px 12px',
+                    borderRadius: '20px',
+                    backgroundColor: '#EEEDFE',
+                    color: '#534AB7',
+                    marginBottom: '12px'
+                  }}>
+                    功能 1C
+                  </span>
+                  <h3 style={{ fontSize: '22px', fontWeight: '600', color: '#1A1A1A', margin: '0 0 16px 0' }}>
+                    {lang === 'zh' ? '錯題庫＋收藏庫' : 'Incorrect & Saved Question Libraries'}
+                  </h3>
+                  <p style={{
+                    fontSize: '16px',
+                    lineHeight: '1.8',
+                    color: '#6B6B6B',
+                    maxWidth: '680px',
+                    margin: '0 0 32px 0',
+                    textAlign: 'justify'
+                  }}>
+                    {lang === 'zh'
+                      ? `視覺語言上，我們刻意避免讓錯題庫看起來像「失敗清單」。空狀態設計成「還沒有題目加入」而非「你還沒犯錯」，傳遞的訊息是：這是一個等待被填滿的學習資產。\n\n收藏庫讓學生主動標記重要題目，給予學習的自主感——「我想記住這題」比被動的「這題你答錯了」更有動力回來複習。\n\n錯題庫同時也是刷題閉環回到起點的橋梁：學生可直接從錯題庫選題進入下一輪練習，讓弱點強化成為自然的下一步。`
+                      : `Visually, we deliberately avoided making the incorrect question library look like a "list of failures." The empty state is designed as "no questions added yet" rather than "you haven't made mistakes yet," sending the message that this is a learning asset waiting to be filled.\n\nSaved question library lets students actively tag important questions, giving them a sense of learning autonomy—"I want to remember this question" creates more motivation to return and review than passive "you got this wrong" indicators.\n\nIncorrect question library also bridges the loop back to the start: students can select questions directly from the incorrect library to enter the next round of practice, making weakness reinforcement a natural next step.`}
+                  </p>
+
+                  {/* Two phone mockup placeholders side by side */}
+                  <div style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', boxSizing: 'border-box', padding: '0 16px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '220px' }}>
+                      <div style={{
+                        width: '100%',
+                        aspectRatio: '9 / 19.5',
+                        borderRadius: '28px',
+                        border: '6px solid #1A1A1A',
+                        backgroundColor: '#D0CCEA',
+                        boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
+                        boxSizing: 'border-box',
+                        overflow: 'hidden',
+                        position: 'relative'
+                      }}>
+                        <img 
+                          src="/projects/mslin-app/screens/base2.png" 
+                          alt="錯題庫" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </div>
+                      <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
+                        錯題庫 — 中性語言取代負面標籤
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '220px' }}>
+                      <div style={{
+                        width: '100%',
+                        aspectRatio: '9 / 19.5',
+                        borderRadius: '28px',
+                        border: '6px solid #1A1A1A',
+                        backgroundColor: '#D0CCEA',
+                        boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
+                        boxSizing: 'border-box',
+                        overflow: 'hidden',
+                        position: 'relative'
+                      }}>
+                        <img 
+                          src="/projects/mslin-app/screens/base1.png" 
+                          alt="收藏庫" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </div>
+                      <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
+                        收藏庫 — 主動儲存給予自主感
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Between Loop One and Loop Two */}
+              <div style={{ width: '100%', borderBottom: '0.5px solid #EEEEEE', margin: '64px 0' }}></div>
+              {/* LOOP TWO HEADER */}
+              <div style={{ marginBottom: '32px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+                  <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#1D9E75', flexShrink: 0 }}></div>
+                  <h3 className="text-[20px] md:text-[28px] lg:text-[32px] font-bold text-[#063D29] leading-tight">
+                    {lang === 'zh' ? '閉環二｜複習閉環，即時解惑路徑' : 'Loop 2 | Review Loop, Instant Solving Path'}
+                  </h3>
+                </div>
+                
+                {/* SVG Review Loop Diagram */}
+                <svg width="100%" viewBox="0 0 680 200" style={{ fontFamily: 'system-ui', display: 'block' }}>
+                  <defs>
+                    <marker id="arrow-teal" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#1D9E75" />
+                    </marker>
+                  </defs>
+                  
+                  {/* Node 1 */}
+                  <rect x="88" y="88" width="148" height="84" rx="16" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
+                  <text x="162" y="118" textAnchor="middle" fill="#085041" fontSize="14" fontWeight="500">
+                    {lang === 'zh' ? '考卷拍照' : 'Photo Graded Paper'}
+                  </text>
+                  <text x="162" y="142" textAnchor="middle" fill="#0F6E56" fontSize="12">
+                    {lang === 'zh' ? '即時上傳解惑' : 'Instant Explanation'}
+                  </text>
+
+                  {/* Node 2 */}
+                  <rect x="266" y="88" width="148" height="84" rx="16" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
+                  <text x="340" y="118" textAnchor="middle" fill="#085041" fontSize="14" fontWeight="500">
+                    {lang === 'zh' ? 'AI 解析' : 'AI Analysis'}
+                  </text>
+                  <text x="340" y="142" textAnchor="middle" fill="#0F6E56" fontSize="12">
+                    {lang === 'zh' ? '辨識 + 詳解' : 'OCR + Solution'}
+                  </text>
+
+                  {/* Node 3 */}
+                  <rect x="444" y="88" width="148" height="84" rx="16" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
+                  <text x="518" y="118" textAnchor="middle" fill="#085041" fontSize="14" fontWeight="500">
+                    {lang === 'zh' ? '相似題練習' : 'Similar Practice'}
+                  </text>
+                  <text x="518" y="142" textAnchor="middle" fill="#0F6E56" fontSize="12">
+                    {lang === 'zh' ? '弱點強化' : 'Weakness Reinforcement'}
+                  </text>
+
+                  {/* Connectors */}
+                  <line x1="236" y1="130" x2="262" y2="130" stroke="#1D9E75" strokeWidth="1.5" markerEnd="url(#arrow-teal)" fill="none" />
+                  <line x1="414" y1="130" x2="440" y2="130" stroke="#1D9E75" strokeWidth="1.5" markerEnd="url(#arrow-teal)" fill="none" />
+
+                  {/* Return Arc */}
+                  <path d="M 592 88 Q 592 40 340 40 Q 88 40 88 88" fill="none" stroke="#5DCAA5" strokeWidth="1.5" strokeDasharray="5 3" markerEnd="url(#arrow-teal)" />
+
+                  {/* Return Label */}
+                  <text x="340" y="30" textAnchor="middle" fill="#0F6E56" fontSize="12">
+                    {lang === 'zh' ? '加入錯題庫 ↻' : 'Add to Wrong Book ↻'}
+                  </text>
+                </svg>
+              </div>
+
+              {/* FEATURE 2A: 拍照解題 */}
               <div style={{ marginBottom: '64px' }}>
                 <span style={{
                   display: 'inline-block',
@@ -4726,14 +5121,14 @@ const SPLIT_VIEW_CHIPS = [
                   fontWeight: '500',
                   padding: '4px 12px',
                   borderRadius: '20px',
-                  backgroundColor: '#EEEDFE',
-                  color: '#534AB7',
+                  backgroundColor: '#E1F5EE',
+                  color: '#0F6E56',
                   marginBottom: '12px'
                 }}>
-                  功能 1C
+                  功能 2A
                 </span>
                 <h3 style={{ fontSize: '22px', fontWeight: '600', color: '#1A1A1A', margin: '0 0 16px 0' }}>
-                  {lang === 'zh' ? '錯題庫＋收藏庫' : 'Incorrect & Saved Question Libraries'}
+                  {lang === 'zh' ? '拍照解題 → AI 解析' : 'Photo Solving → AI Analysis'}
                 </h3>
                 <p style={{
                   fontSize: '16px',
@@ -4743,64 +5138,114 @@ const SPLIT_VIEW_CHIPS = [
                   margin: '0 0 32px 0',
                   textAlign: 'justify'
                 }}>
-                  {lang === 'zh'
-                    ? `視覺語言上，我們刻意避免讓錯題庫看起來像「失敗清單」。空狀態設計成「還沒有題目加入」而非「你還沒犯錯」，傳遞的訊息是：這是一個等待被填滿的學習資產。\n\n收藏庫讓學生主動標記重要題目，給予學習的自主感——「我想記住這題」比被動的「這題你答錯了」更有動力回來複習。\n\n錯題庫同時也是刷題閉環回到起點的橋梁：學生可直接從錯題庫選題進入下一輪練習，讓弱點強化成為自然的下一步。`
-                    : `Visually, we deliberately avoided making the incorrect question library look like a "list of failures." The empty state is designed as "no questions added yet" rather than "you haven't made mistakes yet," sending the message that this is a learning asset waiting to be filled.\n\nSaved question library lets students actively tag important questions, giving them a sense of learning autonomy—"I want to remember this question" creates more motivation to return and review than passive "you got this wrong" indicators.\n\nIncorrect question library also bridges the loop back to the start: students can select questions directly from the incorrect library to enter the next round of practice, making weakness reinforcement a natural next step.`}
+                  {lang === 'zh' 
+                    ? `複習閉環從一個學生最常見的挫折情境出發：考後拿到考卷，有幾題不知道錯在哪裡，但沒有人可以問。傳統的解法是搜尋關鍵字或等老師解說，摩擦力高且不即時。\n\n拍照解題降低了這個情境的摩擦力——拍照比輸入文字快，AI 比搜尋引擎更直接。解析頁面設計了清楚的題目辨識、逐步解題說明，以及「進行相似題練習」的主要 CTA，讓學生不只是「看懂答案」。`
+                    : `The review loop stems from a common student pain point: receiving a graded paper and not understanding the mistakes, with no one to ask. Traditional solutions like searching online or waiting for teacher explanations are high-friction and slow.\n\nPhoto solving minimizes this friction—taking a photo is faster than typing, and AI is more direct than search engines. The analysis page features clear question recognition, step-by-step solutions, and a primary "Practice Similar Questions" CTA, ensuring students don't just "see" the answer but actually learn it.`}
                 </p>
 
-                {/* Two phone mockup placeholders side by side */}
-                <div style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', boxSizing: 'border-box', padding: '0 16px' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '220px' }}>
+                {/* THREE-STEP FLOW VISUAL */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '16px',
+                  flexWrap: 'wrap',
+                  width: '100%',
+                  boxSizing: 'border-box',
+                  padding: '0 16px',
+                  margin: '32px 0 24px 0'
+                }}>
+                  {/* Frame 1 */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '180px' }}>
                     <div style={{
                       width: '100%',
                       aspectRatio: '9 / 19.5',
-                      borderRadius: '28px',
-                      border: '6px solid #1A1A1A',
-                      backgroundColor: '#D0CCEA',
-                      boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
-                      boxSizing: 'border-box',
-                      overflow: 'hidden',
-                      position: 'relative'
-                    }}>
-                      <img 
-                        src="/projects/mslin-app/screens/base2.png" 
-                        alt="錯題庫" 
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                      />
-                    </div>
-                    <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
-                      錯題庫 — 中性語言取代負面標籤
+                      borderRadius: '24px',
+                      border: '5px solid #1A1A1A',
+                      backgroundColor: '#D8F0E8',
+                      boxShadow: '0 12px 32px rgba(0,0,0,0.06)',
+                      boxSizing: 'border-box'
+                    }}></div>
+                    <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', fontWeight: '500' }}>
+                      {lang === 'zh' ? '拍照上傳' : 'Upload Photo'}
                     </span>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '220px' }}>
+                  {/* Arrow 1 */}
+                  <div style={{ color: '#0F6E56', fontSize: '24px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    →
+                  </div>
+
+                  {/* Frame 2 */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '180px' }}>
                     <div style={{
                       width: '100%',
                       aspectRatio: '9 / 19.5',
-                      borderRadius: '28px',
-                      border: '6px solid #1A1A1A',
-                      backgroundColor: '#D0CCEA',
-                      boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
-                      boxSizing: 'border-box',
-                      overflow: 'hidden',
-                      position: 'relative'
-                    }}>
-                      <img 
-                        src="/projects/mslin-app/screens/base1.png" 
-                        alt="收藏庫" 
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                      />
-                    </div>
-                    <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
-                      收藏庫 — 主動儲存給予自主感
+                      borderRadius: '24px',
+                      border: '5px solid #1A1A1A',
+                      backgroundColor: '#D8F0E8',
+                      boxShadow: '0 12px 32px rgba(0,0,0,0.06)',
+                      boxSizing: 'border-box'
+                    }}></div>
+                    <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', fontWeight: '500' }}>
+                      {lang === 'zh' ? 'AI 解析結果' : 'AI Analysis'}
+                    </span>
+                  </div>
+
+                  {/* Arrow 2 */}
+                  <div style={{ color: '#0F6E56', fontSize: '24px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    →
+                  </div>
+
+                  {/* Frame 3 */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '180px' }}>
+                    <div style={{
+                      width: '100%',
+                      aspectRatio: '9 / 19.5',
+                      borderRadius: '24px',
+                      border: '5px solid #1A1A1A',
+                      backgroundColor: '#D8F0E8',
+                      boxShadow: '0 12px 32px rgba(0,0,0,0.06)',
+                      boxSizing: 'border-box'
+                    }}></div>
+                    <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', fontWeight: '500' }}>
+                      {lang === 'zh' ? '相似題練習' : 'Similar Practice'}
                     </span>
                   </div>
                 </div>
+
+                <p style={{
+                  fontSize: '14px',
+                  color: '#6B6B6B',
+                  lineHeight: '1.7',
+                  maxWidth: '680px',
+                  margin: '16px 0 0 0',
+                  textAlign: 'justify'
+                }}>
+                  {lang === 'zh'
+                    ? `這條路徑的設計核心是降低解惑門檻、延伸學習深度：拍照→即時解析把解惑的摩擦力降到最低；解析→相似題把「看懂」延伸成「會做」；相似題結果→錯題庫把複習閉環接回共用資產系統。`
+                    : `The design core of this path is to lower the barrier to solving queries and extend learning depth: Photo → Instant Analysis reduces friction to a minimum; Analysis → Similar Questions bridges "understanding" to "doing"; Similar Results → Incorrect Library links the review loop back to the shared asset system.`}
+                </p>
               </div>
 
-              {/* Between Loop One and Loop Two */}
-              <div style={{ width: '100%', borderBottom: '0.5px solid #EEEEEE', margin: '64px 0' }}></div>
-              {/* Loop Two inserted in STEP 6 */}
+              {/* SHARED SYSTEM NOTE */}
+              <div style={{
+                background: '#FAEEDA',
+                borderRadius: '12px',
+                padding: '16px 24px',
+                marginTop: '48px',
+                borderLeft: '4px solid #BA7517',
+                boxSizing: 'border-box'
+              }}>
+                <div style={{ fontSize: '14px', fontWeight: '500', color: '#412402', marginBottom: '8px' }}>
+                  {lang === 'zh' ? '兩條閉環的匯流點' : 'Convergence Point of the Two Loops'}
+                </div>
+                <div style={{ fontSize: '13px', color: '#633806', lineHeight: '1.7', textAlign: 'justify' }}>
+                  {lang === 'zh'
+                    ? `不論從哪條閉環進入，最終都匯流至同一套個人學習資產系統——XP 累積、段位記錄、錯題庫、收藏庫。這讓兩條路徑互相強化：刷題閉環建立廣度，複習閉環補強弱點，共同構成完整的學習飛輪。`
+                    : `Regardless of which loop students enter from, they ultimately converge on the same personal learning asset system—accumulating XP, tier records, incorrect question library, and saved library. This allows both paths to reinforce each other: the practice loop builds breadth, while the review loop strengthens weaknesses, jointly forming a complete learning flywheel.`}
+                </div>
+              </div>
               {/* Divider between Feature 3 and Visual Design System */}
               <div style={{ width: '100%', borderBottom: '0.5px solid #EEEEEE', margin: '64px 0' }}></div>
 

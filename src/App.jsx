@@ -641,7 +641,7 @@ const PROJECTS = [
     platform: 'web', // 可以設定為 'web' 或 'app'
     title: 'BrainBox UI Visual Design',
     thumb: 'bg-[#EAE8F2]',
-    coverMedia: { type: 'image', url: '/projects/brainbox_ui/cover.jpg' },
+    coverMedia: { type: 'video', url: '/projects/brainbox/brainbox-hero.mp4' },
     tags: ['UI/UX', 'System Design'],
     description: {
       zh: '智慧教育系統的視覺介面設計，優化教師與學生的操作流程，提升數位學習體驗。',
@@ -7471,7 +7471,7 @@ const SPLIT_VIEW_CHIPS = [
     }, []);
 
     useEffect(() => {
-      const sectionIds = ['project-overview', 'brand-identity', 'brand-mascot', 'icon-system', 'illustration-animation', 'brand-film'];
+      const sectionIds = ['project-overview', 'brand-identity', 'icon-system', 'brand-mascot', 'illustration-animation', 'brand-film'];
       
       const observerCallback = (entries) => {
         entries.forEach(entry => {
@@ -7517,21 +7517,28 @@ const SPLIT_VIEW_CHIPS = [
 
     // Asset Lists
     const MASCOT_ASSETS = [
-      { label: '開心', emoji: '😊', status: '開心 (Happy)', desc: '吉祥物在學習進度達成或答題正確時的開心狀態。' },
-      { label: '思考', emoji: '🤔', status: '思考中 (Thinking)', desc: '吉祥物在系統進行智慧分析或使用者思考難題時的狀態。' },
-      { label: '待機', emoji: '😴', status: '待機 (Idle)', desc: '吉祥物在無操作、系統休眠或待機時的預設狀態。' },
-      { label: '慶祝', emoji: '🎉', status: '慶祝 (Celebrating)', desc: '吉祥物在完成測驗、獲得高分或破紀錄時的慶祝動態。' },
-      { label: '錯誤', emoji: '😟', status: '錯誤提示 (Error)', desc: '吉祥物在網路連線中斷、答題錯誤或系統警示時的提示狀態。' },
-      { label: '專注', emoji: '⚡', status: '專注 (Focused)', desc: '吉祥物在測驗進行中、倒數計時或深度學習時的專注狀態。' }
+      { label: '待機', url: '/projects/brainbox/待機.gif', status: '待機 (Idle)', desc: '吉祥物在無操作、系統休眠或待機時的預設狀態。' },
+      { label: '眨眼提醒', url: '/projects/brainbox/眨眼提醒.gif', status: '眨眼提醒 (Blink Reminder)', desc: '吉祥物進行溫馨提示、引導或出現學習指引時的眨眼狀態。' },
+      { label: '好棒', url: '/projects/brainbox/好棒.gif', status: '好棒 (Excellent)', desc: '吉祥物在使用者答題正確、取得高分或達成進度時的慶祝狀態。' },
+      { label: '結尾', url: '/projects/brainbox/結尾.gif', status: '結尾 (Ending)', desc: '學習任務完成、完成測驗或系統登出結束時的告別狀態。' }
     ];
 
     const ANIMATED_ICON_ASSETS = [
-      { label: '通知', emoji: '🔔', desc: '在接收新訊息、系統通知或學習提醒時播放的動態反饋。' },
-      { label: '完成', emoji: '✅', desc: '在單元學習結束、任務提交成功或題目回答正確時的打勾動態。' },
-      { label: '收藏', emoji: '🔖', desc: '使用者點擊收藏題目、加入書籤或記錄重點時的收納動態。' },
-      { label: '喜愛', emoji: '❤️', desc: '使用者點擊喜愛內容、標記最愛或按讚互動時的跳動動畫。' },
-      { label: '刪除', emoji: '🗑️', desc: '在清空暫存、刪除錯題紀錄或移除清單項目時的碎紙桶動態。' },
-      { label: '設定', emoji: '⚙️', desc: '點擊設定選單、展開進階調整或同步偏好選項時的齒輪旋轉動態。' }
+      { label: '總覽', url: '/projects/brainbox/motion-icon/overview.gif', iconUrl: '/projects/brainbox/icon/overview.svg', desc: '學習主頁總覽與個人數據儀表板的切換微動態。' },
+      { label: '課程', url: '/projects/brainbox/motion-icon/course.gif', iconUrl: '/projects/brainbox/icon/course.svg', desc: '進入課程地圖、學習單元或講義下載時的切換動畫。' },
+      { label: '考試中心', url: '/projects/brainbox/motion-icon/test-center.gif', iconUrl: '/projects/brainbox/icon/test-center.svg', desc: '管理歷次大型模考、預約實體考場或下載准考證的入口動態。' },
+      { label: '錯題複習', url: '/projects/brainbox/motion-icon/review.gif', iconUrl: '/projects/brainbox/icon/review-center.svg', desc: '進入錯題本、查看錯題分析或重新演練題目時的重溫動畫。' },
+      { label: '學習報告', url: '/projects/brainbox/motion-icon/report.gif', iconUrl: '/projects/brainbox/icon/report.svg', desc: '分析成績分佈、產出雷達圖與學習盲點診斷時的報告動畫。' },
+      { label: '教師中心', url: '/projects/brainbox/motion-icon/educator-hub.gif', iconUrl: '/projects/brainbox/icon/edu-hub.svg', desc: '切換至教師管理後台、查看班級表現與派發作業的切換動態。' },
+      { label: '學科', url: '/projects/brainbox/motion-icon/subject.gif', iconUrl: '/projects/brainbox/icon/subject.svg', desc: '自訂考試科目分類、查看弱勢學科或切換領域學分時的動態。' },
+      
+      { label: '練習', url: '/projects/brainbox/motion-icon/practice.gif', iconUrl: '/projects/brainbox/icon/practice.svg', desc: '開始每日練習、章節測驗與題目解析時的引導動態。', isWhite: true },
+      { label: '模擬考試', url: '/projects/brainbox/motion-icon/mock-test.gif', iconUrl: '/projects/brainbox/icon/mock-test.svg', desc: '生成全真模擬考卷、進行倒數計時與提交考卷的儀式動畫。', isWhite: true },
+      { label: '測驗', url: '/projects/brainbox/motion-icon/test.gif', iconUrl: '/projects/brainbox/icon/test.svg', desc: '快速發起隨堂小測驗、進行即時評分與計時挑戰的反饋動態。', isWhite: true },
+      { label: '數學', url: '/projects/brainbox/motion-icon/math.gif', iconUrl: '/projects/brainbox/icon/math.svg', desc: '進入 SAT 數學學科章節、公式卡或專題訓練的切換動態。', isWhite: true },
+      { label: '閱讀', url: '/projects/brainbox/motion-icon/reading.gif', iconUrl: '/projects/brainbox/icon/reading.svg', desc: '進入 SAT 閱讀理解、長難句拆解與字彙卡學習的切換動態。', isWhite: true },
+      { label: '寫作', url: '/projects/brainbox/motion-icon/writing.gif', iconUrl: '/projects/brainbox/icon/writing.svg', desc: '進入 SAT 語法寫作、作文演練與 AI 批改時的筆觸動態。', isWhite: true },
+      { label: '歷次考績', url: '/projects/brainbox/motion-icon/test-history.gif', iconUrl: '/projects/brainbox/icon/test-history.svg', desc: '回溯歷史成績記錄、分析分數成長曲線或導出歷史記錄的動態。', isWhite: true }
     ];
 
     const META_CARDS = [
@@ -7607,7 +7614,7 @@ const SPLIT_VIEW_CHIPS = [
         <div className="w-full md:w-screen md:relative md:left-1/2 md:-translate-x-1/2 rounded-2xl md:rounded-none bg-gray-100 mt-6 md:mt-8 select-none overflow-hidden h-auto">
           {!videoError ? (
             <video
-              src="/videos/brainbox-hero.mp4"
+              src="/projects/brainbox/brainbox-hero.mp4"
               autoPlay
               muted
               loop
@@ -7705,21 +7712,34 @@ const SPLIT_VIEW_CHIPS = [
               {/* Sub-section 1 — 標誌規範展示 */}
               <div>
                 <SubHeading>{lang === 'zh' ? '1. 標誌規範展示' : '1. Logo Standards Display'}</SubHeading>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   <div>
-                    <ImagePlaceholder label="主版本標誌 / Main Version" height="220px" icon="photo" />
+                    <div className="w-full bg-gray-50 border border-gray-100 rounded-2xl flex items-center justify-center overflow-hidden h-[220px] select-none p-6">
+                      <img src="/projects/brainbox/BrainBox_logo set-01.png" alt="BrainBox Logo Set 01" className="max-w-full max-h-full object-contain" />
+                    </div>
                     <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '主版本標誌 (Main Version)' : 'Main Version Logo'}</div>
                     <div className="text-xs md:text-sm text-gray-500 mt-2 font-medium leading-relaxed">{lang === 'zh' ? '適用於主色底及多數主流數位介面' : 'Applicable to main color backgrounds and most digital interfaces.'}</div>
                   </div>
                   <div>
-                    <ImagePlaceholder label="深色背景反白版 / Reversed Version" height="220px" icon="photo" bg="bg-[#1a1a1a]" />
-                    <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '深色背景反白版 (Reversed Version)' : 'Reversed Version'}</div>
-                    <div className="text-xs md:text-sm text-gray-500 mt-2 font-medium leading-relaxed">{lang === 'zh' ? '適用於品牌深色頁尾、碳黑色看板及暗色模式介面' : 'Applicable to dark footers, charcoal billboards, and dark mode.'}</div>
+                    <div className="w-full bg-[#1A1A1A] border border-gray-800 rounded-2xl flex items-center justify-center overflow-hidden h-[220px] select-none p-6">
+                      <img src="/projects/brainbox/BrainBox_logo set-02.png" alt="BrainBox Logo Set 02" className="max-w-full max-h-full object-contain" />
+                    </div>
+                    <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '深色背景反白版 (Reversed Version)' : 'Reversed Version Logo'}</div>
+                    <div className="text-xs md:text-sm text-gray-500 mt-2 font-medium leading-relaxed">{lang === 'zh' ? '適用於品牌深色頁尾與暗色模式介面' : 'Applicable to dark footers and dark mode interfaces.'}</div>
                   </div>
                   <div>
-                    <ImagePlaceholder label="單色極簡版 / Monochrome Version" height="220px" icon="photo" />
-                    <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '單色極簡版 (Monochrome Version)' : 'Monochrome Version'}</div>
+                    <div className="w-full bg-gray-50 border border-gray-100 rounded-2xl flex items-center justify-center overflow-hidden h-[220px] select-none p-6">
+                      <img src="/projects/brainbox/BrainBox_logo set-03.png" alt="BrainBox Logo Set 03" className="max-w-full max-h-full object-contain" />
+                    </div>
+                    <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '單色極簡版 (Monochrome Version)' : 'Monochrome Version Logo'}</div>
                     <div className="text-xs md:text-sm text-gray-500 mt-2 font-medium leading-relaxed">{lang === 'zh' ? '適用於報表印刷、單色壓印或低色彩干擾之媒介' : 'Applicable to report printing, monochrome engraving, and low chroma media.'}</div>
+                  </div>
+                  <div>
+                    <div className="w-full bg-[#F5F5F3] border border-gray-200 rounded-2xl flex items-center justify-center overflow-hidden h-[220px] select-none p-6">
+                      <img src="/projects/brainbox/BrainBox_logo set-04.png" alt="BrainBox Logo Set 04" className="max-w-full max-h-full object-contain" />
+                    </div>
+                    <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '標誌網格與結構 (Logo Grid & Structure)' : 'Logo Grid & Structure'}</div>
+                    <div className="text-xs md:text-sm text-gray-500 mt-2 font-medium leading-relaxed">{lang === 'zh' ? '嚴格定義的黃金比例與幾何結構規範' : 'Strictly defined golden ratio and geometric alignment guidelines.'}</div>
                   </div>
                 </div>
               </div>
@@ -7802,88 +7822,9 @@ const SPLIT_VIEW_CHIPS = [
 
           <div className="w-full h-[0.5px] bg-[#e5e5e5] my-10" />
 
-          {/* SECTION 03 — 品牌吉祥物 */}
-          <div id="brand-mascot" className="scroll-mt-24">
-            <SectionHeader num="03" title={lang === 'zh' ? '品牌吉祥物' : 'Brand Mascot'} />
-            
-            <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12 items-start">
-              {/* LEFT COLUMN: Main display + thumbnails */}
-              <div>
-                <ImagePlaceholder 
-                  label={`吉祥物大圖 / GIF（點擊下方縮圖切換）\n\n【當前展示狀態：${MASCOT_ASSETS[activeMascotIndex].status}】\n${MASCOT_ASSETS[activeMascotIndex].desc}`} 
-                  height="400px" 
-                  icon="photo" 
-                />
-                
-                {/* Thumbnails Row */}
-                <div className="grid grid-cols-6 gap-3 mt-6">
-                  {MASCOT_ASSETS.map((mascot, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveMascotIndex(idx)}
-                      className={`h-[72px] rounded-xl flex flex-col items-center justify-center p-1 select-none transition-all duration-200 cursor-pointer ${
-                        activeMascotIndex === idx 
-                          ? 'border-2 border-[#534AB7] bg-[#F5F3FF] text-[#534AB7]' 
-                          : 'border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 text-gray-400'
-                      }`}
-                    >
-                      <span className="text-xl mb-1">{mascot.emoji}</span>
-                      <span className="text-[10px] font-bold tracking-wide">{mascot.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* RIGHT COLUMN: Info details */}
-              <div className="space-y-8">
-                <div>
-                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-3 select-none">
-                    {lang === 'zh' ? '角色設計說明' : 'CHARACTER DESIGN BRIEF'}
-                  </span>
-                  <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed">
-                    {lang === 'zh'
-                      ? '為了讓原本冷硬的備考系統更具趣味性，我們設計了品牌代表吉祥物 Brainy。Brainy 的臉部顯示屏幕會根據使用者的答題狀況與操作路徑做出即時表情反應，降低考生的考試焦慮，打造貼心無壓力的陪考氛圍。'
-                      : 'To make the test prep interface friendly, we designed mascot Brainy. Its face screen dynamically reacts to user actions and scores, mitigating student anxiety and establishing a cozy learning companion.'}
-                  </p>
-                </div>
-
-                <div>
-                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-3 select-none">
-                    {lang === 'zh' ? '情緒狀態涵蓋' : 'EMOTIONAL STATES'}
-                  </span>
-                  <div className="flex flex-wrap gap-3">
-                    {MASCOT_ASSETS.map((mascot, idx) => (
-                      <span 
-                        key={idx}
-                        className="text-sm font-semibold text-gray-700 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full flex items-center gap-2 select-none"
-                      >
-                        <span>{mascot.emoji}</span>
-                        <span>{mascot.label}</span>
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-3 select-none">
-                    {lang === 'zh' ? '使用情境' : 'USE CASES'}
-                  </span>
-                  <ul className="text-sm md:text-base text-gray-600 font-semibold font-['Noto_Sans_TC'] list-none p-0 m-0 space-y-3">
-                    <li>• Onboarding 引導</li>
-                    <li>• 答題結果回饋</li>
-                    <li>• 空狀態頁面</li>
-                    <li>• Loading 等待</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-full h-[0.5px] bg-[#e5e5e5] my-10" />
-
-          {/* SECTION 04 — Icon 設計系統 */}
+          {/* SECTION 03 — Icon 設計系統 */}
           <div id="icon-system" className="scroll-mt-24">
-            <SectionHeader num="04" title={lang === 'zh' ? 'Icon 設計系統' : 'Icon Design System'} />
+            <SectionHeader num="03" title={lang === 'zh' ? 'Icon 設計系統' : 'Icon Design System'} />
             
             <div className="space-y-12">
               {/* Sub-section 1 — Icon 架構系統 */}
@@ -7902,7 +7843,18 @@ const SPLIT_VIEW_CHIPS = [
               {/* Sub-section 2 — 靜態 Icon 總覽 */}
               <div>
                 <SubHeading>{lang === 'zh' ? '2. 靜態 Icon 總覽' : '2. Static Icon Overview'}</SubHeading>
-                <div className="grid grid-cols-5 sm:grid-cols-10 gap-3">
+                
+                {/* SVG Image overview display */}
+                <div className="w-full flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="/projects/brainbox/icon-all.svg" 
+                    alt="BrainBox Static Icons Overview" 
+                    className="w-full h-auto object-contain" 
+                  />
+                </div>
+
+                {/* Hiding individual grid for future optimization
+                <div className="grid grid-cols-5 sm:grid-cols-10 gap-3 mt-6">
                   {Array.from({ length: 19 }).map((_, idx) => (
                     <div key={idx} className="aspect-square bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center p-3 select-none hover:bg-gray-100/50 transition-colors">
                       <svg className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -7914,19 +7866,36 @@ const SPLIT_VIEW_CHIPS = [
                     <span className="text-xs md:text-sm font-bold text-gray-500">+99 more</span>
                   </div>
                 </div>
+                */}
               </div>
 
               {/* Sub-section 3 — 動態 Icon 展示 */}
               <div>
                 <SubHeading>{lang === 'zh' ? '3. 動態 Icon 展示' : '3. Motion Icon Showcase'}</SubHeading>
-                <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12 items-start">
-                  <ImagePlaceholder 
-                    label={`動態 Icon 預覽：${ANIMATED_ICON_ASSETS[activeIconIndex].label}\n\n【當前展示元件：${ANIMATED_ICON_ASSETS[activeIconIndex].emoji} ${ANIMATED_ICON_ASSETS[activeIconIndex].label}】\n${ANIMATED_ICON_ASSETS[activeIconIndex].desc}`} 
-                    height="320px" 
-                    icon="play" 
-                  />
+                <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12 items-stretch">
+                  <div className={`w-full border rounded-2xl flex items-center justify-center p-6 select-none shadow-sm relative overflow-hidden h-full min-h-[400px] lg:min-h-0 transition-all duration-300 ${
+                    ANIMATED_ICON_ASSETS[activeIconIndex].isWhite 
+                      ? 'bg-[#5E60A3] border-[#5E60A3]' 
+                      : 'bg-[#FAFCFF] border-gray-150'
+                  }`}>
+                    <img 
+                      src={ANIMATED_ICON_ASSETS[activeIconIndex].url} 
+                      alt={ANIMATED_ICON_ASSETS[activeIconIndex].label} 
+                      className="w-56 h-56 sm:w-64 sm:h-64 md:w-76 md:h-76 object-contain relative z-10" 
+                    />
+                    <div className={`absolute top-0 right-0 w-24 h-24 rounded-full blur-xl pointer-events-none transition-all duration-300 ${
+                      ANIMATED_ICON_ASSETS[activeIconIndex].isWhite 
+                        ? 'bg-white/10' 
+                        : 'bg-gradient-to-br from-indigo-50/30 to-purple-50/20'
+                    }`} />
+                    <div className={`absolute bottom-0 left-0 w-32 h-32 rounded-full blur-xl pointer-events-none transition-all duration-300 ${
+                      ANIMATED_ICON_ASSETS[activeIconIndex].isWhite 
+                        ? 'bg-white/10' 
+                        : 'bg-gradient-to-tr from-cyan-50/20 to-blue-50/30'
+                    }`} />
+                  </div>
                   
-                  <div className="space-y-6 w-full">
+                  <div className="space-y-6 w-full flex flex-col justify-between h-full">
                     <div className="grid grid-cols-3 gap-3">
                       {ANIMATED_ICON_ASSETS.map((icon, idx) => (
                         <button
@@ -7938,7 +7907,13 @@ const SPLIT_VIEW_CHIPS = [
                               : 'border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 text-gray-400'
                           }`}
                         >
-                          <span className="text-2xl mb-1.5">{icon.emoji}</span>
+                          <img 
+                            src={icon.iconUrl} 
+                            alt={icon.label} 
+                            className={`w-7 h-7 mb-1.5 object-contain transition-opacity duration-200 ${
+                              activeIconIndex === idx ? 'opacity-100' : 'opacity-50 hover:opacity-75'
+                            }`} 
+                          />
                           <span className="text-xs font-bold tracking-wide">{icon.label}</span>
                         </button>
                       ))}
@@ -7956,6 +7931,79 @@ const SPLIT_VIEW_CHIPS = [
 
           <div className="w-full h-[0.5px] bg-[#e5e5e5] my-10" />
 
+          {/* SECTION 04 — 品牌吉祥物 */}
+          <div id="brand-mascot" className="scroll-mt-24">
+            <SectionHeader num="04" title={lang === 'zh' ? '品牌吉祥物' : 'Brand Mascot'} />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12 lg:gap-16 items-start">
+              {/* LEFT COLUMN: Description + Main display + thumbnails */}
+              <div className="w-[400px] max-w-full space-y-8">
+                {/* Description text aligned to mascot area width */}
+                <p className="text-base text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed">
+                  {lang === 'zh'
+                    ? '為了讓原本冷硬的備考系統更具趣味性，我們設計了品牌代表吉祥物 Brainy。Brainy 的臉部顯示屏幕會根據使用者的答題狀況與操作路徑做出即時表情反應，降低考生的考試焦慮，打造貼心無壓力的陪考氛圍。'
+                    : 'To make the test prep interface friendly, we designed mascot Brainy. Its face screen dynamically reacts to user actions and scores, mitigating student anxiety and establishing a cozy learning companion.'}
+                </p>
+
+                <div className="w-[400px] max-w-full">
+                  <div className="w-[400px] max-w-full bg-[#FAFCFF] border border-gray-150 rounded-2xl flex flex-col items-center justify-center p-6 select-none h-[400px] shadow-sm relative overflow-hidden">
+                    <img 
+                      src={MASCOT_ASSETS[activeMascotIndex].url} 
+                      alt={MASCOT_ASSETS[activeMascotIndex].status} 
+                      className="max-w-full max-h-[80%] object-contain relative z-10" 
+                    />
+                    <div className="text-xs md:text-sm text-gray-500 mt-4 text-center font-medium leading-relaxed max-w-[85%] z-10">
+                      <span className="font-bold text-gray-800">{lang === 'zh' ? '當前狀態：' : 'Current: '}</span>
+                      {MASCOT_ASSETS[activeMascotIndex].status} — {MASCOT_ASSETS[activeMascotIndex].desc}
+                    </div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-50/30 to-purple-50/20 rounded-full blur-xl pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-cyan-50/20 to-blue-50/30 rounded-full blur-xl pointer-events-none" />
+                  </div>
+                  
+                  {/* Thumbnails Row */}
+                  <div className="grid grid-cols-4 gap-3 mt-6 w-[400px] max-w-full">
+                    {MASCOT_ASSETS.map((mascot, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveMascotIndex(idx)}
+                        className={`h-[60px] md:h-[72px] rounded-2xl flex items-center justify-center px-2 py-1 select-none transition-all duration-200 cursor-pointer text-center font-semibold text-xs md:text-sm ${
+                          activeMascotIndex === idx 
+                            ? 'border-2 border-[#534AB7] bg-[#F5F3FF] text-[#534AB7] shadow-sm' 
+                            : 'border border-gray-200 bg-gray-50 hover:bg-gray-100 text-gray-600'
+                        }`}
+                      >
+                        <span>{mascot.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT COLUMN: Actual application video */}
+              <div className="w-full lg:sticky lg:top-24 space-y-6">
+                <SubHeading>{lang === 'zh' ? '吉祥物實際應用展示' : 'Mascot Application Showcase'}</SubHeading>
+                <div className="w-full aspect-[3024/1964] rounded-2xl overflow-hidden bg-black border border-gray-800 relative shadow-lg">
+                  <video
+                    src="/projects/brainbox/Screen Recording 2025-04-09 at 11.02.28 AM.mov"
+                    controls
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-contain"
+                  />
+                </div>
+                <p className="text-sm text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed">
+                  {lang === 'zh'
+                    ? '此操作影片展示了吉祥物 Brainy 在系統答題反饋、倒數計時與狀態切換時的整合展示效果。'
+                    : 'This screen recording highlights the character animations of Brainy reacting to student inputs, popups, and score calculations.'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full h-[0.5px] bg-[#e5e5e5] my-10" />
+
           {/* SECTION 05 — 系統插圖與動畫 */}
           <div id="illustration-animation" className="scroll-mt-24">
             <SectionHeader num="05" title={lang === 'zh' ? '系統插圖與動畫' : 'Illustration & Animation'} />
@@ -7966,42 +8014,95 @@ const SPLIT_VIEW_CHIPS = [
                 : 'Covers all contextual illustrations and micro-animations, weaving a coherent graphical language into the EdTech application.'}
             </p>
 
-            <div className="space-y-12">
-              {/* Sub-section 1 — 用戶頭像系統 */}
-              <div>
-                <SubHeading>{lang === 'zh' ? '1. 用戶頭像系統' : '1. User Avatar Library'}</SubHeading>
-                <div className="flex flex-wrap gap-4 items-center">
-                  {Array.from({ length: 6 }).map((_, idx) => (
-                    <div 
-                      key={idx}
-                      className="w-[96px] h-[96px] rounded-full border border-dashed border-gray-300 bg-gray-50 flex items-center justify-center select-none"
-                    >
-                      <svg className="w-9 h-9 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                      </svg>
+            <div className="space-y-16">
+              
+              {/* Grid block for Avatars + Loading and Right Showcase Video */}
+              <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-16 items-start">
+                
+                {/* Left Column: Avatars & Loadings stacked */}
+                <div className="space-y-12">
+                  
+                  {/* Sub-section 1 — 用戶頭像系統 */}
+                  <div>
+                    <SubHeading>{lang === 'zh' ? '1. 用戶頭像系統' : '1. User Avatar Library'}</SubHeading>
+                    <div className="grid grid-cols-4 gap-4 max-w-sm">
+                      {[
+                        '/projects/brainbox/red.png',
+                        '/projects/brainbox/orange.png',
+                        '/projects/brainbox/yellow.png',
+                        '/projects/brainbox/green.png',
+                        '/projects/brainbox/gray-blue.png',
+                        '/projects/brainbox/purple.png',
+                        '/projects/brainbox/red-purple.png',
+                        '/projects/brainbox/pink.png'
+                      ].map((src, idx) => (
+                        <div 
+                          key={idx}
+                          className="aspect-square rounded-full border border-gray-200 bg-white flex items-center justify-center select-none overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
+                        >
+                          <img 
+                            src={src} 
+                            alt={`Avatar ${idx + 1}`} 
+                            className="w-full h-full object-cover" 
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
+
+                  {/* Sub-section 2 — Loading 動畫 */}
+                  <div>
+                    <SubHeading>{lang === 'zh' ? '2. Loading 動畫' : '2. Loading Animations'}</SubHeading>
+                    <div className="flex flex-col gap-6 max-w-sm">
+                      <div className="flex flex-col">
+                        <div className="w-full aspect-[16/10] bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden flex items-center justify-center shadow-sm">
+                          <img src="/projects/brainbox/analyzing loading.gif" alt="Full page loading" className="w-full h-full object-contain" />
+                        </div>
+                        <div className="text-xs md:text-sm font-bold text-gray-700 mt-2 text-center select-none">{lang === 'zh' ? '全頁 Loading' : 'Full Page Loading'}</div>
+                      </div>
+                      
+                      <div className="flex flex-col">
+                        <div className="w-full aspect-[16/10] bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden flex items-center justify-center shadow-sm">
+                          <img src="/projects/brainbox/creating test.gif" alt="Skeleton screen" className="w-full h-full object-contain" />
+                        </div>
+                        <div className="text-xs md:text-sm font-bold text-gray-700 mt-2 text-center select-none">{lang === 'zh' ? 'Skeleton Screen' : 'Skeleton Screen'}</div>
+                      </div>
+                      
+                      <div className="flex flex-col">
+                        <div className="w-full aspect-square bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden flex items-center justify-center shadow-sm">
+                          <video src="/projects/brainbox/box_loading_bright.mov" autoPlay muted loop playsInline className="w-full h-full object-contain" />
+                        </div>
+                        <div className="text-xs md:text-sm font-bold text-gray-700 mt-2 text-center select-none">{lang === 'zh' ? '元件 Loading' : 'Component Loading'}</div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
+
+                {/* Right Column: Actual application showcase video */}
+                <div className="lg:sticky lg:top-24 space-y-6">
+                  <SubHeading>{lang === 'zh' ? '3. 系統實際應用展示' : '3. System Application Showcase'}</SubHeading>
+                  <div className="w-full aspect-[3024/1964] rounded-2xl overflow-hidden bg-black border border-gray-800 relative shadow-lg">
+                    <video
+                      src="/projects/brainbox/Screen Recording 2025-04-09 at 11.02.28 AM.mov"
+                      controls
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-contain"
+                    />
+                  </div>
+                  <p className="text-sm text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed">
+                    {lang === 'zh'
+                      ? '此操作影片展示了用戶頭像系統以及 Loading 載入動畫在 BrainBox 智慧備考系統中的真實整合應用場景，包含考題分析與測驗生成時的流暢回饋。'
+                      : 'This screen recording demonstrates the integration of the avatar library and custom loading animations within the actual BrainBox prep platform, providing seamless user feedback during test generation.'}
+                  </p>
+                </div>
+
               </div>
 
-              {/* Sub-section 2 — Loading 動畫 */}
-              <div>
-                <SubHeading>{lang === 'zh' ? '2. Loading 動畫' : '2. Loading Animations'}</SubHeading>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <div>
-                    <ImagePlaceholder label="全頁 Loading / Full-screen Loading" height="200px" icon="play" />
-                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">{lang === 'zh' ? '全頁 Loading' : 'Full Page Loading'}</div>
-                  </div>
-                  <div>
-                    <ImagePlaceholder label="Skeleton Screen / 骨架結構載入" height="200px" icon="play" />
-                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">{lang === 'zh' ? 'Skeleton Screen' : 'Skeleton Screen'}</div>
-                  </div>
-                  <div>
-                    <ImagePlaceholder label="元件 Loading / Component Loading" height="200px" icon="play" />
-                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">{lang === 'zh' ? '元件 Loading' : 'Component Loading'}</div>
-                  </div>
-                </div>
-              </div>
+              <div className="w-full h-[0.5px] bg-[#e5e5e5] my-4" />
 
               {/* Sub-section 3 — Onboarding 歡迎動畫 */}
               <div>
@@ -8025,6 +8126,7 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
 
@@ -8040,27 +8142,15 @@ const SPLIT_VIEW_CHIPS = [
                 : 'An integrated promotional film displaying all components of the brand visual language in a lively dynamic video.'}
             </p>
 
-            <div className="w-full h-[40vh] md:h-[70vh] rounded-2xl overflow-hidden bg-gray-50 border border-dashed border-gray-300 relative select-none mt-8 flex flex-col items-center justify-center p-4">
-              {brandFilmError ? (
-                <div className="flex flex-col items-center justify-center text-gray-400">
-                  <svg className="w-16 h-16 text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
-                  </svg>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">{lang === 'zh' ? '品牌形象影片' : 'Brand Film'}</span>
-                  <span className="text-[10px] text-gray-300 mt-1">/videos/brainbox-brand-film.mp4</span>
-                </div>
-              ) : (
-                <video
-                  src="/videos/brainbox-brand-film.mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="absolute inset-0 w-full h-full object-cover rounded-2xl"
-                  onError={() => setBrandFilmError(true)}
-                />
-              )}
+            <div className="w-full aspect-[3820/2160] rounded-2xl overflow-hidden bg-black border border-gray-800 relative mt-8">
+              <iframe
+                src="https://www.youtube.com/embed/50ZFq8rk77c?rel=0"
+                title="BrainBox Brand Film"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full rounded-2xl"
+              ></iframe>
             </div>
           </div>
 

@@ -7460,6 +7460,33 @@ const SPLIT_VIEW_CHIPS = [
     const [activeIconIndex, setActiveIconIndex] = useState(0);
 
     useEffect(() => {
+      const link = document.createElement('link');
+      link.href = 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap';
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .bento-card-focus:focus-visible {
+          outline: 2px solid #F2703C !important;
+          outline-offset: 4px !important;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .bento-transition-element {
+            transition: none !important;
+            animation: none !important;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+
+      return () => {
+        document.head.removeChild(link);
+        document.head.removeChild(style);
+      };
+    }, []);
+
+    useEffect(() => {
       const handleScroll = () => {
         setNavBorder(window.scrollY > 450);
         if (window.scrollY < 300) {
@@ -7534,11 +7561,11 @@ const SPLIT_VIEW_CHIPS = [
       
       { label: '練習', url: '/projects/brainbox/motion-icon/practice.gif', iconUrl: '/projects/brainbox/icon/practice.svg', desc: '開始每日練習、章節測驗與題目解析時的引導動態。', isWhite: true },
       { label: '模擬考試', url: '/projects/brainbox/motion-icon/mock-test.gif', iconUrl: '/projects/brainbox/icon/mock-test.svg', desc: '生成全真模擬考卷、進行倒數計時與提交考卷的儀式動畫。', isWhite: true },
-      { label: '測驗', url: '/projects/brainbox/motion-icon/test.gif', iconUrl: '/projects/brainbox/icon/test.svg', desc: '快速發起隨堂小測驗、進行即時評分與計時挑戰的反饋動態。', isWhite: true },
+      { label: '測驗', url: '/projects/brainbox/motion-icon/test-history.gif', iconUrl: '/projects/brainbox/icon/test.svg', desc: '快速發起隨堂小測驗、進行即時評分與計時挑戰的反饋動態。', isWhite: true },
       { label: '數學', url: '/projects/brainbox/motion-icon/math.gif', iconUrl: '/projects/brainbox/icon/math.svg', desc: '進入 SAT 數學學科章節、公式卡或專題訓練的切換動態。', isWhite: true },
       { label: '閱讀', url: '/projects/brainbox/motion-icon/reading.gif', iconUrl: '/projects/brainbox/icon/reading.svg', desc: '進入 SAT 閱讀理解、長難句拆解與字彙卡學習的切換動態。', isWhite: true },
       { label: '寫作', url: '/projects/brainbox/motion-icon/writing.gif', iconUrl: '/projects/brainbox/icon/writing.svg', desc: '進入 SAT 語法寫作、作文演練與 AI 批改時的筆觸動態。', isWhite: true },
-      { label: '歷次考績', url: '/projects/brainbox/motion-icon/test-history.gif', iconUrl: '/projects/brainbox/icon/test-history.svg', desc: '回溯歷史成績記錄、分析分數成長曲線或導出歷史記錄的動態。', isWhite: true }
+      { label: '歷次考績', url: '/projects/brainbox/motion-icon/test.gif', iconUrl: '/projects/brainbox/icon/test-history.svg', desc: '回溯歷史成績記錄、分析分數成長曲線或導出歷史記錄的動態。', isWhite: true }
     ];
 
     const META_CARDS = [
@@ -7551,7 +7578,7 @@ const SPLIT_VIEW_CHIPS = [
     // Helper components to match custom layout guidelines
     const SectionHeader = ({ num, title }) => (
       <div className="flex flex-col mb-10 select-none">
-        <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-black font-['Inter'] leading-none text-[#111827] tracking-tighter mb-4">
+        <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-black font-['Manrope'] leading-none text-[#111827] tracking-[-0.06em] mb-4">
           {num}
         </h2>
         <h3 className="text-[24px] md:text-[36px] lg:text-[40px] font-bold font-['Noto_Sans_TC'] tracking-tight text-[#4B5563]">
@@ -7712,34 +7739,122 @@ const SPLIT_VIEW_CHIPS = [
               {/* Sub-section 1 — 標誌規範展示 */}
               <div>
                 <SubHeading>{lang === 'zh' ? '1. 標誌規範展示' : '1. Logo Standards Display'}</SubHeading>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  <div>
-                    <div className="w-full bg-gray-50 border border-gray-100 rounded-2xl flex items-center justify-center overflow-hidden h-[220px] select-none p-6">
-                      <img src="/projects/brainbox/BrainBox_logo set-01.png" alt="BrainBox Logo Set 01" className="max-w-full max-h-full object-contain" />
+                
+                <div className="relative w-full">
+                  {/* Cards Grid container */}
+                  <div 
+                    className="grid grid-cols-12 gap-6 bento-transition-element"
+                    style={{ fontFamily: "'Manrope', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif" }}
+                  >
+                    
+                    {/* Card 1: Logo */}
+                    <div 
+                      className="group relative bg-[#F5F6F8] hover:bg-[#EFF1F5] rounded-[20px] p-[28px] transition-all duration-300 ease-out border border-[#E7E9EE] flex flex-col justify-between overflow-hidden bento-card-focus focus-visible:outline-none bento-transition-element col-span-12 lg:col-span-4"
+                      tabIndex={0}
+                    >
+                      <div className="w-full bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center overflow-hidden h-[180px] select-none p-6">
+                        <img src="/projects/brainbox/BrainBox_logo set-01.png" alt="BrainBox Logo Standard" className="max-w-full max-h-full object-contain" />
+                      </div>
+                      
+                      <div className="mt-5 space-y-1.5">
+                        <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                          {lang === 'zh' ? '品牌標誌 (Logo)' : 'Brand Logo'}
+                        </div>
+                        <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                          {lang === 'zh' 
+                            ? '以六角形作為視覺主體，結合簡潔的無襯線字體，呈現創新且穩健可靠的形象。'
+                            : 'Hexagon visual centerpiece combined with a clean sans-serif typeface, conveying a forward-thinking and reliable image.'}
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '主版本標誌 (Main Version)' : 'Main Version Logo'}</div>
-                    <div className="text-xs md:text-sm text-gray-500 mt-2 font-medium leading-relaxed">{lang === 'zh' ? '適用於主色底及多數主流數位介面' : 'Applicable to main color backgrounds and most digital interfaces.'}</div>
-                  </div>
-                  <div>
-                    <div className="w-full bg-[#1A1A1A] border border-gray-800 rounded-2xl flex items-center justify-center overflow-hidden h-[220px] select-none p-6">
-                      <img src="/projects/brainbox/BrainBox_logo set-02.png" alt="BrainBox Logo Set 02" className="max-w-full max-h-full object-contain" />
+
+                    {/* Card 2: Graph */}
+                    <div 
+                      className="group relative bg-[#F5F6F8] hover:bg-[#EFF1F5] rounded-[20px] p-[28px] transition-all duration-300 ease-out border border-[#E7E9EE] flex flex-col justify-between overflow-hidden bento-card-focus focus-visible:outline-none bento-transition-element col-span-12 lg:col-span-8"
+                      tabIndex={0}
+                    >
+                      <div className="flex flex-col sm:flex-row gap-4 w-full h-[180px]">
+                        <div className="w-full sm:w-[45%] bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center overflow-hidden h-full select-none p-4">
+                          <img src="/projects/brainbox/BrainBox_logo_graph.svg" alt="BrainBox Graph Geometry" className="max-w-full max-h-full object-contain" />
+                        </div>
+                        <div className="flex-grow flex items-center justify-center bg-white border border-[#E7E9EE] rounded-[16px] h-full w-full sm:w-[50%] p-4 select-none">
+                          <img src="/projects/brainbox/graphic-seperate.svg" alt="BrainBox Graphic Separate Breakdown" className="max-w-full max-h-full object-contain" />
+                        </div>
+                      </div>
+
+                      <div className="mt-5 space-y-1.5">
+                        <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                          {lang === 'zh' ? '圖形與幾何 (Graph & Structure)' : 'Graph & Structure'}
+                        </div>
+                        <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                          {lang === 'zh' 
+                            ? '透過分割的六角形構成立體多面箱子，隱藏首字母縮寫「BB」，象徵承載知識的寶箱。'
+                            : 'Hexagon divided by intersecting lines forming a 3D multifaceted box hiding the initials "BB", representing a chest of knowledge.'}
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '深色背景反白版 (Reversed Version)' : 'Reversed Version Logo'}</div>
-                    <div className="text-xs md:text-sm text-gray-500 mt-2 font-medium leading-relaxed">{lang === 'zh' ? '適用於品牌深色頁尾與暗色模式介面' : 'Applicable to dark footers and dark mode interfaces.'}</div>
-                  </div>
-                  <div>
-                    <div className="w-full bg-gray-50 border border-gray-100 rounded-2xl flex items-center justify-center overflow-hidden h-[220px] select-none p-6">
-                      <img src="/projects/brainbox/BrainBox_logo set-03.png" alt="BrainBox Logo Set 03" className="max-w-full max-h-full object-contain" />
+
+                    {/* Card 3: Logotype */}
+                    <div 
+                      className="group relative bg-[#F5F6F8] hover:bg-[#EFF1F5] rounded-[20px] p-[28px] transition-all duration-300 ease-out border border-[#E7E9EE] flex flex-col justify-between overflow-hidden bento-card-focus focus-visible:outline-none bento-transition-element col-span-12"
+                      tabIndex={0}
+                    >
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full">
+                        <div className="w-full md:w-[40%] bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center h-[120px] p-4 select-none">
+                          <img src="/projects/brainbox/BrainBox_logo set-04.png" alt="BrainBox Logotype" className="max-w-full max-h-full object-contain" />
+                        </div>
+                        <div className="w-full md:w-[55%] space-y-2 text-left">
+                          <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                            {lang === 'zh' ? '文字標誌 (Logotype)' : 'Brand Logotype'}
+                          </div>
+                          <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                            {lang === 'zh' 
+                              ? '在兩個字母「B」上巧妙加入筆畫分割，呼應圖形標誌線條分割的統一設計語彙。'
+                              : 'Wordmark featuring split strokes on B\'s, echoing the unified design language of the segmented graphic logo.'}
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '單色極簡版 (Monochrome Version)' : 'Monochrome Version Logo'}</div>
-                    <div className="text-xs md:text-sm text-gray-500 mt-2 font-medium leading-relaxed">{lang === 'zh' ? '適用於報表印刷、單色壓印或低色彩干擾之媒介' : 'Applicable to report printing, monochrome engraving, and low chroma media.'}</div>
-                  </div>
-                  <div>
-                    <div className="w-full bg-[#F5F5F3] border border-gray-200 rounded-2xl flex items-center justify-center overflow-hidden h-[220px] select-none p-6">
-                      <img src="/projects/brainbox/BrainBox_logo set-04.png" alt="BrainBox Logo Set 04" className="max-w-full max-h-full object-contain" />
+
+                    {/* Card 4: Lockups & Reversed */}
+                    <div 
+                      className="group relative transition-all duration-300 ease-out border rounded-[20px] p-[28px] flex flex-col justify-between overflow-hidden bento-card-focus focus-visible:outline-none bento-transition-element col-span-12 bg-[#F5F6F8] hover:bg-[#EFF1F5] border-[#E7E9EE] text-[#12172B]"
+                      tabIndex={0}
+                    >
+                      <div className="w-full space-y-6">
+                        <div className="space-y-1.5 text-left">
+                          <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                            {lang === 'zh' ? '組合形式與應用 (Lockups & Variations)' : 'Lockups & Variations'}
+                          </div>
+                          <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                            {lang === 'zh' 
+                              ? '包含橫向、兩行與反白等組合，因應不同應用載體自由調整以確保最佳的適應性與辨識度。'
+                              : 'Includes horizontal, two-line, and reversed layouts for flexible adaptation across diverse media viewports.'}
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                          <div className="bg-white border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
+                            <img src="/projects/brainbox/BrainBox_logo set-01.png" alt="Standard Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
+                            <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-['Manrope'] uppercase tracking-wider">Horizontal</span>
+                          </div>
+                          <div className="bg-white border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
+                            <img src="/projects/brainbox/BrainBox_logo set-02.png" alt="Stacked Lockup" className="max-w-[80%] max-h-[70%] object-contain" />
+                            <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-['Manrope'] uppercase tracking-wider">Two-line Stacked</span>
+                          </div>
+                          <div className="bg-white border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
+                            <img src="/projects/brainbox/BrainBox_logo set-03.png" alt="Monochrome Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
+                            <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-['Manrope'] uppercase tracking-wider">Monochrome</span>
+                          </div>
+                          {/* Reversed Dark Card on brand blue bg-[#2d308a] */}
+                          <div className="bg-[#2d308a] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none shadow-inner border border-transparent">
+                            <img src="/projects/brainbox/BrainBox_logo set-05.png" alt="Reversed Lockup" className="max-w-[80%] max-h-[70%] object-contain" />
+                            <span className="text-[10px] font-bold text-white/70 mt-2 font-['Manrope'] uppercase tracking-wider">Reversed Dark</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-snug">{lang === 'zh' ? '標誌網格與結構 (Logo Grid & Structure)' : 'Logo Grid & Structure'}</div>
-                    <div className="text-xs md:text-sm text-gray-500 mt-2 font-medium leading-relaxed">{lang === 'zh' ? '嚴格定義的黃金比例與幾何結構規範' : 'Strictly defined golden ratio and geometric alignment guidelines.'}</div>
+
                   </div>
                 </div>
               </div>
@@ -7750,18 +7865,17 @@ const SPLIT_VIEW_CHIPS = [
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-xl">
                     {lang === 'zh' 
-                      ? '為突顯科技感與智慧特質，我們以深沉安穩的 Primary Dark 作為視覺重心，搭配亮眼的 Accent Cyan 以傳遞活力與精準操作回饋；背景則選用高質感的灰白色 Background 降低視覺疲勞。' 
-                      : 'To highlight tech attributes, we use the stable Primary Dark as visual anchor, paired with Accent Cyan for action feedback, and neutral cool white Background to reduce fatigue.'}
+                      ? '為突顯科技感與智慧特質，我們以亮眼的 Primary Blue (#2d308a) 作為視覺重心，搭配醒目的 Accent Yellow (#FFD600) 用於焦點回饋與提示，創造兼具專業度與親和力的備考介面。' 
+                      : 'To highlight tech attributes, we use Primary Blue (#2d308a) as our visual anchor, paired with Accent Yellow (#FFD600) for focus feedback and highlights, establishing a friendly and professional interface.'}
                   </p>
                   
-                  <div className="grid grid-cols-3 gap-6 max-w-md w-full">
+                  <div className="grid grid-cols-2 gap-6 max-w-[280px] w-full lg:mx-0 mx-auto">
                     {[
-                      { hex: '#282828', name: 'Primary Dark' },
-                      { hex: '#00D2E2', name: 'Accent Cyan' },
-                      { hex: '#F5F5F3', name: 'Background' }
+                      { hex: '#2d308a', name: 'Primary Blue' },
+                      { hex: '#FFD600', name: 'Accent Yellow' }
                     ].map((color, idx) => (
                       <div key={idx} className="flex flex-col">
-                        <div className="rounded-2xl aspect-square w-full border border-gray-100" style={{ backgroundColor: color.hex }} />
+                        <div className="rounded-2xl aspect-square w-full border border-gray-100 shadow-sm" style={{ backgroundColor: color.hex }} />
                         <span className="text-sm md:text-base font-bold text-gray-800 mt-3.5 leading-none">{color.name}</span>
                         <span className="text-xs text-gray-400 uppercase mt-1.5 leading-none">{color.hex}</span>
                       </div>
@@ -7780,7 +7894,7 @@ const SPLIT_VIEW_CHIPS = [
                     <div className="space-y-6">
                       <div>
                         <span className="text-[10px] font-bold text-gray-400 block mb-1.5 uppercase">H1 / clamp(24px, 4vw, 36px)</span>
-                        <div className="text-3xl md:text-4xl font-extrabold font-['Inter'] text-gray-900 leading-tight">Designing Educational Futures</div>
+                        <div className="text-3xl md:text-4xl font-extrabold font-['Inter'] text-gray-900 leading-tight">Inter</div>
                       </div>
                       <div>
                         <span className="text-[10px] font-bold text-gray-400 block mb-1.5 uppercase">H3 / 16px font-bold</span>
@@ -7801,15 +7915,15 @@ const SPLIT_VIEW_CHIPS = [
                     <div className="space-y-6">
                       <div>
                         <span className="text-[10px] font-bold text-gray-400 block mb-1.5">大標題 H1 / 28px 特粗</span>
-                        <div className="text-3xl md:text-4xl font-extrabold font-['Noto_Sans_TC'] text-gray-900 leading-tight">打造學習新未來</div>
+                        <div className="text-3xl md:text-4xl font-extrabold font-['GenYoGothic', 'Noto_Sans_TC', sans-serif] text-gray-900 leading-tight">源樣黑體</div>
                       </div>
                       <div>
                         <span className="text-[10px] font-bold text-gray-400 block mb-1.5">次標題 H3 / 16px 粗體</span>
-                        <div className="text-lg font-bold font-['Noto_Sans_TC'] text-gray-800">個性化備考體驗</div>
+                        <div className="text-lg font-bold font-[#12172B] leading-[1.65]">個性化備考體驗</div>
                       </div>
                       <div>
                         <span className="text-[10px] font-bold text-gray-400 block mb-1.5">內文 Body / 12px 中黑</span>
-                        <p className="text-sm text-gray-600 font-['Noto_Sans_TC'] leading-relaxed">
+                        <p className="text-sm text-gray-600 leading-relaxed">
                           為教育機構決策者與考生設計的現代智慧平台，透過數據 analysis 與視覺回饋，將枯燥的學習歷程轉化為直覺流暢的體驗。
                         </p>
                       </div>
@@ -7869,62 +7983,87 @@ const SPLIT_VIEW_CHIPS = [
                 */}
               </div>
 
-              {/* Sub-section 3 — 動態 Icon 展示 */}
+              {/* Sub-section 3 — 動態 Icon 與應用展示 */}
               <div>
-                <SubHeading>{lang === 'zh' ? '3. 動態 Icon 展示' : '3. Motion Icon Showcase'}</SubHeading>
-                <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12 items-stretch">
-                  <div className={`w-full border rounded-2xl flex items-center justify-center p-6 select-none shadow-sm relative overflow-hidden h-full min-h-[400px] lg:min-h-0 transition-all duration-300 ${
-                    ANIMATED_ICON_ASSETS[activeIconIndex].isWhite 
-                      ? 'bg-[#5E60A3] border-[#5E60A3]' 
-                      : 'bg-[#FAFCFF] border-gray-150'
-                  }`}>
-                    <img 
-                      src={ANIMATED_ICON_ASSETS[activeIconIndex].url} 
-                      alt={ANIMATED_ICON_ASSETS[activeIconIndex].label} 
-                      className="w-56 h-56 sm:w-64 sm:h-64 md:w-76 md:h-76 object-contain relative z-10" 
-                    />
-                    <div className={`absolute top-0 right-0 w-24 h-24 rounded-full blur-xl pointer-events-none transition-all duration-300 ${
-                      ANIMATED_ICON_ASSETS[activeIconIndex].isWhite 
-                        ? 'bg-white/10' 
-                        : 'bg-gradient-to-br from-indigo-50/30 to-purple-50/20'
-                    }`} />
-                    <div className={`absolute bottom-0 left-0 w-32 h-32 rounded-full blur-xl pointer-events-none transition-all duration-300 ${
-                      ANIMATED_ICON_ASSETS[activeIconIndex].isWhite 
-                        ? 'bg-white/10' 
-                        : 'bg-gradient-to-tr from-cyan-50/20 to-blue-50/30'
-                    }`} />
-                  </div>
+                <SubHeading>{lang === 'zh' ? '3. 動態 Icon 與應用展示' : '3. Motion Icon & Application Showcase'}</SubHeading>
+                
+                <div className="grid grid-cols-12 gap-8 items-stretch">
                   
-                  <div className="space-y-6 w-full flex flex-col justify-between h-full">
-                    <div className="grid grid-cols-3 gap-3">
-                      {ANIMATED_ICON_ASSETS.map((icon, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setActiveIconIndex(idx)}
-                          className={`h-[80px] rounded-xl flex flex-col items-center justify-center p-1 select-none transition-all duration-200 cursor-pointer ${
-                            activeIconIndex === idx 
-                              ? 'border-2 border-[#534AB7] bg-[#F5F3FF] text-[#534AB7]' 
-                              : 'border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 text-gray-400'
-                          }`}
-                        >
-                          <img 
-                            src={icon.iconUrl} 
-                            alt={icon.label} 
-                            className={`w-7 h-7 mb-1.5 object-contain transition-opacity duration-200 ${
-                              activeIconIndex === idx ? 'opacity-100' : 'opacity-50 hover:opacity-75'
-                            }`} 
-                          />
-                          <span className="text-xs font-bold tracking-wide">{icon.label}</span>
-                        </button>
-                      ))}
+                  {/* Left Column (span 4/12): Previewer + Buttons */}
+                  <div className="col-span-12 lg:col-span-4 flex flex-col h-full justify-between">
+                    {/* Motion Icon Previewer */}
+                    <div className={`w-full flex-grow aspect-[1.5/1] lg:aspect-auto min-h-[200px] lg:min-h-0 border rounded-[20px] flex items-center justify-center p-6 select-none shadow-sm relative overflow-hidden transition-all duration-300 ${
+                      ANIMATED_ICON_ASSETS[activeIconIndex].isWhite 
+                        ? 'bg-[#5E60A3] border-[#5E60A3]' 
+                        : 'bg-[#FAFCFF] border-gray-150'
+                    }`}>
+                      <img 
+                        src={ANIMATED_ICON_ASSETS[activeIconIndex].url} 
+                        alt={ANIMATED_ICON_ASSETS[activeIconIndex].label} 
+                        className="w-36 h-36 sm:w-40 sm:h-40 object-contain relative z-10" 
+                      />
+                      <div className={`absolute top-0 right-0 w-24 h-24 rounded-full blur-xl pointer-events-none transition-all duration-300 ${
+                        ANIMATED_ICON_ASSETS[activeIconIndex].isWhite 
+                          ? 'bg-white/10' 
+                          : 'bg-gradient-to-br from-indigo-50/30 to-purple-50/20'
+                      }`} />
+                      <div className={`absolute bottom-0 left-0 w-32 h-32 rounded-full blur-xl pointer-events-none transition-all duration-300 ${
+                        ANIMATED_ICON_ASSETS[activeIconIndex].isWhite 
+                          ? 'bg-white/10' 
+                          : 'bg-gradient-to-tr from-cyan-50/20 to-blue-50/30'
+                      }`} />
                     </div>
-                    <p className="text-sm md:text-base text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed">
-                      {lang === 'zh'
-                        ? '動態 icon 在觸發時播放一次性動畫，強化操作回饋感。'
-                        : 'Animated micro-icons execute a snappy one-time animation loop when triggered, adding a tactile feel of UI feedback.'}
-                    </p>
+
+                    {/* Icon buttons grid */}
+                    <div className="mt-4">
+                      <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-5 gap-2 w-full">
+                        {ANIMATED_ICON_ASSETS.map((icon, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => setActiveIconIndex(idx)}
+                            className={`h-[62px] rounded-xl flex flex-col items-center justify-center p-1 select-none transition-all duration-200 cursor-pointer ${
+                              activeIconIndex === idx 
+                                ? 'border-2 border-[#2d308a] bg-[#2d308a]/5 text-[#2d308a]' 
+                                : 'border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 text-gray-400'
+                            }`}
+                          >
+                            <img 
+                              src={icon.iconUrl} 
+                              alt={icon.label} 
+                              className={`w-5 h-5 mb-1 object-contain transition-opacity duration-200 ${
+                                activeIconIndex === idx ? 'opacity-100' : 'opacity-50 hover:opacity-75'
+                              }`} 
+                              style={activeIconIndex === idx ? { filter: 'invert(18%) sepia(87%) saturate(2222%) hue-rotate(229deg) brightness(85%) contrast(92%)' } : {}}
+                            />
+                            <span className="text-[10px] font-bold tracking-wide leading-none">{icon.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
+
+                  {/* Right Column (span 8/12): Widescreen Video container matching aspect-video */}
+                  <div className="col-span-12 lg:col-span-8 flex flex-col">
+                    <div className="w-full aspect-video rounded-[20px] overflow-hidden bg-[#0A0D14] border border-[#E7E9EE] shadow-sm relative">
+                      <video
+                        src="/projects/brainbox/motion-icon-demo.mp4"
+                        controls
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+
                 </div>
+
+                <p className="text-xs md:text-sm text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed mt-6">
+                  {lang === 'zh'
+                    ? '動態 icon 在觸發時播放一次性動畫，強化操作回饋感。右側影片則展示了微動態 Icon 在系統功能導覽與按鈕互動中的實際執行效果與順暢回饋。'
+                    : 'Animated micro-icons execute a snappy one-time animation loop when triggered, adding a tactile feel of UI feedback. The right video demonstrates the micro-interaction animation loop implemented in the live application.'}
+                </p>
               </div>
             </div>
           </div>

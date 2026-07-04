@@ -27,6 +27,56 @@ const IconChevronLeft = ({ className }) => <svg xmlns="http://www.w3.org/2000/sv
 const IconChevronRight = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m9 18 6-6-6-6" /></svg>;
 // ========================= 核心架構：共用元件 =========================
 
+// Helper components to match custom layout guidelines
+const SectionHeader = ({ num, title }) => (
+  <div className="flex flex-col mb-10 select-none">
+    <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-black font-['Manrope'] leading-none text-[#111827] tracking-[-0.06em] mb-4">
+      {num}
+    </h2>
+    <h3 className="text-[24px] md:text-[36px] lg:text-[40px] font-bold font-['Noto_Sans_TC'] tracking-tight text-[#4B5563]">
+      {title}
+    </h3>
+  </div>
+);
+
+const SubHeading = ({ children }) => (
+  <h4 className="border-l-[3px] border-[#E8734A] pl-3 text-base md:text-lg font-bold text-gray-800 uppercase tracking-wider mb-6 select-none">
+    {children}
+  </h4>
+);
+
+const ImagePlaceholder = ({ label, height = '160px', icon = 'photo', bg = 'bg-gray-50' }) => (
+  <div 
+    className={`w-full ${bg} border border-dashed border-gray-300 rounded-[10px] flex flex-col items-center justify-center p-4 select-none`}
+    style={{ height }}
+  >
+    {icon === 'photo' && (
+      <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+      </svg>
+    )}
+    {icon === 'play' && (
+      <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+      </svg>
+    )}
+    {icon === 'person' && (
+      <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+      </svg>
+    )}
+    {icon === 'icon' && (
+      <svg className="w-6 h-6 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 21l8.904-4.43c.277-.138.56-.273.846-.403V9.07c-.288-.13-.572-.265-.849-.403L9 4.23l.813 5.1c.045.282.26.505.534.56l5.14.908-5.14.908c-.273.055-.489.278-.534.56z" />
+      </svg>
+    )}
+    <span className="text-[11px] text-gray-400 font-medium tracking-wide text-center leading-normal max-w-[90%]">
+      {label}
+    </span>
+  </div>
+);
+
 // --- 優化版影片播放器 ---
 const OptimizedVideo = ({ src, className }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -2630,10 +2680,10 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
                 <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] whitespace-pre-line">
                   {activeItem.projectOverview.backgroundAndGoals && (
-                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.background}</h4><p>{t(activeItem.projectOverview.backgroundAndGoals, lang)}</p></div>
+                    <div><SubHeading>{I18N[lang].project.background}</SubHeading><p>{t(activeItem.projectOverview.backgroundAndGoals, lang)}</p></div>
                   )}
                   {activeItem.projectOverview.challenge && (
-                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.challenge}</h4><p>{t(activeItem.projectOverview.challenge, lang)}</p></div>
+                    <div><SubHeading>{I18N[lang].project.challenge}</SubHeading><p>{t(activeItem.projectOverview.challenge, lang)}</p></div>
                   )}
                 </div>
               </div>
@@ -2656,10 +2706,10 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
                 <div className="space-y-12">
                   {activeItem.brandIdentity.typography && (
-                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.typography}</h4><div className="bg-[#FAFAFA] rounded-2xl p-8 border border-gray-100"><div className="text-[80px] font-bold leading-none mb-6 text-gray-900 font-['Inter']">Aa</div><p className="text-xl text-gray-600 font-medium whitespace-pre-line">{t(activeItem.brandIdentity.typography, lang)}</p></div></div>
+                    <div><SubHeading>{I18N[lang].project.typography}</SubHeading><div className="bg-[#FAFAFA] rounded-2xl p-8 border border-gray-100"><div className="text-[80px] font-bold leading-none mb-6 text-gray-900 font-['Inter']">Aa</div><p className="text-xl text-gray-600 font-medium whitespace-pre-line">{t(activeItem.brandIdentity.typography, lang)}</p></div></div>
                   )}
                   {activeItem.brandIdentity.colors && activeItem.brandIdentity.colors.length > 0 && (
-                    <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.colors}</h4><div className="flex flex-wrap gap-4">{activeItem.brandIdentity.colors.map(color => (<div key={color} className="w-16 h-16 md:w-20 md:h-20 rounded-full shadow-inner border border-gray-200" style={{ backgroundColor: color }}></div>))}</div></div>
+                    <div><SubHeading>{I18N[lang].project.colors}</SubHeading><div className="flex flex-wrap gap-4">{activeItem.brandIdentity.colors.map(color => (<div key={color} className="w-16 h-16 md:w-20 md:h-20 rounded-full shadow-inner border border-gray-200" style={{ backgroundColor: color }}></div>))}</div></div>
                   )}
                 </div>
               </div>
@@ -3302,9 +3352,9 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Left Column: Background & Constraints */}
                 <div className="space-y-8">
                   <div>
-                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
+                    <SubHeading>
                       {lang === 'zh' ? '專案背景' : 'PROJECT BACKGROUND'}
-                    </h4>
+                    </SubHeading>
                     <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC'] mb-4 text-justify">
                       {lang === 'zh' 
                         ? 'Ms Lin 是一款專為國高中全年級學生（國一至高三）打造的學習 App，題目內容涵蓋完整的六年學習階段，讓學生不論處於哪個年級、平時自學或升學備考，都能透過這款 App 建立持續性的學習習慣。'
@@ -3318,9 +3368,9 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
 
                   <div>
-                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
+                    <SubHeading>
                       {lang === 'zh' ? '設計限制與挑戰' : 'DESIGN CONSTRAINTS & CHALLENGES'}
-                    </h4>
+                    </SubHeading>
                     <div style={{
                       border: '0.5px solid #EEEEEE',
                       borderRadius: '12px',
@@ -3341,9 +3391,9 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Right Column: Team & Timeline Details */}
                 <div className="space-y-8">
                   <div>
-                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
+                    <SubHeading>
                       {lang === 'zh' ? '團隊組成' : 'TEAM COMPOSITION'}
-                    </h4>
+                    </SubHeading>
                     <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-['Noto_Sans_TC'] list-none pl-0">
                       <li>• {lang === 'zh' ? 'UI/UX 設計師（本人）' : 'UI/UX Designer (Self)'}</li>
                       <li>• {lang === 'zh' ? '前端工程師（本人兼任）' : 'Frontend Engineer (Self, concurrently)'}</li>
@@ -3352,9 +3402,9 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
 
                   <div>
-                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
+                    <SubHeading>
                       {lang === 'zh' ? '專案時程' : 'PROJECT TIMELINE'}
-                    </h4>
+                    </SubHeading>
                     <div className="space-y-4">
                       <div className="flex items-start">
                         <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#7F77DD', marginTop: '6px', marginRight: '12px', flexShrink: 0 }}></div>
@@ -3392,9 +3442,9 @@ const SPLIT_VIEW_CHIPS = [
                 }}
               >
                 {/* 兩大學習閉環 - Title & Subtitle */}
-                <h4 style={{ fontSize: '28px', fontWeight: 'bold', fontFamily: "'Inter', 'Noto Sans TC', sans-serif", color: 'var(--color-text-primary)', marginBottom: '8px', letterSpacing: '-0.02em', selectNone: true }}>
+                <SubHeading>
                   {lang === 'zh' ? '兩大學習閉環' : 'Two Learning Loops'}
-                </h4>
+                </SubHeading>
                 <div style={{ fontSize: '16px', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '24px' }}>
                   {lang === 'zh' ? '主動與被動路徑的雙重互補' : 'Dual Complementarity of Active and Passive Paths'}
                 </div>
@@ -3833,16 +3883,7 @@ const SPLIT_VIEW_CHIPS = [
 
               {/* EXPERIENCE ARC SVG */}
               <div style={{ marginBottom: '48px' }}>
-                <div style={{
-                  fontSize: '14px',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  color: '#888888',
-                  marginBottom: '16px'
-                }}>
-                  Epop Loop 體驗弧線
-                </div>
+                <SubHeading>Epop Loop 體驗弧線</SubHeading>
                 <div style={{
                   width: '100%',
                   background: '#FAFAFD',
@@ -3916,16 +3957,7 @@ const SPLIT_VIEW_CHIPS = [
 
               {/* COMPETITIVE TABLE */}
               <div style={{ marginBottom: '48px' }}>
-                <div style={{
-                  fontSize: '14px',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  color: '#888888',
-                  marginBottom: '16px'
-                }}>
-                  競品決策維度對比
-                </div>
+                <SubHeading>競品決策維度對比</SubHeading>
                 <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1px solid #EEEEEE' }}>
                   <table style={{
                     width: '100%',
@@ -3981,16 +4013,7 @@ const SPLIT_VIEW_CHIPS = [
 
               {/* ASSUMPTION CARDS */}
               <div style={{ marginBottom: '48px' }}>
-                <div style={{
-                  fontSize: '14px',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  color: '#888888',
-                  marginBottom: '16px'
-                }}>
-                  設計假設
-                </div>
+                <SubHeading>設計假設</SubHeading>
                 <div className="grid grid-cols-1 md:grid-cols-3 items-start" style={{ gap: '16px', alignItems: 'start' }}>
                   {[
                     {
@@ -4020,7 +4043,6 @@ const SPLIT_VIEW_CHIPS = [
                         style={{
                           padding: '20px 24px',
                           border: '0.5px solid #EEEEEE',
-                          borderLeft: '3px solid #F97316',
                           borderRadius: '12px',
                           background: '#FFFFFF',
                           cursor: 'pointer',
@@ -4121,9 +4143,7 @@ const SPLIT_VIEW_CHIPS = [
 
               {/* FOUR PRINCIPLES */}
               <div style={{ marginBottom: '48px' }}>
-                <div style={{ fontSize: '14px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#888888', marginBottom: '8px' }}>
-                  從洞察到設計原則
-                </div>
+                <SubHeading>從洞察到設計原則</SubHeading>
                 <p style={{ fontSize: '15px', color: '#6B6B6B', margin: '0 0 24px 0', lineHeight: '1.6' }}>
                   競品分析完成後，我們將核心洞察轉換成四條設計原則，作為所有功能決策的依據：
                 </p>
@@ -4259,9 +4279,7 @@ const SPLIT_VIEW_CHIPS = [
 
               {/* APP ARCHITECTURE */}
               <div style={{ marginBottom: '48px' }}>
-                <div style={{ fontSize: '14px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#888888', marginBottom: '16px' }}>
-                  App 資訊架構
-                </div>
+                <SubHeading>App 資訊架構</SubHeading>
                 <div style={{ overflowX: 'auto', width: '100%', marginBottom: '20px' }}>
                   <div style={{ minWidth: '960px', width: '100%' }}>
                     <svg width="100%" viewBox="0 0 1200 320" style={{ display: 'block', userSelect: 'none', background: 'transparent', fontFamily: 'system-ui' }}>
@@ -4406,9 +4424,7 @@ const SPLIT_VIEW_CHIPS = [
 
               {/* USER FLOW */}
               <div style={{ marginBottom: '48px' }}>
-                <div style={{ fontSize: '14px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#888888', marginBottom: '16px' }}>
-                  核心使用者流程
-                </div>
+                <SubHeading>核心使用者流程</SubHeading>
                 <div style={{ overflowX: 'auto', width: '100%', backgroundColor: '#FAFAFD', borderRadius: '12px', padding: '24px', boxSizing: 'border-box' }}>
                   <div style={{ minWidth: '640px', width: '100%' }}>
                     <svg width="100%" viewBox="0 0 680 180" style={{ display: 'block', userSelect: 'none', background: 'transparent', fontFamily: 'system-ui' }}>
@@ -5030,11 +5046,13 @@ const SPLIT_VIEW_CHIPS = [
 
 {/* LOOP ONE HEADER */}
               <div style={{ marginBottom: '48px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-                  <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#7F77DD', flexShrink: 0 }}></div>
-                  <h3 className="text-[20px] md:text-[28px] lg:text-[32px] font-bold text-[#26215C] leading-tight">
-                    {lang === 'zh' ? '閉環一｜刷題閉環，主動練習路徑' : 'Loop 1 | Practice Loop, Active Practice Path'}
+                <div style={{ marginBottom: '32px' }}>
+                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-['Inter'] tracking-tight text-[#26215C] leading-none mb-3">
+                    {lang === 'zh' ? '閉環一｜刷題閉環' : 'Loop 1 | Practice Loop'}
                   </h3>
+                  <div className="text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-[#7F77DD] tracking-wide uppercase">
+                    {lang === 'zh' ? '主動練習路徑' : 'Active Practice Path'}
+                  </div>
                 </div>
                 
                 <svg width="100%" viewBox="0 0 680 200" style={{ fontFamily: 'system-ui', display: 'block', marginBottom: '24px' }}>
@@ -5092,11 +5110,13 @@ const SPLIT_VIEW_CHIPS = [
               <div style={{ width: '100%', borderBottom: '0.5px solid #EEEEEE', margin: '64px 0' }}></div>
               {/* LOOP TWO HEADER */}
               <div style={{ marginBottom: '32px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-                  <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#1D9E75', flexShrink: 0 }}></div>
-                  <h3 className="text-[20px] md:text-[28px] lg:text-[32px] font-bold text-[#063D29] leading-tight">
-                    {lang === 'zh' ? '閉環二｜複習閉環，即時解惑路徑' : 'Loop 2 | Review Loop, Instant Solving Path'}
+                <div style={{ marginBottom: '32px' }}>
+                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-['Inter'] tracking-tight text-[#063D29] leading-none mb-3">
+                    {lang === 'zh' ? '閉環二｜複習閉環' : 'Loop 2 | Review Loop'}
                   </h3>
+                  <div className="text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-[#1D9E75] tracking-wide uppercase">
+                    {lang === 'zh' ? '即時解惑路徑' : 'Instant Solving Path'}
+                  </div>
                 </div>
                 
                 {/* SVG Review Loop Diagram */}
@@ -5148,7 +5168,7 @@ const SPLIT_VIEW_CHIPS = [
                 </svg>
               </div>
 
-              {/* FEATURE 2A: 拍照解題 */}
+              {/* FEATURE 2A: 拍照解題 & AI 解析 */}
               <div style={{ marginBottom: '64px' }}>
                 <span style={{
                   display: 'inline-block',
@@ -5162,9 +5182,9 @@ const SPLIT_VIEW_CHIPS = [
                 }}>
                   功能 2A
                 </span>
-                <h3 style={{ fontSize: '22px', fontWeight: '600', color: '#1A1A1A', margin: '0 0 16px 0' }}>
-                  {lang === 'zh' ? '拍照解題 → AI 解析' : 'Photo Solving → AI Analysis'}
-                </h3>
+                <SubHeading>
+                  {lang === 'zh' ? '拍照解題' : 'Photo Solving'}
+                </SubHeading>
                 <p style={{
                   fontSize: '16px',
                   lineHeight: '1.8',
@@ -5174,8 +5194,24 @@ const SPLIT_VIEW_CHIPS = [
                   textAlign: 'justify'
                 }}>
                   {lang === 'zh' 
-                    ? `複習閉環從一個學生最常見的挫折情境出發：考後拿到考卷，有幾題不知道錯在哪裡，但沒有人可以問。傳統的解法是搜尋關鍵字或等老師解說，摩擦力高且不即時。\n\n拍照解題降低了這個情境的摩擦力——拍照比輸入文字快，AI 比搜尋引擎更直接。解析頁面設計了清楚的題目辨識、逐步解題說明，以及「進行相似題練習」的主要 CTA，讓學生不只是「看懂答案」。`
-                    : `The review loop stems from a common student pain point: receiving a graded paper and not understanding the mistakes, with no one to ask. Traditional solutions like searching online or waiting for teacher explanations are high-friction and slow.\n\nPhoto solving minimizes this friction—taking a photo is faster than typing, and AI is more direct than search engines. The analysis page features clear question recognition, step-by-step solutions, and a primary "Practice Similar Questions" CTA, ensuring students don't just "see" the answer but actually learn it.`}
+                    ? `複習閉環從一個學生最常見的挫折情境出發：考後拿到考卷，有幾題不知道錯在哪裡，但沒有人可以問。傳統的解法是搜尋關鍵字或等老師解說，摩擦力高且不即時。拍照解題降低了這個情境的摩擦力——拍照比輸入文字快，AI 比搜尋引擎更直接。`
+                    : `The review loop stems from a common student pain point: receiving a graded paper and not understanding the mistakes, with no one to ask. Traditional solutions like searching online or waiting for teacher explanations are high-friction and slow. Photo solving minimizes this friction—taking a photo is faster than typing, and AI is more direct than search engines.`}
+                </p>
+
+                <SubHeading>
+                  {lang === 'zh' ? 'AI 解析' : 'AI Analysis'}
+                </SubHeading>
+                <p style={{
+                  fontSize: '16px',
+                  lineHeight: '1.8',
+                  color: '#6B6B6B',
+                  maxWidth: '680px',
+                  margin: '0 0 32px 0',
+                  textAlign: 'justify'
+                }}>
+                  {lang === 'zh' 
+                    ? `解析頁面設計了清楚的題目辨識、逐步解題說明，以及「進行相似題練習」的主要 CTA，讓學生不只是「看懂答案」。`
+                    : `The analysis page features clear question recognition, step-by-step solutions, and a primary "Practice Similar Questions" CTA, ensuring students don't just "see" the answer but actually learn it.`}
                 </p>
 
                 {/* THREE-STEP FLOW VISUAL */}
@@ -5262,28 +5298,11 @@ const SPLIT_VIEW_CHIPS = [
 
               {/* VISUAL DESIGN SYSTEM */}
               <div>
-                <div style={{
-                  fontSize: '14px',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  color: '#888888',
-                  marginBottom: '32px'
-                }}>
-                  視覺設計系統
-                </div>
+                <SubHeading>視覺設計系統</SubHeading>
 
                 {/* COLOR SYSTEM */}
                 <div style={{ marginBottom: '48px' }}>
-                  <h4 style={{
-                    fontSize: '22px',
-                    fontWeight: '600',
-                    color: '#1A1A1A',
-                    margin: '0 0 32px 0',
-                    fontFamily: "'Inter', sans-serif"
-                  }}>
-                    色彩系統
-                  </h4>
+                  <SubHeading>色彩系統</SubHeading>
                   
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '48px', marginBottom: '32px' }}>
                     {[
@@ -5417,23 +5436,24 @@ const SPLIT_VIEW_CHIPS = [
 
                 {/* CHARACTER DESIGN */}
                 <div style={{ marginBottom: '48px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', margin: '0 0 16px 0', flexWrap: 'wrap' }}>
-                    <h4 style={{ fontSize: '14px', fontWeight: '500', color: '#1A1A1A', margin: 0 }}>
-                      插圖與角色設計
-                    </h4>
+                  <SubHeading>
+                    插圖與角色設計
                     <span style={{
                       fontSize: '11px',
                       color: '#854F0B',
                       backgroundColor: '#FAEEDA',
                       borderRadius: '20px',
                       padding: '2px 10px',
-                      fontWeight: 'normal',
+                      fontWeight: '500',
                       display: 'inline-flex',
-                      alignItems: 'center'
+                      alignItems: 'center',
+                      marginLeft: '12px',
+                      verticalAlign: 'middle',
+                      textTransform: 'none'
                     }}>
                       角色設計迭代中 ▲
                     </span>
-                  </div>
+                  </SubHeading>
 
                   <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
                     {/* Left block */}
@@ -5492,9 +5512,7 @@ const SPLIT_VIEW_CHIPS = [
 
                 {/* COMPONENT SYSTEM */}
                 <div style={{ marginBottom: '32px' }}>
-                  <h4 style={{ fontSize: '14px', fontWeight: '500', color: '#1A1A1A', margin: '0 0 8px 0' }}>
-                    元件系統
-                  </h4>
+                  <SubHeading>元件系統</SubHeading>
                   <p style={{
                     fontSize: '13px',
                     color: '#6B6B6B',
@@ -5655,21 +5673,22 @@ const SPLIT_VIEW_CHIPS = [
 
               {/* ITERATION 1 — 角色設計 */}
               <div style={{ marginBottom: '64px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', margin: '0 0 12px 0', flexWrap: 'wrap' }}>
+                <SubHeading>
                   <span style={{
                     fontSize: '11px',
                     color: '#854F0B',
                     backgroundColor: '#FAEEDA',
                     borderRadius: '20px',
                     padding: '2px 10px',
-                    fontWeight: '500'
+                    fontWeight: '500',
+                    marginRight: '12px',
+                    verticalAlign: 'middle',
+                    textTransform: 'none'
                   }}>
                     迭代案例
                   </span>
-                  <h4 style={{ fontSize: '18px', fontWeight: '500', color: '#1A1A1A', margin: 0 }}>
-                    角色設計｜部分回饋不滿意 → 正在迭代
-                  </h4>
-                </div>
+                  角色設計｜部分回饋不滿意 → 正在迭代
+                </SubHeading>
                 <p style={{
                   fontSize: '14px',
                   color: '#6B6B6B',
@@ -5723,16 +5742,7 @@ const SPLIT_VIEW_CHIPS = [
 
               {/* REFLECTION LIST */}
               <div>
-                <div style={{
-                  fontSize: '14px',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  color: '#888888',
-                  marginBottom: '24px'
-                }}>
-                  如果重來，我會⋯
-                </div>
+                <SubHeading>如果重來，我會⋯</SubHeading>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                   {[
@@ -6192,10 +6202,10 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
                   <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] whitespace-pre-line">
                     {activeItem.projectOverview.backgroundAndGoals && (
-                      <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.background}</h4><p>{t(activeItem.projectOverview.backgroundAndGoals, lang)}</p></div>
+                      <div><SubHeading>{I18N[lang].project.background}</SubHeading><p>{t(activeItem.projectOverview.backgroundAndGoals, lang)}</p></div>
                     )}
                     {activeItem.projectOverview.challenge && (
-                      <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.challenge}</h4><p>{t(activeItem.projectOverview.challenge, lang)}</p></div>
+                      <div><SubHeading>{I18N[lang].project.challenge}</SubHeading><p>{t(activeItem.projectOverview.challenge, lang)}</p></div>
                     )}
                   </div>
                 </div>
@@ -6393,9 +6403,9 @@ const SPLIT_VIEW_CHIPS = [
                       cisLogoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                     }`}
                   >
-                    <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">
+                    <SubHeading>
                       {t({ zh: '1. 標誌規範展示', en: '1. Brand Mark System' }, lang)}
-                    </h4>
+                    </SubHeading>
                     <div 
                       className="grid grid-cols-12 gap-6"
                       style={{ fontFamily: "'Manrope', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif" }}
@@ -6517,9 +6527,9 @@ const SPLIT_VIEW_CHIPS = [
                       cisColorVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                     }`}
                   >
-                    <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">
+                    <SubHeading>
                       {t({ zh: '2. 品牌色彩系統', en: '2. Color Identity System' }, lang)}
-                    </h4>
+                    </SubHeading>
                     <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 items-start">
                       {/* Left: Decision rationale */}
                       <div className="space-y-6">
@@ -6565,9 +6575,9 @@ const SPLIT_VIEW_CHIPS = [
                       cisFontVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                     }`}
                   >
-                    <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">
+                    <SubHeading>
                       {t({ zh: '3. 字型階層系統 (Typography)', en: '3. Typography hierarchy' }, lang)}
-                    </h4>
+                    </SubHeading>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
                       {/* English System */}
                       <div className="space-y-6 bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100">
@@ -6635,9 +6645,9 @@ const SPLIT_VIEW_CHIPS = [
                         cisCompareVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                       }`}
                     >
-                      <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">
+                      <SubHeading>
                         {t({ zh: '4. CIS 規範與官網落地對比', en: '4. CIS Specs vs Live Website' }, lang)}
-                      </h4>
+                      </SubHeading>
                       
                       <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 items-center bg-[#FAFAFB] p-8 md:p-12 border border-gray-100 rounded-[2rem]">
                         {/* Left: CIS Spec Mockup Card */}
@@ -7162,7 +7172,7 @@ const SPLIT_VIEW_CHIPS = [
 
                 {isApp && (activeItem.design.architectureImg || (activeItem.design.bentoComponents && activeItem.design.bentoComponents.length > 0) || (activeItem.design.componentsImages && activeItem.design.componentsImages.length > 0)) && (
                   <div>
-                    <h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.designSystem}</h4>
+                    <SubHeading>{I18N[lang].project.designSystem}</SubHeading>
 
                     {/* Architecture Image */}
                     {activeItem.design.architectureImg && (
@@ -7331,7 +7341,7 @@ const SPLIT_VIEW_CHIPS = [
 
                 {((activeItem.design.screens && activeItem.design.screens.length > 0) || (activeItem.design.screenGroups && activeItem.design.screenGroups.length > 0) || (activeItem.design.flowImages && activeItem.design.flowImages.length > 0) || activeItem.design.longScreenshot || (activeItem.design.webShowcaseStrip && activeItem.id !== 1)) && (
                   <div>
-                    <h4 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.screens}</h4>
+                    <SubHeading>{I18N[lang].project.screens}</SubHeading>
 
                     {/* 網站設計長條展示（影片＋圖片無縫拼接） */}
                     {activeItem.design.webShowcaseStrip && activeItem.id !== 1 && (
@@ -7410,7 +7420,7 @@ const SPLIT_VIEW_CHIPS = [
                     <h4 className="text-[24px] md:text-[36px] font-bold font-['Inter'] tracking-tight text-gray-900 mb-10">{t(showcase.title, lang)}</h4>
                     {showcase.description && (
                       <div className="flex flex-col gap-6 mb-12">
-                        <p className="text-gray-900 text-lg md:text-xl font-bold border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">{t(showcase.title, lang)} {lang === 'en' ? 'Showcase' : '呈現'}</p>
+                        <SubHeading>{t(showcase.title, lang)} {lang === 'en' ? 'Showcase' : '呈現'}</SubHeading>
                         <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-3xl font-['Noto_Sans_TC'] whitespace-pre-line">{t(showcase.description, lang)}</p>
                       </div>
                     )}
@@ -7474,14 +7484,14 @@ const SPLIT_VIEW_CHIPS = [
 
                 {activeItem.design.prototypeUrl && (
                   <div>
-                    <h4 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.prototype}</h4>
+                    <SubHeading>{I18N[lang].project.prototype}</SubHeading>
                     <div className="w-full aspect-[4/3] md:aspect-video bg-[#EAEAEC] rounded-[2rem] overflow-hidden flex justify-center relative shadow-inner">
                       <OptimizedVideo src={activeItem.design.prototypeUrl} className="w-full h-full object-cover" />
                     </div>
                   </div>
                 )}
                 {activeItem.design.usabilityTesting && (
-                  <div><h4 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-l-4 border-orange-500 pl-4">{I18N[lang].project.usability}</h4><p className="text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl whitespace-pre-line">{t(activeItem.design.usabilityTesting, lang)}</p></div>
+                  <div><SubHeading>{I18N[lang].project.usability}</SubHeading><p className="text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl whitespace-pre-line">{t(activeItem.design.usabilityTesting, lang)}</p></div>
                 )}
               </div>
             </div>
@@ -7674,55 +7684,7 @@ const SPLIT_VIEW_CHIPS = [
     }
   ];
 
-  // Helper components to match custom layout guidelines for BrainBox
-  const SectionHeader = ({ num, title }) => (
-    <div className="flex flex-col mb-10 select-none">
-      <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-black font-['Manrope'] leading-none text-[#111827] tracking-[-0.06em] mb-4">
-        {num}
-      </h2>
-      <h3 className="text-[24px] md:text-[36px] lg:text-[40px] font-bold font-['Noto_Sans_TC'] tracking-tight text-[#4B5563]">
-        {title}
-      </h3>
-    </div>
-  );
 
-  const SubHeading = ({ children }) => (
-    <h4 className="border-l-[3px] border-[#E8734A] pl-3 text-base md:text-lg font-bold text-gray-800 uppercase tracking-wider mb-6 select-none">
-      {children}
-    </h4>
-  );
-
-  const ImagePlaceholder = ({ label, height = '160px', icon = 'photo', bg = 'bg-gray-50' }) => (
-    <div 
-      className={`w-full ${bg} border border-dashed border-gray-300 rounded-[10px] flex flex-col items-center justify-center p-4 select-none`}
-      style={{ height }}
-    >
-      {icon === 'photo' && (
-        <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-        </svg>
-      )}
-      {icon === 'play' && (
-        <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
-        </svg>
-      )}
-      {icon === 'person' && (
-        <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-        </svg>
-      )}
-      {icon === 'icon' && (
-        <svg className="w-6 h-6 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 21l8.904-4.43c.277-.138.56-.273.846-.403V9.07c-.288-.13-.572-.265-.849-.403L9 4.23l.813 5.1c.045.282.26.505.534.56l5.14.908-5.14.908c-.273.055-.489.278-.534.56z" />
-        </svg>
-      )}
-      <span className="text-[11px] text-gray-400 font-medium tracking-wide text-center leading-normal max-w-[90%]">
-        {label}
-      </span>
-    </div>
-  );
 
   const BrainBoxVisualProjectView = ({ activeItem, lang, transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, navigateTo }) => {
     // Interactions state

@@ -11,6 +11,12 @@ const PhoneMockup = ({ children, style = {}, screenStyle = {}, className = "" })
   );
 };
 
+const SubHeading = ({ children }) => (
+  <h4 className="border-l-[3px] border-[#E8734A] pl-3 text-base md:text-lg font-bold text-gray-800 uppercase tracking-wider mb-6 select-none">
+    {children}
+  </h4>
+);
+
 const MsLinFeatureTabs = ({ lang }) => {
   // Loop One tabs configuration
   const loopOneTabs = [
@@ -436,84 +442,7 @@ const MsLinFeatureTabs = ({ lang }) => {
         </div>
       </div>
 
-      {/* ─── INNER SUB-TAB BAR ─── */}
-      {activeOuter === '1b' && (
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'flex-start', 
-          width: '100%', 
-          borderBottom: '0.5px solid var(--color-border-tertiary)',
-          marginBottom: '24px', 
-          boxSizing: 'border-box',
-          gap: '24px'
-        }}>
-          {/* Sub-tab 數學 */}
-          <button 
-            onClick={() => handleInnerSwitch('math')}
-            style={{
-              padding: '8px 4px',
-              cursor: 'pointer',
-              backgroundColor: 'transparent',
-              border: 'none',
-              borderBottom: '2px solid',
-              borderBottomColor: activeInner === 'math' ? '#7F77DD' : 'transparent',
-              marginBottom: '-0.5px',
-              color: activeInner === 'math' ? '#534AB7' : 'var(--color-text-secondary)',
-              fontWeight: activeInner === 'math' ? 600 : 400,
-              transition: 'color 150ms ease, border-color 150ms ease',
-              outline: 'none',
-              fontSize: '14px',
-              boxSizing: 'border-box'
-            }}
-          >
-            {lang === 'zh' ? '數學' : 'Math'}
-          </button>
 
-          {/* Sub-tab 國文 */}
-          <button 
-            onClick={() => handleInnerSwitch('chinese')}
-            style={{
-              padding: '8px 4px',
-              cursor: 'pointer',
-              backgroundColor: 'transparent',
-              border: 'none',
-              borderBottom: '2px solid',
-              borderBottomColor: activeInner === 'chinese' ? '#7F77DD' : 'transparent',
-              marginBottom: '-0.5px',
-              color: activeInner === 'chinese' ? '#534AB7' : 'var(--color-text-secondary)',
-              fontWeight: activeInner === 'chinese' ? 600 : 400,
-              transition: 'color 150ms ease, border-color 150ms ease',
-              outline: 'none',
-              fontSize: '14px',
-              boxSizing: 'border-box'
-            }}
-          >
-            {lang === 'zh' ? '國文' : 'Chinese'}
-          </button>
-
-          {/* Sub-tab 英文 */}
-          <button 
-            onClick={() => handleInnerSwitch('english')}
-            style={{
-              padding: '8px 4px',
-              cursor: 'pointer',
-              backgroundColor: 'transparent',
-              border: 'none',
-              borderBottom: '2px solid',
-              borderBottomColor: activeInner === 'english' ? '#7F77DD' : 'transparent',
-              marginBottom: '-0.5px',
-              color: activeInner === 'english' ? '#534AB7' : 'var(--color-text-secondary)',
-              fontWeight: activeInner === 'english' ? 600 : 400,
-              transition: 'color 150ms ease, border-color 150ms ease',
-              outline: 'none',
-              fontSize: '14px',
-              boxSizing: 'border-box'
-            }}
-          >
-            {lang === 'zh' ? '英文' : 'English'}
-          </button>
-        </div>
-      )}
 
       {/* ─── CONTENT PANELS ─── */}
       <div style={{
@@ -534,9 +463,9 @@ const MsLinFeatureTabs = ({ lang }) => {
             }}>
               {lang === 'zh' ? '功能 1A' : 'Feature 1A'}
             </div>
-            <h3 style={{ fontSize: '20px', fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: '16px' }}>
+            <SubHeading>
               {lang === 'zh' ? '刷題 Loop（5 / 10 / 15 題）' : 'Practice Loop (5 / 10 / 15 Questions)'}
-            </h3>
+            </SubHeading>
             <p style={{
               fontSize: '15px',
               lineHeight: '1.8',
@@ -570,6 +499,20 @@ const MsLinFeatureTabs = ({ lang }) => {
 
         {displayOuter === '1b' && (
           <div style={{ marginBottom: '64px' }}>
+            <div style={{
+              display: 'inline-block',
+              backgroundColor: '#EEEDFE',
+              color: '#534AB7',
+              borderRadius: '20px',
+              fontSize: '12px',
+              padding: '3px 12px',
+              marginBottom: '12px'
+            }}>
+              {lang === 'zh' ? '功能 1B' : 'Feature 1B'}
+            </div>
+            <SubHeading>
+              {lang === 'zh' ? '多科互動題型' : 'Interactive Questions'}
+            </SubHeading>
             <p style={{
               fontSize: '15px',
               lineHeight: '1.8',
@@ -582,6 +525,83 @@ const MsLinFeatureTabs = ({ lang }) => {
                 ? '題型本身就是學習方法，互動形式應該對應認知需求，而不是統一規格。'
                 : 'The question type itself is the learning method, and the interaction format should correspond to cognitive needs rather than a uniform specification.'}
             </p>
+
+            {/* ─── INNER SUB-TAB BAR ─── */}
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'flex-start', 
+              width: '100%', 
+              borderBottom: '0.5px solid var(--color-border-tertiary)',
+              marginBottom: '24px', 
+              boxSizing: 'border-box',
+              gap: '24px'
+            }}>
+              {/* Sub-tab 數學 */}
+              <button 
+                onClick={() => handleInnerSwitch('math')}
+                style={{
+                  padding: '8px 4px',
+                  cursor: 'pointer',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  borderBottom: '2px solid',
+                  borderBottomColor: activeInner === 'math' ? '#7F77DD' : 'transparent',
+                  marginBottom: '-0.5px',
+                  color: activeInner === 'math' ? '#534AB7' : 'var(--color-text-secondary)',
+                  fontWeight: activeInner === 'math' ? 600 : 400,
+                  transition: 'color 150ms ease, border-color 150ms ease',
+                  outline: 'none',
+                  fontSize: '14px',
+                  boxSizing: 'border-box'
+                }}
+              >
+                {lang === 'zh' ? '數學' : 'Math'}
+              </button>
+
+              {/* Sub-tab 國文 */}
+              <button 
+                onClick={() => handleInnerSwitch('chinese')}
+                style={{
+                  padding: '8px 4px',
+                  cursor: 'pointer',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  borderBottom: '2px solid',
+                  borderBottomColor: activeInner === 'chinese' ? '#7F77DD' : 'transparent',
+                  marginBottom: '-0.5px',
+                  color: activeInner === 'chinese' ? '#534AB7' : 'var(--color-text-secondary)',
+                  fontWeight: activeInner === 'chinese' ? 600 : 400,
+                  transition: 'color 150ms ease, border-color 150ms ease',
+                  outline: 'none',
+                  fontSize: '14px',
+                  boxSizing: 'border-box'
+                }}
+              >
+                {lang === 'zh' ? '國文' : 'Chinese'}
+              </button>
+
+              {/* Sub-tab 英文 */}
+              <button 
+                onClick={() => handleInnerSwitch('english')}
+                style={{
+                  padding: '8px 4px',
+                  cursor: 'pointer',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  borderBottom: '2px solid',
+                  borderBottomColor: activeInner === 'english' ? '#7F77DD' : 'transparent',
+                  marginBottom: '-0.5px',
+                  color: activeInner === 'english' ? '#534AB7' : 'var(--color-text-secondary)',
+                  fontWeight: activeInner === 'english' ? 600 : 400,
+                  transition: 'color 150ms ease, border-color 150ms ease',
+                  outline: 'none',
+                  fontSize: '14px',
+                  boxSizing: 'border-box'
+                }}
+              >
+                {lang === 'zh' ? '英文' : 'English'}
+              </button>
+            </div>
 
             {/* Inner transition wrapper */}
             <div style={{
@@ -1022,9 +1042,9 @@ const MsLinFeatureTabs = ({ lang }) => {
             }}>
               {lang === 'zh' ? '功能 1C' : 'Feature 1C'}
             </div>
-            <h3 style={{ fontSize: '20px', fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: '16px' }}>
+            <SubHeading>
               {lang === 'zh' ? '錯題庫與收藏庫' : 'Incorrect & Saved'}
-            </h3>
+            </SubHeading>
             <p style={{
               fontSize: '15px',
               lineHeight: '1.8',

@@ -641,7 +641,7 @@ const PROJECTS = [
     platform: 'web', // 可以設定為 'web' 或 'app'
     title: 'BrainBox UI Visual Design',
     thumb: 'bg-[#EAE8F2]',
-    coverMedia: { type: 'video', url: '/projects/brainbox/brainbox-hero.mp4' },
+    coverMedia: { type: 'image', url: '/projects/brainbox/brainbox-cover.png' },
     tags: ['UI/UX', 'System Design'],
     description: {
       zh: '智慧教育系統的視覺介面設計，優化教師與學生的操作流程，提升數位學習體驗。',
@@ -697,14 +697,14 @@ const PROJECTS = [
       }
     }
   },
-  { id: 4, categoryId: 'motion', title: 'BrainBox 智慧刷題系統：賦能學生，解放教師。', thumb: 'bg-black', coverMedia: { type: 'video', url: '' }, tags: ['Motion', 'Explainer'], description: '透過生動的 2D 動畫，清楚傳達 BrainBox 產品的核心價值與功能優勢。', client: 'BrainBox', year: '2024', gallery: [] },
-  { id: 5, categoryId: 'motion', title: 'Look the Sound of Taipei Metro', thumb: 'bg-[#1a1a1a]', coverMedia: { type: 'video', url: '' }, tags: ['Motion', 'Data Visual'], description: '將臺北捷運的聲音地景進行視覺化，轉化為具備節奏感與幾何美學的動態圖像創作。', client: '國立臺灣藝術大學', year: '2023', gallery: [] },
-  { id: 6, categoryId: 'motion', title: 'How to Use BrainBox: A Step-by-Step Tutorial', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'video', url: '' }, tags: ['Motion', 'Tutorial'], description: 'BrainBox 教學影片，一步步引導使用者了解系統操作。', client: 'BrainBox', year: '2024', gallery: [] },
-  { id: 7, categoryId: 'motion', title: 'Wisdome.ai 公司官網首頁形象動畫', thumb: 'bg-[#0f172a]', coverMedia: { type: 'video', url: '' }, tags: ['Motion', 'Web Animation'], description: '結合品牌理念製作的首頁形象動畫，以動態視覺強化品牌科技感。', client: 'WISDOME.AI', year: '2024', gallery: [] },
-  { id: 8, categoryId: 'brand', title: '果然癮品牌識別設計', thumb: 'bg-[#EAF2ED]', coverMedia: { type: 'image', url: '' }, tags: ['Branding', 'Packaging'], description: '完成品牌識別系統設計，並延伸設計 3 組產品外盒及 8 款內包裝，提升視覺吸引力。', client: '果然癮', year: '2021', gallery: [] },
-  { id: 9, categoryId: 'brand', title: 'MindGap 企業識別系統', thumb: 'bg-[#F2EFE9]', coverMedia: { type: 'image', url: '' }, tags: ['Branding', 'Corporate Identity'], description: '從零建立企業品牌視覺系統，涵蓋標誌設計與色彩規範。', client: 'MindGap', year: '2024', gallery: [] },
-  { id: 10, categoryId: 'brand', title: 'BrainBox 產品識別設計', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: '' }, tags: ['Branding', 'Product Identity'], description: '打造專屬的產品識別系統，提升產品在市場上的辨識度與專業感。', client: 'BrainBox', year: '2024', gallery: [] },
-  { id: 11, categoryId: 'brand', title: 'Wisdome.ai 企業識別系統', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: '' }, tags: ['Branding', 'Corporate Identity'], description: '整合品牌理念與科技感，打造完整的企業視覺規範系統。', client: 'WISDOME.AI', year: '2023', gallery: [] }
+  { id: 4, categoryId: 'motion', title: 'BrainBox 智慧刷題系統：賦能學生，解放教師。', thumb: 'bg-black', coverMedia: { type: 'image', url: '/projects/brainbox-marketing/brainbox-marketing-cover.jpg' }, tags: ['Motion', 'Explainer'], description: '透過生動 the 2D 動畫，清楚傳達 BrainBox 產品的核心價值與功能優勢。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 5, categoryId: 'motion', title: 'Look the Sound of Taipei Metro', thumb: 'bg-[#1a1a1a]', coverMedia: { type: 'image', url: '/projects/taipei/taipei-cover.jpg' }, tags: ['Motion', 'Data Visual'], description: '將臺北捷運的聲音地景進行視覺化，轉化為具備節奏感與幾何美學的動態圖像創作。', client: '國立臺灣藝術大學', year: '2023', gallery: [] },
+  { id: 6, categoryId: 'motion', title: 'How to Use BrainBox: A Step-by-Step Tutorial', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: '/projects/brainbox-intro/brainbox-intro-cover.png' }, tags: ['Motion', 'Tutorial'], description: 'BrainBox 教學影片，一步步引導使用者了解系統操作。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 7, categoryId: 'motion', title: 'Wisdome.ai 公司官網首頁形象動畫', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: '/projects/wisdome-motion-brand/wisdome-motion-brand-cover.png' }, tags: ['Motion', 'Web Animation'], description: '結合品牌理念製作的首頁形象動畫，以動態視覺強化品牌科技感。', client: 'WISDOME.AI', year: '2024', gallery: [] },
+  { id: 8, categoryId: 'brand', title: '果然癮品牌識別設計', thumb: 'bg-[#EAF2ED]', coverMedia: { type: 'image', url: '/projects/glowing/glowing-brand-cover.png' }, tags: ['Branding', 'Packaging'], description: '完成品牌識別系統設計，並延伸設計 3 組產品外盒及 8 款內包裝，提升視覺吸引力。', client: '果然癮', year: '2021', gallery: [] },
+  { id: 9, categoryId: 'brand', title: 'MindGap 企業識別系統', thumb: 'bg-[#F2EFE9]', coverMedia: { type: 'image', url: '/projects/mindgap/mingap-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '從零建立企業品牌視覺系統，涵蓋標誌設計與色彩規範。', client: 'MindGap', year: '2024', gallery: [] },
+  { id: 10, categoryId: 'brand', title: 'BrainBox 產品識別設計', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: '/projects/brand-branbox/brainbox-brand-cover.png' }, tags: ['Branding', 'Product Identity'], description: '打造專屬的產品識別系統，提升產品在市場上的辨識度與專業感。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 11, categoryId: 'brand', title: 'Wisdome.ai 企業識別系統', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: '/projects/brand-wisdomeai/wisdomeai-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '整合品牌理念與科技感，打造完整的企業視覺規範系統。', client: 'WISDOME.AI', year: '2023', gallery: [] }
 ];
 
 const DECISION_TABS = [
@@ -966,19 +966,124 @@ const SPLIT_VIEW_CHIPS = [
     </>
   );
 
-  const FooterCTA = ({ navigateTo, lang }) => (
-    <div className="w-full mt-24 mb-16 px-6 max-w-[100rem] mx-auto text-center">
-      <div className="bg-[#F8F9FA] rounded-[3rem] p-12 md:p-32 flex flex-col items-center">
-        <h2 className="text-5xl md:text-[6rem] font-bold tracking-tighter mb-8 text-gray-900 leading-tight whitespace-pre-line">{I18N[lang].cta.title}</h2>
-        <p className="text-xl text-gray-500 mb-12 max-w-md font-medium tracking-wide">{I18N[lang].cta.desc}</p>
-        <button onClick={() => navigateTo('contact')} className="bg-orange-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-orange-600 hover:scale-105 transition-all duration-300 flex items-center gap-2">{I18N[lang].cta.btn} <IconArrowUpRight className="w-5 h-5" /></button>
+  const FooterCTA = ({ activeItem = null, navigateTo, lang }) => {
+    // Next two projects lookup logic
+    const getNextTwoProjects = (currentItem) => {
+      if (!currentItem) return [];
+      
+      let order = [];
+      if (currentItem.categoryId === 'uiux') {
+        order = [1, 2, 3];
+      } else if (currentItem.categoryId === 'motion') {
+        order = [4, 5, 6, 7];
+      } else if (currentItem.categoryId === 'brand') {
+        order = [8, 9, 10, 11];
+      } else {
+        return [];
+      }
+      
+      const index = order.indexOf(currentItem.id);
+      if (index !== -1) {
+        const nextId1 = order[(index + 1) % order.length];
+        const nextId2 = order[(index + 2) % order.length];
+        return [
+          PROJECTS.find(p => p.id === nextId1),
+          PROJECTS.find(p => p.id === nextId2)
+        ].filter(Boolean);
+      }
+      return [];
+    };
+
+    const nextProjects = getNextTwoProjects(activeItem);
+
+    if (nextProjects.length > 0) {
+      return (
+        <div className="w-full mt-24 mb-16 px-6 max-w-[100rem] mx-auto">
+          {/* Title */}
+          <div className="mb-10 text-left px-2 md:px-8">
+            <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight font-sans">
+              {lang === 'zh' ? '閱讀更多專案' : 'Read More Projects'}
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 px-2 md:px-8">
+            {nextProjects.map((p) => {
+              const isLocked = p.categoryId === 'brand' || p.categoryId === 'motion';
+              return (
+                <div 
+                  key={p.id}
+                  onClick={() => !isLocked && navigateTo('project', p)} 
+                  className={`group ${isLocked ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                >
+                  <div className={`aspect-[4/3] rounded-[1.5rem] md:rounded-[2.5rem] ${p.thumb} overflow-hidden relative transition-all duration-500 shadow-sm hover:shadow-xl`}>
+                    <div className={`w-full h-full transform group-hover:scale-105 transition-transform duration-[1.5s] ease-out ${isLocked ? 'opacity-40 filter grayscale-[20%]' : ''}`}>
+                      {p.coverMedia?.type === 'video' ? (
+                        <OptimizedVideo src={p.coverMedia.url} className="w-full h-full" />
+                      ) : p.coverMedia?.url ? (
+                        <img src={p.coverMedia.url} className="w-full h-full object-cover" alt={p.title} />
+                      ) : null}
+                    </div>
+                    <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
+                    
+                    {isLocked ? (
+                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center z-20">
+                        <span className="bg-white/95 backdrop-blur-sm text-black px-6 py-2.5 rounded-full font-black text-sm md:text-base tracking-widest uppercase shadow-md select-none">
+                          Coming Soon
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                        <div className="hidden md:flex bg-white text-black px-6 py-3 rounded-full font-bold items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform tracking-wider uppercase shadow-md select-none">
+                          {lang === 'zh' ? '閱讀專案' : 'View Project'} <IconArrowUpRight className="w-4 h-4 ml-1" />
+                        </div>
+                      </div>
+                    )}
+                    
+                    <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 flex flex-col items-start z-10 pointer-events-none pr-6">
+                      <h3 className="text-white text-2xl md:text-3xl font-bold tracking-tight mb-4 drop-shadow-md leading-tight">
+                        {t(p.title, lang)}
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {p.tags.map(tag => (
+                          <span key={tag} className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1 rounded-full text-[10px] md:text-xs font-bold tracking-wide uppercase">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Global Footer (Copyright & Socials) */}
+          <div className="mt-16 pt-12 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm px-2 md:px-8">
+            <p className="font-bold uppercase tracking-wide">© {new Date().getFullYear()} Tiffany Liang.</p>
+            <div className="flex gap-6 mt-4 md:mt-0 font-bold uppercase tracking-widest">
+              <a href="#" className="hover:text-black transition-colors">LinkedIn</a>
+              <a href="#" className="hover:text-black transition-colors">Instagram</a>
+              <a href="#" className="hover:text-black transition-colors">Behance</a>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="w-full mt-24 mb-16 px-6 max-w-[100rem] mx-auto text-center">
+        <div className="bg-[#F8F9FA] rounded-[3rem] p-12 md:p-32 flex flex-col items-center">
+          <h2 className="text-5xl md:text-[6rem] font-bold tracking-tighter mb-8 text-gray-900 leading-tight whitespace-pre-line">{I18N[lang].cta.title}</h2>
+          <p className="text-xl text-gray-500 mb-12 max-w-md font-medium tracking-wide">{I18N[lang].cta.desc}</p>
+          <button onClick={() => navigateTo('contact')} className="bg-orange-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-orange-600 hover:scale-105 transition-all duration-300 flex items-center gap-2">{I18N[lang].cta.btn} <IconArrowUpRight className="w-5 h-5" /></button>
+        </div>
+        <div className="mt-12 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm px-6">
+          <p className="font-bold uppercase tracking-wide">© {new Date().getFullYear()} Tiffany Liang.</p>
+          <div className="flex gap-6 mt-4 md:mt-0 font-bold uppercase tracking-widest"><a href="#" className="hover:text-black transition-colors">LinkedIn</a><a href="#" className="hover:text-black transition-colors">Instagram</a><a href="#" className="hover:text-black transition-colors">Behance</a></div>
+        </div>
       </div>
-      <div className="mt-12 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm px-6">
-        <p className="font-bold uppercase tracking-wide">© {new Date().getFullYear()} Tiffany Liang.</p>
-        <div className="flex gap-6 mt-4 md:mt-0 font-bold uppercase tracking-widest"><a href="#" className="hover:text-black transition-colors">LinkedIn</a><a href="#" className="hover:text-black transition-colors">Instagram</a><a href="#" className="hover:text-black transition-colors">Behance</a></div>
-      </div>
-    </div>
-  );
+    );
+  };
 
   const HomeView = ({ lang, homeSelectedFilter, setHomeSelectedFilter, navigateTo }) => {
     const trackRef = useRef(null);
@@ -1104,23 +1209,40 @@ const SPLIT_VIEW_CHIPS = [
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
-              {filteredProjects.map(p => (
-                <div key={p.id} onClick={() => navigateTo('project', p)} className="group cursor-pointer">
-                  <div className={`aspect-square md:aspect-[4/3] rounded-[1.5rem] md:rounded-[2.5rem] ${p.thumb} overflow-hidden relative transition-all duration-500 shadow-sm hover:shadow-xl`}>
-                    <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-[1.5s] ease-out">
-                      {p.coverMedia?.type === 'video' ? <OptimizedVideo src={p.coverMedia.url} className="w-full h-full" /> : p.coverMedia?.url ? <img src={p.coverMedia.url} className="w-full h-full object-cover" alt={p.title} /> : null}
-                    </div>
-                    <div className="absolute inset-x-0 bottom-0 h-2/3 md:h-1/2 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
-                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                      <div className="hidden md:flex bg-white text-black px-6 py-3 rounded-full font-bold items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform tracking-wider uppercase">View Project <IconArrowUpRight className="w-4 h-4 ml-1" /></div>
-                    </div>
-                    <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 flex flex-col items-start transform group-hover:translate-y-0 md:group-hover:translate-y-[-4px] transition-transform duration-500 z-10 pointer-events-none pr-6">
-                      <h3 className="text-white text-2xl md:text-4xl font-bold tracking-tight mb-4 drop-shadow-md leading-tight">{t(p.title, lang)}</h3>
-                      <div className="flex flex-wrap gap-2">{p.tags.map(tag => (<span key={tag} className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[10px] md:text-sm font-bold tracking-wide uppercase">{tag}</span>))}</div>
+              {filteredProjects.map(p => {
+                const isLocked = p.categoryId === 'brand' || p.categoryId === 'motion';
+                return (
+                  <div 
+                    key={p.id} 
+                    onClick={() => !isLocked && navigateTo('project', p)} 
+                    className={`group ${isLocked ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                  >
+                    <div className={`aspect-square md:aspect-[4/3] rounded-[1.5rem] md:rounded-[2.5rem] ${p.thumb} overflow-hidden relative transition-all duration-500 shadow-sm hover:shadow-xl`}>
+                      <div className={`w-full h-full transform group-hover:scale-105 transition-transform duration-[1.5s] ease-out ${isLocked ? 'opacity-40 filter grayscale-[20%]' : ''}`}>
+                        {p.coverMedia?.type === 'video' ? <OptimizedVideo src={p.coverMedia.url} className="w-full h-full" /> : p.coverMedia?.url ? <img src={p.coverMedia.url} className="w-full h-full object-cover" alt={p.title} /> : null}
+                      </div>
+                      <div className="absolute inset-x-0 bottom-0 h-2/3 md:h-1/2 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
+                      
+                      {isLocked ? (
+                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center z-20">
+                          <span className="bg-white/95 backdrop-blur-sm text-black px-6 py-2.5 rounded-full font-black text-sm md:text-base tracking-widest uppercase shadow-md select-none">
+                            Coming Soon
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                          <div className="hidden md:flex bg-white text-black px-6 py-3 rounded-full font-bold items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform tracking-wider uppercase">View Project <IconArrowUpRight className="w-4 h-4 ml-1" /></div>
+                        </div>
+                      )}
+                      
+                      <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 flex flex-col items-start transform group-hover:translate-y-0 md:group-hover:translate-y-[-4px] transition-transform duration-500 z-10 pointer-events-none pr-6">
+                        <h3 className="text-white text-2xl md:text-4xl font-bold tracking-tight mb-4 drop-shadow-md leading-tight">{t(p.title, lang)}</h3>
+                        <div className="flex flex-wrap gap-2">{p.tags.map(tag => (<span key={tag} className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[10px] md:text-sm font-bold tracking-wide uppercase">{tag}</span>))}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
           <FooterCTA navigateTo={navigateTo} lang={lang} />
@@ -1154,7 +1276,42 @@ const SPLIT_VIEW_CHIPS = [
     return (
       <div className="min-h-screen bg-[#F6F6F6] pb-20 md:pb-32 animate-in fade-in duration-700">
         <div className="bg-white pt-32 md:pt-40 pb-16 md:pb-24 px-4 md:px-12 mb-10 md:mb-16 rounded-b-[2rem] md:rounded-b-[4rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)]"><div className="max-w-[100rem] mx-auto"><button onClick={() => navigateTo('works')} className="flex items-center text-sm md:text-base text-gray-400 hover:text-black transition-colors mb-8 md:mb-12 tracking-wide font-medium"><IconArrowLeft className="w-5 h-5 mr-2" /> <span className="font-medium uppercase">Back to works</span></button><h3 className="text-orange-500 font-bold tracking-widest uppercase mb-2 md:mb-4 text-xs md:text-sm">{categoryInfo?.subtitle} WORKS</h3><h1 className="text-4xl md:text-6xl lg:text-[8rem] font-black tracking-tight leading-none text-gray-900 uppercase">{categoryInfo?.title}</h1><p className="mt-6 md:mt-8 text-base md:text-xl text-gray-500 max-w-3xl leading-relaxed tracking-wide font-medium">{categoryInfo?.description}</p></div></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 max-w-[100rem] mx-auto px-4 md:px-8 lg:px-12">{filteredProjects.map(p => (<div key={p.id} onClick={() => navigateTo('project', p)} className="group cursor-pointer"><div className={`aspect-square rounded-[1.5rem] md:rounded-[2.5rem] ${p.thumb} overflow-hidden relative transition-all duration-500 shadow-sm hover:shadow-xl`}><div className="w-full h-full transform group-hover:scale-105 transition-transform duration-1000 ease-out">{p.coverMedia.type === 'video' ? <OptimizedVideo src={p.coverMedia.url} className="w-full h-full" /> : p.coverMedia.url ? <img src={p.coverMedia.url} className="w-full h-full object-cover" alt={p.title} /> : null}</div><div className="absolute inset-x-0 bottom-0 h-2/3 md:h-1/2 bg-gradient-to-t from-black/70 md:from-black/60 to-transparent pointer-events-none"></div><div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center"><div className="hidden md:flex bg-white text-black px-6 py-3 rounded-full font-bold items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform tracking-wider uppercase">View Project <IconArrowUpRight className="w-4 h-4 ml-1" /></div></div><div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 flex flex-col items-start transform group-hover:translate-y-0 md:group-hover:translate-y-[-4px] transition-transform duration-500 z-10 pointer-events-none pr-6"><h3 className="text-white text-xl md:text-3xl font-bold tracking-tight mb-3 drop-shadow-md leading-tight">{p.title}</h3><div className="flex flex-wrap gap-2">{p.tags.map(tag => (<span key={tag} className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-bold tracking-wide uppercase">{tag}</span>))}</div></div></div></div>))}</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 max-w-[100rem] mx-auto px-4 md:px-8 lg:px-12">
+          {filteredProjects.map(p => {
+            const isLocked = p.categoryId === 'brand' || p.categoryId === 'motion';
+            return (
+              <div 
+                key={p.id} 
+                onClick={() => !isLocked && navigateTo('project', p)} 
+                className={`group ${isLocked ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+              >
+                <div className={`aspect-square rounded-[1.5rem] md:rounded-[2.5rem] ${p.thumb} overflow-hidden relative transition-all duration-500 shadow-sm hover:shadow-xl`}>
+                  <div className={`w-full h-full transform group-hover:scale-105 transition-transform duration-1000 ease-out ${isLocked ? 'opacity-40 filter grayscale-[20%]' : ''}`}>
+                    {p.coverMedia.type === 'video' ? <OptimizedVideo src={p.coverMedia.url} className="w-full h-full" /> : p.coverMedia.url ? <img src={p.coverMedia.url} className="w-full h-full object-cover" alt={p.title} /> : null}
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 h-2/3 md:h-1/2 bg-gradient-to-t from-black/70 md:from-black/60 to-transparent pointer-events-none"></div>
+                  
+                  {isLocked ? (
+                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center z-20">
+                      <span className="bg-white/95 backdrop-blur-sm text-black px-6 py-2.5 rounded-full font-black text-sm md:text-base tracking-widest uppercase shadow-md select-none">
+                        Coming Soon
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                      <div className="hidden md:flex bg-white text-black px-6 py-3 rounded-full font-bold items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform tracking-wider uppercase">View Project <IconArrowUpRight className="w-4 h-4 ml-1" /></div>
+                    </div>
+                  )}
+                  
+                  <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 flex flex-col items-start transform group-hover:translate-y-0 md:group-hover:translate-y-[-4px] transition-transform duration-500 z-10 pointer-events-none pr-6">
+                    <h3 className="text-white text-xl md:text-3xl font-bold tracking-tight mb-3 drop-shadow-md leading-tight">{p.title}</h3>
+                    <div className="flex flex-wrap gap-2">{p.tags.map(tag => (<span key={tag} className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-bold tracking-wide uppercase">{tag}</span>))}</div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   };
@@ -2599,7 +2756,7 @@ const SPLIT_VIEW_CHIPS = [
             </div>
           )}
 
-          <FooterCTA navigateTo={navigateTo} lang={lang} />
+          <FooterCTA activeItem={activeItem} navigateTo={navigateTo} lang={lang} />
         </div>
       );
     };
@@ -5614,16 +5771,7 @@ const SPLIT_VIEW_CHIPS = [
             </section>
           </div>
 
-          {/* 3. PAGE FOOTER */}
-          <footer style={{
-            borderTop: '1px solid #EEEEEE',
-            padding: '48px 24px 0 24px',
-            textAlign: 'center',
-            color: '#A0A0A0',
-            fontSize: '0.875rem'
-          }}>
-            <p>© {new Date().getFullYear()} Ms. Lin. All rights reserved.</p>
-          </footer>
+
 
           {/* FLOATING PROGRESS DOTS (desktop only, right side) */}
           <div 
@@ -6248,42 +6396,117 @@ const SPLIT_VIEW_CHIPS = [
                     <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">
                       {t({ zh: '1. 標誌規範展示', en: '1. Brand Mark System' }, lang)}
                     </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                      {[
-                        {
-                          title: { zh: '主版本標誌 (Main Version)', en: 'Main Brand Mark' },
-                          desc: { zh: '適用於官方主色底及多數主流數位與實體宣傳介面', en: 'Optimized for primary brand colors and mainstream digital layouts.' },
-                          bg: 'bg-white border border-gray-100',
-                          filter: 'none'
-                        },
-                        {
-                          title: { zh: '深色背景反白版 (Reversed Version)', en: 'Reversed Brand Mark' },
-                          desc: { zh: '適用於品牌深色頁尾、碳黑色看板及暗色模式介面', en: 'Tailored for dark footers, black backdrops, and dark modes.' },
-                          bg: 'bg-[#1A1A1E]',
-                          filter: 'brightness(0) invert(1)'
-                        },
-                        {
-                          title: { zh: '單色極簡版 (Monochrome Version)', en: 'Monochrome Mark' },
-                          desc: { zh: '適用於報表印刷、單色壓印或低色彩干擾之媒介', en: 'Suited for report printing, single-ink embossments, or low-chroma print.' },
-                          bg: 'bg-gray-50 border border-gray-100',
-                          filter: 'grayscale(100%) brightness(0.2)'
-                        }
-                      ].map((item, idx) => (
-                        <div key={idx} className="flex flex-col gap-4 transition-all duration-[800ms] ease-out transform" style={{ transitionDelay: `${idx * 100}ms` }}>
-                          <div className={`w-full aspect-[16/10] rounded-[2rem] flex items-center justify-center shadow-sm p-8 ${item.bg}`}>
-                            <img 
-                              src="/projects/wisdome.ai_web/wisdomeai_logo.svg" 
-                              alt={t(item.title, lang)} 
-                              className="max-h-[36px] max-w-[80%] object-contain select-none"
-                              style={{ filter: item.filter }}
-                            />
+                    <div 
+                      className="grid grid-cols-12 gap-6"
+                      style={{ fontFamily: "'Manrope', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif" }}
+                    >
+                      
+                      {/* Card 1: Brand Logo */}
+                      <div 
+                        className="group relative bg-[#F5F6F8] hover:bg-[#EFF1F5] rounded-[20px] p-[28px] transition-all duration-300 ease-out border border-[#E7E9EE] flex flex-col justify-between overflow-hidden focus-visible:outline-none col-span-12 lg:col-span-4"
+                        tabIndex={0}
+                      >
+                        <div className="w-full bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center overflow-hidden h-[180px] select-none p-6">
+                          <img src="/projects/wisdome.ai_web/wisdomeai_logo.svg" alt="Wisdome.ai Brand Logo Standard" className="max-w-full max-h-full object-contain" />
+                        </div>
+                        
+                        <div className="mt-5 space-y-1.5 text-left">
+                          <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                            {lang === 'zh' ? '品牌標誌 (Logo)' : 'Brand Logo'}
                           </div>
-                          <div>
-                            <span className="block text-sm font-bold text-gray-800 mb-1 font-['Noto_Sans_TC']">{t(item.title, lang)}</span>
-                            <span className="block text-xs text-gray-400 font-medium font-['Noto_Sans_TC']">{t(item.desc, lang)}</span>
+                          <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                            {lang === 'zh' 
+                              ? '以多面幾何球體作為視覺主體，結合簡潔的無襯線字體，呈現創新且穩健可靠的科技品牌形象。'
+                              : 'Hexagonal faceted sphere centerpiece combined with a clean sans-serif typeface, conveying an innovative and reliable tech brand image.'}
                           </div>
                         </div>
-                      ))}
+                      </div>
+
+                      {/* Card 2: Graph & Structure */}
+                      <div 
+                        className="group relative bg-[#F5F6F8] hover:bg-[#EFF1F5] rounded-[20px] p-[28px] transition-all duration-300 ease-out border border-[#E7E9EE] flex flex-col justify-between overflow-hidden focus-visible:outline-none col-span-12 lg:col-span-8"
+                        tabIndex={0}
+                      >
+                        <div className="flex flex-col sm:flex-row gap-4 w-full h-[180px]">
+                          <div className="w-full sm:w-[45%] bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center overflow-hidden h-full select-none p-4">
+                            <img src="/projects/wisdome.ai_web/wisdomeai-graph.svg" alt="Wisdome.ai Graph" className="max-w-full max-h-full object-contain" />
+                          </div>
+                          <div className="flex-grow flex items-center justify-center bg-white border border-[#E7E9EE] rounded-[16px] h-full w-full sm:w-[50%] p-4 select-none">
+                            <img src="/projects/wisdome.ai_web/graph-seperate.png" alt="Wisdome.ai Graph Breakdown" className="max-w-full max-h-full object-contain" />
+                          </div>
+                        </div>
+
+                        <div className="mt-5 space-y-1.5 text-left">
+                          <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                            {lang === 'zh' ? '圖形與幾何 (Graph & Structure)' : 'Graph & Structure'}
+                          </div>
+                          <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                            {lang === 'zh' 
+                              ? '以半球體穹頂 (Geodesic Dome) 進行幾何切割，象徵多維度人工智慧與數據網路的交織流動。'
+                              : 'Faceted geodesic dome network, representing the multidimensional flows and structures of artificial intelligence.'}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Card 3: Logotype */}
+                      <div 
+                        className="group relative bg-[#F5F6F8] hover:bg-[#EFF1F5] rounded-[20px] p-[28px] transition-all duration-300 ease-out border border-[#E7E9EE] flex flex-col justify-between overflow-hidden focus-visible:outline-none col-span-12"
+                        tabIndex={0}
+                      >
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full">
+                          <div className="w-full md:w-[40%] bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center h-[120px] p-4 select-none">
+                            <img src="/projects/wisdome.ai_web/logotype.png" alt="Wisdome.ai Logotype" className="max-w-full max-h-full object-contain" />
+                          </div>
+                          <div className="w-full md:w-[55%] space-y-2 text-left">
+                            <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                              {lang === 'zh' ? '文字標誌 (Logotype)' : 'Brand Logotype'}
+                            </div>
+                            <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                              {lang === 'zh' 
+                                ? '採用簡約現代的無襯線字體，並在特定字母線條中融入斜切的科技語彙，呈現專業且洗鍊的品牌調性。'
+                                : 'Features a sleek, modern sans-serif typeface, incorporating subtle tech-slashes in letter strokes to convey professional brand tone.'}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Card 4: Lockups & Variations */}
+                      <div 
+                        className="group relative transition-all duration-300 ease-out border rounded-[20px] p-[28px] flex flex-col justify-between overflow-hidden focus-visible:outline-none col-span-12 bg-[#F5F6F8] hover:bg-[#EFF1F5] border-[#E7E9EE] text-[#12172B]"
+                        tabIndex={0}
+                      >
+                        <div className="w-full space-y-6">
+                          <div className="space-y-1.5 text-left">
+                            <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                              {lang === 'zh' ? '組合形式與應用 (Lockups & Variations)' : 'Lockups & Variations'}
+                            </div>
+                            <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                              {lang === 'zh' 
+                                ? '包含橫向、反白與單色等組合，因應不同應用載體與底色彈性調整，確保最佳的易讀性與辨識度。'
+                                : 'Includes horizontal lockups and color variations tailored for optimal visibility across dark, light, and primary backdrops.'}
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+                            {/* Card 1: bg-[#fbfbfb] logo: wisdome-dark.svg */}
+                            <div className="bg-[#fbfbfb] border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
+                              <img src="/projects/wisdome.ai_web/wisdome-dark.svg" alt="Standard Lockup Light BG" className="max-w-[85%] max-h-[70%] object-contain" />
+                              <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-['Manrope'] uppercase tracking-wider">#FBFBFB</span>
+                            </div>
+                            {/* Card 2: bg-[#00D2E2] logo: wisdome-dark.svg */}
+                            <div className="bg-[#00D2E2] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none border border-transparent">
+                              <img src="/projects/wisdome.ai_web/wisdome-dark.svg" alt="Cyan BG Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
+                              <span className="text-[10px] font-bold text-[#12172B] mt-2 font-['Manrope'] uppercase tracking-wider">#00D2E2</span>
+                            </div>
+                            {/* Card 3: bg-[#282828] logo: wisdome-light.svg */}
+                            <div className="bg-[#282828] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none shadow-inner border border-transparent">
+                              <img src="/projects/wisdome.ai_web/wisdome-light.svg" alt="Dark BG Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
+                              <span className="text-[10px] font-bold text-white/70 mt-2 font-['Manrope'] uppercase tracking-wider">#282828</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
 
@@ -6405,73 +6628,75 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
 
                   {/* 4. CIS → 官網落地對比 */}
-                  <div 
-                    ref={cisCompareRef}
-                    className={`transition-all duration-1000 ease-out transform ${
-                      cisCompareVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                    }`}
-                  >
-                    <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">
-                      {t({ zh: '4. CIS 規範與官網落地對比', en: '4. CIS Specs vs Live Website' }, lang)}
-                    </h4>
-                    
-                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 items-center bg-[#FAFAFB] p-8 md:p-12 border border-gray-100 rounded-[2rem]">
-                      {/* Left: CIS Spec Mockup Card */}
-                      <div className="flex flex-col gap-4 w-full">
-                        <div 
-                          className="w-full aspect-[4/3] rounded-2xl flex flex-col justify-between p-6 shadow-sm border border-gray-200 bg-white"
-                          style={{ backgroundImage: 'radial-gradient(#E2E8F0 1px, transparent 1px)', backgroundSize: '16px 16px' }}
-                        >
-                          <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                            <span className="text-xs text-gray-400 font-bold font-mono">CIS_SPEC_01.PDF</span>
-                            <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded font-bold">GRID FIXED</span>
-                          </div>
-                          
-                          <div className="flex-1 flex flex-col justify-center items-center relative my-4">
-                            <div className="border border-blue-200 border-dashed p-4 rounded-xl flex items-center justify-center">
-                              <img src="/projects/wisdome.ai_web/graph-logo.png" alt="CIS Logo Spec" className="max-h-[80px] object-contain opacity-80" />
+                  {false && (
+                    <div 
+                      ref={cisCompareRef}
+                      className={`transition-all duration-1000 ease-out transform ${
+                        cisCompareVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                      }`}
+                    >
+                      <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 border-l-4 border-orange-500 pl-4 font-['Noto_Sans_TC']">
+                        {t({ zh: '4. CIS 規範與官網落地對比', en: '4. CIS Specs vs Live Website' }, lang)}
+                      </h4>
+                      
+                      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 items-center bg-[#FAFAFB] p-8 md:p-12 border border-gray-100 rounded-[2rem]">
+                        {/* Left: CIS Spec Mockup Card */}
+                        <div className="flex flex-col gap-4 w-full">
+                          <div 
+                            className="w-full aspect-[4/3] rounded-2xl flex flex-col justify-between p-6 shadow-sm border border-gray-200 bg-white"
+                            style={{ backgroundImage: 'radial-gradient(#E2E8F0 1px, transparent 1px)', backgroundSize: '16px 16px' }}
+                          >
+                            <div className="flex justify-between items-center border-b border-gray-100 pb-3">
+                              <span className="text-xs text-gray-400 font-bold font-mono">CIS_SPEC_01.PDF</span>
+                              <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded font-bold">GRID FIXED</span>
                             </div>
-                            {/* Blue drafting measurements overlay */}
-                            <div className="absolute top-[15%] left-[10%] text-[10px] text-blue-500 font-mono">margin = 1.5x</div>
-                            <div className="absolute bottom-[-10px] h-[1px] w-2/3 bg-blue-300 flex justify-between"><div className="w-[1px] h-2 bg-blue-400" /><div className="w-[1px] h-2 bg-blue-400" /></div>
+                            
+                            <div className="flex-1 flex flex-col justify-center items-center relative my-4">
+                              <div className="border border-blue-200 border-dashed p-4 rounded-xl flex items-center justify-center">
+                                <img src="/projects/wisdome.ai_web/graph-logo.png" alt="CIS Logo Spec" className="max-h-[80px] object-contain opacity-80" />
+                              </div>
+                              {/* Blue drafting measurements overlay */}
+                              <div className="absolute top-[15%] left-[10%] text-[10px] text-blue-500 font-mono">margin = 1.5x</div>
+                              <div className="absolute bottom-[-10px] h-[1px] w-2/3 bg-blue-300 flex justify-between"><div className="w-[1px] h-2 bg-blue-400" /><div className="w-[1px] h-2 bg-blue-400" /></div>
+                            </div>
+                            <span className="text-xs font-bold text-gray-400 font-mono">CIS Brand Guideline Map</span>
                           </div>
-                          <span className="text-xs font-bold text-gray-400 font-mono">CIS Brand Guideline Map</span>
-                        </div>
-                        <div>
-                          <span className="block text-sm font-bold text-gray-800 font-['Noto_Sans_TC']">{t({ zh: 'CIS 品牌標誌規範', en: 'CIS Mark Specifications' }, lang)}</span>
-                          <span className="block text-xs text-gray-400 font-medium font-['Noto_Sans_TC']">{t({ zh: '嚴謹定義標誌的幾何格線、色彩容差與安全留白區域', en: 'Strictly defines geometry lines, spacing tolerances, and margins.' }, lang)}</span>
-                        </div>
-                      </div>
-
-                      {/* Middle: Connecting Arrow Icon */}
-                      <div className="hidden lg:flex flex-col items-center gap-2 justify-center px-4">
-                        <div className="bg-orange-500 text-white rounded-full p-3 shadow-md flex items-center justify-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-                            <path d="M5 12h14" />
-                            <path d="m12 5 7 7-7 7" />
-                          </svg>
-                        </div>
-                        <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider font-['Noto_Sans_TC'] mt-2">{t({ zh: '落地應用', en: 'Live Apply' }, lang)}</span>
-                      </div>
-
-                      {/* Right: Live Web Screenshot Card */}
-                      <div className="flex flex-col gap-4 w-full">
-                        <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-white relative">
-                          {/* Live website preview screenshot */}
-                          <img src="/projects/wisdome.ai_web/cover.jpg" alt="Website Implementation" className="w-full h-full object-cover select-none" />
-                          
-                          {/* Green matching badge overlay */}
-                          <div className="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
-                            100% SPEC MATCHED
+                          <div>
+                            <span className="block text-sm font-bold text-gray-800 font-['Noto_Sans_TC']">{t({ zh: 'CIS 品牌標誌規範', en: 'CIS Mark Specifications' }, lang)}</span>
+                            <span className="block text-xs text-gray-400 font-medium font-['Noto_Sans_TC']">{t({ zh: '嚴謹定義標誌的幾何格線、色彩容差與安全留白區域', en: 'Strictly defines geometry lines, spacing tolerances, and margins.' }, lang)}</span>
                           </div>
                         </div>
-                        <div>
-                          <span className="block text-sm font-bold text-gray-800 font-['Noto_Sans_TC']">{t({ zh: '企業官方網站落地', en: 'Live Corporate Website' }, lang)}</span>
-                          <span className="block text-xs text-gray-400 font-medium font-['Noto_Sans_TC']">{t({ zh: '在 Web 介面實現完美像素對齊，保持品牌一致的跨媒介體驗', en: 'Achieves pixel-perfect rendering to preserve cohesive brand experience.' }, lang)}</span>
+
+                        {/* Middle: Connecting Arrow Icon */}
+                        <div className="hidden lg:flex flex-col items-center gap-2 justify-center px-4">
+                          <div className="bg-orange-500 text-white rounded-full p-3 shadow-md flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                              <path d="M5 12h14" />
+                              <path d="m12 5 7 7-7 7" />
+                            </svg>
+                          </div>
+                          <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider font-['Noto_Sans_TC'] mt-2">{t({ zh: '落地應用', en: 'Live Apply' }, lang)}</span>
+                        </div>
+
+                        {/* Right: Live Web Screenshot Card */}
+                        <div className="flex flex-col gap-4 w-full">
+                          <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-white relative">
+                            {/* Live website preview screenshot */}
+                            <img src="/projects/wisdome.ai_web/cover.jpg" alt="Website Implementation" className="w-full h-full object-cover select-none" />
+                            
+                            {/* Green matching badge overlay */}
+                            <div className="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
+                              100% SPEC MATCHED
+                            </div>
+                          </div>
+                          <div>
+                            <span className="block text-sm font-bold text-gray-800 font-['Noto_Sans_TC']">{t({ zh: '企業官方網站落地', en: 'Live Corporate Website' }, lang)}</span>
+                            <span className="block text-xs text-gray-400 font-medium font-['Noto_Sans_TC']">{t({ zh: '在 Web 介面實現完美像素對齊，保持品牌一致的跨媒介體驗', en: 'Achieves pixel-perfect rendering to preserve cohesive brand experience.' }, lang)}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  )}
 
                 </div>
               </div>
@@ -7389,8 +7614,8 @@ const SPLIT_VIEW_CHIPS = [
         { label: { zh: '吉祥物動畫', en: 'Mascot Animation' } }
       ],
       desc: {
-        zh: '為了讓看似冰冷的教育科技系統更具溫度與親和力，我們打造了專屬吉祥物「Brainy」。從初期的草稿設定、三視圖、各類教學情境的插圖應用，到簡單的 UI 反饋動畫，讓吉祥物成為學習旅程中陪伴學生的好夥伴。',
-        en: 'To bring warmth and approachability to EdTech software, we crafted our dedicated mascot "Brainy." From sketches, three-view turnarounds, and learning scenario illustrations to simple UI feedback animations, the mascot accompanies students along their journey.'
+        zh: '為了讓看似冰冷的教育科技系統更具溫度與親和力，我們打造了專屬吉祥物「Pixie」。從初期的草稿設定、三視圖、各類教學情境的插圖應用，到簡單的 UI 反饋動畫，讓吉祥物成為學習旅程中陪伴學生的好夥伴。',
+        en: 'To bring warmth and approachability to EdTech software, we crafted our dedicated mascot "Pixie." From sketches, three-view turnarounds, and learning scenario illustrations to simple UI feedback animations, the mascot accompanies students along their journey.'
       }
     },
     {
@@ -7449,15 +7674,61 @@ const SPLIT_VIEW_CHIPS = [
     }
   ];
 
+  // Helper components to match custom layout guidelines for BrainBox
+  const SectionHeader = ({ num, title }) => (
+    <div className="flex flex-col mb-10 select-none">
+      <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-black font-['Manrope'] leading-none text-[#111827] tracking-[-0.06em] mb-4">
+        {num}
+      </h2>
+      <h3 className="text-[24px] md:text-[36px] lg:text-[40px] font-bold font-['Noto_Sans_TC'] tracking-tight text-[#4B5563]">
+        {title}
+      </h3>
+    </div>
+  );
+
+  const SubHeading = ({ children }) => (
+    <h4 className="border-l-[3px] border-[#E8734A] pl-3 text-base md:text-lg font-bold text-gray-800 uppercase tracking-wider mb-6 select-none">
+      {children}
+    </h4>
+  );
+
+  const ImagePlaceholder = ({ label, height = '160px', icon = 'photo', bg = 'bg-gray-50' }) => (
+    <div 
+      className={`w-full ${bg} border border-dashed border-gray-300 rounded-[10px] flex flex-col items-center justify-center p-4 select-none`}
+      style={{ height }}
+    >
+      {icon === 'photo' && (
+        <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+        </svg>
+      )}
+      {icon === 'play' && (
+        <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+        </svg>
+      )}
+      {icon === 'person' && (
+        <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+      )}
+      {icon === 'icon' && (
+        <svg className="w-6 h-6 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 21l8.904-4.43c.277-.138.56-.273.846-.403V9.07c-.288-.13-.572-.265-.849-.403L9 4.23l.813 5.1c.045.282.26.505.534.56l5.14.908-5.14.908c-.273.055-.489.278-.534.56z" />
+        </svg>
+      )}
+      <span className="text-[11px] text-gray-400 font-medium tracking-wide text-center leading-normal max-w-[90%]">
+        {label}
+      </span>
+    </div>
+  );
+
   const BrainBoxVisualProjectView = ({ activeItem, lang, transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, navigateTo }) => {
-    const [videoError, setVideoError] = useState(false);
-    const [brandFilmError, setBrandFilmError] = useState(false);
-    const [navBorder, setNavBorder] = useState(false);
-    const [activeSection, setActiveSection] = useState('all');
-    
     // Interactions state
     const [activeMascotIndex, setActiveMascotIndex] = useState(0);
     const [activeIconIndex, setActiveIconIndex] = useState(0);
+    const [activeUiSlide, setActiveUiSlide] = useState(0);
 
     useEffect(() => {
       const link = document.createElement('link');
@@ -7486,61 +7757,7 @@ const SPLIT_VIEW_CHIPS = [
       };
     }, []);
 
-    useEffect(() => {
-      const handleScroll = () => {
-        setNavBorder(window.scrollY > 450);
-        if (window.scrollY < 300) {
-          setActiveSection('all');
-        }
-      };
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
 
-    useEffect(() => {
-      const sectionIds = ['project-overview', 'brand-identity', 'icon-system', 'brand-mascot', 'illustration-animation', 'brand-film'];
-      
-      const observerCallback = (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      };
-      
-      const observer = new IntersectionObserver(observerCallback, {
-        root: null,
-        rootMargin: '-120px 0px -60% 0px',
-        threshold: 0
-      });
-      
-      sectionIds.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) observer.observe(el);
-      });
-
-      return () => observer.disconnect();
-    }, []);
-
-    const scrollToSection = (id) => {
-      if (id === 'all') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setActiveSection('all');
-        return;
-      }
-      const el = document.getElementById(id);
-      if (el) {
-        const offset = 100;
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elementRect = el.getBoundingClientRect().top;
-        const elementPosition = elementRect - bodyRect;
-        const offsetPosition = elementPosition - offset;
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }
-    };
 
     // Asset Lists
     const MASCOT_ASSETS = [
@@ -7575,55 +7792,7 @@ const SPLIT_VIEW_CHIPS = [
       { label: lang === 'zh' ? '交付物' : 'Deliverables', value: lang === 'zh' ? '5 個系統' : '5 Systems' }
     ];
 
-    // Helper components to match custom layout guidelines
-    const SectionHeader = ({ num, title }) => (
-      <div className="flex flex-col mb-10 select-none">
-        <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-black font-['Manrope'] leading-none text-[#111827] tracking-[-0.06em] mb-4">
-          {num}
-        </h2>
-        <h3 className="text-[24px] md:text-[36px] lg:text-[40px] font-bold font-['Noto_Sans_TC'] tracking-tight text-[#4B5563]">
-          {title}
-        </h3>
-      </div>
-    );
 
-    const SubHeading = ({ children }) => (
-      <h4 className="border-l-[3px] border-[#E8734A] pl-3 text-base md:text-lg font-bold text-gray-800 uppercase tracking-wider mb-6 select-none">
-        {children}
-      </h4>
-    );
-
-    const ImagePlaceholder = ({ label, height = '160px', icon = 'photo', bg = 'bg-gray-50' }) => (
-      <div 
-        className={`w-full ${bg} border border-dashed border-gray-300 rounded-[10px] flex flex-col items-center justify-center p-4 select-none`}
-        style={{ height }}
-      >
-        {icon === 'photo' && (
-          <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-          </svg>
-        )}
-        {icon === 'play' && (
-          <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
-          </svg>
-        )}
-        {icon === 'person' && (
-          <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-          </svg>
-        )}
-        {icon === 'icon' && (
-          <svg className="w-6 h-6 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 21l8.904-4.43c.277-.138.56-.273.846-.403V9.07c-.288-.13-.572-.265-.849-.403L9 4.23l.813 5.1c.045.282.26.505.534.56l5.14.908-5.14.908c-.273.055-.489.278-.534.56z" />
-          </svg>
-        )}
-        <span className="text-[11px] text-gray-400 font-medium tracking-wide text-center leading-normal max-w-[90%]">
-          {label}
-        </span>
-      </div>
-    );
 
     return (
       <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
@@ -7639,24 +7808,11 @@ const SPLIT_VIEW_CHIPS = [
         </div>
 
         <div className="w-full md:w-screen md:relative md:left-1/2 md:-translate-x-1/2 rounded-2xl md:rounded-none bg-gray-100 mt-6 md:mt-8 select-none overflow-hidden h-auto">
-          {!videoError ? (
-            <video
-              src="/projects/brainbox/brainbox-hero.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-auto block"
-              onError={() => setVideoError(true)}
-            />
-          ) : (
-            <div className="w-full aspect-video bg-gray-200 flex items-center justify-center">
-              <svg className="w-16 h-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-          )}
+          <img
+            src="/projects/brainbox/brainbox-innerpage-cover.png"
+            alt="BrainBox Hero Cover"
+            className="w-full h-auto block"
+          />
         </div>
 
         {/* Global Case Study Content */}
@@ -8042,9 +8198,9 @@ const SPLIT_VIEW_CHIPS = [
                     </div>
                   </div>
 
-                  {/* Right Column (span 8/12): Widescreen Video container matching aspect-video */}
+                  {/* Right Column (span 8/12): Dynamic Video container */}
                   <div className="col-span-12 lg:col-span-8 flex flex-col">
-                    <div className="w-full aspect-video rounded-[20px] overflow-hidden bg-[#0A0D14] border border-[#E7E9EE] shadow-sm relative">
+                    <div className="w-full rounded-[20px] overflow-hidden bg-[#0A0D14] shadow-sm">
                       <video
                         src="/projects/brainbox/motion-icon-demo.mp4"
                         controls
@@ -8052,7 +8208,7 @@ const SPLIT_VIEW_CHIPS = [
                         muted
                         loop
                         playsInline
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="w-full h-auto block"
                       />
                     </div>
                   </div>
@@ -8074,22 +8230,274 @@ const SPLIT_VIEW_CHIPS = [
           <div id="brand-mascot" className="scroll-mt-24">
             <SectionHeader num="04" title={lang === 'zh' ? '品牌吉祥物' : 'Brand Mascot'} />
             
-            <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12 lg:gap-16 items-start">
-              {/* LEFT COLUMN: Description + Main display + thumbnails */}
-              <div className="w-[400px] max-w-full space-y-8">
-                {/* Description text aligned to mascot area width */}
-                <p className="text-base text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed">
-                  {lang === 'zh'
-                    ? '為了讓原本冷硬的備考系統更具趣味性，我們設計了品牌代表吉祥物 Brainy。Brainy 的臉部顯示屏幕會根據使用者的答題狀況與操作路徑做出即時表情反應，降低考生的考試焦慮，打造貼心無壓力的陪考氛圍。'
-                    : 'To make the test prep interface friendly, we designed mascot Brainy. Its face screen dynamically reacts to user actions and scores, mitigating student anxiety and establishing a cozy learning companion.'}
-                </p>
+            {/* Mascot Introduction Section */}
+            <div className="bg-white py-6 select-none font-['Noto_Sans_TC']">
+              
+              {/* BLOCK 1 — CHARACTER INTRO & VIDEO */}
+              <div className="py-10 text-left">
+                <div className="w-full">
+                  <h4 className="text-xl md:text-2xl font-bold text-gray-800 mb-3 font-['Manrope']">
+                    Hi! I'm Pixie!
+                  </h4>
+                  <p className="text-[14px] md:text-[15px] text-gray-600 leading-[1.8] font-medium font-['Noto_Sans_TC'] mb-6 max-w-[800px]">
+                    {lang === 'zh'
+                      ? '為了讓原本冷硬的備考系統更具趣味性，我們設計了品牌代表吉祥物 Pixie。Pixie 的臉部顯示屏幕會根據使用者的答題狀況與操作路徑做出即時表情反應，降低考生的考試焦慮，打造貼心無壓力的陪考氛圍。'
+                      : 'To make the test prep interface friendly, we designed mascot Pixie. Its face screen dynamically reacts to user actions and scores, mitigating student anxiety and establishing a cozy learning companion.'}
+                  </p>
+                  
+                  {/* Widescreen Video Embed */}
+                  <div className="w-full aspect-[13/8] rounded-[20px] overflow-hidden bg-black relative shadow-sm mt-4">
+                    <video
+                      src="/projects/brainbox/hi-i'm-pixie.mp4"
+                      controls
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+              </div>
 
-                <div className="w-[400px] max-w-full">
-                  <div className="w-[400px] max-w-full bg-[#FAFCFF] border border-gray-150 rounded-2xl flex flex-col items-center justify-center p-6 select-none h-[400px] shadow-sm relative overflow-hidden">
+              <div className="w-full h-[0.5px] bg-[#e5e5e5] my-6" />
+
+              {/* BLOCK 2 — 設計理念 */}
+              <div className="py-10 text-left">
+                <span className="text-[13px] text-gray-400 font-medium uppercase tracking-widest block mb-8">
+                  {lang === 'zh' ? '設計理念' : 'DESIGN CONCEPT'}
+                </span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                  {/* Item 1 */}
+                  <div className="flex flex-col items-start text-left">
+                    <div className="mb-3">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7F77DD" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="3 3">
+                        <circle cx="12" cy="12" r="10" />
+                      </svg>
+                    </div>
+                    <h5 className="text-[15px] font-semibold text-gray-800 mb-1">
+                      {lang === 'zh' ? '造型由來' : 'Shape Origin'}
+                    </h5>
+                    <p className="text-[13px] text-gray-500 leading-relaxed">
+                      {lang === 'zh'
+                        ? '圓潤球體象徵包容與陪伴，柔和輪廓降低系統帶來的壓迫感。'
+                        : 'Spherical base representing inclusion and companion, soft contours reduce user pressure.'}
+                    </p>
+                  </div>
+
+                  {/* Item 2 */}
+                  <div className="flex flex-col items-start text-left">
+                    <div className="mb-3">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7F77DD" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 14.7255 3.09032 17.1962 4.85857 19C5.35857 19.5 5.5 20 5.5 20.5C5.5 21.3284 6.17157 22 7 22H12Z" />
+                        <circle cx="7.5" cy="10.5" r="1.5" fill="#7F77DD" />
+                        <circle cx="11.5" cy="7.5" r="1.5" fill="#7F77DD" />
+                        <circle cx="16.5" cy="9.5" r="1.5" fill="#7F77DD" />
+                      </svg>
+                    </div>
+                    <h5 className="text-[15px] font-semibold text-gray-800 mb-1">
+                      {lang === 'zh' ? '色彩寓意' : 'Color Significance'}
+                    </h5>
+                    <p className="text-[13px] text-gray-500 leading-relaxed">
+                      {lang === 'zh'
+                        ? '藍紫漸層象徵智慧與思考，不同情境切換暖冷色調傳遞情感。'
+                        : 'Blue-purple gradient stands for intellect and thinking, shifting color tones to convey emotions.'}
+                    </p>
+                  </div>
+
+                  {/* Item 3 */}
+                  <div className="flex flex-col items-start text-left">
+                    <div className="mb-3">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7F77DD" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                        <line x1="7" y1="7" x2="7.01" y2="7" />
+                      </svg>
+                    </div>
+                    <h5 className="text-[15px] font-semibold text-gray-800 mb-1">
+                      {lang === 'zh' ? '命名由來' : 'Name Origin'}
+                    </h5>
+                    <p className="text-[13px] text-gray-500 leading-relaxed">
+                      {lang === 'zh'
+                        ? 'Pixie 取自精靈，呼應體積小巧卻充滿魔法能量的陪伴形象。'
+                        : 'Named after the fairy sprite, symbolizing a compact companion with magical learning energy.'}
+                    </p>
+                  </div>
+
+                  {/* Item 4 */}
+                  <div className="flex flex-col items-start text-left">
+                    <div className="mb-3">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7F77DD" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                        <line x1="9" y1="9" x2="9.01" y2="9" />
+                        <line x1="15" y1="9" x2="15.01" y2="9" />
+                      </svg>
+                    </div>
+                    <h5 className="text-[15px] font-semibold text-gray-800 mb-1">
+                      {lang === 'zh' ? '個性設定' : 'Personality'}
+                    </h5>
+                    <p className="text-[13px] text-gray-500 leading-relaxed">
+                      {lang === 'zh'
+                        ? '溫柔、不評判、有耐心。答對一起開心，答錯溫和鼓勵前行。'
+                        : 'Gentle, non-judgmental, patient. Celebrates correct answers and warmly encourages learning.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full h-[0.5px] bg-[#e5e5e5] my-6" />
+
+              {/* BLOCK 3 — 外型分析 */}
+              <div className="py-10 text-left">
+                <span className="text-[13px] text-gray-400 font-medium uppercase tracking-widest block mb-8">
+                  {lang === 'zh' ? '外型分析' : 'APPEARANCE ANALYSIS'}
+                </span>
+
+                {/* Desktop layout: Centered video with callout lines pointing to labels */}
+                <div className="hidden lg:block relative w-full max-w-[1100px] h-[600px] mx-auto select-none">
+                  {/* Central Video Container */}
+                  <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <video
+                      src="/projects/brainbox/pixie-feature.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-[450px] h-[450px] object-cover rounded-full"
+                    />
+                  </div>
+
+                  {/* SVG Pointers Overlay */}
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1100 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {/* Top-Left Pointer */}
+                    <line x1="365" y1="185" x2="250" y2="160" stroke="#7F77DD" strokeWidth="1.5" />
+                    <circle cx="250" cy="160" r="4" fill="#7F77DD" />
+                    
+                    {/* Bottom-Left Pointer */}
+                    <line x1="365" y1="415" x2="250" y2="440" stroke="#7F77DD" strokeWidth="1.5" />
+                    <circle cx="250" cy="440" r="4" fill="#7F77DD" />
+
+                    {/* Top-Right Pointer */}
+                    <line x1="735" y1="185" x2="850" y2="160" stroke="#7F77DD" strokeWidth="1.5" />
+                    <circle cx="850" cy="160" r="4" fill="#7F77DD" />
+
+                    {/* Bottom-Right Pointer */}
+                    <line x1="735" y1="415" x2="850" y2="440" stroke="#7F77DD" strokeWidth="1.5" />
+                    <circle cx="850" cy="440" r="4" fill="#7F77DD" />
+                  </svg>
+
+                  {/* Callout Text Containers absolute positionings */}
+                  {/* Top-Left Callout Box */}
+                  <div className="absolute top-[130px] left-[20px] w-[210px] text-right">
+                    <h5 className="text-[14px] font-bold text-gray-800 mb-1">
+                      {lang === 'zh' ? '漸層球體' : 'Gradient Sphere'}
+                    </h5>
+                    <p className="text-[12px] text-gray-500 leading-relaxed">
+                      {lang === 'zh' ? '藍紫漸層象徵腦部思考與知識能量的流動。' : 'Blue-purple gradient represents knowledge flow and brain thinking.'}
+                    </p>
+                  </div>
+
+                  {/* Bottom-Left Callout Box */}
+                  <div className="absolute top-[410px] left-[20px] w-[210px] text-right">
+                    <h5 className="text-[14px] font-bold text-gray-800 mb-1">
+                      {lang === 'zh' ? '極簡線條表情' : 'Minimalist Facial Lines'}
+                    </h5>
+                    <p className="text-[12px] text-gray-500 leading-relaxed">
+                      {lang === 'zh' ? '僅用眼睛與嘴型傳遞情緒，避免細節過多造成視覺負擔。' : 'Only eyes and mouth lines are used to convey expressions, avoiding detail clutter.'}
+                    </p>
+                  </div>
+
+                  {/* Top-Right Callout Box */}
+                  <div className="absolute top-[130px] right-[20px] w-[210px] text-left">
+                    <h5 className="text-[14px] font-bold text-gray-800 mb-1">
+                      {lang === 'zh' ? '狀態符號' : 'State Indicators'}
+                    </h5>
+                    <p className="text-[12px] text-gray-500 leading-relaxed">
+                      {lang === 'zh' ? 'Z字、問號泡泡等輔助圖示即時反映操作情境。' : 'Floating letters, question bubbles reflect interactive state.'}
+                    </p>
+                  </div>
+
+                  {/* Bottom-Right Callout Box */}
+                  <div className="absolute top-[410px] right-[20px] w-[210px] text-left">
+                    <h5 className="text-[14px] font-bold text-gray-800 mb-1">
+                      {lang === 'zh' ? '無性別、無年齡特徵' : 'Universal Appeal'}
+                    </h5>
+                    <p className="text-[12px] text-gray-500 leading-relaxed">
+                      {lang === 'zh' ? '抽象造型讓所有使用者都能自然建立情感投射。' : 'Genderless, ageless form allows empathy across all users.'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Mobile view fallback: Stacked video and bullet points */}
+                <div className="block lg:hidden space-y-8 select-none">
+                  <div className="flex items-center justify-center py-4">
+                    <video
+                      src="/projects/brainbox/pixie-feature.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-[200px] h-[200px] object-cover rounded-full shadow-md"
+                    />
+                  </div>
+                  
+                  <div className="space-y-4 px-4">
+                    {[
+                      { 
+                        title: lang === 'zh' ? '漸層球體' : 'Gradient Sphere', 
+                        desc: lang === 'zh' ? '藍紫漸層象徵腦部思考與知識能量的流動。' : 'Blue-purple gradient represents knowledge flow and brain thinking.' 
+                      },
+                      { 
+                        title: lang === 'zh' ? '極簡線條表情' : 'Minimalist Facial Lines', 
+                        desc: lang === 'zh' ? '僅用眼睛與嘴型傳遞情緒，避免細節過多造成視覺負擔。' : 'Only eyes and mouth lines are used to convey expressions, avoiding detail clutter.' 
+                      },
+                      { 
+                        title: lang === 'zh' ? '狀態符號' : 'State Indicators', 
+                        desc: lang === 'zh' ? 'Z字、問號泡泡等輔助圖示即時反映操作情境。' : 'Floating letters, question bubbles reflect interactive state.' 
+                      },
+                      { 
+                        title: lang === 'zh' ? '無性別、無年齡特徵' : 'Universal Appeal', 
+                        desc: lang === 'zh' ? '抽象造型讓所有使用者都能自然建立情感投射。' : 'Genderless, ageless form allows empathy across all users.' 
+                      }
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-start">
+                        <span className="w-2 h-2 rounded-full bg-[#7F77DD] mt-1.5 mr-3 flex-shrink-0" />
+                        <div className="text-[14px] leading-relaxed text-left">
+                          <strong className="text-gray-800 font-semibold">{item.title}</strong> — <span className="text-gray-500 text-[13px]">{item.desc}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+
+              <div className="w-full h-[0.5px] bg-[#e5e5e5] my-6" />
+
+            </div>
+
+            <div className="space-y-8 text-left mt-10">
+              {/* Header / Title */}
+              <div className="mb-6">
+                <SubHeading>{lang === 'zh' ? '吉祥物動態展示' : 'Mascot Motion Showcase'}</SubHeading>
+              </div>
+
+              {/* Description text aligned full-width */}
+              <p className="text-base text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-4xl">
+                {lang === 'zh'
+                  ? '為了讓原本冷硬的備考系統更具趣味性，我們設計了品牌代表吉祥物 Pixie。Pixie 的臉部顯示屏幕會根據使用者的答題狀況與操作路徑做出即時表情反應，降低考生的考試焦慮，打造貼心無壓力的陪考氛圍。'
+                  : 'To make the test prep interface friendly, we designed mascot Pixie. Its face screen dynamically reacts to user actions and scores, mitigating student anxiety and establishing a cozy learning companion.'}
+              </p>
+
+              {/* Horizontal 3-column Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-start mt-8">
+                {/* Mascot State Switcher Column */}
+                <div className="flex flex-col w-full">
+                  <div className="w-full bg-[#FAFAFA] border border-gray-200 rounded-[2rem] flex flex-col items-center justify-center p-6 select-none aspect-[16/12] shadow-sm relative overflow-hidden">
                     <img 
                       src={MASCOT_ASSETS[activeMascotIndex].url} 
                       alt={MASCOT_ASSETS[activeMascotIndex].status} 
-                      className="max-w-full max-h-[80%] object-contain relative z-10" 
+                      className="max-w-full max-h-[70%] object-contain relative z-10" 
                     />
                     <div className="text-xs md:text-sm text-gray-500 mt-4 text-center font-medium leading-relaxed max-w-[85%] z-10">
                       <span className="font-bold text-gray-800">{lang === 'zh' ? '當前狀態：' : 'Current: '}</span>
@@ -8100,12 +8508,12 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
                   
                   {/* Thumbnails Row */}
-                  <div className="grid grid-cols-4 gap-3 mt-6 w-[400px] max-w-full">
+                  <div className="grid grid-cols-4 gap-2 mt-4 w-full">
                     {MASCOT_ASSETS.map((mascot, idx) => (
                       <button
                         key={idx}
                         onClick={() => setActiveMascotIndex(idx)}
-                        className={`h-[60px] md:h-[72px] rounded-2xl flex items-center justify-center px-2 py-1 select-none transition-all duration-200 cursor-pointer text-center font-semibold text-xs md:text-sm ${
+                        className={`h-[48px] rounded-xl flex items-center justify-center px-1 py-1 select-none transition-all duration-200 cursor-pointer text-center font-semibold text-[11px] md:text-xs leading-tight ${
                           activeMascotIndex === idx 
                             ? 'border-2 border-[#534AB7] bg-[#F5F3FF] text-[#534AB7] shadow-sm' 
                             : 'border border-gray-200 bg-gray-50 hover:bg-gray-100 text-gray-600'
@@ -8116,27 +8524,43 @@ const SPLIT_VIEW_CHIPS = [
                     ))}
                   </div>
                 </div>
-              </div>
 
-              {/* RIGHT COLUMN: Actual application video */}
-              <div className="w-full lg:sticky lg:top-24 space-y-6">
-                <SubHeading>{lang === 'zh' ? '吉祥物實際應用展示' : 'Mascot Application Showcase'}</SubHeading>
-                <div className="w-full aspect-[3024/1964] rounded-2xl overflow-hidden bg-black border border-gray-800 relative shadow-lg">
-                  <video
-                    src="/projects/brainbox/Screen Recording 2025-04-09 at 11.02.28 AM.mov"
-                    controls
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 w-full h-full object-contain"
-                  />
+                {/* Full page loading Column */}
+                <div className="flex flex-col w-full">
+                  <div className="w-full aspect-[16/12] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
+                    <img src="/projects/brainbox/analyzing loading.gif" alt="Full page loading" className="w-full h-full object-contain" />
+                  </div>
+                  <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '前測數據分析中' : 'Analyzing Pre-test Data'}</div>
                 </div>
-                <p className="text-sm text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed">
-                  {lang === 'zh'
-                    ? '此操作影片展示了吉祥物 Brainy 在系統答題反饋、倒數計時與狀態切換時的整合展示效果。'
-                    : 'This screen recording highlights the character animations of Brainy reacting to student inputs, popups, and score calculations.'}
-                </p>
+
+                {/* Skeleton Screen Column */}
+                <div className="flex flex-col w-full">
+                  <div className="w-full aspect-[16/12] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
+                    <img src="/projects/brainbox/creating test.gif" alt="Skeleton screen" className="w-full h-full object-contain" />
+                  </div>
+                  <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '前測試卷生成中' : 'Generating Pre-test Paper'}</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mascot Showcase Video at the very bottom of Section 04 */}
+            <div className="w-full pt-10 text-left">
+              <SubHeading>{lang === 'zh' ? '吉祥物實際應用展示' : 'Mascot Application Showcase'}</SubHeading>
+              <p className="text-[14px] text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed mt-2 max-w-3xl">
+                {lang === 'zh'
+                  ? '在軟體吉祥物被應用於Onboarding歡迎動畫、前測的回饋、作答後的動畫等區域，為使用者帶入品牌第一印象。'
+                  : 'The software mascot is applied across onboarding welcome animations, pre-test feedback, and post-response celebrations, bringing a warm first brand impression to the user.'}
+              </p>
+              <div className="w-full rounded-2xl overflow-hidden bg-black shadow-lg mt-6">
+                <video
+                  src="/projects/brainbox/assessment-pixie.mp4"
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-auto block"
+                />
               </div>
             </div>
           </div>
@@ -8155,16 +8579,16 @@ const SPLIT_VIEW_CHIPS = [
 
             <div className="space-y-16">
               
-              {/* Grid block for Avatars + Loading and Right Showcase Video */}
-              <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-16 items-start">
+              {/* Equal-height two-column layout: Avatars on the left, Loading animation on the right */}
+              <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-12 lg:gap-16 items-stretch">
                 
-                {/* Left Column: Avatars & Loadings stacked */}
-                <div className="space-y-12">
-                  
-                  {/* Sub-section 1 — 用戶頭像系統 */}
-                  <div>
+                {/* Left Column — 用戶頭像系統 (Larger size) */}
+                <div className="flex flex-col h-full justify-between">
+                  <div className="mb-4">
                     <SubHeading>{lang === 'zh' ? '1. 用戶頭像系統' : '1. User Avatar Library'}</SubHeading>
-                    <div className="grid grid-cols-4 gap-4 max-w-sm">
+                  </div>
+                  <div className="flex-1 bg-white border border-gray-100 rounded-3xl p-8 flex items-center justify-center shadow-sm">
+                    <div className="grid grid-cols-4 gap-6 w-full max-w-md">
                       {[
                         '/projects/brainbox/red.png',
                         '/projects/brainbox/orange.png',
@@ -8177,7 +8601,7 @@ const SPLIT_VIEW_CHIPS = [
                       ].map((src, idx) => (
                         <div 
                           key={idx}
-                          className="aspect-square rounded-full border border-gray-200 bg-white flex items-center justify-center select-none overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
+                          className="aspect-square rounded-full bg-white flex items-center justify-center select-none overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
                         >
                           <img 
                             src={src} 
@@ -8188,80 +8612,112 @@ const SPLIT_VIEW_CHIPS = [
                       ))}
                     </div>
                   </div>
-
-                  {/* Sub-section 2 — Loading 動畫 */}
-                  <div>
-                    <SubHeading>{lang === 'zh' ? '2. Loading 動畫' : '2. Loading Animations'}</SubHeading>
-                    <div className="flex flex-col gap-6 max-w-sm">
-                      <div className="flex flex-col">
-                        <div className="w-full aspect-[16/10] bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden flex items-center justify-center shadow-sm">
-                          <img src="/projects/brainbox/analyzing loading.gif" alt="Full page loading" className="w-full h-full object-contain" />
-                        </div>
-                        <div className="text-xs md:text-sm font-bold text-gray-700 mt-2 text-center select-none">{lang === 'zh' ? '全頁 Loading' : 'Full Page Loading'}</div>
-                      </div>
-                      
-                      <div className="flex flex-col">
-                        <div className="w-full aspect-[16/10] bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden flex items-center justify-center shadow-sm">
-                          <img src="/projects/brainbox/creating test.gif" alt="Skeleton screen" className="w-full h-full object-contain" />
-                        </div>
-                        <div className="text-xs md:text-sm font-bold text-gray-700 mt-2 text-center select-none">{lang === 'zh' ? 'Skeleton Screen' : 'Skeleton Screen'}</div>
-                      </div>
-                      
-                      <div className="flex flex-col">
-                        <div className="w-full aspect-square bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden flex items-center justify-center shadow-sm">
-                          <video src="/projects/brainbox/box_loading_bright.mov" autoPlay muted loop playsInline className="w-full h-full object-contain" />
-                        </div>
-                        <div className="text-xs md:text-sm font-bold text-gray-700 mt-2 text-center select-none">{lang === 'zh' ? '元件 Loading' : 'Component Loading'}</div>
-                      </div>
-                    </div>
-                  </div>
-
                 </div>
 
-                {/* Right Column: Actual application showcase video */}
-                <div className="lg:sticky lg:top-24 space-y-6">
-                  <SubHeading>{lang === 'zh' ? '3. 系統實際應用展示' : '3. System Application Showcase'}</SubHeading>
-                  <div className="w-full aspect-[3024/1964] rounded-2xl overflow-hidden bg-black border border-gray-800 relative shadow-lg">
-                    <video
-                      src="/projects/brainbox/Screen Recording 2025-04-09 at 11.02.28 AM.mov"
-                      controls
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="absolute inset-0 w-full h-full object-contain"
-                    />
+                {/* Right Column — Loading 動畫 (Constrained & aligned to height) */}
+                <div className="flex flex-col h-full justify-between">
+                  <div className="mb-4">
+                    <SubHeading>{lang === 'zh' ? '2. LOADING 動畫' : '2. Loading Animations'}</SubHeading>
                   </div>
-                  <p className="text-sm text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed">
-                    {lang === 'zh'
-                      ? '此操作影片展示了用戶頭像系統以及 Loading 載入動畫在 BrainBox 智慧備考系統中的真實整合應用場景，包含考題分析與測驗生成時的流暢回饋。'
-                      : 'This screen recording demonstrates the integration of the avatar library and custom loading animations within the actual BrainBox prep platform, providing seamless user feedback during test generation.'}
-                  </p>
+                  <div className="flex-1 bg-white border border-gray-100 rounded-3xl p-8 flex flex-col items-center justify-center shadow-sm">
+                    <div className="w-full max-w-[200px] aspect-square overflow-hidden flex items-center justify-center">
+                      <video src="/projects/brainbox/box_loading_bright.mp4" autoPlay muted loop playsInline className="w-full h-full object-contain" />
+                    </div>
+                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '元件 Loading' : 'Component Loading'}</div>
+                  </div>
                 </div>
 
               </div>
 
-              <div className="w-full h-[0.5px] bg-[#e5e5e5] my-4" />
+              <div className="w-full h-[0.5px] bg-[#e5e5e5] my-10" />
 
-              {/* Sub-section 3 — Onboarding 歡迎動畫 */}
+              {/* Single desktop UI mockup with slider/slideshow controls */}
               <div>
-                <SubHeading>{lang === 'zh' ? '3. Onboarding 歡迎動畫' : '3. Onboarding Animations'}</SubHeading>
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                  <div>
-                    <ImagePlaceholder label="Welcome (歡迎動畫 / 動態影片)" height="240px" icon="play" />
-                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">Welcome</div>
+                <div className="mb-6 text-left">
+                  <SubHeading>
+                    {lang === 'zh' ? '3. 插圖動畫於系統中應用' : '3. Application of Illustrations & Animations'}
+                  </SubHeading>
+                </div>
+
+                {/* Main Slideshow Frame */}
+                <div className="relative w-full aspect-[16/10] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden shadow-sm">
+                  {/* Slider Control Buttons (floating inside the frame on left and right) */}
+                  <button 
+                    onClick={() => setActiveUiSlide(prev => prev === 0 ? 2 : prev - 1)}
+                    className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-gray-250 bg-white/95 hover:bg-white flex items-center justify-center hover:scale-105 transition-all cursor-pointer shadow-md select-none z-20"
+                  >
+                    <IconChevronLeft className="w-6 h-6 text-gray-700" />
+                  </button>
+                  <button 
+                    onClick={() => setActiveUiSlide(prev => prev === 2 ? 0 : prev + 1)}
+                    className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-gray-250 bg-white/95 hover:bg-white flex items-center justify-center hover:scale-105 transition-all cursor-pointer shadow-md select-none z-20"
+                  >
+                    <IconChevronRight className="w-6 h-6 text-gray-700" />
+                  </button>
+
+                  {/* Carousel track */}
+                  <div 
+                    className="w-full h-full flex transition-transform duration-700 ease-out"
+                    style={{ transform: `translateX(-${activeUiSlide * 100}%)` }}
+                  >
+                    {[
+                      { 
+                        title: { zh: '頭像插圖應用於登入頁', en: 'Avatar Illustration on Login Page' }, 
+                        type: 'image', 
+                        url: '/projects/brainbox/avatar-demo.png' 
+                      },
+                      { 
+                        title: { zh: '系統laoding動畫', en: 'System Loading Animation' }, 
+                        type: 'video', 
+                        url: '/projects/brainbox/loading-demo.mp4' 
+                      },
+                      { 
+                        title: { zh: '用戶個人頁頭像展示', en: 'User Profile Avatar Showcase' }, 
+                        type: 'image', 
+                        url: '/projects/brainbox/profile.png' 
+                      }
+                    ].map((item, idx) => (
+                      <div key={idx} className="w-full h-full flex-shrink-0 relative bg-white flex items-center justify-center overflow-hidden">
+                        {item.type === 'video' ? (
+                          <video 
+                            src={item.url} 
+                            autoPlay 
+                            muted 
+                            loop 
+                            playsInline 
+                            className="w-full h-full object-contain" 
+                          />
+                        ) : (
+                          <img 
+                            src={item.url} 
+                            alt={t(item.title, lang)} 
+                            className="w-full h-full object-contain" 
+                            onError={(e) => { e.target.style.display = 'none'; }}
+                          />
+                        )}
+                        {/* Slide Caption overlay */}
+                        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-2.5 bg-black/75 backdrop-blur-md rounded-full shadow-lg z-10">
+                          <span className="text-white text-xs md:text-sm font-bold font-['Noto_Sans_TC'] select-none">
+                            {t(item.title, lang)}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div>
-                    <ImagePlaceholder label="Step 1 (學習引導一 / 靜態插圖)" height="240px" icon="photo" />
-                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">Step 1</div>
-                  </div>
-                  <div>
-                    <ImagePlaceholder label="Step 2 (學習引導二 / 靜態插圖)" height="240px" icon="photo" />
-                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">Step 2</div>
-                  </div>
-                  <div>
-                    <ImagePlaceholder label="Step 3 (學習引導三 / 靜態插圖)" height="240px" icon="photo" />
-                    <div className="text-xs md:text-sm font-bold text-gray-700 mt-3 text-center select-none">Step 3</div>
+
+                  {/* Dot Indicators */}
+                  <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex gap-2.5 z-10">
+                    {[0, 1, 2].map((idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveUiSlide(idx)}
+                        className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                          activeUiSlide === idx 
+                            ? 'bg-[#534AB7] scale-125 w-6' 
+                            : 'bg-gray-300 hover:bg-gray-400'
+                        }`}
+                      />
+                    ))}
                   </div>
                 </div>
               </div>
@@ -8295,7 +8751,7 @@ const SPLIT_VIEW_CHIPS = [
 
         </div>
 
-        <FooterCTA navigateTo={navigateTo} lang={lang} />
+        <FooterCTA activeItem={activeItem} navigateTo={navigateTo} lang={lang} />
       </div>
     );
   };
@@ -8306,10 +8762,10 @@ const SPLIT_VIEW_CHIPS = [
 
     if (activeItem.id === 3) {
       return (
-        <>
+        <div className="project-page-layout">
           <BrainBoxVisualProjectView activeItem={activeItem} lang={lang} transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} navigateTo={navigateTo} />
           <BackToTopButton />
-        </>
+        </div>
       );
     }
 
@@ -8361,10 +8817,10 @@ const SPLIT_VIEW_CHIPS = [
     // ================= 預設的 Product Visual Design 通用版型 =================
     if (activeItem.visuals) {
       return (
-        <>
+        <div className="project-page-layout">
           <GenericVisualProjectView activeItem={activeItem} lang={lang} transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} navigateTo={navigateTo} />
           <BackToTopButton />
-        </>
+        </div>
       );
     }
 
@@ -8372,46 +8828,50 @@ const SPLIT_VIEW_CHIPS = [
     if (activeItem.categoryId === 'uiux') {
       if (activeItem.id === 2) {
         return (
-          <>
+          <div className="project-page-layout">
             <MsLinProjectView activeItem={activeItem} lang={lang} transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} navigateTo={navigateTo} />
+            <FooterCTA activeItem={activeItem} navigateTo={navigateTo} lang={lang} />
             <BackToTopButton />
-          </>
+          </div>
         );
       }
       return (
-        <>
+        <div className="project-page-layout">
           <GenericUIUXProjectView activeItem={activeItem} lang={lang} transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} navigateTo={navigateTo} />
+          <FooterCTA activeItem={activeItem} navigateTo={navigateTo} lang={lang} />
           <BackToTopButton />
-        </>
+        </div>
       );
     }
 
     // ================= 預設的其他專案版面 (Fallback) =================
     return (
-      <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 bg-white">
-        <div className="pt-40 pb-12 px-6 max-w-[100rem] mx-auto">
-          <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
-          <header className="px-2 md:px-8">
-            <h1 className="text-5xl md:text-[7rem] font-bold tracking-tighter mb-12 leading-none">{activeItem.title}</h1>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-t border-gray-100 max-w-6xl">
-              <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Client</p><p className="font-medium text-xl">{activeItem.client}</p></div>
-              <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Year</p><p className="font-medium text-xl">{activeItem.year}</p></div>
-              <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Role</p><p className="font-medium text-xl">{CATEGORIES.find(c => c.id === activeItem.categoryId)?.title}</p></div>
-              <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Services</p><p className="font-medium text-xl">{activeItem.tags.join(', ')}</p></div>
-            </div>
-          </header>
-        </div>
-        <div className={`w-full h-[60vh] md:h-[85vh] ${activeItem.thumb} flex items-center justify-center text-gray-400 text-3xl mb-24 md:mb-32 shadow-inner overflow-hidden`}>
-          {activeItem.coverMedia?.url ? <img src={activeItem.coverMedia.url} alt={activeItem.title} className="w-full h-full object-cover animate-in zoom-in duration-1000" /> : null}
-        </div>
-        <div className="max-w-[100rem] mx-auto px-6 pb-32">
-          <div className="grid md:grid-cols-[1fr_2fr] gap-12 max-w-5xl mx-auto px-2 md:px-8 mb-24">
-            <h3 className="text-3xl md:text-4xl font-bold tracking-tight">Project Context</h3>
-            <p className="text-xl md:text-2xl text-gray-600 leading-relaxed">{activeItem.description}</p>
+      <div className="project-page-layout">
+        <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 bg-white w-full">
+          <div className="pt-40 pb-12 px-6 max-w-[100rem] mx-auto">
+            <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
+            <header className="px-2 md:px-8">
+              <h1 className="text-5xl md:text-[7rem] font-bold tracking-tighter mb-12 leading-none">{activeItem.title}</h1>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-t border-gray-100 max-w-6xl">
+                <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Client</p><p className="font-medium text-xl">{activeItem.client}</p></div>
+                <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Year</p><p className="font-medium text-xl">{activeItem.year}</p></div>
+                <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Role</p><p className="font-medium text-xl">{CATEGORIES.find(c => c.id === activeItem.categoryId)?.title}</p></div>
+                <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Services</p><p className="font-medium text-xl">{activeItem.tags.join(', ')}</p></div>
+              </div>
+            </header>
           </div>
+          <div className={`w-full h-[60vh] md:h-[85vh] ${activeItem.thumb} flex items-center justify-center text-gray-400 text-3xl mb-24 md:mb-32 shadow-inner overflow-hidden`}>
+            {activeItem.coverMedia?.url ? <img src={activeItem.coverMedia.url} alt={activeItem.title} className="w-full h-full object-cover animate-in zoom-in duration-1000" /> : null}
+          </div>
+          <div className="max-w-[100rem] mx-auto px-6 pb-32">
+            <div className="grid md:grid-cols-[1fr_2fr] gap-12 max-w-5xl mx-auto px-2 md:px-8 mb-24">
+              <h3 className="text-3xl md:text-4xl font-bold tracking-tight">Project Context</h3>
+              <p className="text-xl md:text-2xl text-gray-600 leading-relaxed">{activeItem.description}</p>
+            </div>
+          </div>
+          <FooterCTA activeItem={activeItem} navigateTo={navigateTo} lang={lang} />
+          <BackToTopButton />
         </div>
-        <FooterCTA navigateTo={navigateTo} lang={lang} />
-        <BackToTopButton />
       </div>
     );
   };
@@ -8423,7 +8883,7 @@ const SPLIT_VIEW_CHIPS = [
     </div>
   );
 
-  const ContactView = ({ navigateTo }) => (
+  const ContactView = () => (
     <div className="min-h-[80vh] flex flex-col items-center justify-center px-6 animate-in fade-in duration-700 pt-32 bg-white text-center"><div className="w-16 h-16 bg-black text-white rounded-2xl flex items-center justify-center mb-10 transform -rotate-12"><IconMail className="w-8 h-8" /></div><h1 className="text-6xl md:text-[6rem] font-bold tracking-tighter mb-6">Say Hello.</h1><p className="text-xl text-gray-500 mb-12 max-w-lg mx-auto">正在尋找設計師合作嗎？或是想交流交流？<br />期待與你聯繫。</p><a href="mailto:tingchenliang1998@gmail.com" className="text-2xl md:text-4xl font-bold border-b-2 border-black pb-2 hover:text-gray-500 hover:border-gray-500 transition-colors mb-20">tingchenliang1998@gmail.com</a><div className="flex gap-8 text-lg font-medium"><a href="#" className="flex items-center gap-2 hover:text-gray-500 transition-colors"><IconInstagram className="w-5 h-5" /> Instagram</a><a href="#" className="flex items-center gap-2 hover:text-gray-500 transition-colors"><IconLinkedin className="w-5 h-5" /> LinkedIn</a><a href="#" className="flex items-center gap-2 hover:text-gray-500 transition-colors"><IconGlobe className="w-5 h-5" /> Dribbble</a></div></div>
   );
 

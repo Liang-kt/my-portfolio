@@ -231,3 +231,20 @@ html, body {
   align-items: center;
   justify-content: center;
 }
+
+/* Overall centering container for project pages */
+.project-page-layout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Enforce 120px horizontal padding ONLY on page-level wrappers, not inner cards/children */
+.project-page-layout div[class*="max-w-[100rem]"],
+.project-page-layout div[style*="1600px"] {
+  padding-left: 120px !important;
+  padding-right: 120px !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}

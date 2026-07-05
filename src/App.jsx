@@ -1258,7 +1258,7 @@ const SPLIT_VIEW_CHIPS = [
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
               {filteredProjects.map(p => {
                 const isLocked = p.categoryId === 'brand' || p.categoryId === 'motion';
                 return (
@@ -2834,8 +2834,8 @@ const SPLIT_VIEW_CHIPS = [
       const sliderContainerRef = useRef(null);
 
       useEffect(() => {
-        const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
-        if (!isDesktop) return;
+        const isDesktopOrTablet = window.matchMedia('(min-width: 768px)').matches;
+        if (!isDesktopOrTablet) return;
 
         const svg = document.getElementById('animated-loops-svg');
         if (!svg) return;
@@ -2986,7 +2986,7 @@ const SPLIT_VIEW_CHIPS = [
       }, [lang]);
 
       useEffect(() => {
-        const isMobile = !window.matchMedia('(min-width: 1024px)').matches;
+        const isMobile = !window.matchMedia('(min-width: 768px)').matches;
         if (!isMobile) return;
 
         const svg = document.getElementById('mobile-loops-svg');
@@ -3211,60 +3211,52 @@ const SPLIT_VIEW_CHIPS = [
       ];
 
       return (
-        <div style={{
-          fontFamily: 'system-ui, -apple-system, sans-serif',
-          backgroundColor: '#FFFFFF',
-          color: '#1A1A1A',
-          position: 'relative',
-          minHeight: '100vh',
-          paddingBottom: '96px'
-        }}>
-          {/* 1. PROJECT ENTRY AREA (full-width) */}
-          <div style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', boxSizing: 'border-box' }}>
+        <div 
+          className="w-full"
+          style={{
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            backgroundColor: '#FFFFFF',
+            color: '#1A1A1A',
+            position: 'relative',
+            minHeight: '100vh',
+            paddingBottom: '96px'
+          }}
+        >
+          {/* 1. PROJECT ENTRY AREA */}
+          <div className="w-full">
             {/* TITLE BLOCK */}
             <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-32 md:pt-36">
               <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
               <h1 
-                className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase"
-                style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
+                className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase md:whitespace-nowrap"
+                style={{ fontSize: 'clamp(32px, 5.5vw, 84px)' }}
               >
                 Ms Lin 刷題 App
               </h1>
             </div>
 
             {/* METADATA ROW */}
-            <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed">
+            <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed gap-2 select-none">
               <span>UI/UX 設計師</span>
-              <span style={{ borderLeft: '1px solid #DDDDDD', height: '12px', margin: '0 12px' }}></span>
+              <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
               <span>前端工程師（兼任）</span>
-              <span style={{ borderLeft: '1px solid #DDDDDD', height: '12px', margin: '0 12px' }}></span>
+              <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
               <span>2025.11 — 至今</span>
-              <span style={{ borderLeft: '1px solid #DDDDDD', height: '12px', margin: '0 12px' }}></span>
+              <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
               <span>iOS / Android</span>
             </div>
 
             {/* FULL-WIDTH VISUAL BLOCK */}
-            <div style={{
-              width: '100vw',
-              backgroundColor: '#F6F6F6',
-              overflow: 'hidden',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxSizing: 'border-box'
-            }}>
+            <div className="w-full md:w-screen md:relative md:left-1/2 md:-translate-x-1/2 rounded-2xl md:rounded-none bg-[#F6F6F6] mt-6 md:mt-8 select-none overflow-hidden h-auto flex items-center justify-center">
               <img 
                 src="/projects/mslin-app/img/ms.lin-hero.jpg" 
                 alt="Ms Lin 刷題 App Hero" 
-                style={{ width: '100%', height: 'auto', display: 'block' }}
+                className="w-full h-auto block"
               />
             </div>
 
             {/* Thin full-width divider */}
-            <div style={{
-              width: '100vw',
-              borderBottom: '0.5px solid #EEEEEE'
-            }}></div>
+            <div className="w-full border-b border-gray-100"></div>
           </div>
 
           {/* 2. CONTENT AREA (max-width: 1600px, margin: 0 auto, padding: px-4 md:px-12) */}
@@ -3279,12 +3271,8 @@ const SPLIT_VIEW_CHIPS = [
             {/* 01 — 專案概述 */}
             <section
               id="overview"
-              style={{
-                paddingTop: '96px',
-                paddingBottom: '96px',
-                borderBottom: '1px solid #EEEEEE',
-                boxSizing: 'border-box'
-              }}
+              className="py-12 md:py-24 border-b border-gray-100"
+              style={{ boxSizing: 'border-box' }}
             >
               {/* SECTION HEADER */}
               <ProjectSectionHeader num="01" title={lang === 'zh' ? '專案概述' : 'Project Overview'} />
@@ -3321,7 +3309,7 @@ const SPLIT_VIEW_CHIPS = [
               </div>
 
               {/* 4 Meta Cards */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8 mb-12">
+              <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 mt-8 mb-12">
                 {[
                   { 
                     label: lang === 'zh' ? '角色' : 'Role', 
@@ -3450,13 +3438,13 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
 
                 {/* Side-by-Side Grid Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+                <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 xl:gap-6 items-center">
                   {/* Left Column: Loop Diagram */}
-                  <div className="lg:col-span-8 flex justify-start w-full">
+                  <div className="xl:col-span-8 flex justify-center w-full">
                     <div style={{ width: '100%', maxWidth: '920px', background: 'none', padding: 0, boxSizing: 'border-box' }} className="w-full">
                       
                       {/* DESKTOP VERSION (horizontal SVG) */}
-                      <div className="hidden lg:block w-full">
+                      <div className="hidden md:block w-full">
                         <svg id="animated-loops-svg" width="100%" viewBox="22 0 658 330" style={{ fontFamily: 'system-ui', display: 'block', userSelect: 'none' }}>
                           <defs>
                             <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
@@ -3593,8 +3581,7 @@ const SPLIT_VIEW_CHIPS = [
                         </svg>
                       </div>
 
-                      {/* MOBILE VERSION (vertical SVG) */}
-                      <div className="block lg:hidden w-full">
+                      <div className="block md:hidden w-full max-w-[380px] mx-auto">
                         <svg id="mobile-loops-svg" width="100%" viewBox="0 0 380 430" style={{ fontFamily: 'system-ui', display: 'block', userSelect: 'none', background: 'transparent' }}>
                           <defs>
                             <marker id="arrow-mobile-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -3779,43 +3766,45 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
 
                   {/* Right Column: 3 Metrics Cards (Horizontal on mobile/tablet, Stacked Vertically on desktop) */}
-                  <div className="lg:col-span-4 grid grid-cols-3 lg:grid-cols-1 gap-4 sm:gap-8 lg:gap-12 w-full mt-8 lg:mt-0">
-                    {/* Card 1 */}
-                    <div id="metric-card-1" className="anim-el" style={{ background: 'none', padding: '12px 0' }}>
-                      <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
-                        {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
+                  <div className="w-full max-w-[658px] mx-auto xl:col-span-4 xl:max-w-none xl:mx-0 mt-8 xl:mt-0">
+                    <div className="grid grid-cols-3 xl:grid-cols-1 gap-6 sm:gap-12 xl:gap-12 w-full">
+                      {/* Card 1 */}
+                      <div id="metric-card-1" className="anim-el flex flex-col items-center xl:items-start text-center xl:text-left" style={{ background: 'none', padding: '12px 0' }}>
+                        <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
+                          {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
+                        </div>
+                        <div className="text-[40px] sm:text-[52px] xl:text-[64px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
+                          50<span className="text-[16px] sm:text-[20px] xl:text-[24px] font-normal text-[#4B5563]">%</span>
+                        </div>
+                        <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
+                          {lang === 'zh' ? '認為五題一輪 loop 完成感適中' : 'Felt a 5-question loop offered a balanced sense of completion'}
+                        </div>
                       </div>
-                      <div className="text-[40px] sm:text-[52px] lg:text-[64px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
-                        50<span className="text-[16px] sm:text-[20px] lg:text-[24px] font-normal text-[#4B5563]">%</span>
-                      </div>
-                      <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
-                        {lang === 'zh' ? '認為五題一輪 loop 完成感適中' : 'Felt a 5-question loop offered a balanced sense of completion'}
-                      </div>
-                    </div>
 
-                    {/* Card 2 */}
-                    <div id="metric-card-2" className="anim-el" style={{ background: 'none', padding: '12px 0' }}>
-                      <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
-                        {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
+                      {/* Card 2 */}
+                      <div id="metric-card-2" className="anim-el flex flex-col items-center xl:items-start text-center xl:text-left" style={{ background: 'none', padding: '12px 0' }}>
+                        <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
+                          {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
+                        </div>
+                        <div className="text-[40px] sm:text-[52px] xl:text-[64px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
+                          66.7<span className="text-[16px] sm:text-[20px] xl:text-[24px] font-normal text-[#4B5563]">%</span>
+                        </div>
+                        <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
+                          {lang === 'zh' ? '認為步驟解題密度合適，能在關鍵折點提供提示' : 'Found step-by-step guidance density appropriate, offering hints at key pivots'}
+                        </div>
                       </div>
-                      <div className="text-[40px] sm:text-[52px] lg:text-[64px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
-                        66.7<span className="text-[16px] sm:text-[20px] lg:text-[24px] font-normal text-[#4B5563]">%</span>
-                      </div>
-                      <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
-                        {lang === 'zh' ? '認為步驟解題密度合適，能在關鍵折點提供提示' : 'Found step-by-step guidance density appropriate, offering hints at key pivots'}
-                      </div>
-                    </div>
 
-                    {/* Card 3 */}
-                    <div id="metric-card-3" className="anim-el" style={{ background: 'none', padding: '12px 0' }}>
-                      <div style={{ background: 'transparent', color: 'var(--color-text-secondary)', border: '0.5px solid var(--color-border-tertiary)', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
-                        {lang === 'zh' ? '問卷訪談' : 'Survey & Interview'}
-                      </div>
-                      <div className="text-[40px] sm:text-[52px] lg:text-[64px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
-                        7<span className="text-[16px] sm:text-[20px] lg:text-[24px] font-normal text-[#4B5563]"> {lang === 'zh' ? '人' : ' users'}</span>
-                      </div>
-                      <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
-                        {lang === 'zh' ? '參與前期問卷與使用者訪談' : 'Participated in pre-research surveys and user interviews'}
+                      {/* Card 3 */}
+                      <div id="metric-card-3" className="anim-el flex flex-col items-center xl:items-start text-center xl:text-left" style={{ background: 'none', padding: '12px 0' }}>
+                        <div style={{ background: 'transparent', color: 'var(--color-text-secondary)', border: '0.5px solid var(--color-border-tertiary)', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
+                          {lang === 'zh' ? '問卷訪談' : 'Survey & Interview'}
+                        </div>
+                        <div className="text-[40px] sm:text-[52px] xl:text-[64px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
+                          7<span className="text-[16px] sm:text-[20px] xl:text-[24px] font-normal text-[#4B5563]"> {lang === 'zh' ? '人' : ' users'}</span>
+                        </div>
+                        <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
+                          {lang === 'zh' ? '參與前期問卷與使用者訪談' : 'Participated in pre-research surveys and user interviews'}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -3826,12 +3815,8 @@ const SPLIT_VIEW_CHIPS = [
             {/* 02 — Research */}
             <section
               id="research"
-              style={{
-                paddingTop: '96px',
-                paddingBottom: '96px',
-                borderBottom: '1px solid #EEEEEE',
-                boxSizing: 'border-box'
-              }}
+              className="py-12 md:py-24 border-b border-gray-100"
+              style={{ boxSizing: 'border-box' }}
             >
               <ProjectSectionHeader num="02" title={lang === 'zh' ? '競品洞察與設計假設' : 'Competitive Insights & Design Hypotheses'} />
 
@@ -4132,12 +4117,8 @@ const SPLIT_VIEW_CHIPS = [
             {/* 03 — Strategy */}
             <section
               id="strategy"
-              style={{
-                paddingTop: '96px',
-                paddingBottom: '96px',
-                borderBottom: '1px solid #EEEEEE',
-                boxSizing: 'border-box'
-              }}
+              className="py-12 md:py-24 border-b border-gray-100"
+              style={{ boxSizing: 'border-box' }}
             >
               <ProjectSectionHeader num="03" title={lang === 'zh' ? '策略定調與資訊架構' : 'Design Strategy & Information Architecture'} />
 
@@ -4530,12 +4511,8 @@ const SPLIT_VIEW_CHIPS = [
             {/* 04 — Design */}
             <section
               id="design"
-              style={{
-                paddingTop: '96px',
-                paddingBottom: '96px',
-                borderBottom: '1px solid #EEEEEE',
-                boxSizing: 'border-box'
-              }}
+              className="py-12 md:py-24 border-b border-gray-100"
+              style={{ boxSizing: 'border-box' }}
               onClick={() => setActiveTooltip(null)}
             >
               <ProjectSectionHeader num="04" title={lang === 'zh' ? '設計決策與 UI 展示' : 'Design Decisions & UI Showcase'} />
@@ -5523,28 +5500,27 @@ const SPLIT_VIEW_CHIPS = [
                     元件系統定義了整個應用中所有按鈕、輸入框、狀態標籤及卡片模組的設計規格與互動狀態。所有元件均符合 Figma 設計標記（Design Tokens），確保設計與開發的高度一致性，並在極小化程式碼重複的同時提升應用程式的渲染效能。
                   </p>
 
-                  {/* Component Embed Showcase Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6 mt-8">
                     {/* 1. Buttons (col-span-1) */}
-                    {renderCard(buttonComp, 'col-span-1 md:col-span-1 lg:col-span-1 min-h-[200px]')}
+                    {renderCard(buttonComp, 'col-span-1 md:col-span-1 xl:col-span-1 min-h-[200px]')}
 
                     {/* 2. Vertical Stack (Inputs & Forms + Navigation Bar) (col-span-1) */}
-                    <div className="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col gap-4 md:gap-6 h-full">
+                    <div className="col-span-1 md:col-span-1 xl:col-span-1 flex flex-col gap-4 md:gap-6 h-full">
                       {renderCard(inputComp, 'flex-1')}
                       {renderCard(navComp, 'flex-1')}
                     </div>
 
                     {/* 3. Dropdowns & Menus (col-span-1) */}
-                    {renderCard(dropdownComp, 'col-span-1 md:col-span-1 lg:col-span-1 min-h-[200px]')}
+                    {renderCard(dropdownComp, 'col-span-1 md:col-span-1 xl:col-span-1 min-h-[200px]')}
 
                     {/* 4. Subject Cards (col-span-1) */}
-                    {renderCard(subjectComp, 'col-span-1 md:col-span-1 lg:col-span-1 min-h-[200px]')}
+                    {renderCard(subjectComp, 'col-span-1 md:col-span-1 xl:col-span-1 min-h-[200px]')}
 
                     {/* 5. Progress Bar and Step Indicator (col-span-2) */}
-                    {renderCard(cardsComp, 'col-span-1 md:col-span-2 lg:col-span-2 min-h-[200px]')}
+                    {renderCard(cardsComp, 'col-span-1 md:col-span-2 xl:col-span-2 min-h-[200px]')}
 
                     {/* 6. Accordion (col-span-2) */}
-                    {renderCard(accordionComp, 'col-span-1 md:col-span-2 lg:col-span-2 min-h-[200px]')}
+                    {renderCard(accordionComp, 'col-span-1 md:col-span-2 xl:col-span-2 min-h-[200px]')}
                   </div>
                 </div>
               </div>
@@ -5553,10 +5529,8 @@ const SPLIT_VIEW_CHIPS = [
             {/* 05 — Outcomes */}
             <section
               id="outcomes"
+              className="py-12 md:py-24 border-b border-gray-100"
               style={{
-                paddingTop: '96px',
-                paddingBottom: '96px',
-                borderBottom: '1px solid #EEEEEE',
                 minHeight: '600px',
                 boxSizing: 'border-box'
               }}
@@ -6035,7 +6009,7 @@ const SPLIT_VIEW_CHIPS = [
       ];
 
       return (
-        <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
+        <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32 w-full">
           <div className="pt-32 md:pt-36 px-4 md:px-12 max-w-[100rem] mx-auto">
             <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
             <h1 
@@ -6234,41 +6208,40 @@ const SPLIT_VIEW_CHIPS = [
           {activeItem.strategyAndArchitecture && (
             activeItem.id === 1 ? (
               // Wisdome.ai Custom Strategy & Architecture
-              <div 
-                className="max-w-[100rem] mx-auto px-4 md:px-12 mb-24 md:mb-40 mt-12"
-                ref={wisdomeStrategyRef}
-              >
-                {/* Standard Header */}
-                <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.strategy} />
+              <div className="w-full mb-24 md:mb-40 mt-12" ref={wisdomeStrategyRef}>
+                <div className="max-w-[100rem] mx-auto px-4 md:px-12">
+                  {/* Standard Header */}
+                  <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.strategy} />
 
-                {/* Text Content */}
-                <div className="space-y-6 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">
-                  <p>
-                    {t({
-                      zh: '針對 B2B SaaS 企業官網，我們以「建立專業信任」與「引導留單轉換」為策略核心，規劃了清晰的資訊架構，幫助教育機構決策者快速理解平台價值。',
-                      en: 'For B2B SaaS corporate websites, our core strategy centers on establishing professional trust and driving lead conversion. We designed a clear information architecture to help educational decision-makers quickly grasp the platform\'s value.'
-                    }, lang)}
-                  </p>
-                  <ul className="space-y-4 text-base md:text-lg text-gray-600 font-semibold font-['Noto_Sans_TC'] list-disc pl-5">
-                    <li>
+                  {/* Text Content */}
+                  <div className="space-y-6 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">
+                    <p>
                       {t({
-                        zh: '直覺的角色化導覽：以不同教務角色切入，展示符合其痛點的客製化價值主張。',
-                        en: 'Intuitive Role-based Navigation: Tailored value propositions for key administrative personas.'
+                        zh: '針對 B2B SaaS 企業官網，我們以「建立專業信任」與「引導留單轉換」為策略核心，規劃了清晰的資訊架構，幫助教育機構決策者快速理解平台價值。',
+                        en: 'For B2B SaaS corporate websites, our core strategy centers on establishing professional trust and driving lead conversion. We designed a clear information architecture to help educational decision-makers quickly grasp the platform\'s value.'
                       }, lang)}
-                    </li>
-                    <li>
-                      {t({
-                        zh: '漸進式信任建構：由淺入深呈現產品優勢，減少使用者面對繁雜功能的焦慮感。',
-                        en: 'Progressive Trust Building: Step-by-step benefit presentation to reduce visual anxiety.'
-                      }, lang)}
-                    </li>
-                    <li>
-                      {t({
-                        zh: '無縫轉化路徑設計：在主要接觸點配置顯眼的 CTA，引導訪客快速採取預約諮詢。',
-                        en: 'Seamless Conversion Paths: Clear CTAs strategically placed to guide booking actions.'
-                      }, lang)}
-                    </li>
-                  </ul>
+                    </p>
+                    <ul className="space-y-4 text-base md:text-lg text-gray-600 font-semibold font-['Noto_Sans_TC'] list-disc pl-5">
+                      <li>
+                        {t({
+                          zh: '直覺的角色化導覽：以不同教務角色切入，展示符合其痛點的客製化價值主張。',
+                          en: 'Intuitive Role-based Navigation: Tailored value propositions for key administrative personas.'
+                        }, lang)}
+                      </li>
+                      <li>
+                        {t({
+                          zh: '漸進式信任建構：由淺入深呈現產品優勢，減少使用者面對繁雜功能的焦慮感。',
+                          en: 'Progressive Trust Building: Step-by-step benefit presentation to reduce visual anxiety.'
+                        }, lang)}
+                      </li>
+                      <li>
+                        {t({
+                          zh: '無縫轉化路徑設計：在主要接觸點配置顯眼的 CTA，引導訪客快速採取預約諮詢。',
+                          en: 'Seamless Conversion Paths: Clear CTAs strategically placed to guide booking actions.'
+                        }, lang)}
+                      </li>
+                    </ul>
+                  </div>
                 </div>
 
                 {/* Scrollable Image / Annotated IA Map */}
@@ -7185,7 +7158,7 @@ const SPLIT_VIEW_CHIPS = [
 
                     {/* Bento Box Grid */}
                     {activeItem.design.bentoComponents && activeItem.design.bentoComponents.length > 0 && (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-16">
+                      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6 mb-16">
                         {(() => {
                           const comps = activeItem.design.bentoComponents;
                           const hasInputAndNav = comps.some(c => c.liveComponent === 'input') && comps.some(c => c.liveComponent === 'navigation');
@@ -7194,7 +7167,7 @@ const SPLIT_VIEW_CHIPS = [
                             return comps.map((comp, idx) => (
                               <div
                                 key={idx}
-                                className={`relative bg-[#FAFAFA] rounded-[2rem] p-4 md:p-6 shadow-sm border border-gray-100 min-h-[200px] flex flex-col transition-all ${comp.liveComponent ? '' : 'overflow-hidden'} ${comp.colSpan === 2 ? 'col-span-1 md:col-span-2 lg:col-span-2' : 'col-span-1 md:col-span-1 lg:col-span-1'}`}
+                                className={`relative bg-[#FAFAFA] rounded-[2rem] p-4 md:p-6 shadow-sm border border-gray-100 min-h-[200px] flex flex-col transition-all ${comp.liveComponent ? '' : 'overflow-hidden'} ${comp.colSpan === 2 ? 'col-span-1 md:col-span-2 xl:col-span-2' : 'col-span-1 md:col-span-1 xl:col-span-1'}`}
                               >
                                 <span className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">{comp.name}</span>
 
@@ -7292,25 +7265,25 @@ const SPLIT_VIEW_CHIPS = [
                           return (
                             <>
                               {/* 1. Buttons (col-span-1) */}
-                              {renderCard(buttonComp, 'col-span-1 md:col-span-1 lg:col-span-1 min-h-[200px]')}
+                              {renderCard(buttonComp, 'col-span-1 md:col-span-1 xl:col-span-1 min-h-[200px]')}
 
                               {/* 2. Vertical Stack (Inputs & Forms + Navigation Bar) (col-span-1) */}
-                              <div className="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col gap-4 md:gap-6 h-full">
+                              <div className="col-span-1 md:col-span-1 xl:col-span-1 flex flex-col gap-4 md:gap-6 h-full">
                                 {renderCard(inputComp, 'flex-1')}
                                 {renderCard(navComp, 'flex-1')}
                               </div>
 
                               {/* 3. Dropdowns & Menus (col-span-1) */}
-                              {renderCard(dropdownComp, 'col-span-1 md:col-span-1 lg:col-span-1 min-h-[200px]')}
+                              {renderCard(dropdownComp, 'col-span-1 md:col-span-1 xl:col-span-1 min-h-[200px]')}
 
                               {/* 4. Subject Cards (col-span-1) */}
-                              {renderCard(subjectComp, 'col-span-1 md:col-span-1 lg:col-span-1 min-h-[200px]')}
+                              {renderCard(subjectComp, 'col-span-1 md:col-span-1 xl:col-span-1 min-h-[200px]')}
 
                               {/* 5. Cards & Containers (col-span-2) */}
-                              {renderCard(cardsComp, 'col-span-1 md:col-span-2 lg:col-span-2 min-h-[200px]')}
+                              {renderCard(cardsComp, 'col-span-1 md:col-span-2 xl:col-span-2 min-h-[200px]')}
 
                               {/* 6. Accordion (col-span-2) */}
-                              {renderCard(accordionComp, 'col-span-1 md:col-span-2 lg:col-span-2 min-h-[200px]')}
+                              {renderCard(accordionComp, 'col-span-1 md:col-span-2 xl:col-span-2 min-h-[200px]')}
                             </>
                           );
                         })()}
@@ -7891,11 +7864,11 @@ const SPLIT_VIEW_CHIPS = [
                       className="group relative bg-[#F5F6F8] hover:bg-[#EFF1F5] rounded-[20px] p-[28px] transition-all duration-300 ease-out border border-[#E7E9EE] flex flex-col justify-between overflow-hidden bento-card-focus focus-visible:outline-none bento-transition-element col-span-12 lg:col-span-8"
                       tabIndex={0}
                     >
-                      <div className="flex flex-col sm:flex-row gap-4 w-full h-[180px]">
-                        <div className="w-full sm:w-[45%] bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center overflow-hidden h-full select-none p-4">
+                      <div className="flex flex-col sm:flex-row gap-4 w-full h-auto sm:h-[180px]">
+                        <div className="w-full sm:w-[45%] bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center overflow-hidden h-[150px] sm:h-full select-none p-4">
                           <img src="/projects/brainbox/BrainBox_logo_graph.svg" alt="BrainBox Graph Geometry" className="max-w-full max-h-full object-contain" />
                         </div>
-                        <div className="flex-grow flex items-center justify-center bg-white border border-[#E7E9EE] rounded-[16px] h-full w-full sm:w-[50%] p-4 select-none">
+                        <div className="flex-grow flex items-center justify-center bg-white border border-[#E7E9EE] rounded-[16px] h-[150px] sm:h-full w-full sm:w-[50%] p-4 select-none">
                           <img src="/projects/brainbox/graphic-seperate.svg" alt="BrainBox Graphic Separate Breakdown" className="max-w-full max-h-full object-contain" />
                         </div>
                       </div>

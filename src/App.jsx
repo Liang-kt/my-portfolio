@@ -491,13 +491,13 @@ const PROJECTS = [
     platform: 'web',
     title: 'Wisdome.ai 企業官網設計',
     thumb: 'bg-[#0f172a]',
-    coverMedia: { type: 'image', url: '/projects/wisdome.ai_web/cover.jpg' },
-    heroMedia: { type: 'video', url: '/projects/wisdome.ai_web/cover-video.mp4' },
+    coverMedia: { type: 'image', url: 'projects/wisdome.ai_web/cover.jpg' },
+    heroMedia: { type: 'video', url: 'projects/wisdome.ai_web/cover-video.mp4' },
     tags: ['UI/UX', 'Web Design'],
     client: 'WISDOME.AI',
     year: '2023 - 2024',
     projectOverview: {
-      clientLogoUrl: '/projects/wisdome.ai_web/wisdomeai_logo.svg',
+      clientLogoUrl: 'projects/wisdome.ai_web/wisdomeai_logo.svg',
       backgroundAndGoals: 'Wisdome.ai 是一家致力於使用ai 技術打造全方位線上教育平台的新創公司，以AI、機器學習以及教育為公司核心概念。在這支形象動畫中利用俐落的線條元素搭配快節奏的動態串接，完整Wisdome.ai 創新及科技導向的企業風格。',
       challenge: 'Wisdome.ai is a startup focused on creating a comprehensive online education platform using AI, machine learning, and education as its core. This promotional video uses sleek lines and fast-paced animation to showcase Wisdome.ai’s innovative and tech-driven identity.',
       myRole: 'UI/UX Designer & Motion Designer',
@@ -505,10 +505,10 @@ const PROJECTS = [
     },
     strategyAndArchitecture: {
       description: '',
-      iaImage: '/projects/wisdome.ai_web/ia-map.png'
+      iaImage: 'projects/wisdome.ai_web/ia-map.png'
     },
     brandIdentity: {
-      motionVideoUrl: '/projects/wisdome.ai_web/wisdome.ai_motion-brading.mp4',
+      motionVideoUrl: 'projects/wisdome.ai_web/wisdome.ai_motion-brading.mp4',
       combinedView: true,
       typography: {
         en: { name: 'Figtree', preview: 'WISDOME.AI' },
@@ -520,13 +520,13 @@ const PROJECTS = [
           type: 'Graphic Logo',
           title: '[ 圖像標誌設計理念 ]',
           description: '此處可以說明圖像 Logo 的設計靈感、隱喻或是幾何構造原理...',
-          imageUrl: '/projects/wisdome.ai_web/graph-logo.png'
+          imageUrl: 'projects/wisdome.ai_web/graph-logo.png'
         },
         {
           type: 'Logotype',
           title: '[ 標準字設計理念 ]',
           description: '此處可以說明文字 Logo 的筆畫細節、字型選擇原因與微調...',
-          imageUrl: '/projects/wisdome.ai_web/logotype.png'
+          imageUrl: 'projects/wisdome.ai_web/logotype.png'
         }
       ],
       colors: [
@@ -536,16 +536,16 @@ const PROJECTS = [
     },
     design: {
       designSystemDesc: '',
-      componentsImages: ['/projects/wisdome.ai_web/components-1.jpg', '/projects/wisdome.ai_web/components-2.jpg'],
+      componentsImages: ['projects/wisdome.ai_web/components-1.jpg', 'projects/wisdome.ai_web/components-2.jpg'],
       webShowcaseStrip: [
-        { type: 'video', url: '/projects/wisdome.ai_web/hero-page-web.mov', title: 'Hero Page', desc: '首頁主視覺區塊，以動態影片與品牌標語傳遞 AI 教育平台的創新形象與科技感。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-hero.mov' } },
-        { type: 'video', url: '/projects/wisdome.ai_web/service.mov', title: 'Service', desc: '服務介紹區塊，透過清晰的圖文排版逐一呈現平台核心功能與解決方案。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-service.mov' } },
-        { type: 'video', url: '/projects/wisdome.ai_web/why-wisdome.mov', title: 'Why Wisdome', desc: '品牌差異化區塊，說明選擇 Wisdome.ai 的關鍵優勢與競爭力。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-why-wisdome.mov' } },
-        { type: 'image', url: '/projects/wisdome.ai_web/success-stories.png', title: 'Success Stories', desc: '成功案例區塊，以數據與客戶回饋建立信任感，強化轉換說服力。', mobile: { type: 'image', url: '/projects/wisdome.ai_web/mobile-sucsess-stories.jpg' } },
-        { type: 'video', url: '/projects/wisdome.ai_web/cta-area.mov', title: 'CTA Area', desc: '行動呼籲區塊，引導訪客進行下一步操作，如免費試用或聯繫諮詢。', mobile: { type: 'video', url: '/projects/wisdome.ai_web/mobile-cta-area.mov' } },
-        { type: 'image', url: '/projects/wisdome.ai_web/about-us.png', title: 'About Us', desc: '關於我們區塊，介紹團隊背景與企業願景，拉近與用戶的距離。', mobile: { type: 'image', url: '/projects/wisdome.ai_web/mobile-last-part.jpg' } },
-        { type: 'image', url: '/projects/wisdome.ai_web/contact-us.png', title: 'Contact Us', desc: '聯絡資訊區塊，提供多元聯繫管道，降低用戶溝通門檻。' },
-        { type: 'image', url: '/projects/wisdome.ai_web/footer.png', title: 'Footer', desc: '頁尾區塊，統整網站導航、社群連結與版權資訊。' }
+        { type: 'video', url: 'projects/wisdome.ai_web/hero-page-web.mov', title: 'Hero Page', desc: '首頁主視覺區塊，以動態影片與品牌標語傳遞 AI 教育平台的創新形象與科技感。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-hero.mov' } },
+        { type: 'video', url: 'projects/wisdome.ai_web/service.mov', title: 'Service', desc: '服務介紹區塊，透過清晰的圖文排版逐一呈現平台核心功能與解決方案。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-service.mov' } },
+        { type: 'video', url: 'projects/wisdome.ai_web/why-wisdome.mov', title: 'Why Wisdome', desc: '品牌差異化區塊，說明選擇 Wisdome.ai 的關鍵優勢與競爭力。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-why-wisdome.mov' } },
+        { type: 'image', url: 'projects/wisdome.ai_web/success-stories.png', title: 'Success Stories', desc: '成功案例區塊，以數據與客戶回饋建立信任感，強化轉換說服力。', mobile: { type: 'image', url: 'projects/wisdome.ai_web/mobile-sucsess-stories.jpg' } },
+        { type: 'video', url: 'projects/wisdome.ai_web/cta-area.mov', title: 'CTA Area', desc: '行動呼籲區塊，引導訪客進行下一步操作，如免費試用或聯繫諮詢。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-cta-area.mov' } },
+        { type: 'image', url: 'projects/wisdome.ai_web/about-us.png', title: 'About Us', desc: '關於我們區塊，介紹團隊背景與企業願景，拉近與用戶的距離。', mobile: { type: 'image', url: 'projects/wisdome.ai_web/mobile-last-part.jpg' } },
+        { type: 'image', url: 'projects/wisdome.ai_web/contact-us.png', title: 'Contact Us', desc: '聯絡資訊區塊，提供多元聯繫管道，降低用戶溝通門檻。' },
+        { type: 'image', url: 'projects/wisdome.ai_web/footer.png', title: 'Footer', desc: '頁尾區塊，統整網站導航、社群連結與版權資訊。' }
       ]
     }
   },
@@ -555,8 +555,8 @@ const PROJECTS = [
     platform: 'app',
     title: 'Ms. Lin 學測刷題app',
     thumb: 'bg-[#F2EFE9]',
-    coverMedia: { type: 'image', url: '/projects/mslin-app/img/cover-photo.jpg' },
-    heroMedia: { type: 'image', url: '/projects/msline/hero.jpg' },
+    coverMedia: { type: 'image', url: 'projects/mslin-app/img/cover-photo.jpg' },
+    heroMedia: { type: 'image', url: 'projects/msline/hero.jpg' },
     tags: ['UI/UX', 'App Design'],
     description: '專為高中生打造的學測刷題 App，提供流暢的測驗體驗與個人化錯題本功能。',
     client: 'Ms. Lin',
@@ -570,14 +570,14 @@ const PROJECTS = [
     },
     research: {
       description: '透過深度訪談 20 位應屆考生，我們發現「碎片化時間利用」與「錯題回顧」是他們最迫切的需求。以此為基礎，我們規劃了快速測驗與自動錯題本功能。',
-      images: ['/projects/msline/research-1.jpg', '/projects/msline/research-2.jpg']
+      images: ['projects/msline/research-1.jpg', 'projects/msline/research-2.jpg']
     },
     strategyAndArchitecture: {
       description: '將 App 核心分為三大模塊：每日任務、題庫測驗、學習報表。簡化註冊流程，讓使用者下載後能最快進入第一場測驗。',
-      iaImage: '/projects/msline/ia-map.jpg'
+      iaImage: 'projects/msline/ia-map.jpg'
     },
     /* brandIdentity: {
-      logoImage: '/projects/msline/logo.png',
+      logoImage: 'projects/msline/logo.png',
       typography: { primary: 'SF Pro Display', secondary: 'Noto Sans TC' },
       colors: [
         { hex: '#4CAF50', name: 'Primary Green' },
@@ -597,92 +597,92 @@ const PROJECTS = [
         { name: 'Accordion', previewImg: '', specsImg: '', colSpan: 2, liveComponent: 'accordion' },
         { name: 'Subject Cards', previewImg: '', specsImg: '', colSpan: 1, liveComponent: 'subject' }
       ],
-      componentsImages: ['/projects/msline/components-1.jpg'],
-      flowImages: ['/projects/msline/user-flow.jpg'],
+      componentsImages: ['projects/msline/components-1.jpg'],
+      flowImages: ['projects/msline/user-flow.jpg'],
       screenGroups: [
         { title: 'Onboarding', screens: [
-          '/projects/mslin-app/screens/key-feature1.jpg',
-          '/projects/mslin-app/screens/key-feature2.jpg',
-          '/projects/mslin-app/screens/key-feature3.jpg',
-          '/projects/mslin-app/screens/cta-page.jpg',
-          '/projects/mslin-app/screens/sign-in.jpg',
-          '/projects/mslin-app/screens/sign-up.jpg',
-          '/projects/mslin-app/screens/onboradinbg-name.jpg',
-          '/projects/mslin-app/screens/onboradinbg-grade.jpg',
-          '/projects/mslin-app/screens/onboradinbg-status.jpg',
-          '/projects/mslin-app/screens/onboradinbg-subject.jpg',
-          '/projects/mslin-app/screens/onboradinbg-notification.jpg'
+          'projects/mslin-app/screens/key-feature1.jpg',
+          'projects/mslin-app/screens/key-feature2.jpg',
+          'projects/mslin-app/screens/key-feature3.jpg',
+          'projects/mslin-app/screens/cta-page.jpg',
+          'projects/mslin-app/screens/sign-in.jpg',
+          'projects/mslin-app/screens/sign-up.jpg',
+          'projects/mslin-app/screens/onboradinbg-name.jpg',
+          'projects/mslin-app/screens/onboradinbg-grade.jpg',
+          'projects/mslin-app/screens/onboradinbg-status.jpg',
+          'projects/mslin-app/screens/onboradinbg-subject.jpg',
+          'projects/mslin-app/screens/onboradinbg-notification.jpg'
         ] },
         { title: '首頁', screens: [
-          '/projects/mslin-app/screens/home1.png',
-          '/projects/mslin-app/screens/home2.png'
+          'projects/mslin-app/screens/home1.png',
+          'projects/mslin-app/screens/home2.png'
         ] },
         { title: '題庫', screens: [
-          '/projects/mslin-app/screens/base1.png',
-          '/projects/mslin-app/screens/base2.png',
-          '/projects/mslin-app/screens/base3.png'
+          'projects/mslin-app/screens/base1.png',
+          'projects/mslin-app/screens/base2.png',
+          'projects/mslin-app/screens/base3.png'
         ] },
         { title: '我的', screens: [
-          '/projects/mslin-app/screens/profile1.png',
-          '/projects/mslin-app/screens/profile2.png',
-          '/projects/mslin-app/screens/profile3.png'
+          'projects/mslin-app/screens/profile1.png',
+          'projects/mslin-app/screens/profile2.png',
+          'projects/mslin-app/screens/profile3.png'
         ] },
         {
           title: '各科練習頁面',
           tabs: [
             { title: '數學練習', screens: [
-              '/projects/mslin-app/screens/math1.jpg',
-              '/projects/mslin-app/screens/math2.jpg',
-              '/projects/mslin-app/screens/math3.jpg',
-              '/projects/mslin-app/screens/math4.jpg',
-              '/projects/mslin-app/screens/math5.jpg',
-              '/projects/mslin-app/screens/math6.jpg',
-              '/projects/mslin-app/screens/math7.jpg',
-              '/projects/mslin-app/screens/math8.jpg',
-              '/projects/mslin-app/screens/math9.jpg',
-              '/projects/mslin-app/screens/math10.png',
-              '/projects/mslin-app/screens/math11.png',
-              '/projects/mslin-app/screens/math12.png',
-              '/projects/mslin-app/screens/math13.png'
+              'projects/mslin-app/screens/math1.jpg',
+              'projects/mslin-app/screens/math2.jpg',
+              'projects/mslin-app/screens/math3.jpg',
+              'projects/mslin-app/screens/math4.jpg',
+              'projects/mslin-app/screens/math5.jpg',
+              'projects/mslin-app/screens/math6.jpg',
+              'projects/mslin-app/screens/math7.jpg',
+              'projects/mslin-app/screens/math8.jpg',
+              'projects/mslin-app/screens/math9.jpg',
+              'projects/mslin-app/screens/math10.png',
+              'projects/mslin-app/screens/math11.png',
+              'projects/mslin-app/screens/math12.png',
+              'projects/mslin-app/screens/math13.png'
             ] },
             { title: '國文練習', screens: [
-              '/projects/mslin-app/screens/chinese1.png',
-              '/projects/mslin-app/screens/chinese2.png',
-              '/projects/mslin-app/screens/chinese3.png',
-              '/projects/mslin-app/screens/chinese4.png',
-              '/projects/mslin-app/screens/chinese5.png',
-              '/projects/mslin-app/screens/chinese6.png',
-              '/projects/mslin-app/screens/chinese7.png',
-              '/projects/mslin-app/screens/chinese8.png',
-              '/projects/mslin-app/screens/chinese9.png',
-              '/projects/mslin-app/screens/chinese10.png',
-              '/projects/mslin-app/screens/chinese11.png',
-              '/projects/mslin-app/screens/chinese12.png',
-              '/projects/mslin-app/screens/chinese13.png',
-              '/projects/mslin-app/screens/chinese14.png',
-              '/projects/mslin-app/screens/chinese15.png',
-              '/projects/mslin-app/screens/chinese16.png',
-              '/projects/mslin-app/screens/chinese17.png',
-              '/projects/mslin-app/screens/chinese18.png',
-              '/projects/mslin-app/screens/chinese19.png'
+              'projects/mslin-app/screens/chinese1.png',
+              'projects/mslin-app/screens/chinese2.png',
+              'projects/mslin-app/screens/chinese3.png',
+              'projects/mslin-app/screens/chinese4.png',
+              'projects/mslin-app/screens/chinese5.png',
+              'projects/mslin-app/screens/chinese6.png',
+              'projects/mslin-app/screens/chinese7.png',
+              'projects/mslin-app/screens/chinese8.png',
+              'projects/mslin-app/screens/chinese9.png',
+              'projects/mslin-app/screens/chinese10.png',
+              'projects/mslin-app/screens/chinese11.png',
+              'projects/mslin-app/screens/chinese12.png',
+              'projects/mslin-app/screens/chinese13.png',
+              'projects/mslin-app/screens/chinese14.png',
+              'projects/mslin-app/screens/chinese15.png',
+              'projects/mslin-app/screens/chinese16.png',
+              'projects/mslin-app/screens/chinese17.png',
+              'projects/mslin-app/screens/chinese18.png',
+              'projects/mslin-app/screens/chinese19.png'
             ] },
             { title: '英文練習', screens: [
-              '/projects/mslin-app/screens/english1.png',
-              '/projects/mslin-app/screens/english2.png',
-              '/projects/mslin-app/screens/english3.png',
-              '/projects/mslin-app/screens/english4.png',
-              '/projects/mslin-app/screens/english5.png',
-              '/projects/mslin-app/screens/english6.png'
+              'projects/mslin-app/screens/english1.png',
+              'projects/mslin-app/screens/english2.png',
+              'projects/mslin-app/screens/english3.png',
+              'projects/mslin-app/screens/english4.png',
+              'projects/mslin-app/screens/english5.png',
+              'projects/mslin-app/screens/english6.png'
             ] }
           ]
         }
       ],
-      prototypeUrl: '/projects/msline/prototype.mp4',
+      prototypeUrl: 'projects/msline/prototype.mp4',
       usabilityTesting: '在第一版 Prototype 完成後，邀請 5 位高中生進行易用性測試，根據回饋優化了「結束測驗」的防呆提示設計。'
     },
     mascotDesign: {
       description: '設計了象徵智慧與陪伴的貓頭鷹吉祥物「Line 醬」，在使用者答對連續題目時給予動態鼓勵，增加學習趣味。',
-      images: ['/projects/msline/mascot-1.mp4', '/projects/msline/mascot-2.mp4']
+      images: ['projects/msline/mascot-1.mp4', 'projects/msline/mascot-2.mp4']
     }
   },
   {
@@ -691,7 +691,7 @@ const PROJECTS = [
     platform: 'web', // 可以設定為 'web' 或 'app'
     title: 'BrainBox UI Visual Design',
     thumb: 'bg-[#EAE8F2]',
-    coverMedia: { type: 'image', url: '/projects/brainbox/brainbox-cover.png' },
+    coverMedia: { type: 'image', url: 'projects/brainbox/brainbox-cover.png' },
     tags: ['UI/UX', 'System Design'],
     description: {
       zh: '智慧教育系統的視覺介面設計，優化教師與學生的操作流程，提升數位學習體驗。',
@@ -747,14 +747,14 @@ const PROJECTS = [
       }
     }
   },
-  { id: 4, categoryId: 'motion', title: 'BrainBox 智慧刷題系統：賦能學生，解放教師。', thumb: 'bg-black', coverMedia: { type: 'image', url: '/projects/brainbox-marketing/brainbox-marketing-cover.jpg' }, tags: ['Motion', 'Explainer'], description: '透過生動 the 2D 動畫，清楚傳達 BrainBox 產品的核心價值與功能優勢。', client: 'BrainBox', year: '2024', gallery: [] },
-  { id: 5, categoryId: 'motion', title: 'Look the Sound of Taipei Metro', thumb: 'bg-[#1a1a1a]', coverMedia: { type: 'image', url: '/projects/taipei/taipei-cover.jpg' }, tags: ['Motion', 'Data Visual'], description: '將臺北捷運的聲音地景進行視覺化，轉化為具備節奏感與幾何美學的動態圖像創作。', client: '國立臺灣藝術大學', year: '2023', gallery: [] },
-  { id: 6, categoryId: 'motion', title: 'How to Use BrainBox: A Step-by-Step Tutorial', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: '/projects/brainbox-intro/brainbox-intro-cover.png' }, tags: ['Motion', 'Tutorial'], description: 'BrainBox 教學影片，一步步引導使用者了解系統操作。', client: 'BrainBox', year: '2024', gallery: [] },
-  { id: 7, categoryId: 'motion', title: 'Wisdome.ai 公司官網首頁形象動畫', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: '/projects/wisdome-motion-brand/wisdome-motion-brand-cover.png' }, tags: ['Motion', 'Web Animation'], description: '結合品牌理念製作的首頁形象動畫，以動態視覺強化品牌科技感。', client: 'WISDOME.AI', year: '2024', gallery: [] },
-  { id: 8, categoryId: 'brand', title: '果然癮品牌識別設計', thumb: 'bg-[#EAF2ED]', coverMedia: { type: 'image', url: '/projects/glowing/glowing-brand-cover.png' }, tags: ['Branding', 'Packaging'], description: '完成品牌識別系統設計，並延伸設計 3 組產品外盒及 8 款內包裝，提升視覺吸引力。', client: '果然癮', year: '2021', gallery: [] },
-  { id: 9, categoryId: 'brand', title: 'MindGap 企業識別系統', thumb: 'bg-[#F2EFE9]', coverMedia: { type: 'image', url: '/projects/mindgap/mingap-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '從零建立企業品牌視覺系統，涵蓋標誌設計與色彩規範。', client: 'MindGap', year: '2024', gallery: [] },
-  { id: 10, categoryId: 'brand', title: 'BrainBox 產品識別設計', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: '/projects/brand-branbox/brainbox-brand-cover.png' }, tags: ['Branding', 'Product Identity'], description: '打造專屬的產品識別系統，提升產品在市場上的辨識度與專業感。', client: 'BrainBox', year: '2024', gallery: [] },
-  { id: 11, categoryId: 'brand', title: 'Wisdome.ai 企業識別系統', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: '/projects/brand-wisdomeai/wisdomeai-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '整合品牌理念與科技感，打造完整的企業視覺規範系統。', client: 'WISDOME.AI', year: '2023', gallery: [] }
+  { id: 4, categoryId: 'motion', title: 'BrainBox 智慧刷題系統：賦能學生，解放教師。', thumb: 'bg-black', coverMedia: { type: 'image', url: 'projects/brainbox-marketing/brainbox-marketing-cover.jpg' }, tags: ['Motion', 'Explainer'], description: '透過生動 the 2D 動畫，清楚傳達 BrainBox 產品的核心價值與功能優勢。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 5, categoryId: 'motion', title: 'Look the Sound of Taipei Metro', thumb: 'bg-[#1a1a1a]', coverMedia: { type: 'image', url: 'projects/taipei/taipei-cover.jpg' }, tags: ['Motion', 'Data Visual'], description: '將臺北捷運的聲音地景進行視覺化，轉化為具備節奏感與幾何美學的動態圖像創作。', client: '國立臺灣藝術大學', year: '2023', gallery: [] },
+  { id: 6, categoryId: 'motion', title: 'How to Use BrainBox: A Step-by-Step Tutorial', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: 'projects/brainbox-intro/brainbox-intro-cover.png' }, tags: ['Motion', 'Tutorial'], description: 'BrainBox 教學影片，一步步引導使用者了解系統操作。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 7, categoryId: 'motion', title: 'Wisdome.ai 公司官網首頁形象動畫', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: 'projects/wisdome-motion-brand/wisdome-motion-brand-cover.png' }, tags: ['Motion', 'Web Animation'], description: '結合品牌理念製作的首頁形象動畫，以動態視覺強化品牌科技感。', client: 'WISDOME.AI', year: '2024', gallery: [] },
+  { id: 8, categoryId: 'brand', title: '果然癮品牌識別設計', thumb: 'bg-[#EAF2ED]', coverMedia: { type: 'image', url: 'projects/glowing/glowing-brand-cover.png' }, tags: ['Branding', 'Packaging'], description: '完成品牌識別系統設計，並延伸設計 3 組產品外盒及 8 款內包裝，提升視覺吸引力。', client: '果然癮', year: '2021', gallery: [] },
+  { id: 9, categoryId: 'brand', title: 'MindGap 企業識別系統', thumb: 'bg-[#F2EFE9]', coverMedia: { type: 'image', url: 'projects/mindgap/mingap-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '從零建立企業品牌視覺系統，涵蓋標誌設計與色彩規範。', client: 'MindGap', year: '2024', gallery: [] },
+  { id: 10, categoryId: 'brand', title: 'BrainBox 產品識別設計', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: 'projects/brand-branbox/brainbox-brand-cover.png' }, tags: ['Branding', 'Product Identity'], description: '打造專屬的產品識別系統，提升產品在市場上的辨識度與專業感。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 11, categoryId: 'brand', title: 'Wisdome.ai 企業識別系統', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: 'projects/brand-wisdomeai/wisdomeai-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '整合品牌理念與科技感，打造完整的企業視覺規範系統。', client: 'WISDOME.AI', year: '2023', gallery: [] }
 ];
 
 const DECISION_TABS = [
@@ -905,7 +905,7 @@ const SPLIT_VIEW_CHIPS = [
       zh: '首頁主視覺採用動態影片背景，搭配洗鍊的標語，在訪客抵達的黃金 3 秒內建立起 AI 教育科技的品牌第一印象，並配置顯眼的 CTA 引導。',
       en: 'The hero section uses a dynamic video background with sleek taglines, establishing an EdTech brand image within 3 seconds of arrival.'
     },
-    videoUrl: '/projects/wisdome.ai_web/hero-page-web.mov',
+    videoUrl: 'projects/wisdome.ai_web/hero-page-web.mov',
     top: 0,
     height: 22
   },
@@ -916,7 +916,7 @@ const SPLIT_VIEW_CHIPS = [
       zh: '將系統的「自動排課」、「AI 閱卷」等核心功能以模組化卡片呈現，並利用動態流程圖展示，讓非技術背景的主管也能秒懂產品實用價值。',
       en: 'Presents core features like "auto-scheduling" and "AI grading" in modular cards, allowing non-tech administrators to grasp values instantly.'
     },
-    videoUrl: '/projects/wisdome.ai_web/service.mov',
+    videoUrl: 'projects/wisdome.ai_web/service.mov',
     top: 22,
     height: 30
   },
@@ -927,7 +927,7 @@ const SPLIT_VIEW_CHIPS = [
       zh: '列出導入 Wisdome.ai 的關鍵優勢，如：系統高穩定度、無痛無縫轉型、完善的售後支援，全面打消教育機構決策者的安全感疑慮。',
       en: 'Lists key advantages like high stability, painless deployment, and direct support to ease security concerns for school leaders.'
     },
-    videoUrl: '/projects/wisdome.ai_web/why-wisdome.mov',
+    videoUrl: 'projects/wisdome.ai_web/why-wisdome.mov',
     top: 52,
     height: 20
   },
@@ -938,7 +938,7 @@ const SPLIT_VIEW_CHIPS = [
       zh: '展示合作補習班的量化成效（例如行政效率提升 40%）與真實校長的好評推薦，以客觀數據與同業證言強化轉換說服力。',
       en: 'Displays metrics (e.g. 40% administrative efficiency boost) and testimonials to leverage peer influence and drive conversions.'
     },
-    videoUrl: '/projects/wisdome.ai_web/cta-area.mov',
+    videoUrl: 'projects/wisdome.ai_web/cta-area.mov',
     top: 72,
     height: 18
   },
@@ -949,7 +949,7 @@ const SPLIT_VIEW_CHIPS = [
       zh: '引導訪客進行下一步操作，配置高對比按鈕以促成免費試用、預約或諮詢核心服務，最大化網頁的轉換效益。',
       en: 'Guides visitors to book a demo or trial using high-contrast action buttons to maximize landing page conversion rates.'
     },
-    videoUrl: '/projects/wisdome.ai_web/cta-area.mov'
+    videoUrl: 'projects/wisdome.ai_web/cta-area.mov'
   },
   {
     id: 'about',
@@ -2034,10 +2034,10 @@ const SPLIT_VIEW_CHIPS = [
 
       // Define standard subjects
       const subjects = [
-        { id: 'mathA', zhName: '數學 A', enName: 'Math A', illustration: '/projects/mslin-app/illustrations/math-a.svg' },
-        { id: 'mathB', zhName: '數學 B', enName: 'Math B', illustration: '/projects/mslin-app/illustrations/math-b.svg' },
-        { id: 'english', zhName: '英文', enName: 'English', illustration: '/projects/mslin-app/illustrations/english.svg' },
-        { id: 'chinese', zhName: '國文', enName: 'Chinese', illustration: '/projects/mslin-app/illustrations/chinese.svg' }
+        { id: 'mathA', zhName: '數學 A', enName: 'Math A', illustration: 'projects/mslin-app/illustrations/math-a.svg' },
+        { id: 'mathB', zhName: '數學 B', enName: 'Math B', illustration: 'projects/mslin-app/illustrations/math-b.svg' },
+        { id: 'english', zhName: '英文', enName: 'English', illustration: 'projects/mslin-app/illustrations/english.svg' },
+        { id: 'chinese', zhName: '國文', enName: 'Chinese', illustration: 'projects/mslin-app/illustrations/chinese.svg' }
       ];
 
       const activeSubject = subjects.find(s => s.id === activeSubId) || subjects[0];
@@ -7697,28 +7697,28 @@ const SPLIT_VIEW_CHIPS = [
 
     // Asset Lists
     const MASCOT_ASSETS = [
-      { label: '待機', url: '/projects/brainbox/待機.gif', status: '待機 (Idle)', desc: '吉祥物在無操作、系統休眠或待機時的預設狀態。' },
-      { label: '眨眼提醒', url: '/projects/brainbox/眨眼提醒.gif', status: '眨眼提醒 (Blink Reminder)', desc: '吉祥物進行溫馨提示、引導或出現學習指引時的眨眼狀態。' },
-      { label: '好棒', url: '/projects/brainbox/好棒.gif', status: '好棒 (Excellent)', desc: '吉祥物在使用者答題正確、取得高分或達成進度時的慶祝狀態。' },
-      { label: '結尾', url: '/projects/brainbox/結尾.gif', status: '結尾 (Ending)', desc: '學習任務完成、完成測驗或系統登出結束時的告別狀態。' }
+      { label: '待機', url: 'projects/brainbox/待機.gif', status: '待機 (Idle)', desc: '吉祥物在無操作、系統休眠或待機時的預設狀態。' },
+      { label: '眨眼提醒', url: 'projects/brainbox/眨眼提醒.gif', status: '眨眼提醒 (Blink Reminder)', desc: '吉祥物進行溫馨提示、引導或出現學習指引時的眨眼狀態。' },
+      { label: '好棒', url: 'projects/brainbox/好棒.gif', status: '好棒 (Excellent)', desc: '吉祥物在使用者答題正確、取得高分或達成進度時的慶祝狀態。' },
+      { label: '結尾', url: 'projects/brainbox/結尾.gif', status: '結尾 (Ending)', desc: '學習任務完成、完成測驗或系統登出結束時的告別狀態。' }
     ];
 
     const ANIMATED_ICON_ASSETS = [
-      { label: '總覽', url: '/projects/brainbox/motion-icon/overview.gif', iconUrl: '/projects/brainbox/icon/overview.svg', desc: '學習主頁總覽與個人數據儀表板的切換微動態。' },
-      { label: '課程', url: '/projects/brainbox/motion-icon/course.gif', iconUrl: '/projects/brainbox/icon/course.svg', desc: '進入課程地圖、學習單元或講義下載時的切換動畫。' },
-      { label: '考試中心', url: '/projects/brainbox/motion-icon/test-center.gif', iconUrl: '/projects/brainbox/icon/test-center.svg', desc: '管理歷次大型模考、預約實體考場或下載准考證的入口動態。' },
-      { label: '錯題複習', url: '/projects/brainbox/motion-icon/review.gif', iconUrl: '/projects/brainbox/icon/review-center.svg', desc: '進入錯題本、查看錯題分析或重新演練題目時的重溫動畫。' },
-      { label: '學習報告', url: '/projects/brainbox/motion-icon/report.gif', iconUrl: '/projects/brainbox/icon/report.svg', desc: '分析成績分佈、產出雷達圖與學習盲點診斷時的報告動畫。' },
-      { label: '教師中心', url: '/projects/brainbox/motion-icon/educator-hub.gif', iconUrl: '/projects/brainbox/icon/edu-hub.svg', desc: '切換至教師管理後台、查看班級表現與派發作業的切換動態。' },
-      { label: '學科', url: '/projects/brainbox/motion-icon/subject.gif', iconUrl: '/projects/brainbox/icon/subject.svg', desc: '自訂考試科目分類、查看弱勢學科或切換領域學分時的動態。' },
+      { label: '總覽', url: 'projects/brainbox/motion-icon/overview.gif', iconUrl: 'projects/brainbox/icon/overview.svg', desc: '學習主頁總覽與個人數據儀表板的切換微動態。' },
+      { label: '課程', url: 'projects/brainbox/motion-icon/course.gif', iconUrl: 'projects/brainbox/icon/course.svg', desc: '進入課程地圖、學習單元或講義下載時的切換動畫。' },
+      { label: '考試中心', url: 'projects/brainbox/motion-icon/test-center.gif', iconUrl: 'projects/brainbox/icon/test-center.svg', desc: '管理歷次大型模考、預約實體考場或下載准考證的入口動態。' },
+      { label: '錯題複習', url: 'projects/brainbox/motion-icon/review.gif', iconUrl: 'projects/brainbox/icon/review-center.svg', desc: '進入錯題本、查看錯題分析或重新演練題目時的重溫動畫。' },
+      { label: '學習報告', url: 'projects/brainbox/motion-icon/report.gif', iconUrl: 'projects/brainbox/icon/report.svg', desc: '分析成績分佈、產出雷達圖與學習盲點診斷時的報告動畫。' },
+      { label: '教師中心', url: 'projects/brainbox/motion-icon/educator-hub.gif', iconUrl: 'projects/brainbox/icon/edu-hub.svg', desc: '切換至教師管理後台、查看班級表現與派發作業的切換動態。' },
+      { label: '學科', url: 'projects/brainbox/motion-icon/subject.gif', iconUrl: 'projects/brainbox/icon/subject.svg', desc: '自訂考試科目分類、查看弱勢學科或切換領域學分時的動態。' },
       
-      { label: '練習', url: '/projects/brainbox/motion-icon/practice.gif', iconUrl: '/projects/brainbox/icon/practice.svg', desc: '開始每日練習、章節測驗與題目解析時的引導動態。', isWhite: true },
-      { label: '模擬考試', url: '/projects/brainbox/motion-icon/mock-test.gif', iconUrl: '/projects/brainbox/icon/mock-test.svg', desc: '生成全真模擬考卷、進行倒數計時與提交考卷的儀式動畫。', isWhite: true },
-      { label: '測驗', url: '/projects/brainbox/motion-icon/test-history.gif', iconUrl: '/projects/brainbox/icon/test.svg', desc: '快速發起隨堂小測驗、進行即時評分與計時挑戰的反饋動態。', isWhite: true },
-      { label: '數學', url: '/projects/brainbox/motion-icon/math.gif', iconUrl: '/projects/brainbox/icon/math.svg', desc: '進入 SAT 數學學科章節、公式卡或專題訓練的切換動態。', isWhite: true },
-      { label: '閱讀', url: '/projects/brainbox/motion-icon/reading.gif', iconUrl: '/projects/brainbox/icon/reading.svg', desc: '進入 SAT 閱讀理解、長難句拆解與字彙卡學習的切換動態。', isWhite: true },
-      { label: '寫作', url: '/projects/brainbox/motion-icon/writing.gif', iconUrl: '/projects/brainbox/icon/writing.svg', desc: '進入 SAT 語法寫作、作文演練與 AI 批改時的筆觸動態。', isWhite: true },
-      { label: '歷次考績', url: '/projects/brainbox/motion-icon/test.gif', iconUrl: '/projects/brainbox/icon/test-history.svg', desc: '回溯歷史成績記錄、分析分數成長曲線或導出歷史記錄的動態。', isWhite: true }
+      { label: '練習', url: 'projects/brainbox/motion-icon/practice.gif', iconUrl: 'projects/brainbox/icon/practice.svg', desc: '開始每日練習、章節測驗與題目解析時的引導動態。', isWhite: true },
+      { label: '模擬考試', url: 'projects/brainbox/motion-icon/mock-test.gif', iconUrl: 'projects/brainbox/icon/mock-test.svg', desc: '生成全真模擬考卷、進行倒數計時與提交考卷的儀式動畫。', isWhite: true },
+      { label: '測驗', url: 'projects/brainbox/motion-icon/test-history.gif', iconUrl: 'projects/brainbox/icon/test.svg', desc: '快速發起隨堂小測驗、進行即時評分與計時挑戰的反饋動態。', isWhite: true },
+      { label: '數學', url: 'projects/brainbox/motion-icon/math.gif', iconUrl: 'projects/brainbox/icon/math.svg', desc: '進入 SAT 數學學科章節、公式卡或專題訓練的切換動態。', isWhite: true },
+      { label: '閱讀', url: 'projects/brainbox/motion-icon/reading.gif', iconUrl: 'projects/brainbox/icon/reading.svg', desc: '進入 SAT 閱讀理解、長難句拆解與字彙卡學習的切換動態。', isWhite: true },
+      { label: '寫作', url: 'projects/brainbox/motion-icon/writing.gif', iconUrl: 'projects/brainbox/icon/writing.svg', desc: '進入 SAT 語法寫作、作文演練與 AI 批改時的筆觸動態。', isWhite: true },
+      { label: '歷次考績', url: 'projects/brainbox/motion-icon/test.gif', iconUrl: 'projects/brainbox/icon/test-history.svg', desc: '回溯歷史成績記錄、分析分數成長曲線或導出歷史記錄的動態。', isWhite: true }
     ];
 
     const META_CARDS = [
@@ -8526,14 +8526,14 @@ const SPLIT_VIEW_CHIPS = [
                   <div className="flex-1 bg-white border border-gray-100 rounded-3xl p-8 flex items-center justify-center shadow-sm">
                     <div className="grid grid-cols-4 gap-6 w-full max-w-md">
                       {[
-                        '/projects/brainbox/red.png',
-                        '/projects/brainbox/orange.png',
-                        '/projects/brainbox/yellow.png',
-                        '/projects/brainbox/green.png',
-                        '/projects/brainbox/gray-blue.png',
-                        '/projects/brainbox/purple.png',
-                        '/projects/brainbox/red-purple.png',
-                        '/projects/brainbox/pink.png'
+                        'projects/brainbox/red.png',
+                        'projects/brainbox/orange.png',
+                        'projects/brainbox/yellow.png',
+                        'projects/brainbox/green.png',
+                        'projects/brainbox/gray-blue.png',
+                        'projects/brainbox/purple.png',
+                        'projects/brainbox/red-purple.png',
+                        'projects/brainbox/pink.png'
                       ].map((src, idx) => (
                         <div 
                           key={idx}
@@ -8600,17 +8600,17 @@ const SPLIT_VIEW_CHIPS = [
                       { 
                         title: { zh: '頭像插圖應用於登入頁', en: 'Avatar Illustration on Login Page' }, 
                         type: 'image', 
-                        url: '/projects/brainbox/avatar-demo.png' 
+                        url: 'projects/brainbox/avatar-demo.png' 
                       },
                       { 
                         title: { zh: '系統laoding動畫', en: 'System Loading Animation' }, 
                         type: 'video', 
-                        url: '/projects/brainbox/loading-demo.mp4' 
+                        url: 'projects/brainbox/loading-demo.mp4' 
                       },
                       { 
                         title: { zh: '用戶個人頁頭像展示', en: 'User Profile Avatar Showcase' }, 
                         type: 'image', 
-                        url: '/projects/brainbox/profile.png' 
+                        url: 'projects/brainbox/profile.png' 
                       }
                     ].map((item, idx) => (
                       <div key={idx} className="w-full h-full flex-shrink-0 relative bg-white flex items-center justify-center overflow-hidden">

@@ -987,31 +987,31 @@ const SPLIT_VIEW_CHIPS = [
   const Navbar = ({ scrolled, currentPage, navigateTo, lang, setLang, isMobileMenuOpen, setIsMobileMenuOpen }) => (
     <>
       <div className={`fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-between md:justify-center px-4 md:px-6 pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${scrolled || currentPage !== 'home' ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}`}>
-        <nav className="pointer-events-auto flex items-center justify-between w-full md:w-auto md:gap-8 px-4 py-2.5 md:px-6 md:py-3 rounded-full bg-white/90 backdrop-blur-xl border border-gray-100 shadow-sm">
-          <div className="text-lg md:text-xl font-bold cursor-pointer tracking-wide" onClick={() => navigateTo('home')}>T<span className="text-orange-500">.</span></div>
+        <nav className="pointer-events-auto flex items-center justify-between w-full md:w-auto md:gap-8 px-4 py-2.5 md:px-6 md:py-3 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl border border-gray-100 dark:border-zinc-800 shadow-sm transition-colors duration-300">
+          <div className="text-lg md:text-xl font-bold cursor-pointer tracking-wide text-zinc-900 dark:text-zinc-50" onClick={() => navigateTo('home')}>T<span className="text-orange-500">.</span></div>
           <div className="hidden md:flex gap-2 md:gap-6 text-sm font-medium">
-            <button onClick={() => navigateTo('home')} className={`px-3 py-1.5 rounded-full transition-all ${currentPage === 'home' ? 'bg-black text-white' : 'text-gray-600 hover:text-black hover:bg-gray-100'}`}>{I18N[lang].nav.home}</button>
-            <button onClick={() => navigateTo('works')} className={`px-3 py-1.5 rounded-full transition-all ${['works', 'category', 'project'].includes(currentPage) ? 'bg-black text-white' : 'text-gray-600 hover:text-black hover:bg-gray-100'}`}>{I18N[lang].nav.works}</button>
-            <button onClick={() => navigateTo('about')} className={`px-3 py-1.5 rounded-full transition-all ${currentPage === 'about' ? 'bg-black text-white' : 'text-gray-600 hover:text-black hover:bg-gray-100'}`}>{I18N[lang].nav.about}</button>
-            <button onClick={() => navigateTo('contact')} className={`px-3 py-1.5 rounded-full transition-all ${currentPage === 'contact' ? 'bg-black text-white' : 'text-gray-600 hover:text-black hover:bg-gray-100'}`}>{I18N[lang].nav.contact}</button>
+            <button onClick={() => navigateTo('home')} className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${currentPage === 'home' ? 'bg-black text-white dark:bg-zinc-100 dark:text-zinc-900' : 'text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800'}`}>{I18N[lang].nav.home}</button>
+            <button onClick={() => navigateTo('works')} className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${['works', 'category', 'project'].includes(currentPage) ? 'bg-black text-white dark:bg-zinc-100 dark:text-zinc-900' : 'text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800'}`}>{I18N[lang].nav.works}</button>
+            <button onClick={() => navigateTo('about')} className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${currentPage === 'about' ? 'bg-black text-white dark:bg-zinc-100 dark:text-zinc-900' : 'text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800'}`}>{I18N[lang].nav.about}</button>
+            <button onClick={() => navigateTo('contact')} className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${currentPage === 'contact' ? 'bg-black text-white dark:bg-zinc-100 dark:text-zinc-900' : 'text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800'}`}>{I18N[lang].nav.contact}</button>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')} className="pointer-events-auto px-3 py-1 rounded-full text-xs font-bold border border-gray-200 text-gray-600 hover:bg-gray-100 transition-all">
+            <button onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')} className="pointer-events-auto px-3 py-1 rounded-full text-xs font-bold border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-zinc-300 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-all cursor-pointer">
               {lang === 'zh' ? 'EN' : '繁中'}
             </button>
-            <button className="md:hidden text-gray-800 p-1" onClick={() => setIsMobileMenuOpen(true)}><IconMenu className="w-6 h-6" /></button>
+            <button className="md:hidden text-gray-800 dark:text-zinc-200 p-1 cursor-pointer" onClick={() => setIsMobileMenuOpen(true)}><IconMenu className="w-6 h-6" /></button>
           </div>
         </nav>
       </div>
-      <div className={`fixed inset-0 bg-white z-[60] transform transition-transform duration-500 ease-in-out flex flex-col ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'} md:hidden`}>
-        <div className="flex justify-between items-center p-6"><div className="text-2xl font-bold tracking-wide">T<span className="text-orange-500">.</span></div><button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-gray-100 rounded-full text-gray-800"><IconX className="w-6 h-6" /></button></div>
+      <div className={`fixed inset-0 bg-white dark:bg-zinc-950 z-[60] transform transition-transform duration-500 ease-in-out flex flex-col ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'} md:hidden`}>
+        <div className="flex justify-between items-center p-6"><div className="text-2xl font-bold tracking-wide text-zinc-900 dark:text-zinc-50" onClick={() => navigateTo('home')}>T<span className="text-orange-500">.</span></div><button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-gray-100 dark:bg-zinc-800 rounded-full text-gray-800 dark:text-zinc-200 cursor-pointer"><IconX className="w-6 h-6" /></button></div>
         <div className="flex flex-col items-center justify-center flex-1 gap-8 text-3xl font-black uppercase tracking-widest">
           <button onClick={() => navigateTo('home')} className={`${currentPage === 'home' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.home}</button>
           <button onClick={() => navigateTo('works')} className={`${['works', 'category', 'project'].includes(currentPage) ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.works}</button>
           <button onClick={() => navigateTo('about')} className={`${currentPage === 'about' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.about}</button>
           <button onClick={() => navigateTo('contact')} className={`${currentPage === 'contact' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.contact}</button>
         </div>
-        <div className="p-8 pb-12 text-center text-sm text-gray-400 font-bold tracking-widest">tingchenliang1998@gmail.com</div>
+        <div className="p-8 pb-12 text-center text-sm text-gray-400 dark:text-zinc-500 font-bold tracking-widest">tingchenliang1998@gmail.com</div>
       </div>
     </>
   );
@@ -1194,8 +1194,9 @@ const SPLIT_VIEW_CHIPS = [
           <section style={{ height: '100vh' }} className="sticky top-0 w-full flex flex-col md:flex-row items-center justify-between px-4 md:px-12 overflow-hidden bg-[#F6F6F6] z-0">
             {/* Phase 1: Original Left Text Container */}
             <div className="w-full md:w-[75%] pt-40 md:pt-0 z-30 pointer-events-none will-change-transform animate-in fade-in duration-700" style={{ transform: `translateX(${textTranslateX}vw)`, opacity: textOpacity }}>
-              <h2 className="text-xl md:text-2xl text-orange-600 mb-6 font-medium flex items-center gap-2"><span className="text-4xl leading-none -mt-2">*</span> We are digital design</h2>
-              <h1 className="text-[12vw] md:text-[6.5rem] lg:text-[8.5rem] xl:text-[9.5rem] leading-[0.8] font-black tracking-tighter text-[#252525] mb-8 whitespace-nowrap">TIFFANY LIANG</h1>
+              <h1 className="text-[12vw] md:text-[6.5rem] lg:text-[8.5rem] xl:text-[9.5rem] leading-[0.9] font-black tracking-tighter text-[#252525] mb-8">
+                TIFFANY<br />LIANG
+              </h1>
               <p className="text-lg md:text-xl text-gray-500 max-w-md leading-relaxed font-medium mt-8 whitespace-normal">
                 {lang === 'en' ? 'Beautiful design has the power to captivate audiences. Translating brand philosophies and abstract concepts into visual narratives.' : 'Beautiful design has the power to captivate audiences. 轉化品牌理念與抽象概念為視覺敘事。'}
               </p>
@@ -8811,12 +8812,508 @@ const SPLIT_VIEW_CHIPS = [
     );
   };
 
-  const AboutView = ({ lang, navigateTo }) => (
-    <div className="animate-in fade-in duration-700 bg-white">
-      <div className="pt-40 pb-16 px-6 max-w-[100rem] mx-auto md:px-8"><h1 className="text-6xl md:text-[8rem] font-bold tracking-tighter mb-16 leading-none max-w-6xl mx-auto">Tiffany<br />Liang.</h1><div className="grid md:grid-cols-[1fr_1.5fr] gap-12 md:gap-20 items-start mb-32 max-w-6xl mx-auto"><div className="aspect-[3/4] bg-[#F8F9FA] rounded-[2rem] overflow-hidden flex items-center justify-center text-gray-400 w-full max-w-md mx-auto md:mx-0 shadow-sm relative">梁庭禎 的照片</div><div className="pt-4"><h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8 leading-snug text-gray-900">將品牌理念與抽象概念，<br />轉化為具備影響力與情感共鳴的視覺敘事。</h2><div className="space-y-6 text-xl text-gray-600 leading-relaxed mb-16"><p>我擁有超過2年的動態圖像與視覺設計經驗。自小培養的美學素養，使我能精確掌握節奏與動態細節，進而獨立負責品牌從概念發想、腳本分鏡到完整動態執行的視覺設計解決方案。</p><p>曾為科技公司成功建構完整的品牌形象動畫、產品形象及介紹動畫、介面轉場動態等。我致力於透過動態設計，解構複雜的概念並創造出生動的視覺呈現。</p></div><div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-10 border-t border-gray-100"><div><h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Motion & Animation</h3><div className="flex flex-wrap gap-2">{['動態圖像設計', '動畫解說影片', '影音剪輯', '腳本撰寫'].map(skill => (<span key={skill} className="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-medium text-gray-800">{skill}</span>))}</div></div><div><h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Visual Design</h3><div className="flex flex-wrap gap-2">{['平面設計', '品牌設計', '介面設計', '美術設計'].map(skill => (<span key={skill} className="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-medium text-gray-800">{skill}</span>))}</div></div></div></div></div><div className="mb-32 max-w-5xl mx-auto"><h2 className="text-5xl font-bold tracking-tighter mb-20 px-2 md:px-0">Work Experience</h2><div><TimelineItem year="2023.10 - Present" title="Wisdome.Al 聚偲科技股份有限公司" subtitle="視覺效果設計師"><ul className="list-disc pl-5 space-y-4"><li><strong className="text-gray-900">企業識別設計：</strong>設計企業標誌、名片及簡報模板，並整合品牌理念製作識別系統手冊。製作公司官網首頁形象動畫。</li><li><strong className="text-gray-900">產品介面設計：</strong>建構產品品牌識別規範與手冊。設計16個動態圖樣與70個靜態圖標，提升辨識度；繪製插圖與頭像；優化功能介面。</li><li><strong className="text-gray-900">廣告行銷動畫：</strong>獨立完成2部產品形象動畫。結合 AI 語音製作清晰流暢的軟體操作教學影片。</li></ul></TimelineItem></div></div></div>
-      <FooterCTA navigateTo={navigateTo} lang={lang} />
+  // --- About Page custom utility hooks & components ---
+
+  const useTimelineProgress = (timelineRef) => {
+    const [progress, setProgress] = useState(0);
+    const [activeNodes, setActiveNodes] = useState([]);
+
+    useEffect(() => {
+      const updateProgress = () => {
+        if (!timelineRef.current) return;
+        const rect = timelineRef.current.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        
+        // Start growing when top of timeline is at 60% viewport height
+        const startPoint = viewportHeight * 0.6;
+        const scrolled = startPoint - rect.top;
+        
+        // Calculate progress relative to timeline height
+        const totalScrollable = rect.height - 100;
+        const isAtBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 15);
+        const p = isAtBottom ? 1 : Math.min(Math.max(scrolled / Math.max(totalScrollable, 1), 0), 1);
+        setProgress(p);
+
+        // Calculate active nodes
+        const timelineHeight = rect.height;
+        const progressLineBottom = timelineHeight * p;
+        const nodeElements = timelineRef.current.querySelectorAll('.timeline-node');
+        const activeStates = [];
+        nodeElements.forEach((node) => {
+          let offsetTop = 0;
+          let current = node;
+          while (current && current !== timelineRef.current) {
+            offsetTop += current.offsetTop;
+            current = current.offsetParent;
+          }
+          // Check if progress line has passed the node's top center
+          const isPassed = progressLineBottom >= (offsetTop - 2);
+          activeStates.push(isPassed);
+        });
+        setActiveNodes(activeStates);
+      };
+
+      let ticking = false;
+      const handleScroll = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            updateProgress();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      window.addEventListener('resize', handleScroll);
+      updateProgress();
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', handleScroll);
+      };
+    }, [timelineRef]);
+
+    return [progress, activeNodes];
+  };
+
+  const ScrollRevealItem = ({ children, index, delayOffset = 0.15 }) => {
+    const options = React.useMemo(() => ({ threshold: 0.05, rootMargin: "0px 0px -50px 0px" }), []);
+    const [ref, isVisible] = useOnScreen(options);
+    
+    return (
+      <div
+        ref={ref}
+        style={{
+          transitionDelay: isVisible ? `${index * delayOffset}s` : '0s',
+        }}
+        className={`scroll-animate ${isVisible ? 'is-visible' : ''}`}
+      >
+        {children}
+      </div>
+    );
+  };
+
+  const AboutAccordion = ({ title, date, children, defaultOpen = false }) => {
+    const [isOpen, setIsOpen] = useState(defaultOpen);
+    const contentRef = useRef(null);
+    const [height, setHeight] = useState(defaultOpen ? 'auto' : '0px');
+
+    const toggleAccordion = () => {
+      if (isOpen) {
+        setHeight(`${contentRef.current.scrollHeight}px`);
+        // Force reflow
+        contentRef.current.offsetHeight;
+        setHeight('0px');
+        setIsOpen(false);
+      } else {
+        setIsOpen(true);
+        setHeight(`${contentRef.current.scrollHeight}px`);
+      }
+    };
+
+    const handleTransitionEnd = () => {
+      if (isOpen) {
+        setHeight('auto');
+      }
+    };
+
+    const id = `accordion-${title.replace(/\s+/g, '-').toLowerCase()}`;
+
+    return (
+      <div className="bg-white dark:bg-[#1A1A1A] border-[0.5px] border-zinc-200 dark:border-zinc-855 rounded-[20px] mb-3 overflow-hidden transition-colors duration-300">
+        <button
+          onClick={toggleAccordion}
+          aria-expanded={isOpen}
+          aria-controls={id}
+          className="w-full px-5 py-4 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
+        >
+          <span className="text-[14px] text-zinc-900 dark:text-zinc-100 font-medium font-['Noto_Sans_TC']">{title}</span>
+          <div className="flex items-center gap-3">
+            <span className="text-[12px] text-zinc-400 dark:text-zinc-500 font-normal select-none">{date}</span>
+            <svg 
+              className={`w-3.5 h-3.5 text-[#D85A30] transform transition-transform duration-300 ${isOpen ? 'rotate-[45deg]' : ''}`}
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="3.5"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" strokeLinecap="round" />
+              <line x1="5" y1="12" x2="19" y2="12" strokeLinecap="round" />
+            </svg>
+          </div>
+        </button>
+        <div
+          id={id}
+          ref={contentRef}
+          onTransitionEnd={handleTransitionEnd}
+          style={{ 
+            maxHeight: height, 
+            transition: 'max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1)' 
+          }}
+          className="overflow-hidden accordion-content-transition"
+        >
+          <div className="px-5 pb-5 pt-1 border-t border-zinc-100 dark:border-zinc-800/80">
+            {children}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const AboutSectionHeader = ({ title, english }) => (
+    <div className="flex items-center gap-2 mb-8 select-none font-bold text-[18px] md:text-[20px] tracking-tight text-left">
+      <span className="text-[#D85A30] font-black text-xl">*</span>
+      <span className="text-[#D85A30] font-['Noto_Sans_TC']">{title} — {english}</span>
     </div>
   );
+
+  const AboutView = ({ lang, navigateTo }) => {
+    const expTimelineRef = useRef(null);
+    const eduTimelineRef = useRef(null);
+    const [expProgress, expActiveNodes] = useTimelineProgress(expTimelineRef);
+    const [eduProgress, eduActiveNodes] = useTimelineProgress(eduTimelineRef);
+
+    const WHAT_I_DO_DATA = [
+      {
+        num: '01',
+        title: 'Product design',
+        desc: lang === 'zh' ? 'UIUX 規劃、wireframe 到高保真介面設計。' : 'UI/UX planning, wireframing, and high-fidelity interface design.',
+        tool: 'FIGMA'
+      },
+      {
+        num: '02',
+        title: 'Development',
+        desc: lang === 'zh' ? 'AI 輔助前端開發與官網建置。' : 'AI-assisted front-end development and website creation.',
+        tool: 'FRAMER'
+      },
+      {
+        num: '03',
+        title: 'Visual & motion',
+        desc: lang === 'zh' ? '識別系統、icon 與形象動畫。' : 'Identity systems, custom iconography, and brand animations.',
+        tool: 'AI・AE'
+      }
+    ];
+
+    return (
+      <div className="w-full bg-[#F6F6F6] dark:bg-[#121212] text-zinc-900 dark:text-zinc-100 min-h-screen transition-colors duration-300 pt-32 pb-24">
+        <div className="max-w-[1100px] mx-auto px-6 md:px-12">
+          
+          {/* 1. Hero 開場 */}
+          <section className="mb-16 text-left">
+            <ScrollRevealItem index={0}>
+              <div className="text-[12px] tracking-[0.2em] text-[#D85A30] uppercase font-bold mb-4 flex items-center gap-1.5 select-none font-sans">
+                <span className="text-[#D85A30]">*</span> {lang === 'zh' ? '關於我' : 'ABOUT ME'} — ABOUT
+              </div>
+              <h1 className="text-[56px] md:text-[80px] lg:text-[96px] font-black tracking-tighter text-zinc-900 dark:text-zinc-50 leading-none select-none uppercase font-sans mb-4" style={{ letterSpacing: '-1.5px' }}>
+                TIFFANY LIANG
+              </h1>
+              <h2 className="text-[18px] md:text-[22px] font-bold text-[#D85A30] font-['Noto_Sans_TC']">
+                {lang === 'zh' ? '梁庭禎・Product Designer' : 'Tiffany Liang・Product Designer'}
+              </h2>
+            </ScrollRevealItem>
+          </section>
+
+          {/* 2. 照片 + 簡介 */}
+          <section className="mb-24">
+            <ScrollRevealItem index={1}>
+              <div className="grid grid-cols-1 lg:grid-cols-9 gap-10 lg:gap-16 items-stretch">
+                {/* Left column: profile photo */}
+                <div className="lg:col-span-4">
+                  <div className="aspect-square w-full bg-[#202020] rounded-[20px] overflow-hidden shadow-sm relative group flex items-center justify-center">
+                    <img 
+                      src="projects/me.jpg" 
+                      alt="Tiffany Liang Profile" 
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      onError={(e) => { e.target.style.display = 'none'; }}
+                    />
+                  </div>
+                </div>
+                {/* Right column: description + outline tags */}
+                <div className="lg:col-span-5 flex flex-col justify-between py-1 text-left">
+                  <div className="text-[15px] md:text-[16px] text-zinc-650 dark:text-zinc-400 font-normal leading-[1.8] mb-8 font-['Noto_Sans_TC'] text-left">
+                    {lang === 'zh' ? (
+                      <>產品設計師，擁有 3 年以上的產品設計與視覺設計經驗，專注於從 0 到 1 打造產品體驗。曾於 AI 科技公司獨立負責 App 與官網的 UIUX 規劃與介面設計（Figma、Framer），並透過 vibe coding 實作前端與修復 bug，能以工程可行性視角進行設計決策，縮短設計到落地的距離。具備完整的視覺設計背景，涵蓋產品識別系統、icon 系統設計與產品形象動畫，擅長將抽象的產品概念轉化為直覺、一致且具 brand 感的使用體驗。</>
+                    ) : (
+                      <>Product designer with over 3 years of experience in product and visual design, focusing on crafting product experiences from 0 to 1. Independently led UI/UX planning and interface design (Figma, Framer) for Apps and official websites at an AI tech company. Implemented front-end features and fixed bugs through vibe coding, making design decisions with an engineering feasibility perspective to shorten the distance from design to launch. Equipped with a comprehensive visual design background spanning product identity systems, icon design, and product videos, specializing in translating abstract product concepts into intuitive, consistent, and branded user experiences.</>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-2.5">
+                    {['UI/UX', 'MOTION', 'FRAMER', 'TAOYUAN, TW'].map((tag) => (
+                      <span 
+                        key={tag} 
+                        className="px-4 py-2 border border-zinc-200 dark:border-zinc-800 text-zinc-550 dark:text-zinc-400 rounded-full text-[12px] font-bold tracking-wider select-none font-sans"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </ScrollRevealItem>
+          </section>
+
+          {/* 3. What I Do */}
+          <section className="mb-24">
+            <ScrollRevealItem index={2}>
+              <AboutSectionHeader title={lang === 'zh' ? '我做什麼' : 'WHAT I DO'} english="WHAT I DO" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {WHAT_I_DO_DATA.map((item, idx) => (
+                  <div key={idx} className="bg-white dark:bg-[#1A1A1A] border-[0.5px] border-zinc-200 dark:border-zinc-800 rounded-[20px] p-6 md:p-8 flex flex-col justify-between min-h-[240px] transition-all duration-300 hover:border-[#D85A30] dark:hover:border-[#D85A30] shadow-sm">
+                    <div className="flex flex-col text-left">
+                      <span className="text-[34px] md:text-[40px] font-black text-[#D85A30] leading-none mb-4 font-mono select-none">{item.num}</span>
+                      <h3 className="text-[17px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-['Noto_Sans_TC']">{item.title}</h3>
+                      <p className="text-[13.5px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-['Noto_Sans_TC']">{item.desc}</p>
+                    </div>
+                    <div className="mt-6 text-left">
+                      <span className="inline-block px-3.5 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-650 dark:text-zinc-400 rounded-full text-[11px] font-bold tracking-wider select-none font-sans">
+                        {item.tool}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </ScrollRevealItem>
+          </section>
+
+          {/* 4. Experience 工作經歷 */}
+          <section className="mb-24">
+            <ScrollRevealItem index={3}>
+              <AboutSectionHeader title={lang === 'zh' ? '工作經歷' : 'EXPERIENCE'} english="EXPERIENCE" />
+            </ScrollRevealItem>
+
+            <div ref={expTimelineRef} className="relative pl-7 md:pl-8 text-left">
+              {/* Baseline */}
+              <div className="absolute left-[7px] md:left-[8px] top-[10px] bottom-[10px] w-[1px] bg-zinc-200 dark:bg-zinc-800" />
+              
+              {/* Orange Progress Line */}
+              <div 
+                className="absolute left-[7px] md:left-[8px] top-[10px] bottom-[10px] w-[1px] bg-[#D85A30] origin-top timeline-progress-line"
+                style={{ transform: `scaleY(${expProgress})`, transition: 'transform 0.1s ease-out' }}
+              />
+
+              {/* Exp 1 - Key Experience */}
+              <div className="relative mb-14">
+                <ScrollRevealItem index={4}>
+                  {/* Key Node: 16px white center with thick orange border when active */}
+                  <div className={`absolute left-[-29px] md:left-[-32px] top-[5px] w-4 h-4 rounded-full bg-white dark:bg-[#121212] border-4 ring-4 ring-[#F6F6F6] dark:ring-[#121212] z-10 timeline-node transition-colors duration-300 ${expActiveNodes[0] ? 'border-[#D85A30]' : 'border-zinc-300 dark:border-zinc-700'}`} />
+                  
+                  <span className="inline-block px-3.5 py-1 bg-[#FAECE7] text-[#D85A30] rounded-full text-[11px] font-bold tracking-wider select-none mb-3 font-sans">
+                    2023.10 – PRESENT
+                  </span>
+                  
+                  <h3 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-['Noto_Sans_TC']">
+                    Wisdome.AI 聚愢科技
+                  </h3>
+                  
+                  <div className="text-[14px] font-bold text-[#D85A30] mb-4 flex items-center gap-1.5 flex-wrap font-['Noto_Sans_TC']">
+                    <span className="text-zinc-550 dark:text-zinc-400 font-bold">Visual Effects Designer</span>
+                    <span className="text-[#D85A30] font-medium select-none">→</span>
+                    <span className="text-[#D85A30] font-black">{lang === 'zh' ? 'Product Designer' : 'Product Designer'}</span>
+                  </div>
+                  
+                  <p className="text-[14px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed mb-6 font-['Noto_Sans_TC'] max-w-3xl">
+                    {lang === 'zh' 
+                      ? '從品牌視覺與動態設計出發，逐步深入產品核心，轉任後負責產品從設計到前端落地的完整流程。' 
+                      : 'Starting from brand visual and motion design, gradually diving into product core. Post-transition, responsible for the end-to-end design to front-end landing.'}
+                  </p>
+
+                  {/* Accordion Cards */}
+                  <div className="mt-4 max-w-3xl">
+                    <AboutAccordion title={lang === 'zh' ? 'Product Designer' : 'Product Designer'} date={lang === 'zh' ? '2024.XX – PRESENT' : '2024.XX – PRESENT'} defaultOpen={true}>
+                      <ul className="list-disc pl-4 space-y-2 text-[13.5px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed font-['Noto_Sans_TC']">
+                        {lang === 'zh' ? (
+                          <>
+                            <li>獨立負責 App 產品設計，從使用者流程、wireframe 到高保真介面（Figma）</li>
+                            <li>以 Framer 設計並建置公司官網，整合品牌視覺與產品訊息</li>
+                            <li>根據使用者反饋持續迭代介面，優化流程、降低使用門檻</li>
+                            <li>透過 AI 輔助開發實作前端並修復 bug，縮短設計到落地的週期</li>
+                            <li>以工程可行性視角參與產品決策，減少設計與開發間的溝通成本</li>
+                          </>
+                        ) : (
+                          <>
+                            <li>Independently led App product design, from user flows and wireframes to high-fidelity interfaces in Figma.</li>
+                            <li>Designed and built the corporate website using Framer, integrating brand identity and product messaging.</li>
+                            <li>Iterated interfaces continuously based on user feedback to optimize flows and lower barriers to entry.</li>
+                            <li>Implemented front-end features and resolved bugs using AI assistance, shortening design-to-production cycles.</li>
+                            <li>Participated in product decisions with engineering feasibility in mind, reducing communication costs between design and development.</li>
+                          </>
+                        )}
+                      </ul>
+                    </AboutAccordion>
+
+                    <AboutAccordion title={lang === 'zh' ? 'Visual Effects Designer' : 'Visual Effects Designer'} date={lang === 'zh' ? '2023.10 – 2024.XX' : '2023.10 – 2024.XX'} defaultOpen={false}>
+                      <ul className="list-disc pl-4 space-y-2 text-[13.5px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed font-['Noto_Sans_TC']">
+                        {lang === 'zh' ? (
+                          <>
+                            <li>建構產品識別規範，將核心理念轉化為視覺語言，建立跨介面一致的系統</li>
+                            <li>設計 16 個動態圖標與 70 個靜態圖標，建立 icon 系統</li>
+                            <li>依目標客群創作品牌角色及 8 種頭像插圖，強化用戶認同感</li>
+                            <li>獨立完成 2 部產品形象動畫，涵蓋腳本、分鏡、美術到動態（After Effects）</li>
+                            <li>結合插圖與 AI 生成語音製作教學影片，降低新用戶上手門檻</li>
+                          </>
+                        ) : (
+                          <>
+                            <li>Built product brand guidelines to translate core concepts into consistent visual language across interfaces.</li>
+                            <li>Designed 16 animated icons and 70 static icons to establish the product icon system.</li>
+                            <li>Created brand mascot and 8 avatar illustrations tailored to the target audience, enhancing user engagement.</li>
+                            <li>Independently produced 2 product videos, covering scripting, storyboarding, art direction, and animation in After Effects.</li>
+                            <li>Combined custom illustrations with AI-generated voiceovers for tutorial videos, lowering onboarding friction.</li>
+                          </>
+                        )}
+                      </ul>
+                    </AboutAccordion>
+                  </div>
+                </ScrollRevealItem>
+              </div>
+
+              {/* Exp 2 - Secondary Experience */}
+              <div className="relative mb-12">
+                <ScrollRevealItem index={5}>
+                  {/* Grey Secondary Node that turns orange when reached */}
+                  <div className={`absolute left-[-26px] md:left-[-29px] top-[7px] w-2.5 h-2.5 rounded-full ring-4 ring-[#F6F6F6] dark:ring-[#121212] z-10 timeline-node transition-colors duration-300 ${expActiveNodes[1] ? 'bg-[#D85A30]' : 'bg-zinc-300 dark:bg-zinc-700'}`} />
+                  
+                  <span className="inline-block px-3.5 py-1 bg-zinc-200/60 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 rounded-full text-[11px] font-bold tracking-wider select-none mb-3 font-sans">
+                    2021.08 – 2021.09
+                  </span>
+                  
+                  <h3 className="text-[16px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-['Noto_Sans_TC']">
+                    {lang === 'zh' ? '果然癮 ｜ 品牌視覺設計（接案）' : 'Guo Ran Yin ｜ Brand Visual Design (Freelance)'}
+                  </h3>
+                  
+                  <p className="text-[14px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-['Noto_Sans_TC'] max-w-3xl">
+                    {lang === 'zh' 
+                      ? '規劃品牌識別系統，完成 3 組產品外盒與 8 款內包裝設計。' 
+                      : 'Designed the brand identity system, completed 3 sets of product boxes and 8 inner packaging designs.'}
+                  </p>
+                </ScrollRevealItem>
+              </div>
+
+              {/* Exp 3 - Secondary Experience */}
+              <div className="relative">
+                <ScrollRevealItem index={6}>
+                  {/* Grey Secondary Node that turns orange when reached */}
+                  <div className={`absolute left-[-26px] md:left-[-29px] top-[7px] w-2.5 h-2.5 rounded-full ring-4 ring-[#F6F6F6] dark:ring-[#121212] z-10 timeline-node transition-colors duration-300 ${expActiveNodes[2] ? 'bg-[#D85A30]' : 'bg-zinc-300 dark:bg-zinc-700'}`} />
+                  
+                  <span className="inline-block px-3.5 py-1 bg-zinc-200/60 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 rounded-full text-[11px] font-bold tracking-wider select-none mb-3 font-sans">
+                    2020.10 – 2021.01
+                  </span>
+                  
+                  <h3 className="text-[16px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-['Noto_Sans_TC']">
+                    {lang === 'zh' ? '遠邦國際品牌顧問 ｜ 設計實習生' : 'Geber Brand Consulting ｜ Design Intern'}
+                  </h3>
+                  
+                  <p className="text-[14px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-['Noto_Sans_TC'] max-w-3xl">
+                    {lang === 'zh' 
+                      ? '參與品牌標誌再造與活動主視覺設計，以社群插畫提升品牌辨識度。' 
+                      : 'Participated in brand logo redesign and key visual design for campaigns, enhancing brand recognition via social media illustrations.'}
+                  </p>
+                </ScrollRevealItem>
+              </div>
+
+            </div>
+          </section>
+
+          {/* 5. Education 學歷 */}
+          <section className="mb-24">
+            <ScrollRevealItem index={7}>
+              <AboutSectionHeader title={lang === 'zh' ? '學歷' : 'EDUCATION'} english="EDUCATION" />
+            </ScrollRevealItem>
+
+            <div ref={eduTimelineRef} className="relative pl-7 md:pl-8 text-left">
+              {/* Baseline */}
+              <div className="absolute left-[7px] md:left-[8px] top-[10px] bottom-[10px] w-[1px] bg-zinc-200 dark:bg-zinc-800" />
+              
+              {/* Orange Progress Line */}
+              <div 
+                className="absolute left-[7px] md:left-[8px] top-[10px] bottom-[10px] w-[1px] bg-[#D85A30] origin-top timeline-progress-line"
+                style={{ transform: `scaleY(${eduProgress})`, transition: 'transform 0.1s ease-out' }}
+              />
+
+              {/* Edu 1 - Key */}
+              <div className="relative mb-14">
+                <ScrollRevealItem index={8}>
+                  {/* Key Node: 16px white center with thick orange border when active */}
+                  <div className={`absolute left-[-29px] md:left-[-32px] top-[5px] w-4 h-4 rounded-full bg-white dark:bg-[#121212] border-4 ring-4 ring-[#F6F6F6] dark:ring-[#121212] z-10 timeline-node transition-colors duration-300 ${eduActiveNodes[0] ? 'border-[#D85A30]' : 'border-zinc-300 dark:border-zinc-700'}`} />
+                  
+                  <span className="inline-block px-3.5 py-1 bg-[#FAECE7] text-[#D85A30] rounded-full text-[11px] font-bold tracking-wider select-none mb-3 font-sans">
+                    2021 – 2023
+                  </span>
+                  
+                  <h3 className="text-[17px] font-bold text-zinc-900 dark:text-zinc-100 mb-3 font-['Noto_Sans_TC']">
+                    {lang === 'zh' ? '國立臺灣藝術大學 ｜ 視覺傳達設計學系研究所' : 'National Taiwan University of Arts ｜ Graduate School of Visual Communication Design'}
+                  </h3>
+
+                  {/* Award Badges */}
+                  <div className="flex flex-wrap gap-2.5 mb-5 select-none">
+                    {[
+                      { zh: '優秀學位論文獎', en: 'Outstanding Thesis Award' },
+                      { zh: '連續兩學期優秀研究生獎學金', en: 'Two-Semester Outstanding Graduate Scholarship' }
+                    ].map((award, idx) => (
+                      <span 
+                        key={idx} 
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#FAECE7] text-[#712B13] rounded-full text-[12px] font-bold font-['Noto_Sans_TC']"
+                      >
+                        <svg className="w-3.5 h-3.5 text-[#D85A30]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                        </svg>
+                        {lang === 'zh' ? award.zh : award.en}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Exhibition Link Card */}
+                  <div className="max-w-3xl">
+                    <a 
+                      href="#"
+                      className="block bg-white dark:bg-[#1A1A1A] border-[0.5px] border-zinc-200 dark:border-zinc-800 hover:border-[#D85A30] dark:hover:border-[#D85A30] rounded-[20px] p-6 transition-all duration-300 shadow-sm hover:shadow-md group"
+                    >
+                      <div className="flex gap-4 items-start">
+                        <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-[#FAECE7] text-[#D85A30] rounded-xl group-hover:scale-105 transition-transform duration-300">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                          </svg>
+                        </div>
+                        <div className="text-left">
+                          <h4 className="text-[15px] font-bold text-zinc-900 dark:text-zinc-100 mb-1.5 font-['Noto_Sans_TC'] group-hover:text-[#D85A30] transition-colors">
+                            {lang === 'zh' ? '個展《Look the Sound of Taipei Metro》' : 'Solo Exhibition "Look the Sound of Taipei Metro"'}
+                          </h4>
+                          <p className="text-[13px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-['Noto_Sans_TC']">
+                            {lang === 'zh' 
+                              ? '臺北捷運聲音地景視覺化研究——將城市的聲音轉譯為動態圖像。' 
+                              : 'Visualization research of Taipei Metro soundscapes—translating urban sounds into dynamic motion graphics.'}
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </ScrollRevealItem>
+              </div>
+
+              {/* Edu 2 - Secondary */}
+              <div className="relative">
+                <ScrollRevealItem index={9}>
+                  {/* Grey Secondary Node that turns orange when reached */}
+                  <div className={`absolute left-[-26px] md:left-[-29px] top-[7px] w-2.5 h-2.5 rounded-full ring-4 ring-[#F6F6F6] dark:ring-[#121212] z-10 timeline-node transition-colors duration-300 ${eduActiveNodes[1] ? 'bg-[#D85A30]' : 'bg-zinc-300 dark:bg-zinc-700'}`} />
+                  
+                  <span className="inline-block px-3.5 py-1 bg-zinc-200/60 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 rounded-full text-[11px] font-bold tracking-wider select-none mb-3 font-sans">
+                    2017 – 2021
+                  </span>
+                  
+                  <h3 className="text-[16px] font-bold text-zinc-900 dark:text-zinc-100 font-['Noto_Sans_TC']">
+                    {lang === 'zh' ? '臺北市立大學 ｜ 視覺藝術學系' : 'University of Taipei ｜ Department of Visual Arts'}
+                  </h3>
+                </ScrollRevealItem>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+      </div>
+    );
+  };
 
   const ContactView = () => (
     <div className="min-h-[80vh] flex flex-col items-center justify-center px-6 animate-in fade-in duration-700 pt-32 bg-white text-center"><div className="w-16 h-16 bg-black text-white rounded-2xl flex items-center justify-center mb-10 transform -rotate-12"><IconMail className="w-8 h-8" /></div><h1 className="text-6xl md:text-[6rem] font-bold tracking-tighter mb-6">Say Hello.</h1><p className="text-xl text-gray-500 mb-12 max-w-lg mx-auto">正在尋找設計師合作嗎？或是想交流交流？<br />期待與你聯繫。</p><a href="mailto:tingchenliang1998@gmail.com" className="text-2xl md:text-4xl font-bold border-b-2 border-black pb-2 hover:text-gray-500 hover:border-gray-500 transition-colors mb-20">tingchenliang1998@gmail.com</a><div className="flex gap-8 text-lg font-medium"><a href="#" className="flex items-center gap-2 hover:text-gray-500 transition-colors"><IconInstagram className="w-5 h-5" /> Instagram</a><a href="#" className="flex items-center gap-2 hover:text-gray-500 transition-colors"><IconLinkedin className="w-5 h-5" /> LinkedIn</a><a href="#" className="flex items-center gap-2 hover:text-gray-500 transition-colors"><IconGlobe className="w-5 h-5" /> Dribbble</a></div></div>

@@ -272,3 +272,34 @@ html, body {
     width: 100% !important;
   }
 }
+
+/* Scroll-triggered animations for About page */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accessibility overrides for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-animate {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .timeline-progress-line {
+    display: none !important;
+  }
+  .accordion-content-transition {
+    transition: none !important;
+    max-height: none !important;
+  }
+  .accordion-chevron-transition {
+    transition: none !important;
+  }
+}

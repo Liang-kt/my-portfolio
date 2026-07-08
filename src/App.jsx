@@ -8462,7 +8462,7 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Full page loading Column */}
                 <div className="flex flex-col w-full">
                   <div className="w-full aspect-[16/12] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
-                    <img src="projects/brainbox/analyzing loading.gif" alt="Full page loading" className="w-full h-full object-contain" />
+                    <video src="projects/brainbox/data.mp4" autoPlay muted loop playsInline className="w-full h-full object-contain block" />
                   </div>
                   <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '前測數據分析中' : 'Analyzing Pre-test Data'}</div>
                 </div>
@@ -8470,7 +8470,7 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Skeleton Screen Column */}
                 <div className="flex flex-col w-full">
                   <div className="w-full aspect-[16/12] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
-                    <img src="projects/brainbox/creating test.gif" alt="Skeleton screen" className="w-full h-full object-contain" />
+                    <video src="projects/brainbox/creating-test.mp4" autoPlay muted loop playsInline className="w-full h-full object-contain block" />
                   </div>
                   <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '前測試卷生成中' : 'Generating Pre-test Paper'}</div>
                 </div>

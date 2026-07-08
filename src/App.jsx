@@ -8136,15 +8136,14 @@ const SPLIT_VIEW_CHIPS = [
 
                   {/* Right Column (span 8/12): Dynamic Video container */}
                   <div className="col-span-12 lg:col-span-8 flex flex-col">
-                    <div className="w-full rounded-[20px] overflow-hidden bg-[#0A0D14] shadow-sm">
-                      <video
-                        src="projects/brainbox/motion-icon-demo.mp4"
-                        controls
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="w-full h-auto block"
+                    <div className="w-full aspect-[16/9] rounded-[20px] overflow-hidden bg-[#0A0D14] shadow-sm">
+                      <iframe
+                        src="https://www.youtube.com/embed/rMQwwLHeCM0"
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        className="w-full h-full block"
                       />
                     </div>
                   </div>
@@ -8183,14 +8182,13 @@ const SPLIT_VIEW_CHIPS = [
                   
                   {/* Widescreen Video Embed */}
                   <div className="w-full aspect-[13/8] rounded-[20px] overflow-hidden bg-black relative shadow-sm mt-4">
-                    <video
-                      src="projects/brainbox/hi-i'm-pixie.mp4"
-                      controls
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="absolute inset-0 w-full h-full object-contain"
+                    <iframe
+                      src="https://www.youtube.com/embed/n2GK4KzbwPE"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="absolute inset-0 w-full h-full block"
                     />
                   </div>
                 </div>

@@ -1212,7 +1212,7 @@ const SPLIT_VIEW_CHIPS = [
                 borderTopRightRadius: isMobile ? `${3 * (1 - easeExpand)}rem` : '0', 
               }}
             >
-              <video src="/hero-page_showreel.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover absolute inset-0" />
+              <video src="hero-page_showreel.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover absolute inset-0" />
               
               {/* Dynamic Dark Tint Overlay for Legibility */}
               <div 
@@ -2113,7 +2113,7 @@ const SPLIT_VIEW_CHIPS = [
                     </div>
                   ) : (
                     <img 
-                      src="/projects/mslin-app/illustrations/add.svg" 
+                      src="projects/mslin-app/illustrations/add.svg" 
                       className="h-[90px] w-auto object-contain transition-transform duration-300 select-none" 
                       alt="Add Illustration" 
                     />
@@ -3250,7 +3250,7 @@ const SPLIT_VIEW_CHIPS = [
             {/* FULL-WIDTH VISUAL BLOCK */}
             <div className="w-full md:w-screen md:relative md:left-1/2 md:-translate-x-1/2 rounded-2xl md:rounded-none bg-[#F6F6F6] mt-6 md:mt-8 select-none overflow-hidden h-auto flex items-center justify-center">
               <img 
-                src="/projects/mslin-app/img/ms.lin-hero.jpg" 
+                src="projects/mslin-app/img/ms.lin-hero.jpg" 
                 alt="Ms Lin 刷題 App Hero" 
                 className="w-full h-auto block"
               />
@@ -4860,7 +4860,7 @@ const SPLIT_VIEW_CHIPS = [
                                 {/* Step 1 */}
                                 <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                                   <img 
-                                    src="/projects/mslin-app/screens/onboradinbg-name.jpg" 
+                                    src="projects/mslin-app/screens/onboradinbg-name.jpg" 
                                     alt="Onboarding step 1" 
                                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
@@ -4868,7 +4868,7 @@ const SPLIT_VIEW_CHIPS = [
                                 {/* Step 2 */}
                                 <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                                   <img 
-                                    src="/projects/mslin-app/screens/onboradinbg-status.jpg" 
+                                    src="projects/mslin-app/screens/onboradinbg-status.jpg" 
                                     alt="Onboarding step 2" 
                                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
@@ -4876,7 +4876,7 @@ const SPLIT_VIEW_CHIPS = [
                                 {/* Step 3 */}
                                 <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                                   <img 
-                                    src="/projects/mslin-app/screens/onboradinbg-grade.jpg" 
+                                    src="projects/mslin-app/screens/onboradinbg-grade.jpg" 
                                     alt="Onboarding step 3" 
                                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
@@ -4884,7 +4884,7 @@ const SPLIT_VIEW_CHIPS = [
                                 {/* Step 4 */}
                                 <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                                   <img 
-                                    src="/projects/mslin-app/screens/onboradinbg-subject.jpg" 
+                                    src="projects/mslin-app/screens/onboradinbg-subject.jpg" 
                                     alt="Onboarding step 4" 
                                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
@@ -4892,7 +4892,7 @@ const SPLIT_VIEW_CHIPS = [
                                 {/* Step 5 */}
                                 <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                                   <img 
-                                    src="/projects/mslin-app/screens/onboradinbg-subject-rang.jpg" 
+                                    src="projects/mslin-app/screens/onboradinbg-subject-rang.jpg" 
                                     alt="Onboarding step 5" 
                                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
@@ -4900,7 +4900,7 @@ const SPLIT_VIEW_CHIPS = [
                                 {/* Step 6 */}
                                 <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                                   <img 
-                                    src="/projects/mslin-app/screens/onboradinbg-notification.jpg" 
+                                    src="projects/mslin-app/screens/onboradinbg-notification.jpg" 
                                     alt="Onboarding step 6" 
                                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
@@ -4942,7 +4942,7 @@ const SPLIT_VIEW_CHIPS = [
                             {/* Step 1 */}
                             <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                               <img 
-                                src="/projects/mslin-app/screens/onboradinbg-name.jpg" 
+                                src="projects/mslin-app/screens/onboradinbg-name.jpg" 
                                 alt="Onboarding step 1" 
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                               />
@@ -4950,7 +4950,7 @@ const SPLIT_VIEW_CHIPS = [
                             {/* Step 2 */}
                             <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                               <img 
-                                src="/projects/mslin-app/screens/onboradinbg-status.jpg" 
+                                src="projects/mslin-app/screens/onboradinbg-status.jpg" 
                                 alt="Onboarding step 2" 
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                               />
@@ -4958,7 +4958,7 @@ const SPLIT_VIEW_CHIPS = [
                             {/* Step 3 */}
                             <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                               <img 
-                                src="/projects/mslin-app/screens/onboradinbg-grade.jpg" 
+                                src="projects/mslin-app/screens/onboradinbg-grade.jpg" 
                                 alt="Onboarding step 3" 
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                               />
@@ -4966,7 +4966,7 @@ const SPLIT_VIEW_CHIPS = [
                             {/* Step 4 */}
                             <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                               <img 
-                                src="/projects/mslin-app/screens/onboradinbg-subject.jpg" 
+                                src="projects/mslin-app/screens/onboradinbg-subject.jpg" 
                                 alt="Onboarding step 4" 
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                               />
@@ -4974,7 +4974,7 @@ const SPLIT_VIEW_CHIPS = [
                             {/* Step 5 */}
                             <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                               <img 
-                                src="/projects/mslin-app/screens/onboradinbg-subject-rang.jpg" 
+                                src="projects/mslin-app/screens/onboradinbg-subject-rang.jpg" 
                                 alt="Onboarding step 5" 
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                               />
@@ -4982,7 +4982,7 @@ const SPLIT_VIEW_CHIPS = [
                             {/* Step 6 */}
                             <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                               <img 
-                                src="/projects/mslin-app/screens/onboradinbg-notification.jpg" 
+                                src="projects/mslin-app/screens/onboradinbg-notification.jpg" 
                                 alt="Onboarding step 6" 
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                               />
@@ -6391,7 +6391,7 @@ const SPLIT_VIEW_CHIPS = [
                         tabIndex={0}
                       >
                         <div className="w-full bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center overflow-hidden h-[180px] select-none p-6">
-                          <img src="/projects/wisdome.ai_web/wisdomeai_logo.svg" alt="Wisdome.ai Brand Logo Standard" className="max-w-full max-h-full object-contain" />
+                          <img src="projects/wisdome.ai_web/wisdomeai_logo.svg" alt="Wisdome.ai Brand Logo Standard" className="max-w-full max-h-full object-contain" />
                         </div>
                         
                         <div className="mt-5 space-y-1.5 text-left">
@@ -6413,10 +6413,10 @@ const SPLIT_VIEW_CHIPS = [
                       >
                         <div className="flex flex-col sm:flex-row gap-4 w-full h-[180px]">
                           <div className="w-full sm:w-[45%] bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center overflow-hidden h-full select-none p-4">
-                            <img src="/projects/wisdome.ai_web/wisdomeai-graph.svg" alt="Wisdome.ai Graph" className="max-w-full max-h-full object-contain" />
+                            <img src="projects/wisdome.ai_web/wisdomeai-graph.svg" alt="Wisdome.ai Graph" className="max-w-full max-h-full object-contain" />
                           </div>
                           <div className="flex-grow flex items-center justify-center bg-white border border-[#E7E9EE] rounded-[16px] h-full w-full sm:w-[50%] p-4 select-none">
-                            <img src="/projects/wisdome.ai_web/graph-seperate.png" alt="Wisdome.ai Graph Breakdown" className="max-w-full max-h-full object-contain" />
+                            <img src="projects/wisdome.ai_web/graph-seperate.png" alt="Wisdome.ai Graph Breakdown" className="max-w-full max-h-full object-contain" />
                           </div>
                         </div>
 
@@ -6439,7 +6439,7 @@ const SPLIT_VIEW_CHIPS = [
                       >
                         <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full">
                           <div className="w-full md:w-[40%] bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center h-[120px] p-4 select-none">
-                            <img src="/projects/wisdome.ai_web/logotype.png" alt="Wisdome.ai Logotype" className="max-w-full max-h-full object-contain" />
+                            <img src="projects/wisdome.ai_web/logotype.png" alt="Wisdome.ai Logotype" className="max-w-full max-h-full object-contain" />
                           </div>
                           <div className="w-full md:w-[55%] space-y-2 text-left">
                             <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
@@ -6474,17 +6474,17 @@ const SPLIT_VIEW_CHIPS = [
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
                             {/* Card 1: bg-[#fbfbfb] logo: wisdome-dark.svg */}
                             <div className="bg-[#fbfbfb] border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
-                              <img src="/projects/wisdome.ai_web/wisdome-dark.svg" alt="Standard Lockup Light BG" className="max-w-[85%] max-h-[70%] object-contain" />
+                              <img src="projects/wisdome.ai_web/wisdome-dark.svg" alt="Standard Lockup Light BG" className="max-w-[85%] max-h-[70%] object-contain" />
                               <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-['Manrope'] uppercase tracking-wider">#FBFBFB</span>
                             </div>
                             {/* Card 2: bg-[#00D2E2] logo: wisdome-dark.svg */}
                             <div className="bg-[#00D2E2] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none border border-transparent">
-                              <img src="/projects/wisdome.ai_web/wisdome-dark.svg" alt="Cyan BG Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
+                              <img src="projects/wisdome.ai_web/wisdome-dark.svg" alt="Cyan BG Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
                               <span className="text-[10px] font-bold text-[#12172B] mt-2 font-['Manrope'] uppercase tracking-wider">#00D2E2</span>
                             </div>
                             {/* Card 3: bg-[#282828] logo: wisdome-light.svg */}
                             <div className="bg-[#282828] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none shadow-inner border border-transparent">
-                              <img src="/projects/wisdome.ai_web/wisdome-light.svg" alt="Dark BG Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
+                              <img src="projects/wisdome.ai_web/wisdome-light.svg" alt="Dark BG Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
                               <span className="text-[10px] font-bold text-white/70 mt-2 font-['Manrope'] uppercase tracking-wider">#282828</span>
                             </div>
                           </div>
@@ -6637,7 +6637,7 @@ const SPLIT_VIEW_CHIPS = [
                             
                             <div className="flex-1 flex flex-col justify-center items-center relative my-4">
                               <div className="border border-blue-200 border-dashed p-4 rounded-xl flex items-center justify-center">
-                                <img src="/projects/wisdome.ai_web/graph-logo.png" alt="CIS Logo Spec" className="max-h-[80px] object-contain opacity-80" />
+                                <img src="projects/wisdome.ai_web/graph-logo.png" alt="CIS Logo Spec" className="max-h-[80px] object-contain opacity-80" />
                               </div>
                               {/* Blue drafting measurements overlay */}
                               <div className="absolute top-[15%] left-[10%] text-[10px] text-blue-500 font-mono">margin = 1.5x</div>
@@ -6666,7 +6666,7 @@ const SPLIT_VIEW_CHIPS = [
                         <div className="flex flex-col gap-4 w-full">
                           <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-white relative">
                             {/* Live website preview screenshot */}
-                            <img src="/projects/wisdome.ai_web/cover.jpg" alt="Website Implementation" className="w-full h-full object-cover select-none" />
+                            <img src="projects/wisdome.ai_web/cover.jpg" alt="Website Implementation" className="w-full h-full object-cover select-none" />
                             
                             {/* Green matching badge overlay */}
                             <div className="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
@@ -7745,7 +7745,7 @@ const SPLIT_VIEW_CHIPS = [
 
         <div className="w-full md:w-screen md:relative md:left-1/2 md:-translate-x-1/2 rounded-2xl md:rounded-none bg-gray-100 mt-6 md:mt-8 select-none overflow-hidden h-auto">
           <img
-            src="/projects/brainbox/brainbox-innerpage-cover.png"
+            src="projects/brainbox/brainbox-innerpage-cover.png"
             alt="BrainBox Hero Cover"
             className="w-full h-auto block"
           />
@@ -7845,7 +7845,7 @@ const SPLIT_VIEW_CHIPS = [
                       tabIndex={0}
                     >
                       <div className="w-full bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center overflow-hidden h-[180px] select-none p-6">
-                        <img src="/projects/brainbox/BrainBox_logo set-01.png" alt="BrainBox Logo Standard" className="max-w-full max-h-full object-contain" />
+                        <img src="projects/brainbox/BrainBox_logo set-01.png" alt="BrainBox Logo Standard" className="max-w-full max-h-full object-contain" />
                       </div>
                       
                       <div className="mt-5 space-y-1.5">
@@ -7867,10 +7867,10 @@ const SPLIT_VIEW_CHIPS = [
                     >
                       <div className="flex flex-col sm:flex-row gap-4 w-full h-auto sm:h-[180px]">
                         <div className="w-full sm:w-[45%] bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center overflow-hidden h-[150px] sm:h-full select-none p-4">
-                          <img src="/projects/brainbox/BrainBox_logo_graph.svg" alt="BrainBox Graph Geometry" className="max-w-full max-h-full object-contain" />
+                          <img src="projects/brainbox/BrainBox_logo_graph.svg" alt="BrainBox Graph Geometry" className="max-w-full max-h-full object-contain" />
                         </div>
                         <div className="flex-grow flex items-center justify-center bg-white border border-[#E7E9EE] rounded-[16px] h-[150px] sm:h-full w-full sm:w-[50%] p-4 select-none">
-                          <img src="/projects/brainbox/graphic-seperate.svg" alt="BrainBox Graphic Separate Breakdown" className="max-w-full max-h-full object-contain" />
+                          <img src="projects/brainbox/graphic-seperate.svg" alt="BrainBox Graphic Separate Breakdown" className="max-w-full max-h-full object-contain" />
                         </div>
                       </div>
 
@@ -7893,7 +7893,7 @@ const SPLIT_VIEW_CHIPS = [
                     >
                       <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full">
                         <div className="w-full md:w-[40%] bg-white border border-[#E7E9EE] rounded-[16px] flex items-center justify-center h-[120px] p-4 select-none">
-                          <img src="/projects/brainbox/BrainBox_logo set-04.png" alt="BrainBox Logotype" className="max-w-full max-h-full object-contain" />
+                          <img src="projects/brainbox/BrainBox_logo set-04.png" alt="BrainBox Logotype" className="max-w-full max-h-full object-contain" />
                         </div>
                         <div className="w-full md:w-[55%] space-y-2 text-left">
                           <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
@@ -7927,20 +7927,20 @@ const SPLIT_VIEW_CHIPS = [
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
                           <div className="bg-white border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
-                            <img src="/projects/brainbox/BrainBox_logo set-01.png" alt="Standard Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
+                            <img src="projects/brainbox/BrainBox_logo set-01.png" alt="Standard Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
                             <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-['Manrope'] uppercase tracking-wider">Horizontal</span>
                           </div>
                           <div className="bg-white border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
-                            <img src="/projects/brainbox/BrainBox_logo set-02.png" alt="Stacked Lockup" className="max-w-[80%] max-h-[70%] object-contain" />
+                            <img src="projects/brainbox/BrainBox_logo set-02.png" alt="Stacked Lockup" className="max-w-[80%] max-h-[70%] object-contain" />
                             <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-['Manrope'] uppercase tracking-wider">Two-line Stacked</span>
                           </div>
                           <div className="bg-white border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
-                            <img src="/projects/brainbox/BrainBox_logo set-03.png" alt="Monochrome Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
+                            <img src="projects/brainbox/BrainBox_logo set-03.png" alt="Monochrome Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
                             <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-['Manrope'] uppercase tracking-wider">Monochrome</span>
                           </div>
                           {/* Reversed Dark Card on brand blue bg-[#2d308a] */}
                           <div className="bg-[#2d308a] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none shadow-inner border border-transparent">
-                            <img src="/projects/brainbox/BrainBox_logo set-05.png" alt="Reversed Lockup" className="max-w-[80%] max-h-[70%] object-contain" />
+                            <img src="projects/brainbox/BrainBox_logo set-05.png" alt="Reversed Lockup" className="max-w-[80%] max-h-[70%] object-contain" />
                             <span className="text-[10px] font-bold text-white/70 mt-2 font-['Manrope'] uppercase tracking-wider">Reversed Dark</span>
                           </div>
                         </div>
@@ -8053,7 +8053,7 @@ const SPLIT_VIEW_CHIPS = [
                 {/* SVG Image overview display */}
                 <div className="w-full flex items-center justify-center overflow-hidden">
                   <img 
-                    src="/projects/brainbox/icon-all.svg" 
+                    src="projects/brainbox/icon-all.svg" 
                     alt="BrainBox Static Icons Overview" 
                     className="w-full h-auto object-contain" 
                   />
@@ -8138,7 +8138,7 @@ const SPLIT_VIEW_CHIPS = [
                   <div className="col-span-12 lg:col-span-8 flex flex-col">
                     <div className="w-full rounded-[20px] overflow-hidden bg-[#0A0D14] shadow-sm">
                       <video
-                        src="/projects/brainbox/motion-icon-demo.mp4"
+                        src="projects/brainbox/motion-icon-demo.mp4"
                         controls
                         autoPlay
                         muted
@@ -8184,7 +8184,7 @@ const SPLIT_VIEW_CHIPS = [
                   {/* Widescreen Video Embed */}
                   <div className="w-full aspect-[13/8] rounded-[20px] overflow-hidden bg-black relative shadow-sm mt-4">
                     <video
-                      src="/projects/brainbox/hi-i'm-pixie.mp4"
+                      src="projects/brainbox/hi-i'm-pixie.mp4"
                       controls
                       autoPlay
                       muted
@@ -8294,7 +8294,7 @@ const SPLIT_VIEW_CHIPS = [
                   {/* Central Video Container */}
                   <div className="absolute inset-0 flex items-center justify-center z-10">
                     <video
-                      src="/projects/brainbox/pixie-feature.mp4"
+                      src="projects/brainbox/pixie-feature.mp4"
                       autoPlay
                       muted
                       loop
@@ -8368,7 +8368,7 @@ const SPLIT_VIEW_CHIPS = [
                 <div className="block lg:hidden space-y-8 select-none">
                   <div className="flex items-center justify-center py-4">
                     <video
-                      src="/projects/brainbox/pixie-feature.mp4"
+                      src="projects/brainbox/pixie-feature.mp4"
                       autoPlay
                       muted
                       loop
@@ -8464,7 +8464,7 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Full page loading Column */}
                 <div className="flex flex-col w-full">
                   <div className="w-full aspect-[16/12] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
-                    <img src="/projects/brainbox/analyzing loading.gif" alt="Full page loading" className="w-full h-full object-contain" />
+                    <img src="projects/brainbox/analyzing loading.gif" alt="Full page loading" className="w-full h-full object-contain" />
                   </div>
                   <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '前測數據分析中' : 'Analyzing Pre-test Data'}</div>
                 </div>
@@ -8472,7 +8472,7 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Skeleton Screen Column */}
                 <div className="flex flex-col w-full">
                   <div className="w-full aspect-[16/12] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
-                    <img src="/projects/brainbox/creating test.gif" alt="Skeleton screen" className="w-full h-full object-contain" />
+                    <img src="projects/brainbox/creating test.gif" alt="Skeleton screen" className="w-full h-full object-contain" />
                   </div>
                   <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '前測試卷生成中' : 'Generating Pre-test Paper'}</div>
                 </div>
@@ -8489,7 +8489,7 @@ const SPLIT_VIEW_CHIPS = [
               </p>
               <div className="w-full rounded-2xl overflow-hidden bg-black shadow-lg mt-6">
                 <video
-                  src="/projects/brainbox/assessment-pixie.mp4"
+                  src="projects/brainbox/assessment-pixie.mp4"
                   controls
                   autoPlay
                   muted
@@ -8557,7 +8557,7 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
                   <div className="flex-1 bg-white border border-gray-100 rounded-3xl p-8 flex flex-col items-center justify-center shadow-sm">
                     <div className="w-full max-w-[200px] aspect-square overflow-hidden flex items-center justify-center">
-                      <video src="/projects/brainbox/box_loading_bright.mp4" autoPlay muted loop playsInline className="w-full h-full object-contain" />
+                      <video src="projects/brainbox/box_loading_bright.mp4" autoPlay muted loop playsInline className="w-full h-full object-contain" />
                     </div>
                     <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '元件 Loading' : 'Component Loading'}</div>
                   </div>

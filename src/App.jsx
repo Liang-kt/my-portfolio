@@ -492,7 +492,7 @@ const PROJECTS = [
     title: 'Wisdome.ai 企業官網設計',
     thumb: 'bg-[#0f172a]',
     coverMedia: { type: 'image', url: 'projects/wisdome.ai_web/cover.jpg' },
-    heroMedia: { type: 'video', url: 'projects/wisdome.ai_web/cover-video.mp4' },
+    heroMedia: { type: 'video', url: 'projects/wisdome.ai_web/cover-video.webm' },
     tags: ['UI/UX', 'Web Design'],
     client: 'WISDOME.AI',
     year: '2023 - 2024',
@@ -538,11 +538,11 @@ const PROJECTS = [
       designSystemDesc: '',
       componentsImages: ['projects/wisdome.ai_web/components-1.jpg', 'projects/wisdome.ai_web/components-2.jpg'],
       webShowcaseStrip: [
-        { type: 'video', url: 'projects/wisdome.ai_web/hero-page-web.mov', title: 'Hero Page', desc: '首頁主視覺區塊，以動態影片與品牌標語傳遞 AI 教育平台的創新形象與科技感。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-hero.mov' } },
+        { type: 'video', url: 'projects/wisdome.ai_web/hero-page-web.webm', title: 'Hero Page', desc: '首頁主視覺區塊，以動態影片與品牌標語傳遞 AI 教育平台的創新形象與科技感。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-hero.webm' } },
         { type: 'video', url: 'projects/wisdome.ai_web/service.mov', title: 'Service', desc: '服務介紹區塊，透過清晰的圖文排版逐一呈現平台核心功能與解決方案。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-service.mov' } },
-        { type: 'video', url: 'projects/wisdome.ai_web/why-wisdome.mov', title: 'Why Wisdome', desc: '品牌差異化區塊，說明選擇 Wisdome.ai 的關鍵優勢與競爭力。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-why-wisdome.mov' } },
+        { type: 'video', url: 'projects/wisdome.ai_web/why-wisdome.webm', title: 'Why Wisdome', desc: '品牌差異化區塊，說明選擇 Wisdome.ai 的關鍵優勢與競爭力。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-why-wisdome.webm' } },
         { type: 'image', url: 'projects/wisdome.ai_web/success-stories.png', title: 'Success Stories', desc: '成功案例區塊，以數據與客戶回饋建立信任感，強化轉換說服力。', mobile: { type: 'image', url: 'projects/wisdome.ai_web/mobile-sucsess-stories.jpg' } },
-        { type: 'video', url: 'projects/wisdome.ai_web/cta-area.mov', title: 'CTA Area', desc: '行動呼籲區塊，引導訪客進行下一步操作，如免費試用或聯繫諮詢。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-cta-area.mov' } },
+        { type: 'video', url: 'projects/wisdome.ai_web/cta-area.webm', title: 'CTA Area', desc: '行動呼籲區塊，引導訪客進行下一步操作，如免費試用或聯繫諮詢。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-cta-area.webm' } },
         { type: 'image', url: 'projects/wisdome.ai_web/about-us.png', title: 'About Us', desc: '關於我們區塊，介紹團隊背景與企業願景，拉近與用戶的距離。', mobile: { type: 'image', url: 'projects/wisdome.ai_web/mobile-last-part.jpg' } },
         { type: 'image', url: 'projects/wisdome.ai_web/contact-us.png', title: 'Contact Us', desc: '聯絡資訊區塊，提供多元聯繫管道，降低用戶溝通門檻。' },
         { type: 'image', url: 'projects/wisdome.ai_web/footer.png', title: 'Footer', desc: '頁尾區塊，統整網站導航、社群連結與版權資訊。' }
@@ -905,7 +905,7 @@ const SPLIT_VIEW_CHIPS = [
       zh: '首頁主視覺採用動態影片背景，搭配洗鍊的標語，在訪客抵達的黃金 3 秒內建立起 AI 教育科技的品牌第一印象，並配置顯眼的 CTA 引導。',
       en: 'The hero section uses a dynamic video background with sleek taglines, establishing an EdTech brand image within 3 seconds of arrival.'
     },
-    videoUrl: 'projects/wisdome.ai_web/hero-page-web.mov',
+    videoUrl: 'projects/wisdome.ai_web/hero-page-web.webm',
     top: 0,
     height: 22
   },
@@ -927,7 +927,7 @@ const SPLIT_VIEW_CHIPS = [
       zh: '列出導入 Wisdome.ai 的關鍵優勢，如：系統高穩定度、無痛無縫轉型、完善的售後支援，全面打消教育機構決策者的安全感疑慮。',
       en: 'Lists key advantages like high stability, painless deployment, and direct support to ease security concerns for school leaders.'
     },
-    videoUrl: 'projects/wisdome.ai_web/why-wisdome.mov',
+    videoUrl: 'projects/wisdome.ai_web/why-wisdome.webm',
     top: 52,
     height: 20
   },
@@ -938,7 +938,7 @@ const SPLIT_VIEW_CHIPS = [
       zh: '展示合作補習班的量化成效（例如行政效率提升 40%）與真實校長的好評推薦，以客觀數據與同業證言強化轉換說服力。',
       en: 'Displays metrics (e.g. 40% administrative efficiency boost) and testimonials to leverage peer influence and drive conversions.'
     },
-    videoUrl: 'projects/wisdome.ai_web/cta-area.mov',
+    videoUrl: 'projects/wisdome.ai_web/cta-area.webm',
     top: 72,
     height: 18
   },
@@ -949,7 +949,7 @@ const SPLIT_VIEW_CHIPS = [
       zh: '引導訪客進行下一步操作，配置高對比按鈕以促成免費試用、預約或諮詢核心服務，最大化網頁的轉換效益。',
       en: 'Guides visitors to book a demo or trial using high-contrast action buttons to maximize landing page conversion rates.'
     },
-    videoUrl: 'projects/wisdome.ai_web/cta-area.mov'
+    videoUrl: 'projects/wisdome.ai_web/cta-area.webm'
   },
   {
     id: 'about',
@@ -8136,14 +8136,15 @@ const SPLIT_VIEW_CHIPS = [
 
                   {/* Right Column (span 8/12): Dynamic Video container */}
                   <div className="col-span-12 lg:col-span-8 flex flex-col">
-                    <div className="w-full aspect-[16/9] rounded-[20px] overflow-hidden bg-[#0A0D14] shadow-sm">
-                      <iframe
-                        src="https://www.youtube.com/embed/rMQwwLHeCM0"
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
-                        className="w-full h-full block"
+                    <div className="w-full rounded-[20px] overflow-hidden bg-[#0A0D14] shadow-sm">
+                      <video
+                        src="projects/brainbox/motion-icon-demo.webm"
+                        controls
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="w-full h-auto block"
                       />
                     </div>
                   </div>
@@ -8182,13 +8183,14 @@ const SPLIT_VIEW_CHIPS = [
                   
                   {/* Widescreen Video Embed */}
                   <div className="w-full aspect-[13/8] rounded-[20px] overflow-hidden bg-black relative shadow-sm mt-4">
-                    <iframe
-                      src="https://www.youtube.com/embed/n2GK4KzbwPE"
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      className="absolute inset-0 w-full h-full block"
+                    <video
+                      src="projects/brainbox/hi-i'm-pixie.webm"
+                      controls
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-contain"
                     />
                   </div>
                 </div>
@@ -8462,7 +8464,7 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Full page loading Column */}
                 <div className="flex flex-col w-full">
                   <div className="w-full aspect-[16/12] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
-                    <video src="projects/brainbox/data.mp4" autoPlay muted loop playsInline className="w-full h-full object-contain block" />
+                    <video src="projects/brainbox/data.webm" autoPlay muted loop playsInline className="w-full h-full object-contain block" />
                   </div>
                   <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '前測數據分析中' : 'Analyzing Pre-test Data'}</div>
                 </div>
@@ -8470,7 +8472,7 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Skeleton Screen Column */}
                 <div className="flex flex-col w-full">
                   <div className="w-full aspect-[16/12] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
-                    <video src="projects/brainbox/creating-test.mp4" autoPlay muted loop playsInline className="w-full h-full object-contain block" />
+                    <video src="projects/brainbox/creating-test.webm" autoPlay muted loop playsInline className="w-full h-full object-contain block" />
                   </div>
                   <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '前測試卷生成中' : 'Generating Pre-test Paper'}</div>
                 </div>
@@ -8487,7 +8489,7 @@ const SPLIT_VIEW_CHIPS = [
               </p>
               <div className="w-full rounded-2xl overflow-hidden bg-black shadow-lg mt-6">
                 <video
-                  src="projects/brainbox/assessment-pixie.mp4"
+                  src="projects/brainbox/assessment-pixie.webm"
                   controls
                   autoPlay
                   muted
@@ -8603,7 +8605,7 @@ const SPLIT_VIEW_CHIPS = [
                       { 
                         title: { zh: '系統laoding動畫', en: 'System Loading Animation' }, 
                         type: 'video', 
-                        url: 'projects/brainbox/loading-demo.mp4' 
+                        url: 'projects/brainbox/loading-demo.webm' 
                       },
                       { 
                         title: { zh: '用戶個人頁頭像展示', en: 'User Profile Avatar Showcase' }, 

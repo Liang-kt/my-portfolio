@@ -1,6 +1,12 @@
 import MsLinFeatureTabs from './MsLinFeatureTabs';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
+const isIOSDevice = () => {
+  if (typeof window === 'undefined') return false;
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+};
+
 const PhoneMockup = ({ children, style = {}, screenStyle = {}, className = "" }) => {
   return (
     <div className={`premium-phone-frame ${className}`} style={{ width: '100%', ...style }}>
@@ -491,7 +497,7 @@ const PROJECTS = [
     platform: 'web',
     title: 'Wisdome.ai 企業官網設計',
     thumb: 'bg-[#0f172a]',
-    coverMedia: { type: 'image', url: 'projects/wisdome.ai_web/cover.jpg' },
+    coverMedia: { type: 'image', url: 'projects/wisdome.ai_web/cover.webp' },
     heroMedia: { type: 'video', url: 'projects/wisdome.ai_web/cover-video.webm' },
     tags: ['UI/UX', 'Web Design'],
     client: 'WISDOME.AI',
@@ -987,7 +993,7 @@ const SPLIT_VIEW_CHIPS = [
   const Navbar = ({ scrolled, currentPage, navigateTo, lang, setLang, isMobileMenuOpen, setIsMobileMenuOpen }) => (
     <>
       <div className={`fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-between md:justify-center px-4 md:px-6 pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${scrolled || currentPage !== 'home' ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}`}>
-        <nav className="pointer-events-auto flex items-center justify-between w-full md:w-auto md:gap-8 px-4 py-2.5 md:px-6 md:py-3 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl border border-gray-100 dark:border-zinc-800 shadow-sm transition-colors duration-300">
+        <nav className="pointer-events-auto flex items-center justify-between w-full md:w-auto md:gap-8 px-4 py-2.5 md:px-6 md:py-3 rounded-full bg-[#fbfbfb]/90 md:bg-white/90 backdrop-blur-xl border border-gray-100 shadow-sm transition-colors duration-300">
           <div className="text-lg md:text-xl font-bold cursor-pointer tracking-wide text-zinc-900 dark:text-zinc-50" onClick={() => navigateTo('home')}>T<span className="text-orange-500">.</span></div>
           <div className="hidden md:flex gap-2 md:gap-6 text-sm font-medium">
             <button onClick={() => navigateTo('home')} className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${currentPage === 'home' ? 'bg-black text-white dark:bg-zinc-100 dark:text-zinc-900' : 'text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800'}`}>{I18N[lang].nav.home}</button>
@@ -1003,7 +1009,7 @@ const SPLIT_VIEW_CHIPS = [
           </div>
         </nav>
       </div>
-      <div className={`fixed inset-0 bg-white dark:bg-zinc-950 z-[60] transform transition-transform duration-500 ease-in-out flex flex-col ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'} md:hidden`}>
+      <div className={`fixed inset-0 bg-[#fbfbfb] z-[60] transform transition-transform duration-500 ease-in-out flex flex-col ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'} md:hidden`}>
         <div className="flex justify-between items-center p-6"><div className="text-2xl font-bold tracking-wide text-zinc-900 dark:text-zinc-50" onClick={() => navigateTo('home')}>T<span className="text-orange-500">.</span></div><button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-gray-100 dark:bg-zinc-800 rounded-full text-gray-800 dark:text-zinc-200 cursor-pointer"><IconX className="w-6 h-6" /></button></div>
         <div className="flex flex-col items-center justify-center flex-1 gap-8 text-3xl font-black uppercase tracking-widest">
           <button onClick={() => navigateTo('home')} className={`${currentPage === 'home' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.home}</button>
@@ -3248,7 +3254,7 @@ const SPLIT_VIEW_CHIPS = [
             </div>
 
             {/* FULL-WIDTH VISUAL BLOCK */}
-            <div className="w-full md:w-screen md:relative md:left-1/2 md:-translate-x-1/2 rounded-2xl md:rounded-none bg-[#F6F6F6] mt-6 md:mt-8 select-none overflow-hidden h-auto flex items-center justify-center">
+            <div className="w-full md:w-screen md:relative md:left-1/2 md:-translate-x-1/2 rounded-none bg-[#F6F6F6] mt-6 md:mt-8 select-none overflow-hidden h-auto flex items-center justify-center">
               <img 
                 src="projects/mslin-app/img/ms.lin-hero.jpg" 
                 alt="Ms Lin 刷題 App Hero" 
@@ -6666,7 +6672,7 @@ const SPLIT_VIEW_CHIPS = [
                         <div className="flex flex-col gap-4 w-full">
                           <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-white relative">
                             {/* Live website preview screenshot */}
-                            <img src="projects/wisdome.ai_web/cover.jpg" alt="Website Implementation" className="w-full h-full object-cover select-none" />
+                            <img src="projects/wisdome.ai_web/cover.webp" alt="Website Implementation" className="w-full h-full object-cover select-none" />
                             
                             {/* Green matching badge overlay */}
                             <div className="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
@@ -8089,8 +8095,9 @@ const SPLIT_VIEW_CHIPS = [
                         ? 'bg-[#5E60A3] border-[#5E60A3]' 
                         : 'bg-[#FAFCFF] border-gray-150'
                     }`}>
-                      {ANIMATED_ICON_ASSETS[activeIconIndex].url.endsWith('.webm') ? (
+                      {ANIMATED_ICON_ASSETS[activeIconIndex].url.endsWith('.webm') && !isIOSDevice() ? (
                         <video 
+                          key={ANIMATED_ICON_ASSETS[activeIconIndex].url}
                           src={ANIMATED_ICON_ASSETS[activeIconIndex].url} 
                           autoPlay 
                           muted 
@@ -8100,7 +8107,7 @@ const SPLIT_VIEW_CHIPS = [
                         />
                       ) : (
                         <img 
-                          src={ANIMATED_ICON_ASSETS[activeIconIndex].url} 
+                          src={ANIMATED_ICON_ASSETS[activeIconIndex].url.replace('.webm', '.gif')} 
                           alt={ANIMATED_ICON_ASSETS[activeIconIndex].label} 
                           className="w-36 h-36 sm:w-40 sm:h-40 object-contain relative z-10" 
                         />
@@ -8439,8 +8446,9 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Mascot State Switcher Column */}
                 <div className="flex flex-col w-full">
                   <div className="w-full bg-[#FAFAFA] border border-gray-200 rounded-[2rem] flex flex-col items-center justify-center p-6 select-none aspect-[16/12] shadow-sm relative overflow-hidden">
-                    {MASCOT_ASSETS[activeMascotIndex].url.endsWith('.webm') ? (
+                    {MASCOT_ASSETS[activeMascotIndex].url.endsWith('.webm') && !isIOSDevice() ? (
                       <video 
+                        key={MASCOT_ASSETS[activeMascotIndex].url}
                         src={MASCOT_ASSETS[activeMascotIndex].url} 
                         autoPlay 
                         muted 
@@ -8450,7 +8458,7 @@ const SPLIT_VIEW_CHIPS = [
                       />
                     ) : (
                       <img 
-                        src={MASCOT_ASSETS[activeMascotIndex].url} 
+                        src={MASCOT_ASSETS[activeMascotIndex].url.replace('.webm', '.gif')} 
                         alt={MASCOT_ASSETS[activeMascotIndex].status} 
                         className="max-w-full max-h-[70%] object-contain relative z-10" 
                       />
@@ -9041,7 +9049,7 @@ const SPLIT_VIEW_CHIPS = [
                 <div className="lg:col-span-4">
                   <div className="aspect-square w-full bg-[#202020] rounded-[20px] overflow-hidden shadow-sm relative group flex items-center justify-center">
                     <img 
-                      src="projects/me.jpg" 
+                      src="projects/me (1).jpg" 
                       alt="Tiffany Liang Profile" 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       onError={(e) => { e.target.style.display = 'none'; }}

@@ -7697,28 +7697,28 @@ const SPLIT_VIEW_CHIPS = [
 
     // Asset Lists
     const MASCOT_ASSETS = [
-      { label: '待機', url: 'projects/brainbox/待機.gif', status: '待機 (Idle)', desc: '吉祥物在無操作、系統休眠或待機時的預設狀態。' },
-      { label: '眨眼提醒', url: 'projects/brainbox/眨眼提醒.gif', status: '眨眼提醒 (Blink Reminder)', desc: '吉祥物進行溫馨提示、引導或出現學習指引時的眨眼狀態。' },
-      { label: '好棒', url: 'projects/brainbox/好棒.gif', status: '好棒 (Excellent)', desc: '吉祥物在使用者答題正確、取得高分或達成進度時的慶祝狀態。' },
-      { label: '結尾', url: 'projects/brainbox/結尾.gif', status: '結尾 (Ending)', desc: '學習任務完成、完成測驗或系統登出結束時的告別狀態。' }
+      { label: '待機', url: 'projects/brainbox/待機.webm', status: '待機 (Idle)', desc: '吉祥物在無操作、系統休眠或待機時的預設狀態。' },
+      { label: '眨眼提醒', url: 'projects/brainbox/眨眼提醒.webm', status: '眨眼提醒 (Blink Reminder)', desc: '吉祥物進行溫馨提示、引導或出現學習指引時的眨眼狀態。' },
+      { label: '好棒', url: 'projects/brainbox/好棒.webm', status: '好棒 (Excellent)', desc: '吉祥物在使用者答題正確、取得高分或達成進度時的慶祝狀態。' },
+      { label: '結尾', url: 'projects/brainbox/結尾.webm', status: '結尾 (Ending)', desc: '學習任務完成、完成測驗或系統登出結束時的告別狀態。' }
     ];
 
     const ANIMATED_ICON_ASSETS = [
-      { label: '總覽', url: 'projects/brainbox/motion-icon/overview.gif', iconUrl: 'projects/brainbox/icon/overview.svg', desc: '學習主頁總覽與個人數據儀表板的切換微動態。' },
-      { label: '課程', url: 'projects/brainbox/motion-icon/course.gif', iconUrl: 'projects/brainbox/icon/course.svg', desc: '進入課程地圖、學習單元或講義下載時的切換動畫。' },
-      { label: '考試中心', url: 'projects/brainbox/motion-icon/test-center.gif', iconUrl: 'projects/brainbox/icon/test-center.svg', desc: '管理歷次大型模考、預約實體考場或下載准考證的入口動態。' },
-      { label: '錯題複習', url: 'projects/brainbox/motion-icon/review.gif', iconUrl: 'projects/brainbox/icon/review-center.svg', desc: '進入錯題本、查看錯題分析或重新演練題目時的重溫動畫。' },
-      { label: '學習報告', url: 'projects/brainbox/motion-icon/report.gif', iconUrl: 'projects/brainbox/icon/report.svg', desc: '分析成績分佈、產出雷達圖與學習盲點診斷時的報告動畫。' },
-      { label: '教師中心', url: 'projects/brainbox/motion-icon/educator-hub.gif', iconUrl: 'projects/brainbox/icon/edu-hub.svg', desc: '切換至教師管理後台、查看班級表現與派發作業的切換動態。' },
-      { label: '學科', url: 'projects/brainbox/motion-icon/subject.gif', iconUrl: 'projects/brainbox/icon/subject.svg', desc: '自訂考試科目分類、查看弱勢學科或切換領域學分時的動態。' },
+      { label: '總覽', url: 'projects/brainbox/motion-icon/overview.webm', iconUrl: 'projects/brainbox/icon/overview.svg', desc: '學習主頁總覽與個人數據儀表板的切換微動態。' },
+      { label: '課程', url: 'projects/brainbox/motion-icon/course.webm', iconUrl: 'projects/brainbox/icon/course.svg', desc: '進入課程地圖、學習單元或講義下載時的切換動畫。' },
+      { label: '考試中心', url: 'projects/brainbox/motion-icon/test-center.webm', iconUrl: 'projects/brainbox/icon/test-center.svg', desc: '管理歷次大型模考、預約實體考場或下載准考證的入口動態。' },
+      { label: '錯題複習', url: 'projects/brainbox/motion-icon/review.webm', iconUrl: 'projects/brainbox/icon/review-center.svg', desc: '進入錯題本、查看錯題分析或重新演練題目時的重溫動畫。' },
+      { label: '學習報告', url: 'projects/brainbox/motion-icon/report.webm', iconUrl: 'projects/brainbox/icon/report.svg', desc: '分析成績分佈、產出雷達圖與學習盲點診斷時的報告動畫。' },
+      { label: '教師中心', url: 'projects/brainbox/motion-icon/educator-hub.webm', iconUrl: 'projects/brainbox/icon/edu-hub.svg', desc: '切換至教師管理後台、查看班級表現與派發作業的切換動態。' },
+      { label: '學科', url: 'projects/brainbox/motion-icon/subject.webm', iconUrl: 'projects/brainbox/icon/subject.svg', desc: '自訂考試科目分類、查看弱勢學科或切換領域學分時的動態。' },
       
-      { label: '練習', url: 'projects/brainbox/motion-icon/practice.gif', iconUrl: 'projects/brainbox/icon/practice.svg', desc: '開始每日練習、章節測驗與題目解析時的引導動態。', isWhite: true },
-      { label: '模擬考試', url: 'projects/brainbox/motion-icon/mock-test.gif', iconUrl: 'projects/brainbox/icon/mock-test.svg', desc: '生成全真模擬考卷、進行倒數計時與提交考卷的儀式動畫。', isWhite: true },
-      { label: '測驗', url: 'projects/brainbox/motion-icon/test-history.gif', iconUrl: 'projects/brainbox/icon/test.svg', desc: '快速發起隨堂小測驗、進行即時評分與計時挑戰的反饋動態。', isWhite: true },
-      { label: '數學', url: 'projects/brainbox/motion-icon/math.gif', iconUrl: 'projects/brainbox/icon/math.svg', desc: '進入 SAT 數學學科章節、公式卡或專題訓練的切換動態。', isWhite: true },
-      { label: '閱讀', url: 'projects/brainbox/motion-icon/reading.gif', iconUrl: 'projects/brainbox/icon/reading.svg', desc: '進入 SAT 閱讀理解、長難句拆解與字彙卡學習的切換動態。', isWhite: true },
-      { label: '寫作', url: 'projects/brainbox/motion-icon/writing.gif', iconUrl: 'projects/brainbox/icon/writing.svg', desc: '進入 SAT 語法寫作、作文演練與 AI 批改時的筆觸動態。', isWhite: true },
-      { label: '歷次考績', url: 'projects/brainbox/motion-icon/test.gif', iconUrl: 'projects/brainbox/icon/test-history.svg', desc: '回溯歷史成績記錄、分析分數成長曲線或導出歷史記錄的動態。', isWhite: true }
+      { label: '練習', url: 'projects/brainbox/motion-icon/practice.webm', iconUrl: 'projects/brainbox/icon/practice.svg', desc: '開始每日練習、章節測驗與題目解析時的引導動態。', isWhite: true },
+      { label: '模擬考試', url: 'projects/brainbox/motion-icon/mock-test.webm', iconUrl: 'projects/brainbox/icon/mock-test.svg', desc: '生成全真模擬考卷、進行倒數計時與提交考卷的儀式動畫。', isWhite: true },
+      { label: '測驗', url: 'projects/brainbox/motion-icon/test-history.webm', iconUrl: 'projects/brainbox/icon/test.svg', desc: '快速發起隨堂小測驗、進行即時評分與計時挑戰的反饋動態。', isWhite: true },
+      { label: '數學', url: 'projects/brainbox/motion-icon/math.webm', iconUrl: 'projects/brainbox/icon/math.svg', desc: '進入 SAT 數學學科章節、公式卡或專題訓練的切換動態。', isWhite: true },
+      { label: '閱讀', url: 'projects/brainbox/motion-icon/reading.webm', iconUrl: 'projects/brainbox/icon/reading.svg', desc: '進入 SAT 閱讀理解、長難句拆解與字彙卡學習的切換動態。', isWhite: true },
+      { label: '寫作', url: 'projects/brainbox/motion-icon/writing.webm', iconUrl: 'projects/brainbox/icon/writing.svg', desc: '進入 SAT 語法寫作、作文演練與 AI 批改時的筆觸動態。', isWhite: true },
+      { label: '歷次考績', url: 'projects/brainbox/motion-icon/test.webm', iconUrl: 'projects/brainbox/icon/test-history.svg', desc: '回溯歷史成績記錄、分析分數成長曲線或導出歷史記錄的動態。', isWhite: true }
     ];
 
     const META_CARDS = [
@@ -8089,11 +8089,22 @@ const SPLIT_VIEW_CHIPS = [
                         ? 'bg-[#5E60A3] border-[#5E60A3]' 
                         : 'bg-[#FAFCFF] border-gray-150'
                     }`}>
-                      <img 
-                        src={ANIMATED_ICON_ASSETS[activeIconIndex].url} 
-                        alt={ANIMATED_ICON_ASSETS[activeIconIndex].label} 
-                        className="w-36 h-36 sm:w-40 sm:h-40 object-contain relative z-10" 
-                      />
+                      {ANIMATED_ICON_ASSETS[activeIconIndex].url.endsWith('.webm') ? (
+                        <video 
+                          src={ANIMATED_ICON_ASSETS[activeIconIndex].url} 
+                          autoPlay 
+                          muted 
+                          loop 
+                          playsInline 
+                          className="w-36 h-36 sm:w-40 sm:h-40 object-contain relative z-10 block" 
+                        />
+                      ) : (
+                        <img 
+                          src={ANIMATED_ICON_ASSETS[activeIconIndex].url} 
+                          alt={ANIMATED_ICON_ASSETS[activeIconIndex].label} 
+                          className="w-36 h-36 sm:w-40 sm:h-40 object-contain relative z-10" 
+                        />
+                      )}
                       <div className={`absolute top-0 right-0 w-24 h-24 rounded-full blur-xl pointer-events-none transition-all duration-300 ${
                         ANIMATED_ICON_ASSETS[activeIconIndex].isWhite 
                           ? 'bg-white/10' 
@@ -8428,11 +8439,22 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Mascot State Switcher Column */}
                 <div className="flex flex-col w-full">
                   <div className="w-full bg-[#FAFAFA] border border-gray-200 rounded-[2rem] flex flex-col items-center justify-center p-6 select-none aspect-[16/12] shadow-sm relative overflow-hidden">
-                    <img 
-                      src={MASCOT_ASSETS[activeMascotIndex].url} 
-                      alt={MASCOT_ASSETS[activeMascotIndex].status} 
-                      className="max-w-full max-h-[70%] object-contain relative z-10" 
-                    />
+                    {MASCOT_ASSETS[activeMascotIndex].url.endsWith('.webm') ? (
+                      <video 
+                        src={MASCOT_ASSETS[activeMascotIndex].url} 
+                        autoPlay 
+                        muted 
+                        loop 
+                        playsInline 
+                        className="max-w-full max-h-[70%] object-contain relative z-10 block" 
+                      />
+                    ) : (
+                      <img 
+                        src={MASCOT_ASSETS[activeMascotIndex].url} 
+                        alt={MASCOT_ASSETS[activeMascotIndex].status} 
+                        className="max-w-full max-h-[70%] object-contain relative z-10" 
+                      />
+                    )}
                     <div className="text-xs md:text-sm text-gray-500 mt-4 text-center font-medium leading-relaxed max-w-[85%] z-10">
                       <span className="font-bold text-gray-800">{lang === 'zh' ? '當前狀態：' : 'Current: '}</span>
                       {MASCOT_ASSETS[activeMascotIndex].status} — {MASCOT_ASSETS[activeMascotIndex].desc}

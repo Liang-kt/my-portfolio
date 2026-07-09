@@ -36,10 +36,10 @@ const IconChevronRight = ({ className }) => <svg xmlns="http://www.w3.org/2000/s
 // Helper components to match custom layout guidelines
 const SectionHeader = ({ num, title }) => (
   <div className="flex flex-col mb-10 select-none">
-    <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-black font-['Manrope'] leading-none text-[#111827] tracking-[-0.06em] mb-4">
+    <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-black font-manrope leading-none text-[#111827] tracking-[-0.06em] mb-4">
       {num}
     </h2>
-    <h3 className="text-[24px] md:text-[36px] lg:text-[40px] font-bold font-['Noto_Sans_TC'] tracking-tight text-[#4B5563]">
+    <h3 className="text-[24px] md:text-[36px] lg:text-[40px] font-bold font-noto tracking-tight text-[#4B5563]">
       {title}
     </h3>
   </div>
@@ -495,7 +495,7 @@ const PROJECTS = [
     id: 1,
     categoryId: 'uiux',
     platform: 'web',
-    title: 'Wisdome.ai 企業官網設計',
+    title: 'Wisdome.ai 官網設計',
     thumb: 'bg-[#0f172a]',
     coverMedia: { type: 'image', url: 'projects/wisdome.ai_web/cover.webp' },
     heroMedia: { type: 'video', url: 'projects/wisdome.ai_web/cover-video.webm' },
@@ -559,7 +559,7 @@ const PROJECTS = [
     id: 2,
     categoryId: 'uiux',
     platform: 'app',
-    title: 'Ms. Lin 學測刷題app',
+    title: 'Ms Lin 刷題 App',
     thumb: 'bg-[#F2EFE9]',
     coverMedia: { type: 'image', url: 'projects/mslin-app/img/cover-photo.jpg' },
     heroMedia: { type: 'image', url: 'projects/msline/hero.jpg' },
@@ -695,7 +695,7 @@ const PROJECTS = [
     id: 3,
     categoryId: 'uiux',
     platform: 'web', // 可以設定為 'web' 或 'app'
-    title: 'BrainBox UI Visual Design',
+    title: 'BrainBox 產品視覺設計',
     thumb: 'bg-[#EAE8F2]',
     coverMedia: { type: 'image', url: 'projects/brainbox/brainbox-cover.png' },
     tags: ['UI/UX', 'System Design'],
@@ -997,7 +997,9 @@ const SPLIT_VIEW_CHIPS = [
           <div className="text-lg md:text-xl font-bold cursor-pointer tracking-wide text-zinc-900 dark:text-zinc-50" onClick={() => navigateTo('home')}>T<span className="text-orange-500">.</span></div>
           <div className="hidden md:flex gap-2 md:gap-6 text-sm font-medium">
             <button onClick={() => navigateTo('home')} className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${currentPage === 'home' ? 'bg-black text-white dark:bg-zinc-100 dark:text-zinc-900' : 'text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800'}`}>{I18N[lang].nav.home}</button>
+            {/* 隱藏作品集 Tab
             <button onClick={() => navigateTo('works')} className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${['works', 'category', 'project'].includes(currentPage) ? 'bg-black text-white dark:bg-zinc-100 dark:text-zinc-900' : 'text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800'}`}>{I18N[lang].nav.works}</button>
+            */}
             <button onClick={() => navigateTo('about')} className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${currentPage === 'about' ? 'bg-black text-white dark:bg-zinc-100 dark:text-zinc-900' : 'text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800'}`}>{I18N[lang].nav.about}</button>
             <button onClick={() => navigateTo('contact')} className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${currentPage === 'contact' ? 'bg-black text-white dark:bg-zinc-100 dark:text-zinc-900' : 'text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800'}`}>{I18N[lang].nav.contact}</button>
           </div>
@@ -1013,7 +1015,9 @@ const SPLIT_VIEW_CHIPS = [
         <div className="flex justify-between items-center p-6"><div className="text-2xl font-bold tracking-wide text-zinc-900 dark:text-zinc-50" onClick={() => navigateTo('home')}>T<span className="text-orange-500">.</span></div><button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-gray-100 dark:bg-zinc-800 rounded-full text-gray-800 dark:text-zinc-200 cursor-pointer"><IconX className="w-6 h-6" /></button></div>
         <div className="flex flex-col items-center justify-center flex-1 gap-8 text-3xl font-black uppercase tracking-widest">
           <button onClick={() => navigateTo('home')} className={`${currentPage === 'home' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.home}</button>
+          {/* 隱藏作品集 Tab
           <button onClick={() => navigateTo('works')} className={`${['works', 'category', 'project'].includes(currentPage) ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.works}</button>
+          */}
           <button onClick={() => navigateTo('about')} className={`${currentPage === 'about' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.about}</button>
           <button onClick={() => navigateTo('contact')} className={`${currentPage === 'contact' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.contact}</button>
         </div>
@@ -1248,7 +1252,7 @@ const SPLIT_VIEW_CHIPS = [
             <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-16 gap-8">
               <div className="max-w-2xl">
                 <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">{I18N[lang].home.selectedWorks}</h2>
-                <p className="text-gray-500 text-lg md:text-xl font-medium leading-relaxed font-['Noto_Sans_TC']">
+                <p className="text-gray-500 text-lg md:text-xl font-medium leading-relaxed font-noto">
                   {lang === 'en' ? 'From commercial websites and educational apps to comprehensive branding and motion visuals, explore how I transform abstract concepts into tangible experiences through design.' : '從商業官網、教育類 App 到完整的品牌與動態視覺，探索我如何透過設計將抽象概念轉化為具體體驗。'}
                 </p>
               </div>
@@ -1474,10 +1478,10 @@ const SPLIT_VIEW_CHIPS = [
     const ProjectSectionHeader = ({ num, title }) => {
       return (
         <div className="flex flex-col mb-10 select-none">
-          <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-black font-['Inter'] leading-none text-[#111827] tracking-tighter mb-4">
+          <h2 className="text-[60px] md:text-[96px] lg:text-[120px] font-black font-inter leading-none text-[#111827] tracking-tighter mb-4">
             {num}
           </h2>
-          <h3 className="text-[24px] md:text-[36px] lg:text-[40px] font-bold font-['Inter'] tracking-tight text-[#4B5563]">
+          <h3 className="text-[24px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#4B5563]">
             {title}
           </h3>
         </div>
@@ -1650,7 +1654,7 @@ const SPLIT_VIEW_CHIPS = [
             {/* Size Selector */}
             <div className="w-full bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1 flex-wrap sm:flex-nowrap">
               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">Size</span>
-              <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap justify-end gap-0.5">
+              <div className="flex bg-gray-100 rounded-lg p-0.5 flex-nowrap justify-end gap-0.5">
                 {['L', 'M', 'S', 'Ex S'].map((sz) => {
                   const isCurrent = btnSize === sz;
                   return (
@@ -1673,7 +1677,7 @@ const SPLIT_VIEW_CHIPS = [
             {/* Style Selector */}
             <div className="w-full bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1 flex-wrap sm:flex-nowrap">
               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">Style</span>
-              <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap justify-end gap-0.5">
+              <div className="flex bg-gray-100 rounded-lg p-0.5 flex-nowrap justify-end gap-0.5">
                 {['Primary', 'Outline', 'Ghost'].map((st) => {
                   const isCurrent = btnStyle === st;
                   return (
@@ -1696,7 +1700,7 @@ const SPLIT_VIEW_CHIPS = [
             {/* State Selector */}
             <div className="w-full bg-white/70 rounded-2xl border border-gray-100/50 shadow-inner p-1.5 flex items-center justify-between gap-1 flex-wrap sm:flex-nowrap">
               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 flex-shrink-0">State</span>
-              <div className="flex bg-gray-100 rounded-lg p-0.5 flex-wrap justify-end gap-0.5">
+              <div className="flex bg-gray-100 rounded-lg p-0.5 flex-nowrap justify-end gap-0.5">
                 {['Default', 'Active', 'Disable'].map((stat) => {
                   const isCurrent = btnStatus === stat;
                   return (
@@ -2337,13 +2341,13 @@ const SPLIT_VIEW_CHIPS = [
                   onClick={handleToggle}
                   className="w-full px-6 py-5 flex items-center justify-between transition-colors hover:bg-gray-100/20 cursor-pointer"
                 >
-                  <span className="text-xl font-bold text-black font-['Noto_Sans_TC'] tracking-tight">基礎字詞</span>
+                  <span className="text-xl font-bold text-black font-noto tracking-tight">基礎字詞</span>
                   <div className="flex items-center gap-4">
                     {/* Collapsed State: "立即刷題" Button + Down Triangle */}
                     {!isExpanded && (
                       <button 
                         onClick={handleImmediateQuiz}
-                        className="px-4 py-1.5 bg-[#7878FF] hover:bg-[#5858EA] text-white text-xs font-bold rounded-full transition-all duration-200 shadow-sm active:scale-95 cursor-pointer font-['Noto_Sans_TC']"
+                        className="px-4 py-1.5 bg-[#7878FF] hover:bg-[#5858EA] text-white text-xs font-bold rounded-full transition-all duration-200 shadow-sm active:scale-95 cursor-pointer font-noto"
                         style={{ borderRadius: '9999px' }}
                       >
                         立即刷題
@@ -2387,7 +2391,7 @@ const SPLIT_VIEW_CHIPS = [
                               : 'bg-[#FBFBFB] hover:bg-gray-100/30'
                           }`}
                         >
-                          <span className={`text-base font-bold font-['Noto_Sans_TC'] transition-colors duration-200 ${
+                          <span className={`text-base font-bold font-noto transition-colors duration-200 ${
                             isSelected ? 'text-[#7878ff]' : 'text-gray-800'
                           }`}>
                             {sub.title}
@@ -2561,7 +2565,7 @@ const SPLIT_VIEW_CHIPS = [
               <div className={`h-[1px] bg-orange-400 transition-all duration-700 delay-200 ${isVisible ? 'w-8 lg:w-16' : 'w-0'}`}></div>
               <div className="ml-4 lg:ml-6 max-w-[180px] lg:max-w-[240px]">
                 <h5 className="text-xs lg:text-sm font-bold text-gray-900 tracking-wide uppercase mb-1" style={{ lineHeight: 1.4 }}>{item.title}</h5>
-                <p className="text-[11px] lg:text-xs text-gray-500 leading-relaxed font-['Noto_Sans_TC']" style={{ lineHeight: 1.6 }}>{item.desc}</p>
+                <p className="text-[11px] lg:text-xs text-gray-500 leading-relaxed font-noto" style={{ lineHeight: 1.6 }}>{item.desc}</p>
               </div>
             </div>
           </div>
@@ -2644,7 +2648,7 @@ const SPLIT_VIEW_CHIPS = [
           <div className="pt-32 md:pt-36 px-4 md:px-12 max-w-[100rem] mx-auto">
             <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
             <h1 
-              className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase" 
+              className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase" 
               style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
             >
               {t(activeItem.title, lang)}
@@ -2685,7 +2689,7 @@ const SPLIT_VIEW_CHIPS = [
                     <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.service}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.service, lang)}</p></div>
                   )}
                 </div>
-                <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] whitespace-pre-line">
+                <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-noto whitespace-pre-line">
                   {activeItem.projectOverview.backgroundAndGoals && (
                     <div><SubHeading>{I18N[lang].project.background}</SubHeading><p>{t(activeItem.projectOverview.backgroundAndGoals, lang)}</p></div>
                   )}
@@ -2713,7 +2717,7 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
                 <div className="space-y-12">
                   {activeItem.brandIdentity.typography && (
-                    <div><SubHeading>{I18N[lang].project.typography}</SubHeading><div className="bg-[#FAFAFA] rounded-2xl p-8 border border-gray-100"><div className="text-[80px] font-bold leading-none mb-6 text-gray-900 font-['Inter']">Aa</div><p className="text-xl text-gray-600 font-medium whitespace-pre-line">{t(activeItem.brandIdentity.typography, lang)}</p></div></div>
+                    <div><SubHeading>{I18N[lang].project.typography}</SubHeading><div className="bg-[#FAFAFA] rounded-2xl p-8 border border-gray-100"><div className="text-[80px] font-bold leading-none mb-6 text-gray-900 font-inter">Aa</div><p className="text-xl text-gray-600 font-medium whitespace-pre-line">{t(activeItem.brandIdentity.typography, lang)}</p></div></div>
                   )}
                   {activeItem.brandIdentity.colors && activeItem.brandIdentity.colors.length > 0 && (
                     <div><SubHeading>{I18N[lang].project.colors}</SubHeading><div className="flex flex-wrap gap-4">{activeItem.brandIdentity.colors.map(color => (<div key={color} className="w-16 h-16 md:w-20 md:h-20 rounded-full shadow-inner border border-gray-200" style={{ backgroundColor: color }}></div>))}</div></div>
@@ -2728,7 +2732,7 @@ const SPLIT_VIEW_CHIPS = [
             <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
               <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.mascot} />
-                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.mascotDesign.description, lang)}</p>
+                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-noto max-w-4xl mb-12">{t(activeItem.mascotDesign.description, lang)}</p>
                 {activeItem.mascotDesign.images && activeItem.mascotDesign.images.length > 0 && (
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                     {activeItem.mascotDesign.images.map((img, i) => (
@@ -2750,7 +2754,7 @@ const SPLIT_VIEW_CHIPS = [
               </div>
               <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 {activeItem.visuals.iconSystem.description && (
-                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.iconSystem.description, lang)}</p>
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-noto max-w-4xl mb-12">{t(activeItem.visuals.iconSystem.description, lang)}</p>
                 )}
                 {activeItem.visuals.iconSystem.icons && activeItem.visuals.iconSystem.icons.length > 0 && (
                   <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 md:gap-6">
@@ -2775,7 +2779,7 @@ const SPLIT_VIEW_CHIPS = [
               </div>
               <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 {activeItem.visuals.illustrationAnimation.description && (
-                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.illustrationAnimation.description, lang)}</p>
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-noto max-w-4xl mb-12">{t(activeItem.visuals.illustrationAnimation.description, lang)}</p>
                 )}
                 {activeItem.visuals.illustrationAnimation.videos && activeItem.visuals.illustrationAnimation.videos.length > 0 && (
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
@@ -2798,7 +2802,7 @@ const SPLIT_VIEW_CHIPS = [
               </div>
               <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 {activeItem.visuals.application.description && (
-                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.visuals.application.description, lang)}</p>
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-noto max-w-4xl mb-12">{t(activeItem.visuals.application.description, lang)}</p>
                 )}
                 {activeItem.visuals.application.images && activeItem.visuals.application.images.length > 0 && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -2849,28 +2853,28 @@ const SPLIT_VIEW_CHIPS = [
 
         const elements = {
           'sec-label': { id: 'sec-label', type: 'fade', delay: 0 },
-          'l1-header': { id: 'l1-header', type: 'fade', delay: 200 },
-          'l1-n1': { id: 'l1-n1', type: 'fade', delay: 400 },
-          'l1-a1': { id: 'l1-a1', type: 'draw', delay: 800 },
-          'l1-n2': { id: 'l1-n2', type: 'fade', delay: 1300 },
-          'l1-a2': { id: 'l1-a2', type: 'draw', delay: 1700 },
-          'l1-n3': { id: 'l1-n3', type: 'fade', delay: 2200 },
-          'l1-arc': { id: 'l1-arc', type: 'draw', delay: 2600 },
-          'l1-arc-label': { id: 'l1-arc-label', type: 'fade', delay: 3100 },
-          'l1-to-shared': { id: 'l1-to-shared', type: 'draw', delay: 2700 },
-          'l2-header': { id: 'l2-header', type: 'fade', delay: 3300 },
-          'l2-n1': { id: 'l2-n1', type: 'fade', delay: 3500 },
-          'l2-a1': { id: 'l2-a1', type: 'draw', delay: 3900 },
-          'l2-n2': { id: 'l2-n2', type: 'fade', delay: 4400 },
-          'l2-a2': { id: 'l2-a2', type: 'draw', delay: 4800 },
-          'l2-n3': { id: 'l2-n3', type: 'fade', delay: 5300 },
-          'l2-arc': { id: 'l2-arc', type: 'draw', delay: 5700 },
-          'l2-arc-label': { id: 'l2-arc-label', type: 'fade', delay: 6200 },
-          'l2-to-shared': { id: 'l2-to-shared', type: 'draw', delay: 5800 },
-          'shared-card': { id: 'shared-card', type: 'scale', delay: 6500 },
-          'metric-card-1': { id: 'metric-card-1', type: 'fade', delay: 7000 },
-          'metric-card-2': { id: 'metric-card-2', type: 'fade', delay: 7300 },
-          'metric-card-3': { id: 'metric-card-3', type: 'fade', delay: 7600 },
+          'l1-header': { id: 'l1-header', type: 'fade', delay: 80 },
+          'l1-n1': { id: 'l1-n1', type: 'fade', delay: 160 },
+          'l1-a1': { id: 'l1-a1', type: 'draw', delay: 280 },
+          'l1-n2': { id: 'l1-n2', type: 'fade', delay: 450 },
+          'l1-a2': { id: 'l1-a2', type: 'draw', delay: 550 },
+          'l1-n3': { id: 'l1-n3', type: 'fade', delay: 700 },
+          'l1-arc': { id: 'l1-arc', type: 'draw', delay: 850 },
+          'l1-arc-label': { id: 'l1-arc-label', type: 'fade', delay: 1050 },
+          'l1-to-shared': { id: 'l1-to-shared', type: 'draw', delay: 900 },
+          'l2-header': { id: 'l2-header', type: 'fade', delay: 1000 },
+          'l2-n1': { id: 'l2-n1', type: 'fade', delay: 1050 },
+          'l2-a1': { id: 'l2-a1', type: 'draw', delay: 1150 },
+          'l2-n2': { id: 'l2-n2', type: 'fade', delay: 1300 },
+          'l2-a2': { id: 'l2-a2', type: 'draw', delay: 1400 },
+          'l2-n3': { id: 'l2-n3', type: 'fade', delay: 1550 },
+          'l2-arc': { id: 'l2-arc', type: 'draw', delay: 1700 },
+          'l2-arc-label': { id: 'l2-arc-label', type: 'fade', delay: 1900 },
+          'l2-to-shared': { id: 'l2-to-shared', type: 'draw', delay: 1750 },
+          'shared-card': { id: 'shared-card', type: 'scale', delay: 1950 },
+          'metric-card-1': { id: 'metric-card-1', type: 'fade', delay: 2100 },
+          'metric-card-2': { id: 'metric-card-2', type: 'fade', delay: 2200 },
+          'metric-card-3': { id: 'metric-card-3', type: 'fade', delay: 2300 },
         };
 
         const getElementLength = (el) => {
@@ -2914,16 +2918,16 @@ const SPLIT_VIEW_CHIPS = [
             el.style.strokeDashoffset = `${len}`;
             el.style.opacity = '0';
             el.style.markerEnd = 'none';
-            el.style.transition = 'stroke-dashoffset 800ms ease-in-out, opacity 10ms linear';
+            el.style.transition = 'stroke-dashoffset 300ms ease-in-out, opacity 10ms linear';
           } else if (item.type === 'fade') {
             el.style.opacity = '0';
             el.style.transform = 'translateY(8px)';
-            el.style.transition = 'opacity 500ms ease-out, transform 500ms ease-out';
+            el.style.transition = 'opacity 300ms ease-out, transform 300ms ease-out';
           } else if (item.type === 'scale') {
             el.style.opacity = '0';
             el.style.transform = 'scale(1.04)';
             el.style.transformOrigin = '559px 224px';
-            el.style.transition = 'opacity 500ms ease-out, transform 500ms ease-out';
+            el.style.transition = 'opacity 300ms ease-out, transform 300ms ease-out';
           }
         });
 
@@ -2946,7 +2950,7 @@ const SPLIT_VIEW_CHIPS = [
                 if (markerId) {
                   setTimeout(() => {
                     el.style.markerEnd = `url(#${markerId})`;
-                  }, 800);
+                  }, 300);
                 }
               } else if (item.type === 'fade') {
                 el.style.transform = 'translateY(0)';
@@ -2959,7 +2963,7 @@ const SPLIT_VIEW_CHIPS = [
                 if (item.type === 'fade' || item.type === 'scale') {
                   el.style.transform = 'none';
                 }
-              }, 500);
+              }, 300);
             }, item.delay);
 
             timeouts.push(t);
@@ -3026,18 +3030,18 @@ const SPLIT_VIEW_CHIPS = [
         const startAnimation = () => {
           const sequence = [
             { ids: ['e0', 'e1', 'e1b', 'e1c', 'e1d'], cls: 'fade-in', delay: 0 },
-            { ids: ['e2', 'e3'], cls: 'fade-in', delay: 150 },
-            { ids: ['a1', 'a2'], cls: 'draw-line', delay: 350 },
-            { ids: ['e4', 'e5'], cls: 'fade-in', delay: 600 },
-            { ids: ['a3', 'a4'], cls: 'draw-line', delay: 800 },
-            { ids: ['e6', 'e7'], cls: 'fade-in', delay: 1050 },
-            { ids: ['arc1', 'arc2'], cls: 'draw-arc', delay: 1300 },
-            { ids: ['arc1la', 'arc1lb', 'arc1lc', 'arc2la', 'arc2lb', 'arc2lc'], cls: 'fade-in', delay: 1650 },
-            { ids: ['c1', 'c2'], cls: 'draw-line', delay: 1900 },
-            { ids: ['e8'], cls: 'fade-in', delay: 2150 },
-            { ids: ['metric-card-1'], cls: 'fade-in', delay: 2400 },
-            { ids: ['metric-card-2'], cls: 'fade-in', delay: 2650 },
-            { ids: ['metric-card-3'], cls: 'fade-in', delay: 2900 }
+            { ids: ['e2', 'e3'], cls: 'fade-in', delay: 80 },
+            { ids: ['a1', 'a2'], cls: 'draw-line', delay: 200 },
+            { ids: ['e4', 'e5'], cls: 'fade-in', delay: 350 },
+            { ids: ['a3', 'a4'], cls: 'draw-line', delay: 450 },
+            { ids: ['e6', 'e7'], cls: 'fade-in', delay: 600 },
+            { ids: ['arc1', 'arc2'], cls: 'draw-arc', delay: 750 },
+            { ids: ['arc1la', 'arc1lb', 'arc1lc', 'arc2la', 'arc2lb', 'arc2lc'], cls: 'fade-in', delay: 950 },
+            { ids: ['c1', 'c2'], cls: 'draw-line', delay: 1100 },
+            { ids: ['e8'], cls: 'fade-in', delay: 1250 },
+            { ids: ['metric-card-1'], cls: 'fade-in', delay: 1400 },
+            { ids: ['metric-card-2'], cls: 'fade-in', delay: 1550 },
+            { ids: ['metric-card-3'], cls: 'fade-in', delay: 1700 }
           ];
 
           sequence.forEach(step => {
@@ -3201,7 +3205,7 @@ const SPLIT_VIEW_CHIPS = [
               title={lang === 'zh' ? '查看元件資訊' : 'View Component Info'}
             >
               <IconSearch className="w-5 h-5 flex-shrink-0" />
-              <span className="text-xs font-bold font-['Noto_Sans_TC'] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 ease-in-out overflow-hidden whitespace-nowrap ml-2">
+              <span className="text-xs font-bold font-noto opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 ease-in-out overflow-hidden whitespace-nowrap ml-2">
                 {lang === 'zh' ? '查看元件資訊' : 'View Component Info'}
               </span>
             </button>
@@ -3235,7 +3239,7 @@ const SPLIT_VIEW_CHIPS = [
             <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-32 md:pt-36">
               <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
               <h1 
-                className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase md:whitespace-nowrap"
+                className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase md:whitespace-nowrap"
                 style={{ fontSize: 'clamp(32px, 5.5vw, 84px)' }}
               >
                 Ms Lin 刷題 App
@@ -3350,12 +3354,12 @@ const SPLIT_VIEW_CHIPS = [
                     <SubHeading>
                       {lang === 'zh' ? '專案背景' : 'PROJECT BACKGROUND'}
                     </SubHeading>
-                    <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC'] mb-4 text-justify">
+                    <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-noto mb-4 text-justify">
                       {lang === 'zh' 
                         ? 'Ms Lin 是一款專為國高中全年級學生（國一至高三）打造的學習 App，題目內容涵蓋完整的六年學習階段，讓學生不論處於哪個年級、平時自學或升學備考，都能透過這款 App 建立持續性的學習習慣。'
                         : 'Ms Lin is a practice app tailored for junior and senior high school students (grades 7-12). Covering six full years of curriculum, it helps students establish consistent study habits regardless of grade level or study purpose.'}
                     </p>
-                    <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC'] text-justify">
+                    <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-noto text-justify">
                       {lang === 'zh'
                         ? '台灣中學生的自主學習工具市場，長期以「題庫數量」作為主要競爭維度，卻鮮少有產品認真思考一個更根本的問題：學生為什麼願意持續回來使用？Ms Lin 從這個缺口出發，聚焦在「學習情境的完整性」——讓每一次學習行為，不論從哪個入口進入，都能形成有起點、有過程、有終點的完整閉環。'
                         : 'The self-study tool market for high schoolers in Taiwan has long competed on "question bank quantity," but few products address a more fundamental question: why would students want to keep returning? Ms Lin starts from this gap, focusing on the "integrity of learning scenarios"—ensuring every study behavior, from any entry point, forms a complete loop with a clear beginning, process, and end.'}
@@ -3389,7 +3393,7 @@ const SPLIT_VIEW_CHIPS = [
                     <SubHeading>
                       {lang === 'zh' ? '團隊組成' : 'TEAM COMPOSITION'}
                     </SubHeading>
-                    <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-['Noto_Sans_TC'] list-none pl-0">
+                    <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-noto list-none pl-0">
                       <li>• {lang === 'zh' ? 'UI/UX 設計師（本人）' : 'UI/UX Designer (Self)'}</li>
                       <li>• {lang === 'zh' ? '前端工程師（本人兼任）' : 'Frontend Engineer (Self, concurrently)'}</li>
                       <li>• PM × 1 / {lang === 'zh' ? '後端工程師' : 'Backend Engineer'} × 1 / {lang === 'zh' ? '內容工程師' : 'Content Engineer'} × 1</li>
@@ -3438,10 +3442,10 @@ const SPLIT_VIEW_CHIPS = [
               >
                 {/* 兩大學習閉環 - Title & Subtitle */}
                 <SubHeading>
-                  {lang === 'zh' ? '兩大學習閉環' : 'Two Learning Loops'}
+                  {lang === 'zh' ? '專案成果' : 'Project Outcomes'}
                 </SubHeading>
                 <div style={{ fontSize: '16px', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '24px' }}>
-                  {lang === 'zh' ? '主動與被動路徑的雙重互補' : 'Dual Complementarity of Active and Passive Paths'}
+                  {lang === 'zh' ? '打造兩條學習閉環並獲得數據驗證' : 'Building two learning loops validated by user data'}
                 </div>
 
                 {/* Side-by-Side Grid Layout */}
@@ -3807,7 +3811,7 @@ const SPLIT_VIEW_CHIPS = [
                           {lang === 'zh' ? '問卷訪談' : 'Survey & Interview'}
                         </div>
                         <div className="text-[40px] sm:text-[52px] xl:text-[64px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
-                          7<span className="text-[16px] sm:text-[20px] xl:text-[24px] font-normal text-[#4B5563]"> {lang === 'zh' ? '人' : ' users'}</span>
+                          100<span className="text-[16px] sm:text-[20px] xl:text-[24px] font-normal text-[#4B5563]">%</span>
                         </div>
                         <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
                           {lang === 'zh' ? '參與前期問卷與使用者訪談' : 'Participated in pre-research surveys and user interviews'}
@@ -4544,7 +4548,7 @@ const SPLIT_VIEW_CHIPS = [
                                           {/* ONBOARDING SECTION */}
               <div style={{ marginBottom: '80px' }}>
                 <div style={{ marginBottom: '32px' }}>
-                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-['Inter'] tracking-tight text-[#26215C] leading-none mb-3">
+                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#26215C] leading-none mb-3">
                     Onboarding
                   </h3>
                   <div className="text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-[#7F77DD] tracking-wide uppercase">
@@ -5031,7 +5035,7 @@ const SPLIT_VIEW_CHIPS = [
 {/* LOOP ONE HEADER */}
               <div style={{ marginBottom: '48px' }}>
                 <div style={{ marginBottom: '32px' }}>
-                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-['Inter'] tracking-tight text-[#26215C] leading-none mb-3">
+                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#26215C] leading-none mb-3">
                     {lang === 'zh' ? '閉環一｜刷題閉環' : 'Loop 1 | Practice Loop'}
                   </h3>
                   <div className="text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-[#7F77DD] tracking-wide uppercase">
@@ -5039,7 +5043,7 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
                 </div>
                 
-                <svg width="100%" viewBox="0 0 680 200" style={{ fontFamily: 'system-ui', display: 'block', marginBottom: '24px' }}>
+                <svg viewBox="0 0 520 200" style={{ fontFamily: 'system-ui', display: 'block', margin: '0 auto 24px auto', width: '80%', maxWidth: '520px' }}>
                   <defs>
                     <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                       <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#7F77DD" />
@@ -5047,41 +5051,41 @@ const SPLIT_VIEW_CHIPS = [
                   </defs>
                   
                   {/* Node 1 */}
-                  <rect x="40" y="88" width="128" height="84" rx="16" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
-                  <text x="104" y="122" textAnchor="middle" fill="#3C3489" fontSize="14" fontWeight="500">
+                  <rect x="0" y="88" width="128" height="84" rx="16" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
+                  <text x="64" y="122" textAnchor="middle" fill="#3C3489" fontSize="14" fontWeight="500">
                     {lang === 'zh' ? 'App 內刷題' : 'In-App Practice'}
                   </text>
-                  <text x="104" y="146" textAnchor="middle" fill="#534AB7" fontSize="12">
+                  <text x="64" y="146" textAnchor="middle" fill="#534AB7" fontSize="12">
                     {lang === 'zh' ? '多科互動題型' : 'Interactive Types'}
                   </text>
 
                   {/* Node 2 */}
-                  <rect x="236" y="88" width="128" height="84" rx="16" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
-                  <text x="300" y="122" textAnchor="middle" fill="#3C3489" fontSize="14" fontWeight="500">
+                  <rect x="196" y="88" width="128" height="84" rx="16" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
+                  <text x="260" y="122" textAnchor="middle" fill="#3C3489" fontSize="14" fontWeight="500">
                     {lang === 'zh' ? '即時解析' : 'Instant Analysis'}
                   </text>
-                  <text x="300" y="146" textAnchor="middle" fill="#534AB7" fontSize="12">
+                  <text x="260" y="146" textAnchor="middle" fill="#534AB7" fontSize="12">
                     {lang === 'zh' ? '答案 + 詳解' : 'Answer + Solution'}
                   </text>
 
                   {/* Node 3 */}
-                  <rect x="432" y="88" width="128" height="84" rx="16" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
-                  <text x="496" y="122" textAnchor="middle" fill="#3C3489" fontSize="14" fontWeight="500">
+                  <rect x="392" y="88" width="128" height="84" rx="16" fill="#EEEDFE" stroke="#7F77DD" strokeWidth="0.5" />
+                  <text x="456" y="122" textAnchor="middle" fill="#3C3489" fontSize="14" fontWeight="500">
                     {lang === 'zh' ? '錯題庫收藏' : 'Incorrect Save'}
                   </text>
-                  <text x="496" y="146" textAnchor="middle" fill="#534AB7" fontSize="12">
+                  <text x="456" y="146" textAnchor="middle" fill="#534AB7" fontSize="12">
                     {lang === 'zh' ? '建立學習資產' : 'Build Learning Asset'}
                   </text>
 
                   {/* Connectors */}
-                  <line x1="168" y1="130" x2="232" y2="130" stroke="#7F77DD" strokeWidth="1.5" markerEnd="url(#arrow-purple)" fill="none" />
-                  <line x1="364" y1="130" x2="428" y2="130" stroke="#7F77DD" strokeWidth="1.5" markerEnd="url(#arrow-purple)" fill="none" />
+                  <line x1="128" y1="130" x2="192" y2="130" stroke="#7F77DD" strokeWidth="1.5" markerEnd="url(#arrow-purple)" fill="none" />
+                  <line x1="324" y1="130" x2="388" y2="130" stroke="#7F77DD" strokeWidth="1.5" markerEnd="url(#arrow-purple)" fill="none" />
 
                   {/* Return Arc */}
-                  <path d="M 560 88 Q 560 40 300 40 Q 40 40 40 88" fill="none" stroke="#AFA9EC" strokeWidth="1.5" strokeDasharray="5 3" markerEnd="url(#arrow-purple)" />
+                  <path d="M 520 88 Q 520 40 260 40 Q 0 40 0 88" fill="none" stroke="#AFA9EC" strokeWidth="1.5" strokeDasharray="5 3" markerEnd="url(#arrow-purple)" />
 
                   {/* Return Label */}
-                  <text x="300" y="30" textAnchor="middle" fill="#534AB7" fontSize="12">
+                  <text x="260" y="30" textAnchor="middle" fill="#534AB7" fontSize="12">
                     {lang === 'zh' ? '複習強化 ↻' : 'Reinforcement ↻'}
                   </text>
                 </svg>
@@ -5095,7 +5099,7 @@ const SPLIT_VIEW_CHIPS = [
               {/* LOOP TWO HEADER */}
               <div style={{ marginBottom: '32px' }}>
                 <div style={{ marginBottom: '32px' }}>
-                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-['Inter'] tracking-tight text-[#063D29] leading-none mb-3">
+                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#063D29] leading-none mb-3">
                     {lang === 'zh' ? '閉環二｜複習閉環' : 'Loop 2 | Review Loop'}
                   </h3>
                   <div className="text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-[#1D9E75] tracking-wide uppercase">
@@ -5104,7 +5108,7 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
                 
                 {/* SVG Review Loop Diagram */}
-                <svg width="100%" viewBox="0 0 680 200" style={{ fontFamily: 'system-ui', display: 'block' }}>
+                <svg viewBox="0 0 504 200" style={{ fontFamily: 'system-ui', display: 'block', margin: '0 auto', width: '80%', maxWidth: '504px' }}>
                   <defs>
                     <marker id="arrow-teal" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                       <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#1D9E75" />
@@ -5112,41 +5116,41 @@ const SPLIT_VIEW_CHIPS = [
                   </defs>
                   
                   {/* Node 1 */}
-                  <rect x="88" y="88" width="148" height="84" rx="16" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
-                  <text x="162" y="118" textAnchor="middle" fill="#085041" fontSize="14" fontWeight="500">
+                  <rect x="0" y="88" width="148" height="84" rx="16" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
+                  <text x="74" y="118" textAnchor="middle" fill="#085041" fontSize="14" fontWeight="500">
                     {lang === 'zh' ? '考卷拍照' : 'Photo Graded Paper'}
                   </text>
-                  <text x="162" y="142" textAnchor="middle" fill="#0F6E56" fontSize="12">
+                  <text x="74" y="142" textAnchor="middle" fill="#0F6E56" fontSize="12">
                     {lang === 'zh' ? '即時上傳解惑' : 'Instant Explanation'}
                   </text>
 
                   {/* Node 2 */}
-                  <rect x="266" y="88" width="148" height="84" rx="16" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
-                  <text x="340" y="118" textAnchor="middle" fill="#085041" fontSize="14" fontWeight="500">
+                  <rect x="178" y="88" width="148" height="84" rx="16" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
+                  <text x="252" y="118" textAnchor="middle" fill="#085041" fontSize="14" fontWeight="500">
                     {lang === 'zh' ? 'AI 解析' : 'AI Analysis'}
                   </text>
-                  <text x="340" y="142" textAnchor="middle" fill="#0F6E56" fontSize="12">
+                  <text x="252" y="142" textAnchor="middle" fill="#0F6E56" fontSize="12">
                     {lang === 'zh' ? '辨識 + 詳解' : 'OCR + Solution'}
                   </text>
 
                   {/* Node 3 */}
-                  <rect x="444" y="88" width="148" height="84" rx="16" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
-                  <text x="518" y="118" textAnchor="middle" fill="#085041" fontSize="14" fontWeight="500">
+                  <rect x="356" y="88" width="148" height="84" rx="16" fill="#E1F5EE" stroke="#1D9E75" strokeWidth="0.5" />
+                  <text x="430" y="118" textAnchor="middle" fill="#085041" fontSize="14" fontWeight="500">
                     {lang === 'zh' ? '相似題練習' : 'Similar Practice'}
                   </text>
-                  <text x="518" y="142" textAnchor="middle" fill="#0F6E56" fontSize="12">
+                  <text x="430" y="142" textAnchor="middle" fill="#0F6E56" fontSize="12">
                     {lang === 'zh' ? '弱點強化' : 'Weakness Reinforcement'}
                   </text>
 
                   {/* Connectors */}
-                  <line x1="236" y1="130" x2="262" y2="130" stroke="#1D9E75" strokeWidth="1.5" markerEnd="url(#arrow-teal)" fill="none" />
-                  <line x1="414" y1="130" x2="440" y2="130" stroke="#1D9E75" strokeWidth="1.5" markerEnd="url(#arrow-teal)" fill="none" />
+                  <line x1="148" y1="130" x2="174" y2="130" stroke="#1D9E75" strokeWidth="1.5" markerEnd="url(#arrow-teal)" fill="none" />
+                  <line x1="326" y1="130" x2="352" y2="130" stroke="#1D9E75" strokeWidth="1.5" markerEnd="url(#arrow-teal)" fill="none" />
 
                   {/* Return Arc */}
-                  <path d="M 592 88 Q 592 40 340 40 Q 88 40 88 88" fill="none" stroke="#5DCAA5" strokeWidth="1.5" strokeDasharray="5 3" markerEnd="url(#arrow-teal)" />
+                  <path d="M 504 88 Q 504 40 252 40 Q 0 40 0 88" fill="none" stroke="#5DCAA5" strokeWidth="1.5" strokeDasharray="5 3" markerEnd="url(#arrow-teal)" />
 
                   {/* Return Label */}
-                  <text x="340" y="30" textAnchor="middle" fill="#0F6E56" fontSize="12">
+                  <text x="252" y="30" textAnchor="middle" fill="#0F6E56" fontSize="12">
                     {lang === 'zh' ? '加入錯題庫 ↻' : 'Add to Wrong Book ↻'}
                   </text>
                 </svg>
@@ -5507,27 +5511,27 @@ const SPLIT_VIEW_CHIPS = [
                     元件系統定義了整個應用中所有按鈕、輸入框、狀態標籤及卡片模組的設計規格與互動狀態。所有元件均符合 Figma 設計標記（Design Tokens），確保設計與開發的高度一致性，並在極小化程式碼重複的同時提升應用程式的渲染效能。
                   </p>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6 mt-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-8">
                     {/* 1. Buttons (col-span-1) */}
-                    {renderCard(buttonComp, 'col-span-1 md:col-span-1 xl:col-span-1 min-h-[200px]')}
+                    {renderCard(buttonComp, 'col-span-1 min-h-[200px]')}
 
                     {/* 2. Vertical Stack (Inputs & Forms + Navigation Bar) (col-span-1) */}
-                    <div className="col-span-1 md:col-span-1 xl:col-span-1 flex flex-col gap-4 md:gap-6 h-full">
+                    <div className="col-span-1 flex flex-col gap-4 md:gap-6 h-full">
                       {renderCard(inputComp, 'flex-1')}
                       {renderCard(navComp, 'flex-1')}
                     </div>
 
                     {/* 3. Dropdowns & Menus (col-span-1) */}
-                    {renderCard(dropdownComp, 'col-span-1 md:col-span-1 xl:col-span-1 min-h-[200px]')}
+                    {renderCard(dropdownComp, 'col-span-1 min-h-[200px]')}
 
                     {/* 4. Subject Cards (col-span-1) */}
-                    {renderCard(subjectComp, 'col-span-1 md:col-span-1 xl:col-span-1 min-h-[200px]')}
+                    {renderCard(subjectComp, 'col-span-1 min-h-[200px]')}
 
-                    {/* 5. Progress Bar and Step Indicator (col-span-2) */}
-                    {renderCard(cardsComp, 'col-span-1 md:col-span-2 xl:col-span-2 min-h-[200px]')}
+                    {/* 5. Progress Bar and Step Indicator (col-span-1) */}
+                    {renderCard(cardsComp, 'col-span-1 min-h-[200px]')}
 
-                    {/* 6. Accordion (col-span-2) */}
-                    {renderCard(accordionComp, 'col-span-1 md:col-span-2 xl:col-span-2 min-h-[200px]')}
+                    {/* 6. Accordion (col-span-1) */}
+                    {renderCard(accordionComp, 'col-span-1 min-h-[200px]')}
                   </div>
                 </div>
               </div>
@@ -5820,7 +5824,7 @@ const SPLIT_VIEW_CHIPS = [
             <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setSelectedComponent(null)}>
               <div className="bg-white w-full max-w-5xl max-h-[90vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-300" onClick={e => e.stopPropagation()}>
                 <div className="flex items-center justify-between p-6 md:p-8 border-b border-gray-100">
-                  <h3 className="text-2xl font-bold font-['Inter'] text-gray-900">
+                  <h3 className="text-2xl font-bold font-inter text-gray-900">
                     {selectedComponent.name} {lang === 'zh' ? '規格資訊' : 'Specs'}
                   </h3>
                   <button onClick={() => setSelectedComponent(null)} className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-900 cursor-pointer">
@@ -6020,11 +6024,22 @@ const SPLIT_VIEW_CHIPS = [
           <div className="pt-32 md:pt-36 px-4 md:px-12 max-w-[100rem] mx-auto">
             <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
             <h1 
-              className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase" 
+              className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase" 
               style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
             >
               {t(activeItem.title, lang)}
             </h1>
+          </div>
+
+          {/* METADATA ROW */}
+          <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed gap-2 select-none">
+            <span>{lang === 'zh' ? 'UI/UX 設計師' : 'UI/UX Designer'}</span>
+            <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
+            <span>{lang === 'zh' ? '動態設計師' : 'Motion Designer'}</span>
+            <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
+            <span>2023 — 2024</span>
+            <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
+            <span>Web Design</span>
           </div>
 
           {/* Hero Section */}
@@ -6118,13 +6133,13 @@ const SPLIT_VIEW_CHIPS = [
                         <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
                           {t({ zh: '專案背景', en: 'Project Background' }, lang)}
                         </h4>
-                        <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                        <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-noto">
                           {t({
                             zh: 'Wisdome.ai 是一家致力於使用 AI 技術打造全方位線上教育平台的新創公司，以 AI、機器學習以及教育為公司核心概念。我們面臨的核心挑戰在於：教育機構的校長與決策主管多數對 AI 技術感到陌生甚至排斥，如何透過網頁設計將複雜的 AI 概念具象化，進而轉化為信任？',
                             en: 'Wisdome.ai is a startup dedicated to building a comprehensive online education platform using AI. The core challenge was that most school administrators and decision-makers are unfamiliar with or skeptical of AI tools. The website design must demystify complex AI concepts and convert visitor curiosity into trust.'
                           }, lang)}
                         </p>
-                        <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                        <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-noto">
                           {t({
                             zh: '為了解決這個信任痛點，本次專案聚焦於「體驗化設計」。我們不以堆疊技術名詞作為核心賣點，而是將功能與日常教務場景深度結合，透過直覺的資訊流、流暢的動態展現與極簡的視覺介面，建立起專業、可靠的品牌第一印象。',
                             en: 'To bridge this trust gap, the redesign focuses on experiential communication. Rather than stacking technical jargon, we contextualized AI capabilities into daily teaching scenarios, establishing a professional and reliable brand presence through intuitive content flows, smooth micro-interactions, and a clean interface.'
@@ -6137,7 +6152,7 @@ const SPLIT_VIEW_CHIPS = [
                         <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
                           {t({ zh: '團隊組成', en: 'Team Composition' }, lang)}
                         </h4>
-                        <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-['Noto_Sans_TC'] list-none pl-0">
+                        <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-noto list-none pl-0">
                           <li>• {t({ zh: 'UI/UX 設計師 (本人)', en: 'UI/UX Designer (Self)' }, lang)}</li>
                           <li>• {t({ zh: '前端工程師 (本人兼任)', en: 'Frontend Engineer (Self)' }, lang)}</li>
                           <li>• {t({ zh: '專案經理 x1', en: 'Project Manager x1' }, lang)}</li>
@@ -6152,7 +6167,7 @@ const SPLIT_VIEW_CHIPS = [
                       <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
                         {t({ zh: '交付物', en: 'Deliverables' }, lang)}
                       </h4>
-                      <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm md:text-base text-gray-700 font-bold font-['Noto_Sans_TC'] list-disc pl-5">
+                      <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm md:text-base text-gray-700 font-bold font-noto list-disc pl-5">
                         <li>{t({ zh: '企業視覺識別系統', en: 'Corporate Identity System' }, lang)}</li>
                         <li>{t({ zh: '企業形象官網設計', en: 'Official Website Design' }, lang)}</li>
                         <li>{t({ zh: '網頁互動元件設計', en: 'Interactive Web Components' }, lang)}</li>
@@ -6181,7 +6196,7 @@ const SPLIT_VIEW_CHIPS = [
                       <div><p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{I18N[lang].project.service}</p><p className="text-xl font-medium text-gray-800">{t(activeItem.projectOverview.service, lang)}</p></div>
                     )}
                   </div>
-                  <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] whitespace-pre-line">
+                  <div className="space-y-12 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-noto whitespace-pre-line">
                     {activeItem.projectOverview.backgroundAndGoals && (
                       <div><SubHeading>{I18N[lang].project.background}</SubHeading><p>{t(activeItem.projectOverview.backgroundAndGoals, lang)}</p></div>
                     )}
@@ -6199,7 +6214,7 @@ const SPLIT_VIEW_CHIPS = [
             <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
               <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.research} />
-                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.research.description, lang)}</p>
+                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-noto max-w-4xl mb-12">{t(activeItem.research.description, lang)}</p>
                 {activeItem.research.images && activeItem.research.images.length > 0 && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {activeItem.research.images.map((img, i) => (
@@ -6221,14 +6236,14 @@ const SPLIT_VIEW_CHIPS = [
                   <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.strategy} />
 
                   {/* Text Content */}
-                  <div className="space-y-6 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">
+                  <div className="space-y-6 text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-noto max-w-4xl mb-12">
                     <p>
                       {t({
                         zh: '針對 B2B SaaS 企業官網，我們以「建立專業信任」與「引導留單轉換」為策略核心，規劃了清晰的資訊架構，幫助教育機構決策者快速理解平台價值。',
                         en: 'For B2B SaaS corporate websites, our core strategy centers on establishing professional trust and driving lead conversion. We designed a clear information architecture to help educational decision-makers quickly grasp the platform\'s value.'
                       }, lang)}
                     </p>
-                    <ul className="space-y-4 text-base md:text-lg text-gray-600 font-semibold font-['Noto_Sans_TC'] list-disc pl-5">
+                    <ul className="space-y-4 text-base md:text-lg text-gray-600 font-semibold font-noto list-disc pl-5">
                       <li>
                         {t({
                           zh: '直覺的角色化導覽：以不同教務角色切入，展示符合其痛點的客製化價值主張。',
@@ -6347,7 +6362,7 @@ const SPLIT_VIEW_CHIPS = [
                 <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                   <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.strategy} />
                   {activeItem.strategyAndArchitecture.description && (
-                    <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.strategyAndArchitecture.description, lang)}</p>
+                    <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-noto max-w-4xl mb-12">{t(activeItem.strategyAndArchitecture.description, lang)}</p>
                   )}
                 </div>
                 {activeItem.strategyAndArchitecture.iaImage && (
@@ -6365,7 +6380,7 @@ const SPLIT_VIEW_CHIPS = [
                 {/* 頂部 */}
                 <div className="max-w-[100rem] mx-auto px-4 md:px-12 mb-16">
                   <ProjectSectionHeader num={getSectionNum()} title={t({ zh: '企業識別系統', en: 'Corporate Identity System' }, lang)} />
-                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl">
+                  <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-noto max-w-4xl">
                     {t({
                       zh: '為凸顯 Wisdome.ai 智慧教育的創新形象與科技核心，我們規劃了完整的視覺識別規範，建立一個兼具專業感、信賴感與前沿科技感的 CIS 系統。',
                       en: 'To highlight Wisdome.ai\'s innovative image and technological core, we developed a complete visual identity system that builds a brand image combining professionalism, trust, and advanced EdTech aesthetics.'
@@ -6401,10 +6416,10 @@ const SPLIT_VIEW_CHIPS = [
                         </div>
                         
                         <div className="mt-5 space-y-1.5 text-left">
-                          <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                          <div className="text-[15.5px] font-extrabold text-[#12172B] font-noto">
                             {lang === 'zh' ? '品牌標誌 (Logo)' : 'Brand Logo'}
                           </div>
-                          <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                          <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-noto">
                             {lang === 'zh' 
                               ? '以多面幾何球體作為視覺主體，結合簡潔的無襯線字體，呈現創新且穩健可靠的科技品牌形象。'
                               : 'Hexagonal faceted sphere centerpiece combined with a clean sans-serif typeface, conveying an innovative and reliable tech brand image.'}
@@ -6427,10 +6442,10 @@ const SPLIT_VIEW_CHIPS = [
                         </div>
 
                         <div className="mt-5 space-y-1.5 text-left">
-                          <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                          <div className="text-[15.5px] font-extrabold text-[#12172B] font-noto">
                             {lang === 'zh' ? '圖形與幾何 (Graph & Structure)' : 'Graph & Structure'}
                           </div>
-                          <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                          <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-noto">
                             {lang === 'zh' 
                               ? '以半球體穹頂 (Geodesic Dome) 進行幾何切割，象徵多維度人工智慧與數據網路的交織流動。'
                               : 'Faceted geodesic dome network, representing the multidimensional flows and structures of artificial intelligence.'}
@@ -6448,10 +6463,10 @@ const SPLIT_VIEW_CHIPS = [
                             <img src="projects/wisdome.ai_web/logotype.png" alt="Wisdome.ai Logotype" className="max-w-full max-h-full object-contain" />
                           </div>
                           <div className="w-full md:w-[55%] space-y-2 text-left">
-                            <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                            <div className="text-[15.5px] font-extrabold text-[#12172B] font-noto">
                               {lang === 'zh' ? '文字標誌 (Logotype)' : 'Brand Logotype'}
                             </div>
-                            <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                            <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-noto">
                               {lang === 'zh' 
                                 ? '採用簡約現代的無襯線字體，並在特定字母線條中融入斜切的科技語彙，呈現專業且洗鍊的品牌調性。'
                                 : 'Features a sleek, modern sans-serif typeface, incorporating subtle tech-slashes in letter strokes to convey professional brand tone.'}
@@ -6467,10 +6482,10 @@ const SPLIT_VIEW_CHIPS = [
                       >
                         <div className="w-full space-y-6">
                           <div className="space-y-1.5 text-left">
-                            <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                            <div className="text-[15.5px] font-extrabold text-[#12172B] font-noto">
                               {lang === 'zh' ? '組合形式與應用 (Lockups & Variations)' : 'Lockups & Variations'}
                             </div>
-                            <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                            <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-noto">
                               {lang === 'zh' 
                                 ? '包含橫向、反白與單色等組合，因應不同應用載體與底色彈性調整，確保最佳的易讀性與辨識度。'
                                 : 'Includes horizontal lockups and color variations tailored for optimal visibility across dark, light, and primary backdrops.'}
@@ -6481,17 +6496,17 @@ const SPLIT_VIEW_CHIPS = [
                             {/* Card 1: bg-[#fbfbfb] logo: wisdome-dark.svg */}
                             <div className="bg-[#fbfbfb] border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
                               <img src="projects/wisdome.ai_web/wisdome-dark.svg" alt="Standard Lockup Light BG" className="max-w-[85%] max-h-[70%] object-contain" />
-                              <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-['Manrope'] uppercase tracking-wider">#FBFBFB</span>
+                              <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-manrope uppercase tracking-wider">#FBFBFB</span>
                             </div>
                             {/* Card 2: bg-[#00D2E2] logo: wisdome-dark.svg */}
                             <div className="bg-[#00D2E2] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none border border-transparent">
                               <img src="projects/wisdome.ai_web/wisdome-dark.svg" alt="Cyan BG Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
-                              <span className="text-[10px] font-bold text-[#12172B] mt-2 font-['Manrope'] uppercase tracking-wider">#00D2E2</span>
+                              <span className="text-[10px] font-bold text-[#12172B] mt-2 font-manrope uppercase tracking-wider">#00D2E2</span>
                             </div>
                             {/* Card 3: bg-[#282828] logo: wisdome-light.svg */}
                             <div className="bg-[#282828] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none shadow-inner border border-transparent">
                               <img src="projects/wisdome.ai_web/wisdome-light.svg" alt="Dark BG Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
-                              <span className="text-[10px] font-bold text-white/70 mt-2 font-['Manrope'] uppercase tracking-wider">#282828</span>
+                              <span className="text-[10px] font-bold text-white/70 mt-2 font-manrope uppercase tracking-wider">#282828</span>
                             </div>
                           </div>
                         </div>
@@ -6513,7 +6528,7 @@ const SPLIT_VIEW_CHIPS = [
                     <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 items-start">
                       {/* Left: Decision rationale */}
                       <div className="space-y-6">
-                        <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                        <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium font-noto">
                           {t({
                             zh: '色彩計畫以明快的科技藍綠色（Accent Cyan）搭配深沉冷冽的碳黑色（Primary Dark）為主軸。藍綠色代表 AI 與雲端教育的創新活力，碳黑色則象徵教育管理系統的穩定、安全與專業。透過高對比的配色體系，確保網站在展現科技感的同時，仍能保持極佳的閱讀易用性。',
                             en: 'The color palette features Tech Cyan as the accent shade and Charcoal Black as the primary background. Cyan communicates innovative AI EdTech vitality, while Charcoal symbolizes educational administration systems\' security and professionalism. This ensures high-contrast clarity alongside modern aesthetics.'
@@ -6535,7 +6550,7 @@ const SPLIT_VIEW_CHIPS = [
                               {/* Hover details overlay */}
                               <div className="absolute inset-0 bg-black/80 flex flex-col justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <span className="text-white font-mono font-bold text-xs mb-1">{color.hex}</span>
-                                <span className="text-white/80 font-['Noto_Sans_TC'] text-[10px] leading-snug">{t(color.usage, lang)}</span>
+                                <span className="text-white/80 font-noto text-[10px] leading-snug">{t(color.usage, lang)}</span>
                               </div>
                             </div>
                             <div>
@@ -6594,21 +6609,21 @@ const SPLIT_VIEW_CHIPS = [
                         <div className="space-y-6">
                           <div>
                             <span className="text-[10px] text-gray-400 font-bold uppercase block mb-1">標題 H1 (700 Bold)</span>
-                            <span className="text-3xl font-bold text-gray-900 leading-tight font-['Noto_Sans_TC'] block">
+                            <span className="text-3xl font-bold text-gray-900 leading-tight font-noto block">
                               重塑線上教育新未來
                             </span>
                           </div>
                           
                           <div>
                             <span className="text-[10px] text-gray-400 font-bold uppercase block mb-1">副標題 H3 (600 Medium)</span>
-                            <span className="text-lg font-semibold text-gray-700 leading-normal font-['Noto_Sans_TC'] block">
+                            <span className="text-lg font-semibold text-gray-700 leading-normal font-noto block">
                               專為補習班打造的智慧教務系統。
                             </span>
                           </div>
                           
                           <div>
                             <span className="text-[10px] text-gray-400 font-bold uppercase block mb-1">內文 Body (400 Regular)</span>
-                            <span className="text-base font-normal text-gray-500 leading-relaxed font-['Noto_Sans_TC'] block">
+                            <span className="text-base font-normal text-gray-500 leading-relaxed font-noto block">
                               聚愢科技整合 AI、機器學習與人性化介面，協助傳統教務無縫轉型，開啟高效管理的新頁章。
                             </span>
                           </div>
@@ -6652,8 +6667,8 @@ const SPLIT_VIEW_CHIPS = [
                             <span className="text-xs font-bold text-gray-400 font-mono">CIS Brand Guideline Map</span>
                           </div>
                           <div>
-                            <span className="block text-sm font-bold text-gray-800 font-['Noto_Sans_TC']">{t({ zh: 'CIS 品牌標誌規範', en: 'CIS Mark Specifications' }, lang)}</span>
-                            <span className="block text-xs text-gray-400 font-medium font-['Noto_Sans_TC']">{t({ zh: '嚴謹定義標誌的幾何格線、色彩容差與安全留白區域', en: 'Strictly defines geometry lines, spacing tolerances, and margins.' }, lang)}</span>
+                            <span className="block text-sm font-bold text-gray-800 font-noto">{t({ zh: 'CIS 品牌標誌規範', en: 'CIS Mark Specifications' }, lang)}</span>
+                            <span className="block text-xs text-gray-400 font-medium font-noto">{t({ zh: '嚴謹定義標誌的幾何格線、色彩容差與安全留白區域', en: 'Strictly defines geometry lines, spacing tolerances, and margins.' }, lang)}</span>
                           </div>
                         </div>
 
@@ -6665,7 +6680,7 @@ const SPLIT_VIEW_CHIPS = [
                               <path d="m12 5 7 7-7 7" />
                             </svg>
                           </div>
-                          <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider font-['Noto_Sans_TC'] mt-2">{t({ zh: '落地應用', en: 'Live Apply' }, lang)}</span>
+                          <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider font-noto mt-2">{t({ zh: '落地應用', en: 'Live Apply' }, lang)}</span>
                         </div>
 
                         {/* Right: Live Web Screenshot Card */}
@@ -6680,8 +6695,8 @@ const SPLIT_VIEW_CHIPS = [
                             </div>
                           </div>
                           <div>
-                            <span className="block text-sm font-bold text-gray-800 font-['Noto_Sans_TC']">{t({ zh: '企業官方網站落地', en: 'Live Corporate Website' }, lang)}</span>
-                            <span className="block text-xs text-gray-400 font-medium font-['Noto_Sans_TC']">{t({ zh: '在 Web 介面實現完美像素對齊，保持品牌一致的跨媒介體驗', en: 'Achieves pixel-perfect rendering to preserve cohesive brand experience.' }, lang)}</span>
+                            <span className="block text-sm font-bold text-gray-800 font-noto">{t({ zh: '企業官方網站落地', en: 'Live Corporate Website' }, lang)}</span>
+                            <span className="block text-xs text-gray-400 font-medium font-noto">{t({ zh: '在 Web 介面實現完美像素對齊，保持品牌一致的跨媒介體驗', en: 'Achieves pixel-perfect rendering to preserve cohesive brand experience.' }, lang)}</span>
                           </div>
                         </div>
                       </div>
@@ -6731,8 +6746,8 @@ const SPLIT_VIEW_CHIPS = [
                               {/* Text Content */}
                               <div className="w-full md:w-1/2 flex flex-col justify-center py-4">
                                 <span className="text-sm font-bold text-orange-500 uppercase tracking-widest mb-4 inline-block">{logo.type}</span>
-                                <h4 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 font-['Noto_Sans_TC'] leading-tight">{logo.title}</h4>
-                                <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-lg">{logo.description}</p>
+                                <h4 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 font-noto leading-tight">{logo.title}</h4>
+                                <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium font-noto max-w-lg">{logo.description}</p>
                               </div>
                             </div>
                           );
@@ -6762,7 +6777,7 @@ const SPLIT_VIEW_CHIPS = [
                           {activeItem.brandIdentity.typography?.tc && (
                             <div>
                               <p className="text-sm font-bold text-gray-500 mb-2">Chinese typography</p>
-                              <p className="text-3xl md:text-4xl font-bold text-[#282828] font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.tc.name}</p>
+                              <p className="text-3xl md:text-4xl font-bold text-[#282828] font-noto">{activeItem.brandIdentity.typography.tc.name}</p>
                             </div>
                           )}
                         </div>
@@ -6772,7 +6787,7 @@ const SPLIT_VIEW_CHIPS = [
                             <p className="text-5xl sm:text-7xl md:text-[6rem] lg:text-[7.5rem] font-bold text-[#282828] uppercase tracking-wide leading-none truncate md:overflow-visible">{activeItem.brandIdentity.typography.en.preview}</p>
                           )}
                           {activeItem.brandIdentity.typography?.tc && (
-                            <p className="text-4xl sm:text-6xl md:text-[4rem] lg:text-[5rem] font-bold text-[#282828] tracking-tight leading-tight font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.tc.preview}</p>
+                            <p className="text-4xl sm:text-6xl md:text-[4rem] lg:text-[5rem] font-bold text-[#282828] tracking-tight leading-tight font-noto">{activeItem.brandIdentity.typography.tc.preview}</p>
                           )}
                         </div>
                       </div>
@@ -6781,7 +6796,7 @@ const SPLIT_VIEW_CHIPS = [
                       <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-center">
                         {/* Left Column: Description */}
                         <div className="w-full md:w-1/3 mb-4 md:mb-0">
-                          <p className="text-base md:text-lg text-gray-800 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                          <p className="text-base md:text-lg text-gray-800 leading-relaxed font-medium font-noto">
                             {activeItem.brandIdentity.colorDesc}
                           </p>
                         </div>
@@ -6799,7 +6814,7 @@ const SPLIT_VIEW_CHIPS = [
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
                       {activeItem.brandIdentity.colors && (
                         <div>
-                          <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">{I18N[lang].project.colorPalette}</h4>
+                          <h4 className="text-2xl font-bold mb-6 font-inter tracking-tight">{I18N[lang].project.colorPalette}</h4>
                           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                             {activeItem.brandIdentity.colors.map(color => (
                               <div key={color.hex} className="flex flex-col gap-3">
@@ -6813,10 +6828,10 @@ const SPLIT_VIEW_CHIPS = [
                       )}
                       {activeItem.brandIdentity.typography && (
                         <div className="bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100 h-full">
-                          <h4 className="text-2xl font-bold mb-6 font-['Inter'] tracking-tight">{I18N[lang].project.typography}</h4>
+                          <h4 className="text-2xl font-bold mb-6 font-inter tracking-tight">{I18N[lang].project.typography}</h4>
                           <div className="space-y-8">
                             <div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.primaryType}</p><p className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">{activeItem.brandIdentity.typography.primary}</p></div>
-                            {activeItem.brandIdentity.typography.secondary && (<div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.secondaryType}</p><p className="text-2xl md:text-4xl font-bold text-gray-900 font-['Noto_Sans_TC']">{activeItem.brandIdentity.typography.secondary}</p></div>)}
+                            {activeItem.brandIdentity.typography.secondary && (<div><p className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">{I18N[lang].project.secondaryType}</p><p className="text-2xl md:text-4xl font-bold text-gray-900 font-noto">{activeItem.brandIdentity.typography.secondary}</p></div>)}
                           </div>
                         </div>
                       )}
@@ -6839,7 +6854,7 @@ const SPLIT_VIEW_CHIPS = [
                         <h4 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight mb-2">
                           {lang === 'zh' ? '四個關鍵設計選擇' : 'Four Key Design Choices'}
                         </h4>
-                        <p className="text-sm md:text-base text-gray-500 font-medium font-['Noto_Sans_TC']">
+                        <p className="text-sm md:text-base text-gray-500 font-medium font-noto">
                           {lang === 'zh' ? '每個選擇背後都有 UX 根據，不是美感偏好。' : 'Each choice is backed by UX rationale, not aesthetic preference.'}
                         </p>
                       </div>
@@ -6865,7 +6880,7 @@ const SPLIT_VIEW_CHIPS = [
                                   }`}>
                                     {t(tab.title, lang)}
                                   </h5>
-                                  <p className="text-sm text-gray-500 font-medium font-['Noto_Sans_TC']">
+                                  <p className="text-sm text-gray-500 font-medium font-noto">
                                     {t(tab.subtitle, lang)}
                                   </p>
                                 </div>
@@ -6897,7 +6912,7 @@ const SPLIT_VIEW_CHIPS = [
                                       <span className={`inline-block self-start px-2.5 py-1 text-xs font-bold rounded-md border ${insight.badgeColor}`}>
                                         {t(insight.badge, lang)}
                                       </span>
-                                      <p className="text-sm text-gray-600 leading-relaxed font-semibold font-['Noto_Sans_TC']">
+                                      <p className="text-sm text-gray-600 leading-relaxed font-semibold font-noto">
                                         {t(insight.content, lang)}
                                       </p>
                                     </div>
@@ -6945,7 +6960,7 @@ const SPLIT_VIEW_CHIPS = [
                                     }
                                   }
                                 }}
-                                className={`flex-shrink-0 px-4 py-2 text-xs md:text-sm font-bold font-['Noto_Sans_TC'] rounded-full border transition-all duration-300 cursor-pointer ${
+                                className={`flex-shrink-0 px-4 py-2 text-xs md:text-sm font-bold font-noto rounded-full border transition-all duration-300 cursor-pointer ${
                                   isActive
                                     ? 'bg-[#534ab7] border-[#534ab7] text-white shadow-sm'
                                     : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
@@ -6959,10 +6974,10 @@ const SPLIT_VIEW_CHIPS = [
                         
                         {/* Active Tab Description */}
                         <div className="mt-4 p-5 bg-purple-50/50 border border-purple-100/30 rounded-2xl">
-                          <h6 className="font-bold text-sm text-[#534ab7] mb-2 font-['Noto_Sans_TC']">
+                          <h6 className="font-bold text-sm text-[#534ab7] mb-2 font-noto">
                             {t(SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.title, lang)}
                           </h6>
-                          <p className="text-xs md:text-sm text-gray-600 leading-relaxed font-['Noto_Sans_TC']">
+                          <p className="text-xs md:text-sm text-gray-600 leading-relaxed font-noto">
                             {t(SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.desc, lang)}
                           </p>
                         </div>
@@ -7078,7 +7093,7 @@ const SPLIT_VIEW_CHIPS = [
                               />
                               {videoState === 'ended' && (
                                 <div className="absolute inset-0 bg-black/85 flex flex-col items-center justify-center gap-4 z-10 animate-in fade-in duration-300">
-                                  <span className="text-white font-medium text-sm md:text-base font-['Noto_Sans_TC']">
+                                  <span className="text-white font-medium text-sm md:text-base font-noto">
                                     {lang === 'zh' ? '影片播放完畢' : 'Video playback completed'}
                                   </span>
                                   <div className="flex gap-4">
@@ -7126,14 +7141,14 @@ const SPLIT_VIEW_CHIPS = [
                                     : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
                                 }`}
                               >
-                                <h5 className={`font-bold text-base md:text-lg font-['Noto_Sans_TC'] transition-colors duration-300 ${isActive ? 'text-purple-900' : 'text-gray-800'}`}>
+                                <h5 className={`font-bold text-base md:text-lg font-noto transition-colors duration-300 ${isActive ? 'text-purple-900' : 'text-gray-800'}`}>
                                   {t(chip.title, lang)}
                                 </h5>
   
                                 {/* Expandable content */}
                                 <div className={`grid transition-all duration-300 ease-in-out ${isActive ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0 overflow-hidden'}`}>
                                   <div className="overflow-hidden min-h-0">
-                                    <p className="text-sm text-gray-600 leading-relaxed font-['Noto_Sans_TC']">
+                                    <p className="text-sm text-gray-600 leading-relaxed font-noto">
                                       {t(chip.desc, lang)}
                                     </p>
                                   </div>
@@ -7147,7 +7162,7 @@ const SPLIT_VIEW_CHIPS = [
                   </>
                 )}
                 {activeItem.design.designSystemDesc && (
-                  <div className="mb-12"><p className="text-lg md:text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl">{t(activeItem.design.designSystemDesc, lang)}</p></div>
+                  <div className="mb-12"><p className="text-lg md:text-xl text-gray-600 leading-relaxed font-noto max-w-4xl">{t(activeItem.design.designSystemDesc, lang)}</p></div>
                 )}
 
                 {isApp && (activeItem.design.architectureImg || (activeItem.design.bentoComponents && activeItem.design.bentoComponents.length > 0) || (activeItem.design.componentsImages && activeItem.design.componentsImages.length > 0)) && (
@@ -7206,7 +7221,7 @@ const SPLIT_VIEW_CHIPS = [
                                   title={lang === 'zh' ? '查看元件資訊' : 'View Component Info'}
                                 >
                                   <IconSearch className="w-5 h-5 flex-shrink-0" />
-                                  <span className="text-xs font-bold font-['Noto_Sans_TC'] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 ease-in-out overflow-hidden whitespace-nowrap ml-2">
+                                  <span className="text-xs font-bold font-noto opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 ease-in-out overflow-hidden whitespace-nowrap ml-2">
                                     {lang === 'zh' ? '查看元件資訊' : 'View Component Info'}
                                   </span>
                                 </button>
@@ -7261,7 +7276,7 @@ const SPLIT_VIEW_CHIPS = [
                                   title={lang === 'zh' ? '查看元件資訊' : 'View Component Info'}
                                 >
                                   <IconSearch className="w-5 h-5 flex-shrink-0" />
-                                  <span className="text-xs font-bold font-['Noto_Sans_TC'] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 ease-in-out overflow-hidden whitespace-nowrap ml-2">
+                                  <span className="text-xs font-bold font-noto opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 ease-in-out overflow-hidden whitespace-nowrap ml-2">
                                     {lang === 'zh' ? '查看元件資訊' : 'View Component Info'}
                                   </span>
                                 </button>
@@ -7336,7 +7351,7 @@ const SPLIT_VIEW_CHIPS = [
                     {/* User Flow (Moved above screens) */}
                     {activeItem.design.flowImages && activeItem.design.flowImages.length > 0 && (
                       <div className="mb-16">
-                        <h5 className="text-xl md:text-2xl font-bold mb-6 text-gray-900 font-['Noto_Sans_TC'] border-b border-gray-100 pb-2 inline-block">{I18N[lang].project.userFlow}</h5>
+                        <h5 className="text-xl md:text-2xl font-bold mb-6 text-gray-900 font-noto border-b border-gray-100 pb-2 inline-block">{I18N[lang].project.userFlow}</h5>
                         <div className="grid grid-cols-1 gap-6">
                           {activeItem.design.flowImages.map((img, i) => (
                             <div key={i} className="bg-[#FAFAFA] rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 p-4 md:p-8">
@@ -7359,14 +7374,14 @@ const SPLIT_VIEW_CHIPS = [
                           return (
                             <div key={gIdx} className="w-full">
                               <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
-                                <h5 className="text-xl md:text-2xl font-bold text-gray-900 font-['Noto_Sans_TC'] border-b border-gray-100 pb-2 inline-block">{group.title}</h5>
+                                <h5 className="text-xl md:text-2xl font-bold text-gray-900 font-noto border-b border-gray-100 pb-2 inline-block">{group.title}</h5>
                                 {hasTabs && (
                                   <div className="bg-[#F5F5F5] p-1.5 rounded-[1.5rem] md:rounded-full flex flex-wrap gap-2 shadow-inner self-start md:self-end">
                                     {group.tabs.map((tab, tIdx) => (
                                       <button
                                         key={tIdx}
                                         onClick={() => setActiveScreenTabs(prev => ({ ...prev, [gIdx]: tIdx }))}
-                                        className={`whitespace-nowrap px-4 md:px-6 py-2.5 rounded-full text-sm md:text-base font-medium font-['Noto_Sans_TC'] transition-all duration-300 ${activeTabIdx === tIdx ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-800'}`}
+                                        className={`whitespace-nowrap px-4 md:px-6 py-2.5 rounded-full text-sm md:text-base font-medium font-noto transition-all duration-300 ${activeTabIdx === tIdx ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-800'}`}
                                       >
                                         {tab.title}
                                       </button>
@@ -7397,11 +7412,11 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Showcases for Complex Layouts (e.g. Wisdome.ai) */}
                 {activeItem.design.showcases && activeItem.design.showcases.map((showcase, i) => (
                   <div key={i} className="mb-24">
-                    <h4 className="text-[24px] md:text-[36px] font-bold font-['Inter'] tracking-tight text-gray-900 mb-10">{t(showcase.title, lang)}</h4>
+                    <h4 className="text-[24px] md:text-[36px] font-bold font-inter tracking-tight text-gray-900 mb-10">{t(showcase.title, lang)}</h4>
                     {showcase.description && (
                       <div className="flex flex-col gap-6 mb-12">
                         <SubHeading>{t(showcase.title, lang)} {lang === 'en' ? 'Showcase' : '呈現'}</SubHeading>
-                        <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-3xl font-['Noto_Sans_TC'] whitespace-pre-line">{t(showcase.description, lang)}</p>
+                        <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-3xl font-noto whitespace-pre-line">{t(showcase.description, lang)}</p>
                       </div>
                     )}
 
@@ -7471,7 +7486,7 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
                 )}
                 {activeItem.design.usabilityTesting && (
-                  <div><SubHeading>{I18N[lang].project.usability}</SubHeading><p className="text-xl text-gray-600 leading-relaxed font-['Noto_Sans_TC'] max-w-4xl whitespace-pre-line">{t(activeItem.design.usabilityTesting, lang)}</p></div>
+                  <div><SubHeading>{I18N[lang].project.usability}</SubHeading><p className="text-xl text-gray-600 leading-relaxed font-noto max-w-4xl whitespace-pre-line">{t(activeItem.design.usabilityTesting, lang)}</p></div>
                 )}
               </div>
             </div>
@@ -7484,7 +7499,7 @@ const SPLIT_VIEW_CHIPS = [
               className="max-w-[100rem] mx-auto px-4 md:px-12 mb-24 md:mb-40 mt-12"
             >
               <ProjectSectionHeader num={getSectionNum()} title={lang === 'zh' ? '成果與反思' : 'Reflection & Iteration'} />
-              <p className="text-sm md:text-base text-gray-500 font-semibold font-['Noto_Sans_TC'] -mt-6 mb-8 select-none">
+              <p className="text-sm md:text-base text-gray-500 font-semibold font-noto -mt-6 mb-8 select-none">
                 {lang === 'zh' ? '誠實評估，比展示光鮮更有說服力。' : 'Honest assessment is more convincing than a polished showcase.'}
               </p>
 
@@ -7502,10 +7517,10 @@ const SPLIT_VIEW_CHIPS = [
                       {card.icon}
                     </div>
                     <div className="space-y-2">
-                      <h4 className="text-lg font-bold text-gray-900 font-['Noto_Sans_TC']">
+                      <h4 className="text-lg font-bold text-gray-900 font-noto">
                         {t(card.title, lang)}
                       </h4>
-                      <p className="text-sm text-gray-600 leading-relaxed font-['Noto_Sans_TC']">
+                      <p className="text-sm text-gray-600 leading-relaxed font-noto">
                         {t(card.desc, lang)}
                       </p>
                     </div>
@@ -7520,7 +7535,7 @@ const SPLIT_VIEW_CHIPS = [
             <div className="w-full mb-24 md:mb-40 bg-[#FAFAFA] py-24 md:py-32">
               <div className="max-w-[100rem] mx-auto px-4 md:px-12">
                 <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.mascot} />
-                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-['Noto_Sans_TC'] max-w-4xl mb-12">{t(activeItem.mascotDesign.description, lang)}</p>
+                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-noto max-w-4xl mb-12">{t(activeItem.mascotDesign.description, lang)}</p>
                 {activeItem.mascotDesign.images && activeItem.mascotDesign.images.length > 0 && (
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                     {activeItem.mascotDesign.images.map((img, i) => (
@@ -7539,7 +7554,7 @@ const SPLIT_VIEW_CHIPS = [
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setSelectedComponent(null)}>
               <div className="bg-white w-full max-w-5xl max-h-[90vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-300" onClick={e => e.stopPropagation()}>
                 <div className="flex items-center justify-between p-6 md:p-8 border-b border-gray-100">
-                  <h3 className="text-2xl font-bold font-['Inter'] text-gray-900">
+                  <h3 className="text-2xl font-bold font-inter text-gray-900">
                     {selectedComponent.name} {lang === 'zh' ? '規格資訊' : 'Specs'}
                   </h3>
                   <button onClick={() => setSelectedComponent(null)} className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-900 cursor-pointer">
@@ -7742,11 +7757,22 @@ const SPLIT_VIEW_CHIPS = [
         <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-32 md:pt-36">
           <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
           <h1 
-            className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-['Inter'] uppercase md:whitespace-nowrap" 
+            className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase md:whitespace-nowrap" 
             style={{ fontSize: 'clamp(32px, 5.5vw, 84px)' }}
           >
-            BRAINBOX VISUAL DESIGN
+            BrainBox 產品視覺設計
           </h1>
+        </div>
+
+        {/* METADATA ROW */}
+        <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed gap-2 select-none">
+          <span>{lang === 'zh' ? '視覺設計師' : 'Visual Designer'}</span>
+          <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
+          <span>2023 — 2024</span>
+          <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
+          <span>Figma / After Effects</span>
+          <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
+          <span>{lang === 'zh' ? '5 大系統設計' : '5 Systems Design'}</span>
         </div>
 
         <div className="w-full md:w-screen md:relative md:left-1/2 md:-translate-x-1/2 rounded-2xl md:rounded-none bg-gray-100 mt-6 md:mt-8 select-none overflow-hidden h-auto">
@@ -7772,7 +7798,7 @@ const SPLIT_VIEW_CHIPS = [
                 <span className="text-xs font-bold text-[#E8734A] uppercase tracking-widest mb-3 block">
                   {lang === 'zh' ? '核心視覺挑戰' : 'CORE VISUAL CHALLENGE'}
                 </span>
-                <p className="text-xl md:text-3xl font-bold text-gray-900 leading-relaxed font-['Noto_Sans_TC']">
+                <p className="text-xl md:text-3xl font-bold text-gray-900 leading-relaxed font-noto">
                   {lang === 'zh' 
                     ? '如何為全新的 SAT 線上備考系統建立完整視覺語言——從品牌識別到動態設計，讓產品在第一眼就傳遞專業與信任？'
                     : 'How to build a complete visual language for a brand new SAT prep system—from brand identity to motion design—ensuring the product conveys professionalism and trust at first glance?'}
@@ -7800,7 +7826,7 @@ const SPLIT_VIEW_CHIPS = [
                   <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
                     {lang === 'zh' ? '專案背景' : 'PROJECT BACKGROUND'}
                   </span>
-                  <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-['Noto_Sans_TC']">
+                  <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-noto">
                     {lang === 'zh' 
                       ? 'BrainBox 是由 Wisdome.ai 開發，為 SAT 考生打造的個性化線上備考系統。我負責整體視覺設計系統，包含品牌識別、插圖、icon 與動態設計，並與 UI/UX 設計師合作確保視覺與 UI 框架一致。'
                       : 'BrainBox is a personalized online SAT prep system developed by Wisdome.ai. I was responsible for the overall visual design system, including brand identity, illustrations, icons, and motion design, collaborating with UI/UX designers to align the visual system with the UI framework.'}
@@ -7810,7 +7836,7 @@ const SPLIT_VIEW_CHIPS = [
                   <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
                     {lang === 'zh' ? '團隊組成' : 'TEAM COMPOSITION'}
                   </span>
-                  <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-['Noto_Sans_TC'] list-none pl-0">
+                  <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-noto list-none pl-0">
                     <li>• Visual Designer（{lang === 'zh' ? '本人' : 'Me'}）</li>
                     <li>• UI/UX {lang === 'zh' ? '設計師 x1' : 'Designer x1'}</li>
                     <li>• {lang === 'zh' ? '前端工程師 x1' : 'Frontend Engineer x1'}</li>
@@ -7827,7 +7853,7 @@ const SPLIT_VIEW_CHIPS = [
           <div id="brand-identity" className="scroll-mt-24">
             <SectionHeader num="02" title={lang === 'zh' ? '品牌識別系統' : 'Brand Identity System'} />
             
-            <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-3xl mb-12">
+            <p className="text-base md:text-lg text-gray-600 font-medium font-noto leading-relaxed max-w-3xl mb-12">
               {lang === 'zh'
                 ? '建立兼具專業感與親和力的視覺識別規範，確保品牌在所有接觸點呈現一致形象。'
                 : 'Establish visual identity specs combining professionalism with approachability, ensuring a unified image across all touchpoints.'}
@@ -7855,10 +7881,10 @@ const SPLIT_VIEW_CHIPS = [
                       </div>
                       
                       <div className="mt-5 space-y-1.5">
-                        <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                        <div className="text-[15.5px] font-extrabold text-[#12172B] font-noto">
                           {lang === 'zh' ? '品牌標誌 (Logo)' : 'Brand Logo'}
                         </div>
-                        <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                        <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-noto">
                           {lang === 'zh' 
                             ? '以六角形作為視覺主體，結合簡潔的無襯線字體，呈現創新且穩健可靠的形象。'
                             : 'Hexagon visual centerpiece combined with a clean sans-serif typeface, conveying a forward-thinking and reliable image.'}
@@ -7881,10 +7907,10 @@ const SPLIT_VIEW_CHIPS = [
                       </div>
 
                       <div className="mt-5 space-y-1.5">
-                        <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                        <div className="text-[15.5px] font-extrabold text-[#12172B] font-noto">
                           {lang === 'zh' ? '圖形與幾何 (Graph & Structure)' : 'Graph & Structure'}
                         </div>
-                        <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                        <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-noto">
                           {lang === 'zh' 
                             ? '透過分割的六角形構成立體多面箱子，隱藏首字母縮寫「BB」，象徵承載知識的寶箱。'
                             : 'Hexagon divided by intersecting lines forming a 3D multifaceted box hiding the initials "BB", representing a chest of knowledge.'}
@@ -7902,10 +7928,10 @@ const SPLIT_VIEW_CHIPS = [
                           <img src="projects/brainbox/BrainBox_logo set-04.png" alt="BrainBox Logotype" className="max-w-full max-h-full object-contain" />
                         </div>
                         <div className="w-full md:w-[55%] space-y-2 text-left">
-                          <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                          <div className="text-[15.5px] font-extrabold text-[#12172B] font-noto">
                             {lang === 'zh' ? '文字標誌 (Logotype)' : 'Brand Logotype'}
                           </div>
-                          <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                          <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-noto">
                             {lang === 'zh' 
                               ? '在兩個字母「B」上巧妙加入筆畫分割，呼應圖形標誌線條分割的統一設計語彙。'
                               : 'Wordmark featuring split strokes on B\'s, echoing the unified design language of the segmented graphic logo.'}
@@ -7921,10 +7947,10 @@ const SPLIT_VIEW_CHIPS = [
                     >
                       <div className="w-full space-y-6">
                         <div className="space-y-1.5 text-left">
-                          <div className="text-[15.5px] font-extrabold text-[#12172B] font-['Noto_Sans_TC']">
+                          <div className="text-[15.5px] font-extrabold text-[#12172B] font-noto">
                             {lang === 'zh' ? '組合形式與應用 (Lockups & Variations)' : 'Lockups & Variations'}
                           </div>
-                          <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-['Noto_Sans_TC']">
+                          <div className="text-[13px] leading-[1.65] text-[#727C8F] font-medium font-noto">
                             {lang === 'zh' 
                               ? '包含橫向、兩行與反白等組合，因應不同應用載體自由調整以確保最佳的適應性與辨識度。'
                               : 'Includes horizontal, two-line, and reversed layouts for flexible adaptation across diverse media viewports.'}
@@ -7934,20 +7960,20 @@ const SPLIT_VIEW_CHIPS = [
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
                           <div className="bg-white border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
                             <img src="projects/brainbox/BrainBox_logo set-01.png" alt="Standard Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
-                            <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-['Manrope'] uppercase tracking-wider">Horizontal</span>
+                            <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-manrope uppercase tracking-wider">Horizontal</span>
                           </div>
                           <div className="bg-white border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
                             <img src="projects/brainbox/BrainBox_logo set-02.png" alt="Stacked Lockup" className="max-w-[80%] max-h-[70%] object-contain" />
-                            <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-['Manrope'] uppercase tracking-wider">Two-line Stacked</span>
+                            <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-manrope uppercase tracking-wider">Two-line Stacked</span>
                           </div>
                           <div className="bg-white border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
                             <img src="projects/brainbox/BrainBox_logo set-03.png" alt="Monochrome Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
-                            <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-['Manrope'] uppercase tracking-wider">Monochrome</span>
+                            <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-manrope uppercase tracking-wider">Monochrome</span>
                           </div>
                           {/* Reversed Dark Card on brand blue bg-[#2d308a] */}
                           <div className="bg-[#2d308a] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none shadow-inner border border-transparent">
                             <img src="projects/brainbox/BrainBox_logo set-05.png" alt="Reversed Lockup" className="max-w-[80%] max-h-[70%] object-contain" />
-                            <span className="text-[10px] font-bold text-white/70 mt-2 font-['Manrope'] uppercase tracking-wider">Reversed Dark</span>
+                            <span className="text-[10px] font-bold text-white/70 mt-2 font-manrope uppercase tracking-wider">Reversed Dark</span>
                           </div>
                         </div>
                       </div>
@@ -7961,7 +7987,7 @@ const SPLIT_VIEW_CHIPS = [
               <div>
                 <SubHeading>{lang === 'zh' ? '2. 品牌色彩系統' : '2. Brand Color System'}</SubHeading>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-xl">
+                  <p className="text-base md:text-lg text-gray-600 font-medium font-noto leading-relaxed max-w-xl">
                     {lang === 'zh' 
                       ? '為突顯科技感與智慧特質，我們以亮眼的 Primary Blue (#2d308a) 作為視覺重心，搭配醒目的 Accent Yellow (#FFD600) 用於焦點回饋與提示，創造兼具專業度與親和力的備考介面。' 
                       : 'To highlight tech attributes, we use Primary Blue (#2d308a) as our visual anchor, paired with Accent Yellow (#FFD600) for focus feedback and highlights, establishing a friendly and professional interface.'}
@@ -7992,15 +8018,15 @@ const SPLIT_VIEW_CHIPS = [
                     <div className="space-y-6">
                       <div>
                         <span className="text-[10px] font-bold text-gray-400 block mb-1.5 uppercase">H1 / clamp(24px, 4vw, 36px)</span>
-                        <div className="text-3xl md:text-4xl font-extrabold font-['Inter'] text-gray-900 leading-tight">Inter</div>
+                        <div className="text-3xl md:text-4xl font-extrabold font-inter text-gray-900 leading-tight">Inter</div>
                       </div>
                       <div>
                         <span className="text-[10px] font-bold text-gray-400 block mb-1.5 uppercase">H3 / 16px font-bold</span>
-                        <div className="text-lg font-bold font-['Inter'] text-gray-800">A modern AI platform</div>
+                        <div className="text-lg font-bold font-inter text-gray-800">A modern AI platform</div>
                       </div>
                       <div>
                         <span className="text-[10px] font-bold text-gray-400 block mb-1.5 uppercase">Body / 12px regular</span>
-                        <p className="text-sm text-gray-600 font-['Inter'] leading-relaxed">
+                        <p className="text-sm text-gray-600 font-inter leading-relaxed">
                           A premium intelligence engine designed to customize and accelerate high-stakes test preparation for students and administrators worldwide.
                         </p>
                       </div>
@@ -8044,7 +8070,7 @@ const SPLIT_VIEW_CHIPS = [
                 <SubHeading>{lang === 'zh' ? '1. Icon 架構系統' : '1. Icon Architecture System'}</SubHeading>
                 <div className="space-y-4">
                   <ImagePlaceholder label="Icon 分類架構圖（Navigation / Action / Status / Subject）" height="200px" icon="icon" />
-                  <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-3xl">
+                  <p className="text-base md:text-lg text-gray-600 font-medium font-noto leading-relaxed max-w-3xl">
                     {lang === 'zh'
                       ? 'Icon 系統分為四大類別，統一使用 24px grid、2px stroke 規範，確保跨尺寸一致性與視覺統一。'
                       : 'The icon library spans 4 key types: Navigation, Action, Status, and Subject. All icons follow a 24px grid layout and 2px stroke grid to maintain aesthetic uniformity.'}
@@ -8168,7 +8194,7 @@ const SPLIT_VIEW_CHIPS = [
 
                 </div>
 
-                <p className="text-xs md:text-sm text-gray-500 font-medium font-['Noto_Sans_TC'] leading-relaxed mt-6">
+                <p className="text-xs md:text-sm text-gray-500 font-medium font-noto leading-relaxed mt-6">
                   {lang === 'zh'
                     ? '動態 icon 在觸發時播放一次性動畫，強化操作回饋感。右側影片則展示了微動態 Icon 在系統功能導覽與按鈕互動中的實際執行效果與順暢回饋。'
                     : 'Animated micro-icons execute a snappy one-time animation loop when triggered, adding a tactile feel of UI feedback. The right video demonstrates the micro-interaction animation loop implemented in the live application.'}
@@ -8184,15 +8210,15 @@ const SPLIT_VIEW_CHIPS = [
             <SectionHeader num="04" title={lang === 'zh' ? '品牌吉祥物' : 'Brand Mascot'} />
             
             {/* Mascot Introduction Section */}
-            <div className="bg-white py-6 select-none font-['Noto_Sans_TC']">
+            <div className="bg-white py-6 select-none font-noto">
               
               {/* BLOCK 1 — CHARACTER INTRO & VIDEO */}
               <div className="py-10 text-left">
                 <div className="w-full">
-                  <h4 className="text-xl md:text-2xl font-bold text-gray-800 mb-3 font-['Manrope']">
+                  <h4 className="text-xl md:text-2xl font-bold text-gray-800 mb-3 font-manrope">
                     Hi! I'm Pixie!
                   </h4>
-                  <p className="text-[14px] md:text-[15px] text-gray-600 leading-[1.8] font-medium font-['Noto_Sans_TC'] mb-6 max-w-[800px]">
+                  <p className="text-[14px] md:text-[15px] text-gray-600 leading-[1.8] font-medium font-noto mb-6 max-w-[800px]">
                     {lang === 'zh'
                       ? '為了讓原本冷硬的備考系統更具趣味性，我們設計了品牌代表吉祥物 Pixie。Pixie 的臉部顯示屏幕會根據使用者的答題狀況與操作路徑做出即時表情反應，降低考生的考試焦慮，打造貼心無壓力的陪考氛圍。'
                       : 'To make the test prep interface friendly, we designed mascot Pixie. Its face screen dynamically reacts to user actions and scores, mitigating student anxiety and establishing a cozy learning companion.'}
@@ -8435,7 +8461,7 @@ const SPLIT_VIEW_CHIPS = [
               </div>
 
               {/* Description text aligned full-width */}
-              <p className="text-base text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-4xl">
+              <p className="text-base text-gray-600 font-medium font-noto leading-relaxed max-w-4xl">
                 {lang === 'zh'
                   ? '為了讓原本冷硬的備考系統更具趣味性，我們設計了品牌代表吉祥物 Pixie。Pixie 的臉部顯示屏幕會根據使用者的答題狀況與操作路徑做出即時表情反應，降低考生的考試焦慮，打造貼心無壓力的陪考氛圍。'
                   : 'To make the test prep interface friendly, we designed mascot Pixie. Its face screen dynamically reacts to user actions and scores, mitigating student anxiety and establishing a cozy learning companion.'}
@@ -8510,7 +8536,7 @@ const SPLIT_VIEW_CHIPS = [
             {/* Mascot Showcase Video at the very bottom of Section 04 */}
             <div className="w-full pt-10 text-left">
               <SubHeading>{lang === 'zh' ? '吉祥物實際應用展示' : 'Mascot Application Showcase'}</SubHeading>
-              <p className="text-[14px] text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed mt-2 max-w-3xl">
+              <p className="text-[14px] text-gray-600 font-medium font-noto leading-relaxed mt-2 max-w-3xl">
                 {lang === 'zh'
                   ? '在軟體吉祥物被應用於Onboarding歡迎動畫、前測的回饋、作答後的動畫等區域，為使用者帶入品牌第一印象。'
                   : 'The software mascot is applied across onboarding welcome animations, pre-test feedback, and post-response celebrations, bringing a warm first brand impression to the user.'}
@@ -8534,7 +8560,7 @@ const SPLIT_VIEW_CHIPS = [
           <div id="illustration-animation" className="scroll-mt-24">
             <SectionHeader num="05" title={lang === 'zh' ? '系統插圖與動畫' : 'Illustration & Animation'} />
             
-            <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-3xl mb-12">
+            <p className="text-base md:text-lg text-gray-600 font-medium font-noto leading-relaxed max-w-3xl mb-12">
               {lang === 'zh'
                 ? '涵蓋系統中所有情境插圖與動態內容，以一致的繪圖語言貫穿整個產品體驗。'
                 : 'Covers all contextual illustrations and micro-animations, weaving a coherent graphical language into the EdTech application.'}
@@ -8660,7 +8686,7 @@ const SPLIT_VIEW_CHIPS = [
                         )}
                         {/* Slide Caption overlay */}
                         <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-2.5 bg-black/75 backdrop-blur-md rounded-full shadow-lg z-10">
-                          <span className="text-white text-xs md:text-sm font-bold font-['Noto_Sans_TC'] select-none">
+                          <span className="text-white text-xs md:text-sm font-bold font-noto select-none">
                             {t(item.title, lang)}
                           </span>
                         </div>
@@ -8694,7 +8720,7 @@ const SPLIT_VIEW_CHIPS = [
           <div id="brand-film" className="scroll-mt-24 pb-12">
             <SectionHeader num="06" title={lang === 'zh' ? '品牌形象動畫' : 'Brand Film'} />
             
-            <p className="text-base md:text-lg text-gray-600 font-medium font-['Noto_Sans_TC'] leading-relaxed max-w-3xl">
+            <p className="text-base md:text-lg text-gray-600 font-medium font-noto leading-relaxed max-w-3xl">
               {lang === 'zh'
                 ? '整合 brand 所有視覺元素的動態展示影片，呈現完整視覺語言的一致性與生命力。'
                 : 'An integrated promotional film displaying all components of the brand visual language in a lively dynamic video.'}
@@ -8955,7 +8981,7 @@ const SPLIT_VIEW_CHIPS = [
           aria-controls={id}
           className="w-full px-5 py-4 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
         >
-          <span className="text-[14px] text-zinc-900 dark:text-zinc-100 font-medium font-['Noto_Sans_TC']">{title}</span>
+          <span className="text-[14px] text-zinc-900 dark:text-zinc-100 font-medium font-noto">{title}</span>
           <div className="flex items-center gap-3">
             <span className="text-[12px] text-zinc-400 dark:text-zinc-500 font-normal select-none">{date}</span>
             <svg 
@@ -8991,7 +9017,7 @@ const SPLIT_VIEW_CHIPS = [
   const AboutSectionHeader = ({ title, english }) => (
     <div className="flex items-center gap-2 mb-8 select-none font-bold text-[18px] md:text-[20px] tracking-tight text-left">
       <span className="text-[#D85A30] font-black text-xl">*</span>
-      <span className="text-[#D85A30] font-['Noto_Sans_TC']">{title} — {english}</span>
+      <span className="text-[#D85A30] font-noto">{title} — {english}</span>
     </div>
   );
 
@@ -9035,7 +9061,7 @@ const SPLIT_VIEW_CHIPS = [
               <h1 className="text-[56px] md:text-[80px] lg:text-[96px] font-black tracking-tighter text-zinc-900 dark:text-zinc-50 leading-none select-none uppercase font-sans mb-4" style={{ letterSpacing: '-1.5px' }}>
                 TIFFANY LIANG
               </h1>
-              <h2 className="text-[18px] md:text-[22px] font-bold text-[#D85A30] font-['Noto_Sans_TC']">
+              <h2 className="text-[18px] md:text-[22px] font-bold text-[#D85A30] font-noto">
                 {lang === 'zh' ? '梁庭禎・Product Designer' : 'Tiffany Liang・Product Designer'}
               </h2>
             </ScrollRevealItem>
@@ -9058,7 +9084,7 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
                 {/* Right column: description + outline tags */}
                 <div className="lg:col-span-5 flex flex-col justify-between py-1 text-left">
-                  <div className="text-[15px] md:text-[16px] text-zinc-650 dark:text-zinc-400 font-normal leading-[1.8] mb-8 font-['Noto_Sans_TC'] text-left">
+                  <div className="text-[15px] md:text-[16px] text-zinc-650 dark:text-zinc-400 font-normal leading-[1.8] mb-8 font-noto text-left">
                     {lang === 'zh' ? (
                       <>產品設計師，擁有 3 年以上的產品設計與視覺設計經驗，專注於從 0 到 1 打造產品體驗。曾於 AI 科技公司獨立負責 App 與官網的 UIUX 規劃與介面設計（Figma、Framer），並透過 vibe coding 實作前端與修復 bug，能以工程可行性視角進行設計決策，縮短設計到落地的距離。具備完整的視覺設計背景，涵蓋產品識別系統、icon 系統設計與產品形象動畫，擅長將抽象的產品概念轉化為直覺、一致且具 brand 感的使用體驗。</>
                     ) : (
@@ -9089,8 +9115,8 @@ const SPLIT_VIEW_CHIPS = [
                   <div key={idx} className="bg-white dark:bg-[#1A1A1A] border-[0.5px] border-zinc-200 dark:border-zinc-800 rounded-[20px] p-6 md:p-8 flex flex-col justify-between min-h-[240px] transition-all duration-300 hover:border-[#D85A30] dark:hover:border-[#D85A30] shadow-sm">
                     <div className="flex flex-col text-left">
                       <span className="text-[34px] md:text-[40px] font-black text-[#D85A30] leading-none mb-4 font-mono select-none">{item.num}</span>
-                      <h3 className="text-[17px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-['Noto_Sans_TC']">{item.title}</h3>
-                      <p className="text-[13.5px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-['Noto_Sans_TC']">{item.desc}</p>
+                      <h3 className="text-[17px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-noto">{item.title}</h3>
+                      <p className="text-[13.5px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-noto">{item.desc}</p>
                     </div>
                     <div className="mt-6 text-left">
                       <span className="inline-block px-3.5 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-650 dark:text-zinc-400 rounded-full text-[11px] font-bold tracking-wider select-none font-sans">
@@ -9129,17 +9155,17 @@ const SPLIT_VIEW_CHIPS = [
                     2023.10 – PRESENT
                   </span>
                   
-                  <h3 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-['Noto_Sans_TC']">
+                  <h3 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-noto">
                     Wisdome.AI 聚愢科技
                   </h3>
                   
-                  <div className="text-[14px] font-bold text-[#D85A30] mb-4 flex items-center gap-1.5 flex-wrap font-['Noto_Sans_TC']">
+                  <div className="text-[14px] font-bold text-[#D85A30] mb-4 flex items-center gap-1.5 flex-wrap font-noto">
                     <span className="text-zinc-550 dark:text-zinc-400 font-bold">Visual Effects Designer</span>
                     <span className="text-[#D85A30] font-medium select-none">→</span>
                     <span className="text-[#D85A30] font-black">{lang === 'zh' ? 'Product Designer' : 'Product Designer'}</span>
                   </div>
                   
-                  <p className="text-[14px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed mb-6 font-['Noto_Sans_TC'] max-w-3xl">
+                  <p className="text-[14px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed mb-6 font-noto max-w-3xl">
                     {lang === 'zh' 
                       ? '從品牌視覺與動態設計出發，逐步深入產品核心，轉任後負責產品從設計到前端落地的完整流程。' 
                       : 'Starting from brand visual and motion design, gradually diving into product core. Post-transition, responsible for the end-to-end design to front-end landing.'}
@@ -9148,7 +9174,7 @@ const SPLIT_VIEW_CHIPS = [
                   {/* Accordion Cards */}
                   <div className="mt-4 max-w-3xl">
                     <AboutAccordion title={lang === 'zh' ? 'Product Designer' : 'Product Designer'} date={lang === 'zh' ? '2024.XX – PRESENT' : '2024.XX – PRESENT'} defaultOpen={true}>
-                      <ul className="list-disc pl-4 space-y-2 text-[13.5px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed font-['Noto_Sans_TC']">
+                      <ul className="list-disc pl-4 space-y-2 text-[13.5px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed font-noto">
                         {lang === 'zh' ? (
                           <>
                             <li>獨立負責 App 產品設計，從使用者流程、wireframe 到高保真介面（Figma）</li>
@@ -9170,7 +9196,7 @@ const SPLIT_VIEW_CHIPS = [
                     </AboutAccordion>
 
                     <AboutAccordion title={lang === 'zh' ? 'Visual Effects Designer' : 'Visual Effects Designer'} date={lang === 'zh' ? '2023.10 – 2024.XX' : '2023.10 – 2024.XX'} defaultOpen={false}>
-                      <ul className="list-disc pl-4 space-y-2 text-[13.5px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed font-['Noto_Sans_TC']">
+                      <ul className="list-disc pl-4 space-y-2 text-[13.5px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed font-noto">
                         {lang === 'zh' ? (
                           <>
                             <li>建構產品識別規範，將核心理念轉化為視覺語言，建立跨介面一致的系統</li>
@@ -9204,11 +9230,11 @@ const SPLIT_VIEW_CHIPS = [
                     2021.08 – 2021.09
                   </span>
                   
-                  <h3 className="text-[16px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-['Noto_Sans_TC']">
+                  <h3 className="text-[16px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-noto">
                     {lang === 'zh' ? '果然癮 ｜ 品牌視覺設計（接案）' : 'Guo Ran Yin ｜ Brand Visual Design (Freelance)'}
                   </h3>
                   
-                  <p className="text-[14px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-['Noto_Sans_TC'] max-w-3xl">
+                  <p className="text-[14px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-noto max-w-3xl">
                     {lang === 'zh' 
                       ? '規劃品牌識別系統，完成 3 組產品外盒與 8 款內包裝設計。' 
                       : 'Designed the brand identity system, completed 3 sets of product boxes and 8 inner packaging designs.'}
@@ -9226,11 +9252,11 @@ const SPLIT_VIEW_CHIPS = [
                     2020.10 – 2021.01
                   </span>
                   
-                  <h3 className="text-[16px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-['Noto_Sans_TC']">
+                  <h3 className="text-[16px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-noto">
                     {lang === 'zh' ? '遠邦國際品牌顧問 ｜ 設計實習生' : 'Geber Brand Consulting ｜ Design Intern'}
                   </h3>
                   
-                  <p className="text-[14px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-['Noto_Sans_TC'] max-w-3xl">
+                  <p className="text-[14px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-noto max-w-3xl">
                     {lang === 'zh' 
                       ? '參與品牌標誌再造與活動主視覺設計，以社群插畫提升品牌辨識度。' 
                       : 'Participated in brand logo redesign and key visual design for campaigns, enhancing brand recognition via social media illustrations.'}
@@ -9267,7 +9293,7 @@ const SPLIT_VIEW_CHIPS = [
                     2021 – 2023
                   </span>
                   
-                  <h3 className="text-[17px] font-bold text-zinc-900 dark:text-zinc-100 mb-3 font-['Noto_Sans_TC']">
+                  <h3 className="text-[17px] font-bold text-zinc-900 dark:text-zinc-100 mb-3 font-noto">
                     {lang === 'zh' ? '國立臺灣藝術大學 ｜ 視覺傳達設計學系研究所' : 'National Taiwan University of Arts ｜ Graduate School of Visual Communication Design'}
                   </h3>
 
@@ -9279,7 +9305,7 @@ const SPLIT_VIEW_CHIPS = [
                     ].map((award, idx) => (
                       <span 
                         key={idx} 
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#FAECE7] text-[#712B13] rounded-full text-[12px] font-bold font-['Noto_Sans_TC']"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#FAECE7] text-[#712B13] rounded-full text-[12px] font-bold font-noto"
                       >
                         <svg className="w-3.5 h-3.5 text-[#D85A30]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
@@ -9303,10 +9329,10 @@ const SPLIT_VIEW_CHIPS = [
                           </svg>
                         </div>
                         <div className="text-left">
-                          <h4 className="text-[15px] font-bold text-zinc-900 dark:text-zinc-100 mb-1.5 font-['Noto_Sans_TC'] group-hover:text-[#D85A30] transition-colors">
+                          <h4 className="text-[15px] font-bold text-zinc-900 dark:text-zinc-100 mb-1.5 font-noto group-hover:text-[#D85A30] transition-colors">
                             {lang === 'zh' ? '個展《Look the Sound of Taipei Metro》' : 'Solo Exhibition "Look the Sound of Taipei Metro"'}
                           </h4>
-                          <p className="text-[13px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-['Noto_Sans_TC']">
+                          <p className="text-[13px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-noto">
                             {lang === 'zh' 
                               ? '臺北捷運聲音地景視覺化研究——將城市的聲音轉譯為動態圖像。' 
                               : 'Visualization research of Taipei Metro soundscapes—translating urban sounds into dynamic motion graphics.'}
@@ -9328,7 +9354,7 @@ const SPLIT_VIEW_CHIPS = [
                     2017 – 2021
                   </span>
                   
-                  <h3 className="text-[16px] font-bold text-zinc-900 dark:text-zinc-100 font-['Noto_Sans_TC']">
+                  <h3 className="text-[16px] font-bold text-zinc-900 dark:text-zinc-100 font-noto">
                     {lang === 'zh' ? '臺北市立大學 ｜ 視覺藝術學系' : 'University of Taipei ｜ Department of Visual Arts'}
                   </h3>
                 </ScrollRevealItem>

@@ -2827,6 +2827,7 @@ const SPLIT_VIEW_CHIPS = [
       const [activeOnboardingStep, setActiveOnboardingStep] = useState(0);
       const [timerKey, setTimerKey] = useState(0);
       const [expandedCards, setExpandedCards] = useState([false, false, false]);
+      const [isXpExpanded, setIsXpExpanded] = useState(false);
 
 
       const toggleCard = (idx) => {
@@ -3964,41 +3965,41 @@ const SPLIT_VIEW_CHIPS = [
                     boxSizing: 'border-box'
                   }}>
                     <thead>
-                      <tr style={{ backgroundColor: '#FFF1E6' }}>
-                        <th style={{ padding: '16px', fontWeight: '600', color: '#1A1A1A', borderBottom: '1px solid #EEEEEE', minWidth: '120px' }}>對比維度</th>
-                        <th style={{ padding: '16px', fontWeight: '600', color: '#EA580C', backgroundColor: '#FFF7ED', borderBottom: '1px solid #EEEEEE', minWidth: '180px' }}>Ms Lin</th>
-                        <th style={{ padding: '16px', fontWeight: '600', color: '#1A1A1A', borderBottom: '1px solid #EEEEEE', minWidth: '160px' }}>Epop</th>
-                        <th style={{ padding: '16px', fontWeight: '600', color: '#1A1A1A', borderBottom: '1px solid #EEEEEE', minWidth: '180px' }}>傳統題庫 App</th>
+                      <tr style={{ backgroundColor: '#F4F4F6' }}>
+                        <th style={{ padding: '16px', fontWeight: '600', color: '#1A1A1A', borderBottom: '1px solid #D1D5DB', minWidth: '120px' }}>對比維度</th>
+                        <th style={{ padding: '16px', fontWeight: '700', color: '#1F2937', backgroundColor: '#E5E7EB', borderBottom: '1px solid #D1D5DB', minWidth: '180px' }}>Ms Lin</th>
+                        <th style={{ padding: '16px', fontWeight: '600', color: '#1A1A1A', borderBottom: '1px solid #D1D5DB', minWidth: '160px' }}>Epop</th>
+                        <th style={{ padding: '16px', fontWeight: '600', color: '#1A1A1A', borderBottom: '1px solid #D1D5DB', minWidth: '180px' }}>傳統題庫 App</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr style={{ borderBottom: '0.5px solid #EEEEEE' }}>
+                      <tr style={{ borderBottom: '1px solid #E5E7EB' }}>
                         <td style={{ padding: '16px', fontWeight: '500', color: '#1A1A1A' }}>Loop 長度</td>
-                        <td style={{ padding: '16px', backgroundColor: '#FFF7ED', fontWeight: '500', color: '#1A1A1A' }}>5 題極短 Loop</td>
+                        <td style={{ padding: '16px', backgroundColor: '#F4F4F6', fontWeight: '600', color: '#1F2937' }}>5 題極短 Loop</td>
                         <td style={{ padding: '16px', color: '#6B6B6B' }}>3-5 題極短 Loop</td>
                         <td style={{ padding: '16px', color: '#6B6B6B' }}>20-50 題長 Loop</td>
                       </tr>
-                      <tr style={{ borderBottom: '0.5px solid #EEEEEE' }}>
+                      <tr style={{ borderBottom: '1px solid #E5E7EB' }}>
                         <td style={{ padding: '16px', fontWeight: '500', color: '#1A1A1A' }}>回饋時機</td>
-                        <td style={{ padding: '16px', backgroundColor: '#FFF7ED', fontWeight: '500', color: '#1A1A1A' }}>解題完立即結算並提供微動畫</td>
+                        <td style={{ padding: '16px', backgroundColor: '#F4F4F6', fontWeight: '600', color: '#1F2937' }}>解題完立即結算並提供微動畫</td>
                         <td style={{ padding: '16px', color: '#6B6B6B' }}>操作後立即給予強力視覺回饋</td>
                         <td style={{ padding: '16px', color: '#6B6B6B' }}>整份試卷寫完交卷後才提供回饋</td>
                       </tr>
-                      <tr style={{ borderBottom: '0.5px solid #EEEEEE' }}>
+                      <tr style={{ borderBottom: '1px solid #E5E7EB' }}>
                         <td style={{ padding: '16px', fontWeight: '500', color: '#1A1A1A' }}>個人學習資產</td>
-                        <td style={{ padding: '16px', backgroundColor: '#FFF7ED', fontWeight: '500', color: '#1A1A1A' }}>強（個人錯題本與累積進度紀錄）</td>
+                        <td style={{ padding: '16px', backgroundColor: '#F4F4F6', fontWeight: '600', color: '#1F2937' }}>強（個人錯題本與累積進度紀錄）</td>
                         <td style={{ padding: '16px', color: '#6B6B6B' }}>弱（僅單次體驗，不保存記錄）</td>
                         <td style={{ padding: '16px', color: '#6B6B6B' }}>弱（僅記錄歷史分數與錯題列表）</td>
                       </tr>
-                      <tr style={{ borderBottom: '0.5px solid #EEEEEE' }}>
+                      <tr style={{ borderBottom: '1px solid #E5E7EB' }}>
                         <td style={{ padding: '16px', fontWeight: '500', color: '#1A1A1A' }}>情感設計</td>
-                        <td style={{ padding: '16px', backgroundColor: '#FFF7ED', fontWeight: '500', color: '#1A1A1A' }}>強（進度條回填與努力感視覺化）</td>
+                        <td style={{ padding: '16px', backgroundColor: '#F4F4F6', fontWeight: '600', color: '#1F2937' }}>強（進度條回填與努力感視覺化）</td>
                         <td style={{ padding: '16px', color: '#6B6B6B' }}>極強（高頻率的音效與畫面震動）</td>
                         <td style={{ padding: '16px', color: '#6B6B6B' }}>無（純靜態網頁或文字排版）</td>
                       </tr>
-                      <tr style={{ borderBottom: '0.5px solid #EEEEEE' }}>
+                      <tr style={{ borderBottom: '1px solid #E5E7EB' }}>
                         <td style={{ padding: '16px', fontWeight: '500', color: '#1A1A1A' }}>解題引導</td>
-                        <td style={{ padding: '16px', backgroundColor: '#FFF7ED', fontWeight: '500', color: '#1A1A1A' }}>步驟引導（分解難題為小步驟）</td>
+                        <td style={{ padding: '16px', backgroundColor: '#F4F4F6', fontWeight: '600', color: '#1F2937' }}>步驟引導（分解難題為小步驟）</td>
                         <td style={{ padding: '16px', color: '#6B6B6B' }}>直接提供答案與解析</td>
                         <td style={{ padding: '16px', color: '#6B6B6B' }}>提供冗長文字解析</td>
                       </tr>
@@ -4158,7 +4159,7 @@ const SPLIT_VIEW_CHIPS = [
 
                   {/* Principle 02 */}
                   <div style={{ border: '0.5px solid #EEEEEE', borderRadius: '12px', padding: '24px', backgroundColor: '#FFFFFF', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', height: '100%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#FFF7ED', color: '#534AB7', fontSize: '12px', fontWeight: 'bold' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#F3F4F6', color: '#4B5563', fontSize: '12px', fontWeight: 'bold' }}>
                       02
                     </div>
                     <div style={{ fontSize: '15px', fontWeight: '500', color: '#1A1A1A', marginTop: '12px', marginBottom: '8px' }}>
@@ -4167,8 +4168,85 @@ const SPLIT_VIEW_CHIPS = [
                     <p style={{ fontSize: '13px', lineHeight: '1.7', color: '#6B6B6B', margin: '0 0 16px 0', flex: 1 }}>
                       導入 XP 積分與聯賽段位系統，將練習結果轉化為可累積可競爭的成就感。
                     </p>
-                    <div style={{ fontSize: '11px', color: '#EA580C', fontWeight: '500' }}>
+                    <div style={{ fontSize: '11px', color: '#6B7280', fontWeight: '500', marginBottom: '12px' }}>
                       → 影響功能：結果頁 XP 結算、段位顯示、排行榜
+                    </div>
+                    <div style={{ marginTop: 'auto' }}>
+                      <button
+                        onClick={() => setIsXpExpanded(!isXpExpanded)}
+                        className="w-full py-2 px-3 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold transition-all flex items-center justify-between cursor-pointer border border-gray-200"
+                      >
+                        <span>{lang === 'zh' ? 'XP 計算與段位規則' : 'XP & Rank Rules'}</span>
+                        <span>{isXpExpanded ? '▲' : '▼'}</span>
+                      </button>
+                      
+                      {isXpExpanded && (
+                        <div style={{
+                          background: '#F3F4F6',
+                          borderRadius: '8px',
+                          padding: '16px',
+                          marginTop: '12px',
+                          boxSizing: 'border-box',
+                          border: '1px solid #E5E7EB'
+                        }} className="animate-in fade-in slide-in-from-top-2 duration-200">
+                          <div style={{ fontSize: '12px', fontWeight: 'bold', color: '#374151', marginBottom: '8px', textAlign: 'left' }}>
+                            {lang === 'zh' ? 'XP 計算邏輯' : 'XP Calculation'}
+                          </div>
+                          <div style={{
+                            fontFamily: 'monospace',
+                            backgroundColor: '#E5E7EB',
+                            padding: '6px 10px',
+                            borderRadius: '4px',
+                            fontSize: '11px',
+                            color: '#1F2937',
+                            wordBreak: 'break-all',
+                            marginBottom: '12px',
+                            textAlign: 'left'
+                          }}>
+                            Total XP = (基礎得分 + 連擊加成) x 規模倍率 + 任務獎勵
+                          </div>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '11px', color: '#4B5563', marginBottom: '12px', textAlign: 'left' }}>
+                            <div>⚡ {lang === 'zh' ? '基礎得分：答對 +10 XP、答錯 +2 XP' : 'Base: Correct +10 XP, Incorrect +2 XP'}</div>
+                            <div>🔥 {lang === 'zh' ? '連擊加成：3-5連對+2 / 6-10+5 / 11++10' : 'Combo: 3-5 +2 / 6-10 +5 / 11+ +10'}</div>
+                            <div>✨ {lang === 'zh' ? '規模倍率：5題 1.1x → 15題 1.6x' : 'Multiplier: 5 Qs 1.1x → 15 Qs 1.6x'}</div>
+                          </div>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', borderTop: '1px solid #D1D5DB', paddingTop: '10px' }}>
+                            <span style={{ fontSize: '10px', color: '#6B7280', textTransform: 'uppercase', marginBottom: '4px', display: 'block', textAlign: 'left' }}>
+                              {lang === 'zh' ? '聯賽段位 (懸停查看規則)：' : 'Leagues (hover for rules):'}
+                            </span>
+                            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                              {/* Bronze */}
+                              <div className="group" style={{ position: 'relative', cursor: 'pointer' }}>
+                                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', backgroundColor: '#E5E7EB', color: '#4B5563', fontWeight: '500' }}>{lang === 'zh' ? '青銅' : 'Bronze'}</span>
+                                <div className="invisible group-hover:visible" style={{ position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '6px 10px', borderRadius: '6px', fontSize: '10px', whiteSpace: 'nowrap', zIndex: 50, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                                  {lang === 'zh' ? '青銅：累積至 100 XP 升級白銀' : 'Bronze: 100 XP to Silver'}
+                                </div>
+                              </div>
+                              {/* Silver */}
+                              <div className="group" style={{ position: 'relative', cursor: 'pointer' }}>
+                                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', backgroundColor: '#D9E2EC', color: '#334E68', fontWeight: '500' }}>{lang === 'zh' ? '白銀' : 'Silver'}</span>
+                                <div className="invisible group-hover:visible" style={{ position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '6px 10px', borderRadius: '6px', fontSize: '10px', whiteSpace: 'nowrap', zIndex: 50, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                                  {lang === 'zh' ? '白銀：累積至 300 XP 升級黃金' : 'Silver: 300 XP to Gold'}
+                                </div>
+                              </div>
+                              {/* Gold */}
+                              <div className="group" style={{ position: 'relative', cursor: 'pointer' }}>
+                                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', backgroundColor: '#FEF3C7', color: '#92400E', fontWeight: '500' }}>{lang === 'zh' ? '黃金' : 'Gold'}</span>
+                                <div className="invisible group-hover:visible" style={{ position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '6px 10px', borderRadius: '6px', fontSize: '10px', whiteSpace: 'nowrap', zIndex: 50, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                                  {lang === 'zh' ? '黃金：累積至 800 XP 升級鑽石' : 'Gold: 800 XP to Diamond'}
+                                </div>
+                              </div>
+                              {/* Diamond */}
+                              <div className="group" style={{ position: 'relative', cursor: 'pointer' }}>
+                                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', backgroundColor: '#EEF2FF', color: '#3730A3', fontWeight: '500' }}>{lang === 'zh' ? '鑽石' : 'Diamond'}</span>
+                                <div className="invisible group-hover:visible" style={{ position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '6px 10px', borderRadius: '6px', fontSize: '10px', whiteSpace: 'nowrap', zIndex: 50, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                                  {lang === 'zh' ? '鑽石：排名前 10% 的頂尖聯賽' : 'Diamond: Top 10% Elite League'}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -4206,152 +4284,91 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
               </div>
 
-              {/* XP CALLOUT BOX */}
-              <div style={{
-                background: '#FFF1E6',
-                borderRadius: '10px',
-                padding: '20px 24px',
-                marginBottom: '48px',
-                boxSizing: 'border-box'
-              }}>
-                <div style={{ fontSize: '13px', fontWeight: '500', color: '#3C3489', marginBottom: '8px' }}>
-                  XP 計算邏輯
-                </div>
-                <div style={{
-                  fontFamily: 'monospace',
-                  backgroundColor: '#FFF7ED',
-                  padding: '6px 12px',
-                  borderRadius: '6px',
-                  fontSize: '13px',
-                  color: '#3C3489',
-                  display: 'inline-block',
-                  marginBottom: '16px'
-                }}>
-                  Total XP = (基礎得分 + 連擊加成) x 規模倍率 + 任務獎勵
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: '#534AB7', marginBottom: '16px' }}>
-                  <div>⚡ 基礎得分：答對 +10 XP、答錯 +2 XP（保底補償）</div>
-                  <div>🔥 連擊加成：3-5 連對 +2 / 6-10 +5 / 11+ +10，失誤歸零</div>
-                  <div>✨ 規模倍率：5題 Perfect 1.1x → 15題 Perfect 1.6x</div>
-                </div>
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
-                  <span style={{ fontSize: '11px', color: '#A0A0A0', textTransform: 'uppercase', marginRight: '8px' }}>聯賽段位 (懸停查看升級規則)：</span>
-                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                    {/* Bronze */}
-                    <div className="group" style={{ position: 'relative', cursor: 'pointer' }}>
-                      <span style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '100px', backgroundColor: '#E8E8E8', color: '#555555', fontWeight: '500' }}>青銅</span>
-                      <div className="invisible group-hover:visible" style={{ position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '6px 10px', borderRadius: '6px', fontSize: '11px', whiteSpace: 'nowrap', zIndex: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                        青銅：累積至 100 XP 升級白銀
-                      </div>
-                    </div>
-                    {/* Silver */}
-                    <div className="group" style={{ position: 'relative', cursor: 'pointer' }}>
-                      <span style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '100px', backgroundColor: '#E8ECF0', color: '#4B6B88', fontWeight: '500' }}>白銀</span>
-                      <div className="invisible group-hover:visible" style={{ position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '6px 10px', borderRadius: '6px', fontSize: '11px', whiteSpace: 'nowrap', zIndex: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                        白銀：累積至 300 XP 升級黃金
-                      </div>
-                    </div>
-                    {/* Gold */}
-                    <div className="group" style={{ position: 'relative', cursor: 'pointer' }}>
-                      <span style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '100px', backgroundColor: '#FDF3DC', color: '#855E0F', fontWeight: '500' }}>黃金</span>
-                      <div className="invisible group-hover:visible" style={{ position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '6px 10px', borderRadius: '6px', fontSize: '11px', whiteSpace: 'nowrap', zIndex: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                        黃金：累積至 800 XP 升級鑽石
-                      </div>
-                    </div>
-                    {/* Diamond */}
-                    <div className="group" style={{ position: 'relative', cursor: 'pointer' }}>
-                      <span style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '100px', backgroundColor: '#FFF7ED', color: '#534AB7', fontWeight: '500' }}>鑽石</span>
-                      <div className="invisible group-hover:visible" style={{ position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '6px 10px', borderRadius: '6px', fontSize: '11px', whiteSpace: 'nowrap', zIndex: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                        鑽石：排名前 10% 的頂尖聯賽
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
 
               {/* APP ARCHITECTURE */}
               <div style={{ marginBottom: '48px' }}>
                 <SubHeading>App 資訊架構</SubHeading>
-                <div style={{ overflowX: 'auto', width: '100%', marginBottom: '20px' }}>
+                <div style={{ overflowX: 'auto', width: '100%', backgroundColor: '#F4F4F6', border: '1px solid rgba(0, 0, 0, 0.05)', borderRadius: '24px', padding: '24px', boxSizing: 'border-box', marginBottom: '20px' }}>
                   <div style={{ minWidth: '960px', width: '100%' }}>
                     <svg width="100%" viewBox="0 0 1200 320" style={{ display: 'block', userSelect: 'none', background: 'transparent', fontFamily: 'system-ui' }}>
                       {/* ROOT NODE */}
-                      <rect x="500" y="20" width="200" height="44" rx="10" fill="#FAEEDA" stroke="#BA7517" strokeWidth="1" />
-                      <text x="600" y="42" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 'bold', fill: '#412402' }}>
+                      <rect x="500" y="20" width="200" height="44" rx="10" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="1" />
+                      <text x="600" y="42" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 'bold', fill: '#444441' }}>
                         Ms Lin App
                       </text>
 
                       {/* BRANCH LINES (root -> level 2) */}
-                      <line x1="600" y1="64" x2="200" y2="114" stroke="#BA7517" strokeWidth="1" fill="none" />
-                      <line x1="600" y1="64" x2="600" y2="114" stroke="#888780" strokeWidth="1" fill="none" />
-                      <line x1="600" y1="64" x2="1000" y2="114" stroke="#888780" strokeWidth="1" fill="none" />
+                      <line x1="600" y1="64" x2="200" y2="114" stroke="#D1D5DB" strokeWidth="1" fill="none" />
+                      <line x1="600" y1="64" x2="600" y2="114" stroke="#D1D5DB" strokeWidth="1" fill="none" />
+                      <line x1="600" y1="64" x2="1000" y2="114" stroke="#D1D5DB" strokeWidth="1" fill="none" />
 
                       {/* LEVEL 2 NODES */}
                       {/* 主頁 */}
-                      <rect x="100" y="114" width="200" height="44" rx="10" fill="#FAEEDA" stroke="#BA7517" strokeWidth="1" />
-                      <text x="200" y="136" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 'bold', fill: '#412402' }}>
+                      <rect x="100" y="114" width="200" height="44" rx="10" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="1" />
+                      <text x="200" y="136" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '主頁' : 'Home'}
                       </text>
 
                       {/* 題庫 */}
-                      <rect x="500" y="114" width="200" height="44" rx="10" fill="#F1EFE8" stroke="#888780" strokeWidth="0.5" />
+                      <rect x="500" y="114" width="200" height="44" rx="10" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
                       <text x="600" y="136" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '題庫' : 'Library'}
                       </text>
 
                       {/* 我的 */}
-                      <rect x="900" y="114" width="200" height="44" rx="10" fill="#F1EFE8" stroke="#888780" strokeWidth="0.5" />
+                      <rect x="900" y="114" width="200" height="44" rx="10" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
                       <text x="1000" y="136" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '14px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '我的' : 'Me'}
                       </text>
 
                       {/* BRANCH LINES (level 2 -> level 3) */}
                       {/* 主頁 children lines */}
-                      <line x1="200" y1="158" x2="62" y2="204" stroke="#BA7517" strokeWidth="0.5" fill="none" />
-                      <line x1="200" y1="158" x2="200" y2="204" stroke="#BA7517" strokeWidth="0.5" fill="none" />
-                      <line x1="200" y1="158" x2="338" y2="204" stroke="#BA7517" strokeWidth="0.5" fill="none" />
+                      <line x1="200" y1="158" x2="62" y2="204" stroke="#D1D5DB" strokeWidth="0.5" fill="none" />
+                      <line x1="200" y1="158" x2="200" y2="204" stroke="#D1D5DB" strokeWidth="0.5" fill="none" />
+                      <line x1="200" y1="158" x2="338" y2="204" stroke="#D1D5DB" strokeWidth="0.5" fill="none" />
 
                       {/* 題庫 children lines */}
-                      <line x1="600" y1="158" x2="525" y2="204" stroke="#888780" strokeWidth="0.5" fill="none" />
-                      <line x1="600" y1="158" x2="675" y2="204" stroke="#888780" strokeWidth="0.5" fill="none" />
+                      <line x1="600" y1="158" x2="525" y2="204" stroke="#D1D5DB" strokeWidth="0.5" fill="none" />
+                      <line x1="600" y1="158" x2="675" y2="204" stroke="#D1D5DB" strokeWidth="0.5" fill="none" />
 
                       {/* 我的 children lines */}
-                      <line x1="1000" y1="158" x2="862" y2="204" stroke="#888780" strokeWidth="0.5" fill="none" />
-                      <line x1="1000" y1="158" x2="1000" y2="204" stroke="#888780" strokeWidth="0.5" fill="none" />
-                      <line x1="1000" y1="158" x2="1138" y2="204" stroke="#888780" strokeWidth="0.5" fill="none" />
+                      <line x1="1000" y1="158" x2="862" y2="204" stroke="#D1D5DB" strokeWidth="0.5" fill="none" />
+                      <line x1="1000" y1="158" x2="1000" y2="204" stroke="#D1D5DB" strokeWidth="0.5" fill="none" />
+                      <line x1="1000" y1="158" x2="1138" y2="204" stroke="#D1D5DB" strokeWidth="0.5" fill="none" />
 
                       {/* LEVEL 3 NODES */}
                       {/* 主頁 Children */}
                       {/* Node A */}
-                      <rect x="0" y="204" width="124" height="56" rx="8" fill="#FAEEDA" stroke="#BA7517" strokeWidth="0.5" />
-                      <text x="62" y="224" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#412402' }}>
+                      <rect x="0" y="204" width="124" height="56" rx="8" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
+                      <text x="62" y="224" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '拍照解題' : 'Photo Solver'}
                       </text>
-                      <text x="62" y="243" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '11px', fill: '#633806' }}>
+                      <text x="62" y="243" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '11px', fill: '#5F5E5A' }}>
                         {lang === 'zh' ? '入口' : 'Entrance'}
                       </text>
 
                       {/* Node B */}
-                      <rect x="138" y="204" width="124" height="56" rx="8" fill="#FAEEDA" stroke="#BA7517" strokeWidth="0.5" />
-                      <text x="200" y="224" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#412402' }}>
+                      <rect x="138" y="204" width="124" height="56" rx="8" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
+                      <text x="200" y="224" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '衝刺科目' : 'Exam Subjects'}
                       </text>
-                      <text x="200" y="243" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '11px', fill: '#633806' }}>
+                      <text x="200" y="243" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '11px', fill: '#5F5E5A' }}>
                         {lang === 'zh' ? '卡片' : 'Cards'}
                       </text>
 
                       {/* Node C */}
-                      <rect x="276" y="204" width="124" height="56" rx="8" fill="#FAEEDA" stroke="#BA7517" strokeWidth="0.5" />
-                      <text x="338" y="224" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#412402' }}>
+                      <rect x="276" y="204" width="124" height="56" rx="8" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
+                      <text x="338" y="224" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '快速進入' : 'Quick Start'}
                       </text>
-                      <text x="338" y="243" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '11px', fill: '#633806' }}>
+                      <text x="338" y="243" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '11px', fill: '#5F5E5A' }}>
                         {lang === 'zh' ? '刷題' : 'Practice'}
                       </text>
 
                       {/* 題庫 Children */}
                       {/* Node D */}
-                      <rect x="457" y="204" width="136" height="56" rx="8" fill="#F1EFE8" stroke="#888780" strokeWidth="0.5" />
+                      <rect x="457" y="204" width="136" height="56" rx="8" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
                       <text x="525" y="224" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '錯題瀏覽' : 'Wrong Qs'}
                       </text>
@@ -4360,7 +4377,7 @@ const SPLIT_VIEW_CHIPS = [
                       </text>
 
                       {/* Node E */}
-                      <rect x="607" y="204" width="136" height="56" rx="8" fill="#F1EFE8" stroke="#888780" strokeWidth="0.5" />
+                      <rect x="607" y="204" width="136" height="56" rx="8" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
                       <text x="675" y="224" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '收藏題目' : 'Bookmarks'}
                       </text>
@@ -4370,7 +4387,7 @@ const SPLIT_VIEW_CHIPS = [
 
                       {/* 我的 Children */}
                       {/* Node F */}
-                      <rect x="800" y="204" width="124" height="56" rx="8" fill="#F1EFE8" stroke="#888780" strokeWidth="0.5" />
+                      <rect x="800" y="204" width="124" height="56" rx="8" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
                       <text x="862" y="224" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         XP 值
                       </text>
@@ -4379,7 +4396,7 @@ const SPLIT_VIEW_CHIPS = [
                       </text>
 
                       {/* Node G */}
-                      <rect x="938" y="204" width="124" height="56" rx="8" fill="#F1EFE8" stroke="#888780" strokeWidth="0.5" />
+                      <rect x="938" y="204" width="124" height="56" rx="8" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
                       <text x="1000" y="224" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '練習數據' : 'Practice Data'}
                       </text>
@@ -4388,7 +4405,7 @@ const SPLIT_VIEW_CHIPS = [
                       </text>
 
                       {/* Node H */}
-                      <rect x="1076" y="204" width="124" height="56" rx="8" fill="#F1EFE8" stroke="#888780" strokeWidth="0.5" />
+                      <rect x="1076" y="204" width="124" height="56" rx="8" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
                       <text x="1138" y="224" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '段位' : 'Rank'}
                       </text>
@@ -4397,7 +4414,7 @@ const SPLIT_VIEW_CHIPS = [
                       </text>
 
                       {/* BOTTOM DESCRIPTIONS */}
-                      <text x="200" y="296" textAnchor="middle" style={{ fontSize: '12px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="200" y="296" textAnchor="middle" style={{ fontSize: '12px', fill: '#888780', fontWeight: '500' }}>
                         {lang === 'zh' ? '最簡入口，降低摩擦力' : 'Minimal entrance, reducing friction'}
                       </text>
                       <text x="600" y="296" textAnchor="middle" style={{ fontSize: '12px', fill: '#888780', fontWeight: '500' }}>
@@ -4417,100 +4434,100 @@ const SPLIT_VIEW_CHIPS = [
               {/* USER FLOW */}
               <div style={{ marginBottom: '48px' }}>
                 <SubHeading>核心使用者流程</SubHeading>
-                <div style={{ overflowX: 'auto', width: '100%', backgroundColor: '#FAFAFD', borderRadius: '12px', padding: '24px', boxSizing: 'border-box' }}>
+                <div style={{ overflowX: 'auto', width: '100%', backgroundColor: '#F4F4F6', border: '1px solid rgba(0, 0, 0, 0.05)', borderRadius: '24px', padding: '24px', boxSizing: 'border-box' }}>
                   <div style={{ minWidth: '640px', width: '100%' }}>
                     <svg width="100%" viewBox="0 0 680 180" style={{ display: 'block', userSelect: 'none', background: 'transparent', fontFamily: 'system-ui' }}>
                       <defs>
                         <marker id="arrow-flow-indicator" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="context-stroke" />
+                          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#9CA3AF" />
                         </marker>
                       </defs>
 
                       {/* NODES */}
                       {/* Node 1 */}
-                      <rect x="20" y="40" width="88" height="44" rx="22" fill="#FAEEDA" stroke="#BA7517" strokeWidth="0.5" />
-                      <text x="64" y="62" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#412402' }}>
+                      <rect x="20" y="40" width="88" height="44" rx="22" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
+                      <text x="64" y="62" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '首頁' : 'Home'}
                       </text>
-                      <text x="64" y="106" textAnchor="middle" style={{ fontSize: '11px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="64" y="106" textAnchor="middle" style={{ fontSize: '11px', fill: '#5F5E5A', fontWeight: '500' }}>
                         {lang === 'zh' ? '最短路徑' : 'Shortest Path'}
                       </text>
-                      <text x="64" y="122" textAnchor="middle" style={{ fontSize: '11px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="64" y="122" textAnchor="middle" style={{ fontSize: '11px', fill: '#5F5E5A', fontWeight: '500' }}>
                         {lang === 'zh' ? '啟動刷題' : 'Start Practice'}
                       </text>
 
                       {/* Arrow 1->2 */}
-                      <line x1="108" y1="62" x2="126" y2="62" stroke="#BA7517" strokeWidth="1" markerEnd="url(#arrow-flow-indicator)" fill="none" />
+                      <line x1="108" y1="62" x2="126" y2="62" stroke="#D1D5DB" strokeWidth="1" markerEnd="url(#arrow-flow-indicator)" fill="none" />
 
                       {/* Node 2 */}
-                      <rect x="126" y="40" width="100" height="44" rx="22" fill="#FAEEDA" stroke="#BA7517" strokeWidth="0.5" />
-                      <text x="176" y="62" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#412402' }}>
+                      <rect x="126" y="40" width="100" height="44" rx="22" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
+                      <text x="176" y="62" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '科目卡片' : 'Subject Cards'}
                       </text>
-                      <text x="176" y="106" textAnchor="middle" style={{ fontSize: '11px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="176" y="106" textAnchor="middle" style={{ fontSize: '11px', fill: '#5F5E5A', fontWeight: '500' }}>
                         {lang === 'zh' ? '以科目' : 'By Subject'}
                       </text>
-                      <text x="176" y="122" textAnchor="middle" style={{ fontSize: '11px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="176" y="122" textAnchor="middle" style={{ fontSize: '11px', fill: '#5F5E5A', fontWeight: '500' }}>
                         {lang === 'zh' ? '為單位' : 'As Unit'}
                       </text>
 
                       {/* Arrow 2->3 */}
-                      <line x1="226" y1="62" x2="244" y2="62" stroke="#BA7517" strokeWidth="1" markerEnd="url(#arrow-flow-indicator)" fill="none" />
+                      <line x1="226" y1="62" x2="244" y2="62" stroke="#D1D5DB" strokeWidth="1" markerEnd="url(#arrow-flow-indicator)" fill="none" />
 
                       {/* Node 3 */}
-                      <rect x="244" y="40" width="100" height="44" rx="22" fill="#FAEEDA" stroke="#BA7517" strokeWidth="0.5" />
-                      <text x="294" y="62" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#412402' }}>
+                      <rect x="244" y="40" width="100" height="44" rx="22" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
+                      <text x="294" y="62" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '練習模式' : 'Practice Mode'}
                       </text>
-                      <text x="294" y="106" textAnchor="middle" style={{ fontSize: '11px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="294" y="106" textAnchor="middle" style={{ fontSize: '11px', fill: '#5F5E5A', fontWeight: '500' }}>
                         {lang === 'zh' ? '給予' : 'Giving'}
                       </text>
-                      <text x="294" y="122" textAnchor="middle" style={{ fontSize: '11px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="294" y="122" textAnchor="middle" style={{ fontSize: '11px', fill: '#5F5E5A', fontWeight: '500' }}>
                         {lang === 'zh' ? '控制感' : 'Control'}
                       </text>
 
                       {/* Arrow 3->4 */}
-                      <line x1="344" y1="62" x2="362" y2="62" stroke="#BA7517" strokeWidth="1" markerEnd="url(#arrow-flow-indicator)" fill="none" />
+                      <line x1="344" y1="62" x2="362" y2="62" stroke="#D1D5DB" strokeWidth="1" markerEnd="url(#arrow-flow-indicator)" fill="none" />
 
                       {/* Node 4 */}
-                      <rect x="362" y="40" width="104" height="44" rx="22" fill="#FAEEDA" stroke="#BA7517" strokeWidth="0.5" />
-                      <text x="414" y="62" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#412402' }}>
+                      <rect x="362" y="40" width="104" height="44" rx="22" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
+                      <text x="414" y="62" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '五題 Loop' : '5-Question Loop'}
                       </text>
-                      <text x="414" y="106" textAnchor="middle" style={{ fontSize: '11px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="414" y="106" textAnchor="middle" style={{ fontSize: '11px', fill: '#5F5E5A', fontWeight: '500' }}>
                         {lang === 'zh' ? '累積' : 'Building'}
                       </text>
-                      <text x="414" y="122" textAnchor="middle" style={{ fontSize: '11px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="414" y="122" textAnchor="middle" style={{ fontSize: '11px', fill: '#5F5E5A', fontWeight: '500' }}>
                         {lang === 'zh' ? '努力成本' : 'Effort Cost'}
                       </text>
 
                       {/* Arrow 4->5 */}
-                      <line x1="466" y1="62" x2="484" y2="62" stroke="#BA7517" strokeWidth="1" markerEnd="url(#arrow-flow-indicator)" fill="none" />
+                      <line x1="466" y1="62" x2="484" y2="62" stroke="#D1D5DB" strokeWidth="1" markerEnd="url(#arrow-flow-indicator)" fill="none" />
 
                       {/* Node 5 */}
-                      <rect x="484" y="40" width="88" height="44" rx="22" fill="#FAEEDA" stroke="#BA7517" strokeWidth="0.5" />
-                      <text x="528" y="62" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#412402' }}>
+                      <rect x="484" y="40" width="88" height="44" rx="22" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
+                      <text x="528" y="62" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '結果頁' : 'Result Page'}
                       </text>
-                      <text x="528" y="106" textAnchor="middle" style={{ fontSize: '11px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="528" y="106" textAnchor="middle" style={{ fontSize: '11px', fill: '#5F5E5A', fontWeight: '500' }}>
                         {lang === 'zh' ? '投入感' : 'Peak'}
                       </text>
-                      <text x="528" y="122" textAnchor="middle" style={{ fontSize: '11px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="528" y="122" textAnchor="middle" style={{ fontSize: '11px', fill: '#5F5E5A', fontWeight: '500' }}>
                         {lang === 'zh' ? '最高點' : 'Engagement'}
                       </text>
 
                       {/* Arrow 5->6 */}
-                      <line x1="572" y1="62" x2="590" y2="62" stroke="#BA7517" strokeWidth="1" markerEnd="url(#arrow-flow-indicator)" fill="none" />
+                      <line x1="572" y1="62" x2="590" y2="62" stroke="#D1D5DB" strokeWidth="1" markerEnd="url(#arrow-flow-indicator)" fill="none" />
 
                       {/* Node 6 */}
-                      <rect x="590" y="40" width="88" height="44" rx="22" fill="#FAEEDA" stroke="#BA7517" strokeWidth="0.5" />
-                      <text x="634" y="62" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#412402' }}>
+                      <rect x="590" y="40" width="88" height="44" rx="22" fill="#FFFFFF" stroke="#D1D5DB" strokeWidth="0.5" />
+                      <text x="634" y="62" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px', fontWeight: 'bold', fill: '#444441' }}>
                         {lang === 'zh' ? '再來一輪' : 'Repeat Loop'}
                       </text>
-                      <text x="634" y="106" textAnchor="middle" style={{ fontSize: '11px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="634" y="106" textAnchor="middle" style={{ fontSize: '11px', fill: '#5F5E5A', fontWeight: '500' }}>
                         {lang === 'zh' ? '明確的' : 'Clear Next'}
                       </text>
-                      <text x="634" y="122" textAnchor="middle" style={{ fontSize: '11px', fill: '#854F0B', fontWeight: '500' }}>
+                      <text x="634" y="122" textAnchor="middle" style={{ fontSize: '11px', fill: '#5F5E5A', fontWeight: '500' }}>
                         {lang === 'zh' ? '下一步' : 'Action'}
                       </text>
                     </svg>
@@ -4572,7 +4589,7 @@ const SPLIT_VIEW_CHIPS = [
                   }
                   .onboarding-right-col {
                     width: 100%;
-                    display: flex;
+                    display: none;
                     flex-direction: column;
                     align-items: center;
                     justify-content: flex-start;
@@ -4587,6 +4604,7 @@ const SPLIT_VIEW_CHIPS = [
                       flex: 1;
                     }
                     .onboarding-right-col {
+                      display: flex;
                       width: 320px;
                       flex-shrink: 0;
                       position: sticky;
@@ -4785,9 +4803,15 @@ const SPLIT_VIEW_CHIPS = [
                               return (
                                 <button
                                   key={idx}
-                                  onClick={() => {
+                                  onClick={(e) => {
                                     setActiveOnboardingStep(idx);
                                     setTimerKey(prev => prev + 1);
+                                    const child = e.currentTarget;
+                                    const parent = child.parentElement;
+                                    if (parent) {
+                                      const targetScrollLeft = child.offsetLeft - (parent.clientWidth - child.clientWidth) / 2;
+                                      parent.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+                                    }
                                   }}
                                   style={{
                                     display: 'flex',
@@ -5095,7 +5119,7 @@ const SPLIT_VIEW_CHIPS = [
               </div>
 
                             {/* Between Loop One and Loop Two */}
-              <div style={{ width: '100%', borderBottom: '0.5px solid #EEEEEE', margin: '64px 0' }}></div>
+              <div style={{ width: '100%', borderBottom: '1px solid #E5E7EB', margin: '64px 0' }}></div>
               {/* LOOP TWO HEADER */}
               <div style={{ marginBottom: '32px' }}>
                 <div style={{ marginBottom: '32px' }}>
@@ -5282,7 +5306,7 @@ const SPLIT_VIEW_CHIPS = [
                 </div>
               </div>
               {/* Divider between Feature 3 and Visual Design System */}
-              <div style={{ width: '100%', borderBottom: '0.5px solid #EEEEEE', margin: '64px 0' }}></div>
+              <div style={{ width: '100%', borderBottom: '1px solid #E5E7EB', margin: '64px 0' }}></div>
 
               {/* VISUAL DESIGN SYSTEM */}
               <div>

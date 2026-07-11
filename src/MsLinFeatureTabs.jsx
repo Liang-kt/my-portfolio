@@ -17,6 +17,106 @@ const SubHeading = ({ children }) => (
   </h4>
 );
 
+const SinglePhoneSlider = ({ steps, lang, themeColor = '#7F77DD' }) => {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const handleScroll = (e) => {
+    const scrollLeft = e.target.scrollLeft;
+    const width = e.target.clientWidth;
+    if (width > 0) {
+      const index = Math.round(scrollLeft / width);
+      if (index !== activeStep) {
+        setActiveStep(index);
+      }
+    }
+  };
+
+  return (
+    <div style={{ width: '100%', marginTop: '24px', marginBottom: '32px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+        
+        {/* Horizontal scroll track where the entire PhoneMockup slides */}
+        <div 
+          onScroll={handleScroll}
+          className="hide-scrollbar"
+          style={{
+            display: 'flex',
+            width: '100%',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            WebkitOverflowScrolling: 'touch',
+            padding: '12px 0'
+          }}
+        >
+          {steps.map((step, idx) => (
+            <div 
+              key={idx} 
+              style={{ 
+                width: '100%', 
+                flexShrink: 0, 
+                scrollSnapAlign: 'center',
+                display: 'flex',
+                justifyContent: 'center',
+                boxSizing: 'border-box'
+              }}
+            >
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '280px' }}>
+                <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                  {step.img ? (
+                    <img 
+                      src={step.img} 
+                      alt={step.title} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    />
+                  ) : (
+                    <div style={{ display: 'flex', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F1F5F9' }}>
+                      <span style={{ fontSize: '28px', fontWeight: 'bold', color: themeColor, opacity: 0.15 }}>
+                        {step.num}
+                      </span>
+                    </div>
+                  )}
+                </PhoneMockup>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Step Text Label */}
+        <div style={{
+          fontSize: '13px',
+          fontWeight: '600',
+          color: themeColor,
+          textAlign: 'center',
+          lineHeight: '1.4',
+          minHeight: '18px'
+        }}>
+          {steps[activeStep].title}
+        </div>
+
+        {/* Premium Dot Indicators */}
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
+          {steps.map((_, idx) => {
+            const isActive = activeStep === idx;
+            return (
+              <div 
+                key={idx}
+                style={{
+                  width: isActive ? '32px' : '8px',
+                  height: '8px',
+                  borderRadius: '4px',
+                  backgroundColor: isActive ? themeColor : '#D1D5DB',
+                  transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)'
+                }}
+              />
+            );
+          })}
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
 const MsLinFeatureTabs = ({ lang }) => {
   // Loop One tabs configuration
   const loopOneTabs = [
@@ -44,6 +144,27 @@ const MsLinFeatureTabs = ({ lang }) => {
   // Active question type inside expandable grids
   const [activeChineseType, setActiveChineseType] = useState(0);
   const [activeEnglishType, setActiveEnglishType] = useState(0);
+
+  const mathSteps = [
+    { img: '/projects/mslin-app/screens/math10.png', title: lang === 'zh' ? '步驟 1：拆解題目與公式' : 'Step 1: Deconstruct Formula' },
+    { img: '/projects/mslin-app/screens/math11.png', title: lang === 'zh' ? '步驟 2：填寫中間運算' : 'Step 2: Intermediate Steps' },
+    { img: '/projects/mslin-app/screens/math12.png', title: lang === 'zh' ? '步驟 3：得出最終解答' : 'Step 3: Final Numerical Answer' },
+    { img: '/projects/mslin-app/screens/math13.png', title: lang === 'zh' ? '步驟 4：觀看完整解析' : 'Step 4: View Full Explanation' }
+  ];
+
+  const chineseSteps = [
+    { img: '/projects/mslin-app/screens/chinese3.png', title: lang === 'zh' ? '字音字形配對 — 左右連線' : 'Pronunciation & Character Pairing - Connect' },
+    { img: '/projects/mslin-app/screens/chinese18.png', title: lang === 'zh' ? '文言文逐句翻譯 — 填空' : 'Classical Chinese - Blank Fills' },
+    { num: '3', title: lang === 'zh' ? '成語配對填空 — 點選填入' : 'Idiom Pairing - Tap to Fill' },
+    { num: '4', title: lang === 'zh' ? '錯字辨識 — 點選句中錯字' : 'Typo Spotting - Tap Typos' }
+  ];
+
+  const englishSteps = [
+    { img: '/projects/mslin-app/screens/english-sentence2.png', title: lang === 'zh' ? '文法造句重組 — 點擊排列' : 'Sentence Reordering - Tap to Rebuild' },
+    { img: '/projects/mslin-app/screens/english-close2.png', title: lang === 'zh' ? '文意選填 — 空格嵌入段落' : 'Cloze - Slot Words in Paragraphs' },
+    { num: '3', title: lang === 'zh' ? '單字選擇題 — 詞彙辨義' : 'Vocabulary MCQs - Meaning' },
+    { num: '4', title: lang === 'zh' ? '拼字題 — 鍵盤輸入' : 'Spelling - Keyboard Input' }
+  ];
 
 
 
@@ -270,22 +391,71 @@ const MsLinFeatureTabs = ({ lang }) => {
           display: flex;
           justify-content: flex-start;
           width: 100%;
-          margin-bottom: 24px;
+          margin-bottom: 32px;
           box-sizing: border-box;
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-        }
-        .outer-tab-container::-webkit-scrollbar {
-          display: none;
         }
         .outer-tab-track {
-          display: inline-flex;
-          background: #F1F5F9;
+          display: flex;
+          background-color: #F1F5F9;
           border-radius: 9999px;
-          padding: 6px;
-          gap: 6px;
+          padding: 4px;
+          border: 1px solid rgba(148, 163, 184, 0.15);
+          max-width: 640px;
+          width: 100%;
+          box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
           box-sizing: border-box;
-          min-width: max-content;
+        }
+        .outer-tab-button {
+          flex: 1;
+          text-align: center;
+          padding: 6px 4px;
+          border-radius: 9999px;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          transition: all 200ms ease;
+          background-color: transparent;
+          box-sizing: border-box;
+        }
+        .outer-tab-button.active {
+          background-color: #ffffff;
+          box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+        }
+        .outer-tab-sub {
+          display: block;
+          font-size: 8px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: #94A3B8;
+          margin-bottom: 2px;
+          font-family: 'Inter', sans-serif;
+        }
+        .outer-tab-button.active .outer-tab-sub {
+          color: #534AB7;
+        }
+        .outer-tab-label {
+          display: block;
+          font-size: 11px;
+          font-weight: 500;
+          color: #64748B;
+          white-space: nowrap;
+        }
+        .outer-tab-button.active .outer-tab-label {
+          font-weight: 600;
+          color: #1E1B4B;
+        }
+        
+        @media (min-width: 640px) {
+          .outer-tab-button {
+            padding: 10px 16px;
+          }
+          .outer-tab-sub {
+            font-size: 10px;
+          }
+          .outer-tab-label {
+            font-size: 14px;
+          }
         }
         
 
@@ -325,12 +495,14 @@ const MsLinFeatureTabs = ({ lang }) => {
         
         @media (max-width: 767px) {
           .showcase-buttons-col {
+            display: flex !important;
             flex-direction: row !important;
+            gap: 8px !important;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 8px;
-            margin-bottom: 8px;
-            width: 100%;
+            padding: 4px 4px 12px 4px !important;
+            margin-bottom: 16px !important;
+            width: 100% !important;
           }
           .showcase-buttons-col::-webkit-scrollbar {
             display: none;
@@ -359,81 +531,23 @@ const MsLinFeatureTabs = ({ lang }) => {
           .showcase-btn-item.active-english .showcase-btn-title {
             color: #FFFFFF;
           }
-          
-          /* Gallery layout for Phone Mockups on Mobile */
-          .showcase-mockups-col {
-            display: flex !important;
-            flex-direction: row !important;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scroll-snap-type: x mandatory;
-            gap: 16px;
-            padding-bottom: 12px;
-            margin: 0;
-            width: 100%;
-          }
-          .showcase-mockups-col::-webkit-scrollbar {
-            display: none;
-          }
-          .showcase-mockups-col > div {
-            width: 180px !important;
-            flex-shrink: 0;
-            scroll-snap-align: start;
-          }
         }
       `}} />
       {/* ─── OUTER TAB BAR ─── */}
-      <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '32px' }}>
-        <div style={{
-          display: 'flex',
-          backgroundColor: '#F1F5F9',
-          borderRadius: '9999px',
-          padding: '4px',
-          border: '1px solid rgba(148, 163, 184, 0.15)',
-          maxWidth: '640px',
-          width: '100%',
-          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)',
-          boxSizing: 'border-box'
-        }}>
+      <div className="outer-tab-container">
+        <div className="outer-tab-track">
           {loopOneTabs.map((tab) => {
             const isActive = activeOuter === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => handleOuterSwitch(tab.id)}
-                style={{
-                  flex: 1,
-                  textAlign: 'center',
-                  padding: '10px 16px',
-                  borderRadius: '9999px',
-                  border: 'none',
-                  outline: 'none',
-                  cursor: 'pointer',
-                  transition: 'all 200ms ease',
-                  backgroundColor: isActive ? '#ffffff' : 'transparent',
-                  boxShadow: isActive ? '0 4px 12px rgba(15, 23, 42, 0.05)' : 'none',
-                  boxSizing: 'border-box'
-                }}
+                className={`outer-tab-button ${isActive ? 'active' : ''}`}
               >
-                <span style={{
-                  display: 'block',
-                  fontSize: '10px',
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  color: isActive ? '#534AB7' : '#94A3B8',
-                  marginBottom: '2px',
-                  fontFamily: 'Inter, sans-serif'
-                }}>
+                <span className="outer-tab-sub">
                   {tab.num}
                 </span>
-                <span style={{
-                  display: 'block',
-                  fontSize: '14px',
-                  fontWeight: isActive ? 600 : 500,
-                  color: isActive ? '#1E1B4B' : '#64748B',
-                  whiteSpace: 'nowrap'
-                }}>
+                <span className="outer-tab-label">
                   {lang === 'zh' ? tab.zhLabel : tab.enLabel}
                 </span>
               </button>
@@ -634,63 +748,7 @@ const MsLinFeatureTabs = ({ lang }) => {
                       : "Step-by-step problem solving changes the role of the student: questions are broken down into 2-4 steps, filled in sequentially, showing the full process at the end. The feeling is 'I solved it' rather than 'I saw the answer'—aligned with Scaffolding theory: structured guidance forms longer-term memory than passive reception."}
                   </p>
 
-                  <div className="feature-mockup-grid">
-                    {/* Phone 1 */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/math10.png" 
-                          alt="步驟 1" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '步驟 1：拆解題目與公式' : 'Step 1: Deconstruct Formula'}
-                      </span>
-                    </div>
-
-                    {/* Phone 2 */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/math11.png" 
-                          alt="步驟 2" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '步驟 2：填寫中間運算' : 'Step 2: Intermediate Steps'}
-                      </span>
-                    </div>
-
-                    {/* Phone 3 */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/math12.png" 
-                          alt="步驟 3" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '步驟 3：得出最終解答' : 'Step 3: Final Numerical Answer'}
-                      </span>
-                    </div>
-
-                    {/* Phone 4 */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/math13.png" 
-                          alt="步驟 4" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '步驟 4：觀看完整解析' : 'Step 4: View Full Explanation'}
-                      </span>
-                    </div>
-                  </div>
+                  <SinglePhoneSlider steps={mathSteps} lang={lang} themeColor="#534AB7" />
                 </div>
               )}
 
@@ -719,55 +777,7 @@ const MsLinFeatureTabs = ({ lang }) => {
                       : 'Chinese knowledge points vary greatly. According to the cognitive needs of each question type, we designed five corresponding interaction formats.'}
                   </p>
 
-                  <div className="feature-mockup-grid">
-                    {/* Phone 1 (With Image) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/chinese3.png" 
-                          alt="字音字形配對" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '字音字形配對 — 左右連線' : 'Pronunciation & Character Pairing - Connect'}
-                      </span>
-                    </div>
-
-                    {/* Phone 2 (With Image) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/chinese18.png" 
-                          alt="文言文逐句翻譯" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '文言文逐句翻譯 — 填空' : 'Classical Chinese - Blank Fills'}
-                      </span>
-                    </div>
-
-                    {/* Phone 3 (Placeholder) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#534AB7', opacity: 0.15 }}>3</div>
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '成語配對填空 — 點選填入' : 'Idiom Pairing - Tap to Fill'}
-                      </span>
-                    </div>
-
-                    {/* Phone 4 (Placeholder) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#534AB7', opacity: 0.15 }}>4</div>
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '錯字辨識 — 點選句中錯字' : 'Typo Spotting - Tap Typos'}
-                      </span>
-                    </div>
-                  </div>
+                  <SinglePhoneSlider steps={chineseSteps} lang={lang} themeColor="#534AB7" />
 
                   {/* Expandable Grid */}
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '16px', width: '100%' }}>
@@ -798,7 +808,8 @@ const MsLinFeatureTabs = ({ lang }) => {
                       maxHeight: chineseGridOpen ? '1000px' : '0px',
                       transition: 'max-height 350ms ease',
                       overflow: 'hidden',
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box',
+                      width: '100%'
                     }}>
                       <div className="showcase-split-container">
                         {/* Left Column: switching buttons */}
@@ -806,7 +817,15 @@ const MsLinFeatureTabs = ({ lang }) => {
                           {chineseTypes.map((type, index) => (
                             <div 
                               key={index}
-                              onClick={() => setActiveChineseType(index)}
+                              onClick={(e) => {
+                                setActiveChineseType(index);
+                                const child = e.currentTarget;
+                                const parent = child.parentElement;
+                                if (parent) {
+                                  const targetScrollLeft = child.offsetLeft - (parent.clientWidth - child.clientWidth) / 2;
+                                  parent.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+                                }
+                              }}
                               className={`showcase-btn-item ${activeChineseType === index ? 'active-chinese' : ''}`}
                             >
                               <div className="showcase-btn-title">
@@ -840,19 +859,18 @@ const MsLinFeatureTabs = ({ lang }) => {
                           {lang === 'zh' ? '訓練：' : 'Train: '}{chineseTypes[activeChineseType].train} ｜ {lang === 'zh' ? '互動：' : 'Interact: '}{chineseTypes[activeChineseType].interact}
                         </div>
 
-                        {/* Right Column: mockups */}
-                        <div className="showcase-mockups-col">
-                          {chineseTypes[activeChineseType].screens.map((screen, idx) => (
-                            <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                              <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                                <img 
-                                  src={screen} 
-                                  alt={chineseTypes[activeChineseType].title} 
-                                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                                />
-                              </PhoneMockup>
-                            </div>
-                          ))}
+                        {/* Right Column: mockups slider (All screen sizes) */}
+                        <div style={{ flex: 1, minWidth: 0, width: '100%' }}>
+                          <SinglePhoneSlider 
+                            steps={chineseTypes[activeChineseType].screens.map((screen, sIdx) => ({
+                              img: screen,
+                              title: lang === 'zh'
+                                ? `${chineseTypes[activeChineseType].title} — ${chineseTypes[activeChineseType].interact} (${sIdx + 1}/${chineseTypes[activeChineseType].screens.length})`
+                                : `${chineseTypes[activeChineseType].title} - ${chineseTypes[activeChineseType].interact} (${sIdx + 1}/${chineseTypes[activeChineseType].screens.length})`
+                            }))} 
+                            lang={lang} 
+                            themeColor="#534AB7" 
+                          />
                         </div>
                       </div>
                     </div>
@@ -885,55 +903,7 @@ const MsLinFeatureTabs = ({ lang }) => {
                       : 'English learning covers multiple skills—word memory, reading comprehension, grammar application, and Chinese-English conversion, each requiring different training. We design specific types for each skill.'}
                   </p>
 
-                  <div className="feature-mockup-grid">
-                    {/* Phone 1 (With Image) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/english-sentence2.png" 
-                          alt="文法造句重組" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '文法造句重組 — 點擊排列' : 'Sentence Reordering - Tap to Rebuild'}
-                      </span>
-                    </div>
-
-                    {/* Phone 2 (With Image) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/english-close2.png" 
-                          alt="文意選填" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '文意選填 — 空格嵌入段落' : 'Cloze - Slot Words in Paragraphs'}
-                      </span>
-                    </div>
-
-                    {/* Phone 3 (Placeholder) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#378ADD', opacity: 0.15 }}>3</div>
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '單字選擇題 — 詞彙辨義' : 'Vocabulary MCQs - Meaning'}
-                      </span>
-                    </div>
-
-                    {/* Phone 4 (Placeholder) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#378ADD', opacity: 0.15 }}>4</div>
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '拼字題 — 鍵盤輸入' : 'Spelling - Keyboard Input'}
-                      </span>
-                    </div>
-                  </div>
+                  <SinglePhoneSlider steps={englishSteps} lang={lang} themeColor="#378ADD" />
 
                   {/* Expandable Grid */}
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '16px', width: '100%' }}>
@@ -964,7 +934,8 @@ const MsLinFeatureTabs = ({ lang }) => {
                       maxHeight: englishGridOpen ? '1000px' : '0px',
                       transition: 'max-height 350ms ease',
                       overflow: 'hidden',
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box',
+                      width: '100%'
                     }}>
                       <div className="showcase-split-container">
                         {/* Left Column: switching buttons */}
@@ -972,7 +943,15 @@ const MsLinFeatureTabs = ({ lang }) => {
                           {englishTypes.map((type, index) => (
                             <div 
                               key={index}
-                              onClick={() => setActiveEnglishType(index)}
+                              onClick={(e) => {
+                                setActiveEnglishType(index);
+                                const child = e.currentTarget;
+                                const parent = child.parentElement;
+                                if (parent) {
+                                  const targetScrollLeft = child.offsetLeft - (parent.clientWidth - child.clientWidth) / 2;
+                                  parent.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+                                }
+                              }}
                               className={`showcase-btn-item ${activeEnglishType === index ? 'active-english' : ''}`}
                             >
                               <div className="showcase-btn-title">
@@ -1006,19 +985,18 @@ const MsLinFeatureTabs = ({ lang }) => {
                           {lang === 'zh' ? '訓練：' : 'Train: '}{englishTypes[activeEnglishType].train} ｜ {lang === 'zh' ? '互動：' : 'Interact: '}{englishTypes[activeEnglishType].interact}
                         </div>
 
-                        {/* Right Column: mockups */}
-                        <div className="showcase-mockups-col">
-                          {englishTypes[activeEnglishType].screens.map((screen, idx) => (
-                            <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                              <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                                <img 
-                                  src={screen} 
-                                  alt={englishTypes[activeEnglishType].title} 
-                                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                                />
-                              </PhoneMockup>
-                            </div>
-                          ))}
+                        {/* Right Column: mockups slider (All screen sizes) */}
+                        <div style={{ flex: 1, minWidth: 0, width: '100%' }}>
+                          <SinglePhoneSlider 
+                            steps={englishTypes[activeEnglishType].screens.map((screen, sIdx) => ({
+                              img: screen,
+                              title: lang === 'zh'
+                                ? `${englishTypes[activeEnglishType].title} — ${englishTypes[activeEnglishType].interact} (${sIdx + 1}/${englishTypes[activeEnglishType].screens.length})`
+                                : `${englishTypes[activeEnglishType].title} - ${englishTypes[activeEnglishType].interact} (${sIdx + 1}/${englishTypes[activeEnglishType].screens.length})`
+                            }))} 
+                            lang={lang} 
+                            themeColor="#378ADD" 
+                          />
                         </div>
                       </div>
                     </div>

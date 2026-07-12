@@ -1,4 +1,4 @@
-import MsLinFeatureTabs from './MsLinFeatureTabs';
+import MsLinFeatureTabs, { SinglePhoneSlider } from './MsLinFeatureTabs';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 const isIOSDevice = () => {
@@ -1219,8 +1219,7 @@ const SPLIT_VIEW_CHIPS = [
                 width: isMobile ? '100%' : `${50 + (50 * easeExpand)}%`, 
                 height: isMobile ? `${40 + (60 * easeExpand)}vh` : '100%', 
                 borderTopLeftRadius: `${isMobile ? 3 * (1 - easeExpand) : 6 * (1 - easeExpand)}rem`, 
-                borderTopRightRadius: isMobile ? `${3 * (1 - easeExpand)}rem` : '0', 
-              }}
+                borderTopRightRadius: isMobile ? `${3 * (1 - easeExpand)}rem` : '0' }}
             >
               <video src="hero-page_showreel.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover absolute inset-0" />
               
@@ -4704,14 +4703,16 @@ const SPLIT_VIEW_CHIPS = [
                       content: "↓";
                     }
                   }
-                  .system-tabs-grid {
-                    display: grid;
-                    width: 100%;
-                    box-sizing: border-box;
-                    gap: 12px;
+                  @media (max-width: 767px) {
+                    .system-tabs-grid {
+                      display: none !important;
+                    }
                   }
                   @media (min-width: 768px) {
                     .system-tabs-grid {
+                      display: grid;
+                      width: 100%;
+                      box-sizing: border-box;
                       gap: 28px;
                     }
                   }
@@ -4920,14 +4921,14 @@ const SPLIT_VIEW_CHIPS = [
                                     gap: '6px',
                                     padding: '10px 16px',
                                     borderRadius: '9999px',
-                                    backgroundColor: isActive ? '#E8734A' : '#E5E7EB',
+                                    backgroundColor: isActive ? '#1D1D1F' : '#E5E7EB',
                                     border: 'none',
                                     outline: 'none',
                                     cursor: 'pointer',
                                     flexShrink: 0,
                                     transition: 'all 200ms ease',
                                     scrollSnapAlign: 'start',
-                                    boxShadow: isActive ? '0 4px 10px rgba(232, 115, 74, 0.25)' : 'none'
+                                    boxShadow: isActive ? '0 4px 10px rgba(29, 29, 31, 0.25)' : 'none'
                                   }}
                                 >
                                   <span style={{
@@ -4984,7 +4985,7 @@ const SPLIT_VIEW_CHIPS = [
                             width: '100%',
                             marginTop: '8px'
                           }}>
-                            <PhoneMockup style={{ maxWidth: '280px', width: '100%' }} screenStyle={{ display: 'block', padding: 0 }}>
+                            <PhoneMockup style={{ maxWidth: '190px', width: '100%' }} screenStyle={{ display: 'block', padding: 0 }}>
                               <div style={{
                                 display: 'flex',
                                 width: '100%',
@@ -4997,7 +4998,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <img 
                                     src="projects/mslin-app/screens/onboradinbg-name.jpg" 
                                     alt="Onboarding step 1" 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'hue-rotate(130deg)' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
                                 </div>
                                 {/* Step 2 */}
@@ -5005,7 +5006,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <img 
                                     src="projects/mslin-app/screens/onboradinbg-status.jpg" 
                                     alt="Onboarding step 2" 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'hue-rotate(130deg)' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
                                 </div>
                                 {/* Step 3 */}
@@ -5013,7 +5014,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <img 
                                     src="projects/mslin-app/screens/onboradinbg-grade.jpg" 
                                     alt="Onboarding step 3" 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'hue-rotate(130deg)' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
                                 </div>
                                 {/* Step 4 */}
@@ -5021,7 +5022,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <img 
                                     src="projects/mslin-app/screens/onboradinbg-subject.jpg" 
                                     alt="Onboarding step 4" 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'hue-rotate(130deg)' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
                                 </div>
                                 {/* Step 5 */}
@@ -5029,7 +5030,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <img 
                                     src="projects/mslin-app/screens/onboradinbg-subject-rang.jpg" 
                                     alt="Onboarding step 5" 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'hue-rotate(130deg)' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
                                 </div>
                                 {/* Step 6 */}
@@ -5037,7 +5038,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <img 
                                     src="projects/mslin-app/screens/onboradinbg-notification.jpg" 
                                     alt="Onboarding step 6" 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'hue-rotate(130deg)' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
                                 </div>
                               </div>
@@ -5228,12 +5229,13 @@ const SPLIT_VIEW_CHIPS = [
                     </div>
                   </div>
 
-                  {/* Grid of Phones (Home: 2, Bank: 3, Profile: 3) */}
+                  {/* Desktop Grid of Phones (Home: 2, Bank: 3, Profile: 3) */}
                   <div 
-                    className="system-tabs-grid"
+                    className="hidden md:grid system-tabs-grid"
                     style={{
                       gridTemplateColumns: activeSystemTab === 'home' ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
-                      maxWidth: activeSystemTab === 'home' ? '488px' : '746px'
+                      maxWidth: activeSystemTab === 'home' ? '488px' : '746px',
+                      width: '100%'
                     }}
                   >
                     {(() => {
@@ -5283,6 +5285,28 @@ const SPLIT_VIEW_CHIPS = [
                         </div>
                       ));
                     })()}
+                  </div>
+
+                  {/* Mobile View: SinglePhoneSlider for System Three Pages (Capsule/Dot Indicator Pager Version) */}
+                  <div className="block md:hidden" style={{ width: '100%' }}>
+                    <SinglePhoneSlider 
+                      key={activeSystemTab}
+                      steps={
+                        activeSystemTab === 'home' ? [
+                          { src: 'projects/mslin-app/screens/home1.png', label: lang === 'zh' ? '首頁展示' : 'Home Showcase' },
+                          { src: 'projects/mslin-app/screens/home2.png', label: lang === 'zh' ? '科目調整選單' : 'Subject Selection Menu' }
+                        ] : activeSystemTab === 'bank' ? [
+                          { src: 'projects/mslin-app/screens/question-bank/base1.png', label: lang === 'zh' ? '收藏頁' : 'Saved Questions' },
+                          { src: 'projects/mslin-app/screens/question-bank/base2.png', label: lang === 'zh' ? '錯題頁' : 'Incorrect Questions' },
+                          { src: 'projects/mslin-app/screens/question-bank/base3.png', label: lang === 'zh' ? '題目卡片詳情頁' : 'Question Detail Card' }
+                        ] : [
+                          { src: 'projects/mslin-app/screens/profile/profile1.png', label: lang === 'zh' ? '個人主頁' : 'Personal Profile' },
+                          { src: 'projects/mslin-app/screens/profile/profile2.png', label: lang === 'zh' ? '刷題數據統計' : 'Practice Stats' },
+                          { src: 'projects/mslin-app/screens/profile/profile3.png', label: lang === 'zh' ? 'XP累積與排行榜' : 'XP Progress & Leaderboard' }
+                        ]
+                      }
+                      lang={lang}
+                    />
                   </div>
                 </div>
 
@@ -5482,8 +5506,8 @@ const SPLIT_VIEW_CHIPS = [
                         : 'The review loop stems from a common student pain point: receiving a graded paper and not understanding the mistakes, with no one to ask. Traditional solutions like searching online or waiting for teacher explanations are high-friction and slow. Photo solving minimizes this friction—taking a photo is faster than typing, and AI is more direct than search engines.'}
                     </p>
 
-                    {/* SIX-STEP FLOW CAROUSEL WITH ARROWS */}
-                    <div style={{ position: 'relative', width: '100%', marginTop: '32px', marginBottom: '24px' }}>
+                    {/* Desktop View: SIX-STEP FLOW CAROUSEL WITH ARROWS */}
+                    <div className="hidden md:block" style={{ position: 'relative', width: '100%', marginTop: '32px', marginBottom: '24px' }}>
                       {/* Left Scroll Arrow (prev button) */}
                       {showAiLeftArrow && (
                         <button 
@@ -5631,6 +5655,11 @@ const SPLIT_VIEW_CHIPS = [
                         </button>
                       )}
                     </div>
+
+                    {/* Mobile View: SinglePhoneSlider for Photo Solving */}
+                    <div className="block md:hidden" style={{ width: '100%', marginTop: '24px', marginBottom: '24px' }}>
+                      <SinglePhoneSlider steps={aiSteps} lang={lang} />
+                    </div>
                   </>
                 ) : (
                   <>
@@ -5647,8 +5676,8 @@ const SPLIT_VIEW_CHIPS = [
                         : 'After understanding the mistake analysis, the system automatically extracts the core knowledge points of the wrong question and generates a set of similar questions for instant verification. This helps students escape the trap of "understanding but not being able to do it," and truly internalizes the knowledge.'}
                     </p>
 
-                    {/* FIVE-STEP FLOW CAROUSEL WITH ARROWS FOR SIMILAR QUESTIONS */}
-                    <div style={{ position: 'relative', width: '100%', marginTop: '32px', marginBottom: '24px' }}>
+                    {/* Desktop View: FIVE-STEP FLOW CAROUSEL WITH ARROWS FOR SIMILAR QUESTIONS */}
+                    <div className="hidden md:block" style={{ position: 'relative', width: '100%', marginTop: '32px', marginBottom: '24px' }}>
                       {/* Left Scroll Arrow (prev button) */}
                       {showSimilarLeftArrow && (
                         <button 
@@ -5794,6 +5823,20 @@ const SPLIT_VIEW_CHIPS = [
                         </button>
                       )}
                     </div>
+
+                    {/* Mobile View: SinglePhoneSlider for Similar Question Practice */}
+                    <div className="block md:hidden" style={{ width: '100%', marginTop: '24px', marginBottom: '24px' }}>
+                      <SinglePhoneSlider 
+                        steps={[
+                          { src: 'projects/mslin-app/screens/similar/相似題入口.jpg', label: lang === 'zh' ? '步驟一：相似題入口' : 'Step 1: Similar Entrance' },
+                          { src: 'projects/mslin-app/screens/similar/相似題生成中.jpg', label: lang === 'zh' ? '步驟二：相似題生成中' : 'Step 2: Generating Similar Questions' },
+                          { src: 'projects/mslin-app/screens/similar/相似題生成完成.jpg', label: lang === 'zh' ? '步驟三：相似題生成完成' : 'Step 3: Generation Complete' },
+                          { src: 'projects/mslin-app/screens/similar/相似題作答頁面.jpg', label: lang === 'zh' ? '步驟四：相似題作答頁面' : 'Step 4: Similar Question Practice' },
+                          { src: 'projects/mslin-app/screens/similar/作答完成改為查看題目.jpg', label: lang === 'zh' ? '步驟五：作答完成改為查看題目' : 'Step 5: View Solved Question' }
+                        ]}
+                        lang={lang}
+                      />
+                    </div>
                   </>
                 )}
 
@@ -5868,32 +5911,48 @@ const SPLIT_VIEW_CHIPS = [
                     width: '100%',
                     boxSizing: 'border-box'
                   }}>
-                    <div style={{
-                      display: 'flex',
-                      backgroundColor: '#F1F5F9',
-                      padding: '4px',
-                      borderRadius: '9999px',
-                      width: 'fit-content',
-                      boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.02)'
-                    }}>
+                    <div 
+                      className="hide-scrollbar"
+                      style={{
+                        display: 'flex',
+                        backgroundColor: '#F1F5F9',
+                        padding: '4px',
+                        borderRadius: '9999px',
+                        width: '100%',
+                        maxWidth: 'fit-content',
+                        overflowX: 'auto',
+                        WebkitOverflowScrolling: 'touch',
+                        boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.02)',
+                        boxSizing: 'border-box'
+                      }}
+                    >
                       {[
                         { id: 'Neutral', label: 'Neutral' },
                         { id: 'Primary', label: 'Primary' },
                         { id: 'Functional', label: 'Functional' },
-                        { id: 'Other colors', label: lang === 'zh' ? '其他色彩' : 'Other Colors' }
+                        { id: 'Other colors', label: 'Other' }
                       ].map((tab) => {
                         const isActive = activeColorTab === tab.id;
                         return (
                           <button
                             key={tab.id}
-                            onClick={() => setActiveColorTab(tab.id)}
+                            onClick={(e) => {
+                              setActiveColorTab(tab.id);
+                              const child = e.currentTarget;
+                              const parent = child.parentElement;
+                              if (parent) {
+                                const targetScrollLeft = child.offsetLeft - (parent.clientWidth - child.clientWidth) / 2;
+                                parent.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+                              }
+                            }}
                             style={{
-                              padding: '8px 24px',
+                              flexShrink: 0,
+                              padding: '8px 16px',
                               borderRadius: '9999px',
                               border: 'none',
                               outline: 'none',
                               cursor: 'pointer',
-                              fontSize: '14px',
+                              fontSize: '13px',
                               fontWeight: '600',
                               backgroundColor: isActive ? '#FFFFFF' : 'transparent',
                               color: isActive ? '#1E293B' : '#64748B',

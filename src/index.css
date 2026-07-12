@@ -193,6 +193,12 @@ html, body {
   position: relative;
 }
 
+@media (max-width: 767px) {
+  .premium-phone-frame {
+    box-shadow: none !important;
+  }
+}
+
 /* Dynamic Island Notch */
 .premium-phone-notch {
   position: absolute;

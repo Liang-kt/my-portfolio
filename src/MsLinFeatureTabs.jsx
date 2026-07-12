@@ -17,68 +17,95 @@ const SubHeading = ({ children }) => (
   </h4>
 );
 
-const SinglePhoneSlider = ({ steps, lang, themeColor = '#7F77DD' }) => {
+export const SinglePhoneSlider = ({ steps, lang, themeColor = '#7F77DD' }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const containerRef = useRef(null);
 
   const handleScroll = (e) => {
     const scrollLeft = e.target.scrollLeft;
     const width = e.target.clientWidth;
     if (width > 0) {
       const index = Math.round(scrollLeft / width);
-      if (index !== activeStep) {
+      if (index !== activeStep && index >= 0 && index < steps.length) {
         setActiveStep(index);
       }
     }
   };
 
+  const currentStep = steps[activeStep] || {};
+  const stepImg = currentStep.img || currentStep.src;
+  const stepTitle = currentStep.title || currentStep.label;
+  const stepDesc = currentStep.desc;
+
   return (
-    <div style={{ width: '100%', marginTop: '24px', marginBottom: '32px' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
-        
-        {/* Horizontal scroll track where the entire PhoneMockup slides */}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center', width: '100%', marginTop: '20px', marginBottom: '20px' }}>
+      <div 
+        style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: '200px',
+          margin: '0 auto'
+        }}
+      >
+        {/* Horizontal Scroll Area */}
         <div 
+          ref={containerRef}
           onScroll={handleScroll}
           className="hide-scrollbar"
           style={{
             display: 'flex',
-            width: '100%',
             overflowX: 'auto',
             scrollSnapType: 'x mandatory',
+            width: '100%',
             WebkitOverflowScrolling: 'touch',
-            padding: '12px 0'
+            padding: '8px 0'
           }}
         >
-          {steps.map((step, idx) => (
-            <div 
-              key={idx} 
-              style={{ 
-                width: '100%', 
-                flexShrink: 0, 
-                scrollSnapAlign: 'center',
-                display: 'flex',
-                justifyContent: 'center',
-                boxSizing: 'border-box'
-              }}
-            >
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '280px' }}>
-                <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                  {step.img ? (
-                    <img 
-                      src={step.img} 
-                      alt={step.title} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                    />
-                  ) : (
-                    <div style={{ display: 'flex', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F1F5F9' }}>
-                      <span style={{ fontSize: '28px', fontWeight: 'bold', color: themeColor, opacity: 0.15 }}>
-                        {step.num}
-                      </span>
-                    </div>
-                  )}
-                </PhoneMockup>
+          {steps.map((step, idx) => {
+            const imgUrl = step.img || step.src;
+            const titleVal = step.title || step.label;
+            const stepNum = step.num || `0${idx + 1}`;
+            return (
+              <div 
+                key={idx}
+                style={{
+                  flexShrink: 0,
+                  width: '100%',
+                  scrollSnapAlign: 'center',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  boxSizing: 'border-box'
+                }}
+              >
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '190px' }}>
+                  <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                    {imgUrl && (imgUrl.endsWith('.webm') || imgUrl.endsWith('.mp4') || step.type === 'video') ? (
+                      <video 
+                        src={imgUrl} 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline 
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      />
+                    ) : imgUrl ? (
+                      <img 
+                        src={imgUrl} 
+                        alt={titleVal} 
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      />
+                    ) : (
+                      <div style={{ display: 'flex', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F1F5F9' }}>
+                        <span style={{ fontSize: '28px', fontWeight: 'bold', color: themeColor, opacity: 0.15 }}>
+                          {stepNum}
+                        </span>
+                      </div>
+                    )}
+                  </PhoneMockup>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Step Text Label */}
@@ -88,18 +115,19 @@ const SinglePhoneSlider = ({ steps, lang, themeColor = '#7F77DD' }) => {
           color: '#E8734A',
           textAlign: 'center',
           lineHeight: '1.4',
-          minHeight: '18px'
+          minHeight: '44px',
+          marginTop: '8px'
         }}>
-          <div>{steps[activeStep].title}</div>
-          {steps[activeStep].desc && (
+          <div>{stepTitle}</div>
+          {stepDesc && (
             <div style={{ fontSize: '11.5px', color: 'var(--color-text-secondary)', fontWeight: '400', marginTop: '4px' }}>
-              {steps[activeStep].desc}
+              {stepDesc}
             </div>
           )}
         </div>
 
         {/* Premium Dot Indicators */}
-        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center', marginTop: '4px' }}>
           {steps.map((_, idx) => {
             const isActive = activeStep === idx;
             return (
@@ -109,7 +137,7 @@ const SinglePhoneSlider = ({ steps, lang, themeColor = '#7F77DD' }) => {
                   width: isActive ? '32px' : '8px',
                   height: '8px',
                   borderRadius: '4px',
-                  backgroundColor: isActive ? themeColor : '#D1D5DB',
+                  backgroundColor: isActive ? '#E8734A' : '#D1D5DB',
                   transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               />
@@ -498,18 +526,20 @@ const MsLinFeatureTabs = ({ lang }) => {
   return (
     <div style={{ width: '100%', boxSizing: 'border-box' }}>
       <style dangerouslySetInnerHTML={{__html: `
-        .feature-mockup-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 16px;
-          margin-top: 16px;
-          margin-bottom: 24px;
-          width: 100%;
-          box-sizing: border-box;
+        @media (max-width: 639px) {
+          .feature-mockup-grid {
+            display: none !important;
+          }
         }
         @media (min-width: 640px) {
           .feature-mockup-grid {
+            display: grid;
             grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+            margin-bottom: 24px;
+            width: 100%;
+            box-sizing: border-box;
           }
         }
         .loop-mockup-grid {
@@ -579,15 +609,13 @@ const MsLinFeatureTabs = ({ lang }) => {
           border-radius: 9999px;
           padding: 4px;
           border: 1px solid rgba(148, 163, 184, 0.15);
-          max-width: 640px;
-          width: 100%;
+          width: fit-content;
           box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
           box-sizing: border-box;
         }
         .outer-tab-button {
-          flex: 1;
           text-align: center;
-          padding: 6px 4px;
+          padding: 8px 16px;
           border-radius: 9999px;
           border: none;
           outline: none;
@@ -615,7 +643,7 @@ const MsLinFeatureTabs = ({ lang }) => {
         }
         .outer-tab-label {
           display: block;
-          font-size: 11px;
+          font-size: 12px;
           font-weight: 500;
           color: #64748B;
           white-space: nowrap;
@@ -627,7 +655,7 @@ const MsLinFeatureTabs = ({ lang }) => {
         
         @media (min-width: 640px) {
           .outer-tab-button {
-            padding: 10px 16px;
+            padding: 10px 28px;
           }
           .outer-tab-sub {
             font-size: 10px;
@@ -760,8 +788,8 @@ const MsLinFeatureTabs = ({ lang }) => {
                 : 'Five questions is the default round of the practice loop, which is also the most critical numeric decision in the design. Too few (1-2 questions) feels unceremonious; too many (10+ questions) leads to mid-way abandonment. Five questions corresponds to a short focus cycle, finishing just when slightly fatigued but feeling \'almost more\'—this subtle tension is key to motivating another round. For users who want to practice more, we also offer 10 and 15 question choices to meet different user needs.'}
             </p>
             
-            {/* FIVE-PHONE HORIZONTAL SCROLL CAROUSEL (SAME AS MATH & AI ANALYSIS) */}
-            <div style={{ position: 'relative', width: '100%', marginTop: '24px' }}>
+            {/* Desktop View: FIVE-PHONE HORIZONTAL SCROLL CAROUSEL */}
+            <div className="hidden md:block" style={{ position: 'relative', width: '100%', marginTop: '24px' }}>
               {/* Left Scroll Arrow (prev button) */}
               {showLoopLeftArrow && (
                 <button 
@@ -940,6 +968,45 @@ const MsLinFeatureTabs = ({ lang }) => {
                 </button>
               )}
             </div>
+
+            {/* Mobile View: SinglePhoneSlider for 刷題 Loop */}
+            <div className="block md:hidden" style={{ width: '100%', marginTop: '16px' }}>
+              <SinglePhoneSlider 
+                steps={[
+                  {
+                    type: 'image',
+                    src: '/projects/mslin-app/screens/loop/刷題loop5題.PNG',
+                    label: lang === 'zh' ? '步驟一：5題預設輪次' : 'Step 1: 5-Question Default Round',
+                    desc: lang === 'zh' ? '刷題畫面 — 5題Loop' : 'Practice Screen - 5 Qs Loop'
+                  },
+                  {
+                    type: 'video',
+                    src: '/projects/mslin-app/screens/loop/完成頁面.webm',
+                    label: lang === 'zh' ? '步驟二：完成頁面' : 'Step 2: Practice Complete Page',
+                    desc: lang === 'zh' ? '完成練習並獲得獎勵' : 'Finish practice and get rewards'
+                  },
+                  {
+                    type: 'video',
+                    src: '/projects/mslin-app/screens/loop/xp結算頁.webm',
+                    label: lang === 'zh' ? '步驟三：XP結算頁' : 'Step 3: XP Settlement Page',
+                    desc: lang === 'zh' ? 'XP點數與進度結算' : 'XP and progress settlement'
+                  },
+                  {
+                    type: 'image',
+                    src: '/projects/mslin-app/screens/loop/刷題loop10題.PNG',
+                    label: lang === 'zh' ? '步驟四：10題練習' : 'Step 4: 10 Questions Practice',
+                    desc: lang === 'zh' ? '中等長度自主選擇' : 'Medium length custom choice'
+                  },
+                  {
+                    type: 'image',
+                    src: '/projects/mslin-app/screens/loop/刷題loop15題.PNG',
+                    label: lang === 'zh' ? '步驟五：15題練習' : 'Step 5: 15 Questions Practice',
+                    desc: lang === 'zh' ? '高強度自主練習' : 'High intensity custom practice'
+                  }
+                ]}
+                lang={lang}
+              />
+            </div>
           </div>
         )}
 
@@ -1058,12 +1125,18 @@ const MsLinFeatureTabs = ({ lang }) => {
                 return (
                   <div>
                     {/* Math sub-type capsule tabs */}
-                    <div style={{
-                      display: 'flex',
-                      gap: '8px',
-                      marginBottom: '24px',
-                      flexWrap: 'wrap'
-                    }}>
+                    <div 
+                      className="hide-scrollbar"
+                      style={{
+                        display: 'flex',
+                        gap: '8px',
+                        marginBottom: '24px',
+                        overflowX: 'auto',
+                        padding: '4px 4px 12px 4px',
+                        width: '100%',
+                        WebkitOverflowScrolling: 'touch'
+                      }}
+                    >
                       {[
                         { id: 'steps', label: lang === 'zh' ? '步驟解題' : 'Step-by-Step Solving' },
                         { id: 'concept', label: lang === 'zh' ? '觀念選擇' : 'Concept Selection' },
@@ -1074,8 +1147,17 @@ const MsLinFeatureTabs = ({ lang }) => {
                         return (
                           <button
                             key={tab.id}
-                            onClick={() => setActiveMathType(tab.id)}
+                            onClick={(e) => {
+                              setActiveMathType(tab.id);
+                              const child = e.currentTarget;
+                              const parent = child.parentElement;
+                              if (parent) {
+                                const targetScrollLeft = child.offsetLeft - (parent.clientWidth - child.clientWidth) / 2;
+                                parent.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+                              }
+                            }}
                             style={{
+                              flexShrink: 0,
                               padding: '8px 16px',
                               borderRadius: '9999px',
                               border: '1px solid',
@@ -1646,11 +1728,27 @@ const MsLinFeatureTabs = ({ lang }) => {
                 : 'Visually, we deliberately avoided making the incorrect question library look like a \'list of failures.\' The empty state is designed as \'no questions added yet\' rather than \'you haven\'t made mistakes yet,\' sending the message that this is a learning asset waiting to be filled. Saved question library lets students actively tag important questions, giving them a sense of learning autonomy—\'I want to remember this question\' creates more motivation to return and review than passive \'you got this wrong\' indicators.'}
             </p>
 
-            <div className="feature-mockup-grid">
+            {/* Desktop View: Grid of 4 Phones */}
+            <div className="hidden sm:grid feature-mockup-grid">
+              {/* 1. 收藏庫 */}
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
                   <img 
-                    src="/projects/mslin-app/screens/base2.png" 
+                    src="projects/mslin-app/screens/question-bank/base1.png" 
+                    alt="收藏庫" 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                </PhoneMockup>
+                <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                  {lang === 'zh' ? '收藏庫 — 主動儲存給予自主感' : 'Saved Library - Active saving yields sense of autonomy'}
+                </span>
+              </div>
+
+              {/* 2. 錯題庫 */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                  <img 
+                    src="projects/mslin-app/screens/question-bank/base2.png" 
                     alt="錯題庫" 
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   />
@@ -1660,18 +1758,62 @@ const MsLinFeatureTabs = ({ lang }) => {
                 </span>
               </div>
 
+              {/* 3. 刷題題目詳情頁 */}
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
                   <img 
-                    src="/projects/mslin-app/screens/base1.png" 
-                    alt="收藏庫" 
+                    src="projects/mslin-app/screens/question-bank/base3.png" 
+                    alt="刷題題目詳情頁" 
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   />
                 </PhoneMockup>
                 <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                  {lang === 'zh' ? '收藏庫 — 主動儲存給予自主感' : 'Saved Library - Active saving yields sense of autonomy'}
+                  {lang === 'zh' ? '刷題題目詳情頁 — 提供步驟拆解與標準答案' : 'Practice Details - Step-by-step solving & answers'}
                 </span>
               </div>
+
+              {/* 4. 拍照解題題目詳情頁 */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                  <img 
+                    src="projects/mslin-app/screens/question-bank/base4.png" 
+                    alt="拍照解題題目詳情頁" 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                </PhoneMockup>
+                <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                  {lang === 'zh' ? '拍照解題題目詳情頁 — AI 觀念連結與即時解析' : 'Photo Details - AI concept mapping & analysis'}
+                </span>
+              </div>
+            </div>
+
+            {/* Mobile View: SinglePhoneSlider */}
+            <div className="block sm:hidden" style={{ width: '100%' }}>
+              <SinglePhoneSlider 
+                steps={[
+                  {
+                    src: 'projects/mslin-app/screens/question-bank/base1.png',
+                    label: lang === 'zh' ? '收藏庫' : 'Saved Questions',
+                    desc: lang === 'zh' ? '主動儲存給予自主感' : 'Active saving yields sense of autonomy'
+                  },
+                  {
+                    src: 'projects/mslin-app/screens/question-bank/base2.png',
+                    label: lang === 'zh' ? '錯題庫' : 'Incorrect Questions',
+                    desc: lang === 'zh' ? '中性語言取代負面標籤' : 'Neutral language replaces negative labels'
+                  },
+                  {
+                    src: 'projects/mslin-app/screens/question-bank/base3.png',
+                    label: lang === 'zh' ? '刷題題目詳情頁' : 'Practice Question Details',
+                    desc: lang === 'zh' ? '提供步驟拆解與標準答案' : 'Step-by-step solving & answers'
+                  },
+                  {
+                    src: 'projects/mslin-app/screens/question-bank/base4.png',
+                    label: lang === 'zh' ? '拍照解題題目詳情頁' : 'Photo Solved Question Details',
+                    desc: lang === 'zh' ? 'AI 觀念連結與即時解析' : 'AI concept mapping & analysis'
+                  }
+                ]}
+                lang={lang}
+              />
             </div>
           </div>
         )}

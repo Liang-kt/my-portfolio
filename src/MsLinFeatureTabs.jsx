@@ -90,7 +90,12 @@ const SinglePhoneSlider = ({ steps, lang, themeColor = '#7F77DD' }) => {
           lineHeight: '1.4',
           minHeight: '18px'
         }}>
-          {steps[activeStep].title}
+          <div>{steps[activeStep].title}</div>
+          {steps[activeStep].desc && (
+            <div style={{ fontSize: '11.5px', color: 'var(--color-text-secondary)', fontWeight: '400', marginTop: '4px' }}>
+              {steps[activeStep].desc}
+            </div>
+          )}
         </div>
 
         {/* Premium Dot Indicators */}
@@ -145,11 +150,45 @@ const MsLinFeatureTabs = ({ lang }) => {
   const [activeChineseType, setActiveChineseType] = useState(0);
   const [activeEnglishType, setActiveEnglishType] = useState(0);
 
+  const [activeMathStep, setActiveMathStep] = useState(0);
+
   const mathSteps = [
-    { img: '/projects/mslin-app/screens/math10.png', title: lang === 'zh' ? '步驟 1：拆解題目與公式' : 'Step 1: Deconstruct Formula' },
-    { img: '/projects/mslin-app/screens/math11.png', title: lang === 'zh' ? '步驟 2：填寫中間運算' : 'Step 2: Intermediate Steps' },
-    { img: '/projects/mslin-app/screens/math12.png', title: lang === 'zh' ? '步驟 3：得出最終解答' : 'Step 3: Final Numerical Answer' },
-    { img: '/projects/mslin-app/screens/math13.png', title: lang === 'zh' ? '步驟 4：觀看完整解析' : 'Step 4: View Full Explanation' }
+    {
+      num: '1',
+      title: lang === 'zh' ? '步驟一：題目解析' : 'Step 1: Problem Analysis',
+      desc: lang === 'zh' ? '解析題目找出關鍵考點' : 'Analyze the problem to find key points',
+      img: '/projects/mslin-app/screens/math/解析題目找出關鍵考點.jpg'
+    },
+    {
+      num: '2',
+      title: lang === 'zh' ? '步驟二：觀念連結' : 'Step 2: Concept Connection',
+      desc: lang === 'zh' ? '點出重點觀念' : 'Highlight key concepts',
+      img: '/projects/mslin-app/screens/math/點出重點觀念.jpg'
+    },
+    {
+      num: '3',
+      title: lang === 'zh' ? '步驟二：觀念連結' : 'Step 2: Concept Connection (Cont.)',
+      desc: lang === 'zh' ? '即時解答協助觀念釐清' : 'Instant feedback to clarify concepts',
+      img: '/projects/mslin-app/screens/math/即時解答協助觀念釐清.jpg'
+    },
+    {
+      num: '4',
+      title: lang === 'zh' ? '步驟三：列式' : 'Step 3: Formula Setup',
+      desc: lang === 'zh' ? '列式開始計算' : 'Setup formula to start calculation',
+      img: '/projects/mslin-app/screens/math/列式開始計算.jpg'
+    },
+    {
+      num: '5',
+      title: lang === 'zh' ? '步驟四：選出正確答案' : 'Step 4: Select Correct Answer',
+      desc: lang === 'zh' ? '選出最終答案' : 'Select the final answer',
+      img: '/projects/mslin-app/screens/math/選出最終答案.jpg'
+    },
+    {
+      num: '6',
+      title: lang === 'zh' ? '公布解答' : 'Publish Answer',
+      desc: lang === 'zh' ? '公布解答' : 'Publish answer',
+      img: '/projects/mslin-app/screens/math/公布解答.jpg'
+    }
   ];
 
   const chineseSteps = [
@@ -748,67 +787,99 @@ const MsLinFeatureTabs = ({ lang }) => {
                       : "Step-by-step problem solving changes the role of the student: questions are broken down into 2-4 steps, filled in sequentially, showing the full process at the end. The feeling is 'I solved it' rather than 'I saw the answer'—aligned with Scaffolding theory: structured guidance forms longer-term memory than passive reception."}
                   </p>
 
-                  {/* DESKTOP/TABLET ONLY: 4-Column Grid Layout */}
-                  <div className="hidden sm:grid feature-mockup-grid">
-                    {/* Phone 1 */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/math10.png" 
-                          alt="步驟 1" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '步驟 1：拆解題目與公式' : 'Step 1: Deconstruct Formula'}
-                      </span>
+                  {/* DESKTOP/TABLET ONLY: Interactive Split Switcher Layout (same style as onboarding) */}
+                  <div className="hidden md:flex" style={{ gap: '32px', alignItems: 'flex-start', marginTop: '24px' }}>
+                    {/* Left Column: List of 6 steps */}
+                    <div style={{ flex: 1 }}>
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '4px',
+                        backgroundColor: '#F4F4F6',
+                        border: '1px solid rgba(0, 0, 0, 0.05)',
+                        borderRadius: '24px',
+                        padding: '8px'
+                      }}>
+                        {mathSteps.map((step, idx) => {
+                          const isActive = activeMathStep === idx;
+                          return (
+                            <div 
+                              key={idx}
+                              onClick={() => setActiveMathStep(idx)}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: '14px',
+                                padding: '12px 16px',
+                                cursor: 'pointer',
+                                transition: 'all 200ms ease',
+                                backgroundColor: isActive ? '#FFFFFF' : 'transparent',
+                                borderRadius: '16px',
+                                border: isActive ? '1px solid rgba(0, 0, 0, 0.05)' : '1px solid transparent',
+                                boxShadow: isActive ? '0 4px 12px rgba(0, 0, 0, 0.03)' : 'none'
+                              }}
+                            >
+                              {/* Step circle/bubble */}
+                              <div style={{
+                                width: '22px',
+                                height: '22px',
+                                borderRadius: '6px',
+                                backgroundColor: isActive ? '#534AB7' : '#E5E7EB',
+                                color: isActive ? '#FFFFFF' : '#8E97A6',
+                                fontSize: '10px',
+                                fontWeight: '700',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyCenter: 'center',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexShrink: 0,
+                                marginTop: '2px',
+                                transition: 'all 200ms ease'
+                              }}>
+                                {step.num}
+                              </div>
+                              {/* Title and description */}
+                              <div>
+                                <h4 style={{
+                                  fontSize: '13px',
+                                  fontWeight: '600',
+                                  color: isActive ? '#534AB7' : 'var(--color-text-primary)',
+                                  margin: '0 0 3px 0',
+                                  transition: 'all 200ms ease'
+                                }}>
+                                  {step.title}
+                                </h4>
+                                <p style={{
+                                  fontSize: '11.5px',
+                                  color: 'var(--color-text-secondary)',
+                                  lineHeight: '1.5',
+                                  margin: 0
+                                }}>
+                                  {step.desc}
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
 
-                    {/* Phone 2 */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    {/* Right Column: Single Phone Mockup Preview */}
+                    <div style={{ width: '280px', flexShrink: 0, display: 'flex', justifyContent: 'center' }}>
                       <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
                         <img 
-                          src="/projects/mslin-app/screens/math11.png" 
-                          alt="步驟 2" 
+                          src={mathSteps[activeMathStep].img} 
+                          alt={mathSteps[activeMathStep].title} 
                           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                         />
                       </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '步驟 2：填寫中間運算' : 'Step 2: Intermediate Steps'}
-                      </span>
-                    </div>
-
-                    {/* Phone 3 */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/math12.png" 
-                          alt="步驟 3" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '步驟 3：得出最終解答' : 'Step 3: Final Numerical Answer'}
-                      </span>
-                    </div>
-
-                    {/* Phone 4 */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/math13.png" 
-                          alt="步驟 4" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '步驟 4：觀看完整解析' : 'Step 4: View Full Explanation'}
-                      </span>
                     </div>
                   </div>
 
-                  {/* MOBILE ONLY: Single Phone Mockup Horizontal Slider */}
-                  <div className="block sm:hidden">
+                  {/* MOBILE/TABLET ONLY: Single Phone Mockup Horizontal Slider */}
+                  <div className="block md:hidden">
                     <SinglePhoneSlider steps={mathSteps} lang={lang} themeColor="#534AB7" />
                   </div>
                 </div>

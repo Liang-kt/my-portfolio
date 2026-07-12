@@ -2827,32 +2827,50 @@ const SPLIT_VIEW_CHIPS = [
         {
           num: '1',
           title: lang === 'zh' ? '步驟一：拍照上傳' : 'Step 1: Upload Photo',
-          desc: lang === 'zh' ? '拍照即時上傳考卷或題目' : 'Take a photo to instantly upload graded papers or questions'
+          desc: lang === 'zh' ? '拍照即時上傳考卷或題目' : 'Take a photo to instantly upload graded papers or questions',
+          img: 'projects/mslin-app/screens/photo-analysis/1拍照頁面.jpg'
         },
         {
           num: '2',
-          title: lang === 'zh' ? '步驟二：影像辨識' : 'Step 2: Image Recognition',
-          desc: lang === 'zh' ? '系統精準辨識題目內容與手寫字' : 'System accurately recognizes questions and handwriting'
+          title: lang === 'zh' ? '步驟二：框選題目範圍' : 'Step 2: Crop Question Area',
+          desc: lang === 'zh' ? '框選題目範圍' : 'Crop question area boundary',
+          img: 'projects/mslin-app/screens/photo-analysis/2題目範圍框選.jpg'
         },
         {
           num: '3',
-          title: lang === 'zh' ? '步驟三：AI 解析結果' : 'Step 3: AI Analysis',
-          desc: lang === 'zh' ? '針對錯題提供完整的步驟引導解說' : 'Provide complete step-guided explanations for mistakes'
+          title: lang === 'zh' ? '步驟三：框選題目圖片範圍' : 'Step 3: Crop Image Area',
+          desc: lang === 'zh' ? '若題目無圖片則可跳過' : 'Skip if the question has no image',
+          img: 'projects/mslin-app/screens/photo-analysis/3題目圖片範圍寬選.jpg'
         },
         {
           num: '4',
-          title: lang === 'zh' ? '步驟四：觀念連結' : 'Step 4: Concept Connection',
-          desc: lang === 'zh' ? '分析錯題關聯的核心知識點與鷹架' : 'Analyze core concepts and scaffolding linked to mistakes'
+          title: lang === 'zh' ? '步驟四：解析中提示' : 'Step 4: Analyzing Queue',
+          desc: lang === 'zh' ? '解析中提示，可繼續連續拍題' : 'Analyzing queue, can continue taking photos',
+          img: 'projects/mslin-app/screens/photo-analysis/4辨識中提示.jpg'
         },
         {
           num: '5',
-          title: lang === 'zh' ? '步驟五：相似題練習' : 'Step 5: Similar Practice',
-          desc: lang === 'zh' ? '生成相似題目進行即時練習驗證' : 'Generate similar questions for instant practice verification'
+          title: lang === 'zh' ? '步驟五：解析完後首頁浮動通知' : 'Step 5: Floating Notification',
+          desc: lang === 'zh' ? '解析完後首頁浮動通知' : 'Floating notification on homepage when finished',
+          img: 'projects/mslin-app/screens/photo-analysis/5解析完成浮動通知.png'
         },
         {
           num: '6',
-          title: lang === 'zh' ? '步驟六：加入錯題庫' : 'Step 6: Add to Wrong Book',
-          desc: lang === 'zh' ? '自動歸檔至錯題本，完成學習閉環' : 'Auto-archive to incorrect book to complete review loop'
+          title: lang === 'zh' ? '步驟六：點擊通知查看解析題目' : 'Step 6: View Solved Questions',
+          desc: lang === 'zh' ? '點擊通知查看解析題目' : 'Click notification to view solved questions list',
+          img: 'projects/mslin-app/screens/photo-analysis/6解析列表.png'
+        },
+        {
+          num: '7',
+          title: lang === 'zh' ? '步驟七：解析成功題目查看' : 'Step 7: View Solved Details',
+          desc: lang === 'zh' ? '解析成功題目查看' : 'View successfully solved question details',
+          img: 'projects/mslin-app/screens/photo-analysis/7解析成功畫面.png'
+        },
+        {
+          num: '8',
+          title: lang === 'zh' ? '步驟八：解析失敗題目查看' : 'Step 8: View Failed Questions',
+          desc: lang === 'zh' ? '解析失敗題目查看，並可選擇移除或重拍' : 'View failed questions, choose to remove or retake',
+          img: 'projects/mslin-app/screens/photo-analysis/8解析失敗畫面.png'
         }
       ];
       const [activeSection, setActiveSection] = useState('overview');
@@ -2860,6 +2878,9 @@ const SPLIT_VIEW_CHIPS = [
       const [timerKey, setTimerKey] = useState(0);
       const [expandedCards, setExpandedCards] = useState([false, false, false]);
       const [isXpExpanded, setIsXpExpanded] = useState(false);
+      const [activeColorTab, setActiveColorTab] = useState('Neutral');
+      const [activeSystemTab, setActiveSystemTab] = useState('home');
+      const [activeLoopTwoTab, setActiveLoopTwoTab] = useState('photo');
 
 
       const toggleCard = (idx) => {
@@ -2886,6 +2907,18 @@ const SPLIT_VIEW_CHIPS = [
           const { scrollLeft, scrollWidth, clientWidth } = aiScrollRef.current;
           setShowAiLeftArrow(scrollLeft > 5);
           setShowAiRightArrow(scrollLeft + clientWidth < scrollWidth - 5);
+        }
+      };
+
+      const similarScrollRef = useRef(null);
+      const [showSimilarLeftArrow, setShowSimilarLeftArrow] = useState(false);
+      const [showSimilarRightArrow, setShowSimilarRightArrow] = useState(true);
+
+      const handleSimilarScroll = () => {
+        if (similarScrollRef.current) {
+          const { scrollLeft, scrollWidth, clientWidth } = similarScrollRef.current;
+          setShowSimilarLeftArrow(scrollLeft > 5);
+          setShowSimilarRightArrow(scrollLeft + clientWidth < scrollWidth - 5);
         }
       };
 
@@ -4609,10 +4642,10 @@ const SPLIT_VIEW_CHIPS = [
                                           {/* ONBOARDING SECTION */}
               <div style={{ marginBottom: '80px' }}>
                 <div style={{ marginBottom: '32px' }}>
-                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#26215C] leading-none mb-3">
+                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#1D1D1F] leading-none mb-3">
                     Onboarding
                   </h3>
-                  <div className="text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-[#7F77DD] tracking-wide uppercase">
+                  <div className="text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-[#E8734A] tracking-wide uppercase">
                     {lang === 'zh' ? '個人化體驗的起點' : 'Starting Point of Personalized Experience'}
                   </div>
                 </div>
@@ -4669,6 +4702,30 @@ const SPLIT_VIEW_CHIPS = [
                   @media (max-width: 767px) {
                     .loop2-arrow::after {
                       content: "↓";
+                    }
+                  }
+                  .system-tabs-grid {
+                    display: grid;
+                    width: 100%;
+                    box-sizing: border-box;
+                    gap: 12px;
+                  }
+                  @media (min-width: 768px) {
+                    .system-tabs-grid {
+                      gap: 28px;
+                    }
+                  }
+                  .similar-grid {
+                    display: grid;
+                    width: 100%;
+                    box-sizing: border-box;
+                    gap: 12px;
+                    grid-template-columns: repeat(2, 1fr);
+                  }
+                  @media (min-width: 768px) {
+                    .similar-grid {
+                      grid-template-columns: repeat(5, 1fr);
+                      gap: 24px;
                     }
                   }
                 `}} />
@@ -4728,7 +4785,7 @@ const SPLIT_VIEW_CHIPS = [
                         {/* DESIGN INSIGHT CALLOUT BOX */}
                         <div style={{
                           backgroundColor: '#FAFAFE',
-                          borderLeft: '3px solid #7F77DD',
+                          borderLeft: '3px solid #E8734A',
                           borderRadius: '0 var(--border-radius-md) var(--border-radius-md) 0',
                           padding: '12px 16px',
                           margin: '0 0 28px 0'
@@ -4738,7 +4795,7 @@ const SPLIT_VIEW_CHIPS = [
                             fontWeight: '500',
                             textTransform: 'uppercase',
                             letterSpacing: '0.06em',
-                            color: '#7F77DD',
+                            color: '#E8734A',
                             margin: '0 0 5px 0'
                           }}>
                             {lang === 'zh' ? '設計核心' : 'DESIGN INSIGHT'}
@@ -4791,7 +4848,7 @@ const SPLIT_VIEW_CHIPS = [
                                   width: '24px',
                                   height: '24px',
                                   borderRadius: '6px',
-                                  backgroundColor: isActive ? '#534AB7' : '#E5E7EB',
+                                  backgroundColor: isActive ? '#E8734A' : '#E5E7EB',
                                   color: isActive ? '#FFFFFF' : '#8E97A6',
                                   fontSize: '11px',
                                   fontWeight: '700',
@@ -4808,7 +4865,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <h4 style={{
                                     fontSize: '13px',
                                     fontWeight: '600',
-                                    color: isActive ? '#534AB7' : 'var(--color-text-primary)',
+                                    color: isActive ? '#E8734A' : 'var(--color-text-primary)',
                                     margin: '0 0 4px 0',
                                     transition: 'all 200ms ease'
                                   }}>
@@ -4863,14 +4920,14 @@ const SPLIT_VIEW_CHIPS = [
                                     gap: '6px',
                                     padding: '10px 16px',
                                     borderRadius: '9999px',
-                                    backgroundColor: isActive ? '#534AB7' : '#E5E7EB',
+                                    backgroundColor: isActive ? '#E8734A' : '#E5E7EB',
                                     border: 'none',
                                     outline: 'none',
                                     cursor: 'pointer',
                                     flexShrink: 0,
                                     transition: 'all 200ms ease',
                                     scrollSnapAlign: 'start',
-                                    boxShadow: isActive ? '0 4px 10px rgba(83, 74, 183, 0.25)' : 'none'
+                                    boxShadow: isActive ? '0 4px 10px rgba(232, 115, 74, 0.25)' : 'none'
                                   }}
                                 >
                                   <span style={{
@@ -4904,7 +4961,7 @@ const SPLIT_VIEW_CHIPS = [
                             <h4 style={{
                               fontSize: '14px',
                               fontWeight: '600',
-                              color: '#534AB7',
+                              color: '#E8734A',
                               margin: '0 0 6px 0'
                             }}>
                               {onboardingSteps[activeOnboardingStep].title}
@@ -4940,7 +4997,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <img 
                                     src="projects/mslin-app/screens/onboradinbg-name.jpg" 
                                     alt="Onboarding step 1" 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'hue-rotate(130deg)' }}
                                   />
                                 </div>
                                 {/* Step 2 */}
@@ -4948,7 +5005,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <img 
                                     src="projects/mslin-app/screens/onboradinbg-status.jpg" 
                                     alt="Onboarding step 2" 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'hue-rotate(130deg)' }}
                                   />
                                 </div>
                                 {/* Step 3 */}
@@ -4956,7 +5013,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <img 
                                     src="projects/mslin-app/screens/onboradinbg-grade.jpg" 
                                     alt="Onboarding step 3" 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'hue-rotate(130deg)' }}
                                   />
                                 </div>
                                 {/* Step 4 */}
@@ -4964,7 +5021,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <img 
                                     src="projects/mslin-app/screens/onboradinbg-subject.jpg" 
                                     alt="Onboarding step 4" 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'hue-rotate(130deg)' }}
                                   />
                                 </div>
                                 {/* Step 5 */}
@@ -4972,7 +5029,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <img 
                                     src="projects/mslin-app/screens/onboradinbg-subject-rang.jpg" 
                                     alt="Onboarding step 5" 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'hue-rotate(130deg)' }}
                                   />
                                 </div>
                                 {/* Step 6 */}
@@ -4980,7 +5037,7 @@ const SPLIT_VIEW_CHIPS = [
                                   <img 
                                     src="projects/mslin-app/screens/onboradinbg-notification.jpg" 
                                     alt="Onboarding step 6" 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'hue-rotate(130deg)' }}
                                   />
                                 </div>
                               </div>
@@ -5092,26 +5149,163 @@ const SPLIT_VIEW_CHIPS = [
                 })()}
 
 
-                {/* Separator between Onboarding and Loop One */}
+                {/* Separator between Onboarding and System Three Tabs */}
                 <div style={{
                   width: '100%',
-                  borderBottom: '0.5px solid var(--color-border-tertiary)',
-                  margin: '140px 0'
+                  borderBottom: '1px solid #E5E7EB',
+                  margin: '64px 0'
+                }}></div>
+
+                {/* SYSTEM THREE TABS SECTION */}
+                <div style={{ marginBottom: '80px' }}>
+                  <div style={{ marginBottom: '32px' }}>
+                    <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#1D1D1F] leading-none mb-3">
+                      {lang === 'zh' ? '系統三大分頁' : 'System Three Main Pages'}
+                    </h3>
+                    <div className="text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-[#E8734A] tracking-wide uppercase">
+                      {lang === 'zh' ? '三大核心體驗板塊' : 'Three Core Experience Modules'}
+                    </div>
+                  </div>
+
+                  <p style={{
+                    fontSize: '15px',
+                    lineHeight: '1.8',
+                    color: 'var(--color-text-secondary)',
+                    maxWidth: '720px',
+                    marginBottom: '32px',
+                    textAlign: 'justify'
+                  }}>
+                    {lang === 'zh'
+                      ? '系統由三個核心主頁籤構成：以今日待辦與學習任務為核心的「首頁」、收納各科所有題型練習的「題庫」、以及記錄學生個人學習資產、積分段位與成就的「我的」。每個頁面都經過精雕細琢，確保學生在刷題與複習過程中能享受極致流暢的操作與反饋。'
+                      : 'The system consists of three core main tabs: the "Home" page centered on today\'s to-do and learning tasks, the "Question Bank" housing all practice question types for each subject, and the "Me" page recording students\' personal learning assets, XP tiers, and achievements.'}
+                  </p>
+
+                  {/* System Tabs Switcher */}
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    marginBottom: '40px',
+                    width: '100%',
+                    boxSizing: 'border-box'
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      backgroundColor: '#F1F5F9',
+                      padding: '4px',
+                      borderRadius: '9999px',
+                      width: 'fit-content',
+                      boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.02)'
+                    }}>
+                      {[
+                        { id: 'home', label: lang === 'zh' ? '首頁' : 'Home' },
+                        { id: 'bank', label: lang === 'zh' ? '題庫' : 'Question Bank' },
+                        { id: 'profile', label: lang === 'zh' ? '我的' : 'Me' }
+                      ].map((tab) => {
+                        const isActive = activeSystemTab === tab.id;
+                        return (
+                          <button
+                            key={tab.id}
+                            onClick={() => setActiveSystemTab(tab.id)}
+                            style={{
+                              padding: '8px 28px',
+                              borderRadius: '9999px',
+                              border: 'none',
+                              outline: 'none',
+                              cursor: 'pointer',
+                              fontSize: '14px',
+                              fontWeight: '600',
+                              backgroundColor: isActive ? '#FFFFFF' : 'transparent',
+                              color: isActive ? '#1E293B' : '#64748B',
+                              boxShadow: isActive ? '0 4px 10px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02)' : 'none',
+                              transition: 'all 200ms ease',
+                              fontFamily: "'Inter', sans-serif"
+                            }}
+                          >
+                            {tab.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Grid of Phones (Home: 2, Bank: 3, Profile: 3) */}
+                  <div 
+                    className="system-tabs-grid"
+                    style={{
+                      gridTemplateColumns: activeSystemTab === 'home' ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+                      maxWidth: activeSystemTab === 'home' ? '488px' : '746px'
+                    }}
+                  >
+                    {(() => {
+                      const tabData = {
+                        home: [
+                          { src: 'projects/mslin-app/screens/home1.png', label: lang === 'zh' ? '首頁展示' : 'Home Showcase' },
+                          { src: 'projects/mslin-app/screens/home2.png', label: lang === 'zh' ? '科目調整選單' : 'Subject Selection Menu' }
+                        ],
+                        bank: [
+                          { src: 'projects/mslin-app/screens/question-bank/base1.png', label: lang === 'zh' ? '收藏頁' : 'Saved Questions' },
+                          { src: 'projects/mslin-app/screens/question-bank/base2.png', label: lang === 'zh' ? '錯題頁' : 'Incorrect Questions' },
+                          { src: 'projects/mslin-app/screens/question-bank/base3.png', label: lang === 'zh' ? '題目卡片詳情頁' : 'Question Detail Card' }
+                        ],
+                        profile: [
+                          { src: 'projects/mslin-app/screens/profile/profile1.png', label: lang === 'zh' ? '個人主頁' : 'Personal Profile' },
+                          { src: 'projects/mslin-app/screens/profile/profile2.png', label: lang === 'zh' ? '刷題數據統計' : 'Practice Stats' },
+                          { src: 'projects/mslin-app/screens/profile/profile3.png', label: lang === 'zh' ? 'XP累積與排行榜' : 'XP Progress & Leaderboard' }
+                        ]
+                      };
+
+                      return tabData[activeSystemTab].map((item, idx) => (
+                        <div 
+                          key={idx}
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            width: '100%'
+                          }}
+                        >
+                          <PhoneMockup screenStyle={{ display: 'block', padding: 0 }}>
+                            <img 
+                              src={item.src} 
+                              alt={item.label}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            />
+                          </PhoneMockup>
+                          <span style={{
+                            fontSize: '11px',
+                            color: 'var(--color-text-secondary)',
+                            textAlign: 'center',
+                            marginTop: '8px',
+                            lineHeight: '1.4'
+                          }}>
+                            {item.label}
+                          </span>
+                        </div>
+                      ));
+                    })()}
+                  </div>
+                </div>
+
+                {/* Separator between System Three Tabs and Loop One */}
+                <div style={{
+                  width: '100%',
+                  borderBottom: '1px solid #E5E7EB',
+                  margin: '64px 0'
                 }}></div>
               </div>
 
 {/* LOOP ONE HEADER */}
               <div style={{ marginBottom: '48px' }}>
                 <div style={{ marginBottom: '32px' }}>
-                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#26215C] leading-none mb-3">
+                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#1D1D1F] leading-none mb-3">
                     {lang === 'zh' ? '閉環一｜刷題閉環' : 'Loop 1 | Practice Loop'}
                   </h3>
-                  <div className="text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-[#7F77DD] tracking-wide uppercase">
+                  <div className="text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-[#E8734A] tracking-wide uppercase">
                     {lang === 'zh' ? '主動練習路徑' : 'Active Practice Path'}
                   </div>
                 </div>
                 
-                <svg viewBox="0 0 520 200" style={{ fontFamily: 'system-ui', display: 'block', margin: '0 auto 24px auto', width: '80%', maxWidth: '520px' }}>
+                <svg viewBox="-16 -16 552 232" style={{ fontFamily: 'system-ui', display: 'block', margin: '0 auto 24px auto', width: '100%', maxWidth: '640px', filter: 'grayscale(100%)' }}>
                   <defs>
                     <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                       <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#7F77DD" />
@@ -5167,16 +5361,16 @@ const SPLIT_VIEW_CHIPS = [
               {/* LOOP TWO HEADER */}
               <div style={{ marginBottom: '32px' }}>
                 <div style={{ marginBottom: '32px' }}>
-                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#063D29] leading-none mb-3">
+                  <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#1D1D1F] leading-none mb-3">
                     {lang === 'zh' ? '閉環二｜複習閉環' : 'Loop 2 | Review Loop'}
                   </h3>
-                  <div className="text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-[#1D9E75] tracking-wide uppercase">
+                  <div className="text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-[#E8734A] tracking-wide uppercase">
                     {lang === 'zh' ? '即時解惑路徑' : 'Instant Solving Path'}
                   </div>
                 </div>
                 
                 {/* SVG Review Loop Diagram */}
-                <svg viewBox="0 0 504 200" style={{ fontFamily: 'system-ui', display: 'block', margin: '0 auto', width: '80%', maxWidth: '504px' }}>
+                <svg viewBox="-16 -16 536 232" style={{ fontFamily: 'system-ui', display: 'block', margin: '0 auto', width: '100%', maxWidth: '640px', filter: 'grayscale(100%)' }}>
                   <defs>
                     <marker id="arrow-teal" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                       <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#1D9E75" />
@@ -5224,239 +5418,519 @@ const SPLIT_VIEW_CHIPS = [
                 </svg>
               </div>
 
-              {/* FEATURE 2A: 拍照解題 & AI 解析 */}
+                            {/* FEATURE 2A: 拍照解題 & 相似題生成 */}
               <div style={{ marginBottom: '64px' }}>
-                <span style={{
-                  display: 'inline-block',
-                  fontSize: '12px',
-                  fontWeight: '500',
-                  padding: '4px 12px',
-                  borderRadius: '20px',
-                  backgroundColor: '#E1F5EE',
-                  color: '#0F6E56',
-                  marginBottom: '12px'
+                {/* Loop Two Tabs Switcher */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'flex-start',
+                  marginBottom: '40px',
+                  width: '100%',
+                  boxSizing: 'border-box'
                 }}>
-                  功能 2A
-                </span>
-                <SubHeading>
-                  {lang === 'zh' ? '拍照解題' : 'Photo Solving'}
-                </SubHeading>
-                <p style={{
-                  fontSize: '16px',
-                  lineHeight: '1.8',
-                  color: '#6B6B6B',
-                  maxWidth: '680px',
-                  margin: '0 0 32px 0',
-                  textAlign: 'justify'
-                }}>
-                  {lang === 'zh' 
-                    ? `複習閉環從一個學生最常見的挫折情境出發：考後拿到考卷，有幾題不知道錯在哪裡，但沒有人可以問。傳統的解法是搜尋關鍵字或等老師解說，摩擦力高且不即時。拍照解題降低了這個情境的摩擦力——拍照比輸入文字快，AI 比搜尋引擎更直接。`
-                    : `The review loop stems from a common student pain point: receiving a graded paper and not understanding the mistakes, with no one to ask. Traditional solutions like searching online or waiting for teacher explanations are high-friction and slow. Photo solving minimizes this friction—taking a photo is faster than typing, and AI is more direct than search engines.`}
-                </p>
+                  <div style={{
+                    display: 'flex',
+                    backgroundColor: '#F1F5F9',
+                    padding: '4px',
+                    borderRadius: '9999px',
+                    width: 'fit-content',
+                    boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.02)'
+                  }}>
+                    {[
+                      { id: 'photo', label: lang === 'zh' ? '拍照解題' : 'Photo Solving' },
+                      { id: 'similar', label: lang === 'zh' ? '相似題生成' : 'Similar Question Generation' }
+                    ].map((tab) => {
+                      const isActive = activeLoopTwoTab === tab.id;
+                      return (
+                        <button
+                          key={tab.id}
+                          onClick={() => setActiveLoopTwoTab(tab.id)}
+                          style={{
+                            padding: '8px 28px',
+                            borderRadius: '9999px',
+                            border: 'none',
+                            outline: 'none',
+                            cursor: 'pointer',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            backgroundColor: isActive ? '#FFFFFF' : 'transparent',
+                            color: isActive ? '#1E293B' : '#64748B',
+                            boxShadow: isActive ? '0 4px 10px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02)' : 'none',
+                            transition: 'all 200ms ease',
+                            fontFamily: "'Inter', sans-serif"
+                          }}
+                        >
+                          {tab.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
 
-                <SubHeading>
-                  {lang === 'zh' ? 'AI 解析' : 'AI Analysis'}
-                </SubHeading>
-                <p style={{
-                  fontSize: '16px',
-                  lineHeight: '1.8',
-                  color: '#6B6B6B',
-                  maxWidth: '680px',
-                  margin: '0 0 32px 0',
-                  textAlign: 'justify'
-                }}>
-                  {lang === 'zh' 
-                    ? `解析頁面設計了清楚的題目辨識、逐步解題說明，以及「進行相似題練習」的主要 CTA，讓學生不只是「看懂答案」。`
-                    : `The analysis page features clear question recognition, step-by-step solutions, and a primary "Practice Similar Questions" CTA, ensuring students don't just "see" the answer but actually learn it.`}
-                </p>
+                {activeLoopTwoTab === 'photo' ? (
+                  <>
+                    <p style={{
+                      fontSize: '16px',
+                      lineHeight: '1.8',
+                      color: '#6B6B6B',
+                      maxWidth: '680px',
+                      margin: '0 0 32px 0',
+                      textAlign: 'justify'
+                    }}>
+                      {lang === 'zh' 
+                        ? '複習閉環從一個學生最常見的挫折情境出發：考後拿到考卷，有幾題不知道錯在哪裡，但沒有人可以問。傳統的解法是搜尋關鍵字或等老師解說，摩擦力高且不即時。拍照解題降低了這個情境的摩擦力——拍照比輸入文字快，AI 比搜尋引擎更直接。'
+                        : 'The review loop stems from a common student pain point: receiving a graded paper and not understanding the mistakes, with no one to ask. Traditional solutions like searching online or waiting for teacher explanations are high-friction and slow. Photo solving minimizes this friction—taking a photo is faster than typing, and AI is more direct than search engines.'}
+                    </p>
 
-                {/* SIX-STEP FLOW CAROUSEL WITH ARROWS (SAME AS MATH) */}
-                <div style={{ position: 'relative', width: '100%', marginTop: '32px', marginBottom: '24px' }}>
-                  {/* Left Scroll Arrow (prev button) */}
-                  {showAiLeftArrow && (
-                    <button 
-                      onClick={() => {
-                        if (aiScrollRef.current) {
-                          aiScrollRef.current.scrollBy({ left: -258, behavior: 'smooth' });
-                        }
-                      }}
-                      style={{
-                        position: 'absolute',
-                        left: '-24px',
-                        top: '250px',
-                        transform: 'translateY(-50%)',
-                        width: '48px',
-                        height: '48px',
-                        borderRadius: '50%',
-                        backgroundColor: '#FFFFFF',
-                        border: '1px solid rgba(148, 163, 184, 0.15)',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'pointer',
-                        zIndex: 10,
-                        color: '#1E293B',
-                        transition: 'all 200ms ease',
-                        outline: 'none',
-                        padding: '0',
-                        lineHeight: '0'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-                      }}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
-                        <path d="m15 18-6-6 6-6" />
-                      </svg>
-                    </button>
-                  )}
+                    {/* SIX-STEP FLOW CAROUSEL WITH ARROWS */}
+                    <div style={{ position: 'relative', width: '100%', marginTop: '32px', marginBottom: '24px' }}>
+                      {/* Left Scroll Arrow (prev button) */}
+                      {showAiLeftArrow && (
+                        <button 
+                          onClick={() => {
+                            if (aiScrollRef.current) {
+                              aiScrollRef.current.scrollBy({ left: -258, behavior: 'smooth' });
+                            }
+                          }}
+                          style={{
+                            position: 'absolute',
+                            left: '-24px',
+                            top: '250px',
+                            transform: 'translateY(-50%)',
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '50%',
+                            backgroundColor: '#FFFFFF',
+                            border: '1px solid rgba(148, 163, 184, 0.15)',
+                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            zIndex: 10,
+                            color: '#1E293B',
+                            transition: 'all 200ms ease',
+                            outline: 'none',
+                            padding: '0',
+                            lineHeight: '0'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                          }}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
+                            <path d="m15 18-6-6 6-6" />
+                          </svg>
+                        </button>
+                      )}
 
-                  {/* Scrollable Track */}
-                  <div 
-                    ref={aiScrollRef}
-                    onScroll={handleAiScroll}
-                    className="hide-scrollbar"
-                    style={{
-                      display: 'flex',
-                      gap: '28px',
-                      overflowX: 'auto',
-                      scrollBehavior: 'smooth',
-                      width: '100%',
-                      padding: '12px 0px',
-                      boxSizing: 'border-box',
-                      WebkitOverflowScrolling: 'touch'
-                    }}
-                  >
-                    {aiSteps.map((step, idx) => (
                       <div 
-                        key={idx} 
-                        style={{ 
-                          width: '230px', 
-                          flexShrink: 0, 
-                          display: 'flex', 
-                          flexDirection: 'column', 
-                          alignItems: 'center' 
+                        ref={aiScrollRef}
+                        onScroll={handleAiScroll}
+                        className="hide-scrollbar"
+                        style={{
+                          display: 'flex',
+                          gap: '28px',
+                          overflowX: 'auto',
+                          scrollBehavior: 'smooth',
+                          width: '100%',
+                          padding: '12px 0px',
+                          boxSizing: 'border-box',
+                          WebkitOverflowScrolling: 'touch'
                         }}
                       >
-                        <PhoneMockup screenStyle={{ backgroundColor: '#D8F0E8' }} />
-                        
-                        {/* Step label & desc */}
-                        <div style={{ marginTop: '12px', textAlign: 'center', minHeight: '52px', width: '100%' }}>
-                          <h4 style={{
-                            fontSize: '12.5px',
-                            fontWeight: '600',
-                            color: '#0F6E56',
-                            margin: '0 0 4px 0'
-                          }}>
-                            {step.title}
-                          </h4>
-                          <p style={{
-                            fontSize: '11.5px',
-                            color: 'var(--color-text-secondary)',
-                            lineHeight: '1.4',
-                            margin: 0
-                          }}>
-                            {step.desc}
-                          </p>
-                        </div>
+                        {aiSteps.map((step, idx) => (
+                          <div 
+                            key={idx} 
+                            style={{ 
+                              width: '230px', 
+                              flexShrink: 0, 
+                              display: 'flex', 
+                              flexDirection: 'column', 
+                              alignItems: 'center' 
+                            }}
+                          >
+                            <PhoneMockup screenStyle={{ display: 'block', padding: 0 }}>
+                              <img 
+                                src={step.img} 
+                                alt={step.title} 
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                              />
+                            </PhoneMockup>
+                            
+                            {/* Step label & desc */}
+                            <div style={{ marginTop: '12px', textAlign: 'center', minHeight: '52px', width: '100%' }}>
+                              <h4 style={{
+                                fontSize: '12.5px',
+                                fontWeight: '600',
+                                color: '#E8734A',
+                                margin: '0 0 4px 0'
+                              }}>
+                                {step.title}
+                              </h4>
+                              <p style={{
+                                fontSize: '11.5px',
+                                color: 'var(--color-text-secondary)',
+                                lineHeight: '1.4',
+                                margin: 0
+                              }}>
+                                {step.desc}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
 
-                  {/* Right Scroll Arrow (next button) */}
-                  {showAiRightArrow && (
-                    <button 
-                      onClick={() => {
-                        if (aiScrollRef.current) {
-                          aiScrollRef.current.scrollBy({ left: 258, behavior: 'smooth' });
-                        }
-                      }}
-                      style={{
-                        position: 'absolute',
-                        right: '-24px',
-                        top: '250px',
-                        transform: 'translateY(-50%)',
-                        width: '48px',
-                        height: '48px',
-                        borderRadius: '50%',
-                        backgroundColor: '#FFFFFF',
-                        border: '1px solid rgba(148, 163, 184, 0.15)',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'pointer',
-                        zIndex: 10,
-                        color: '#1E293B',
-                        transition: 'all 200ms ease',
-                        outline: 'none',
-                        padding: '0',
-                        lineHeight: '0'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-                      }}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
-                        <path d="m9 18 6-6-6-6" />
-                      </svg>
-                    </button>
-                  )}
-                </div>
+                      {/* Right Scroll Arrow (next button) */}
+                      {showAiRightArrow && (
+                        <button 
+                          onClick={() => {
+                            if (aiScrollRef.current) {
+                              aiScrollRef.current.scrollBy({ left: 258, behavior: 'smooth' });
+                            }
+                          }}
+                          style={{
+                            position: 'absolute',
+                            right: '-24px',
+                            top: '250px',
+                            transform: 'translateY(-50%)',
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '50%',
+                            backgroundColor: '#FFFFFF',
+                            border: '1px solid rgba(148, 163, 184, 0.15)',
+                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            zIndex: 10,
+                            color: '#1E293B',
+                            transition: 'all 200ms ease',
+                            outline: 'none',
+                            padding: '0',
+                            lineHeight: '0'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                          }}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
+                            <path d="m9 18 6-6-6-6" />
+                          </svg>
+                        </button>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p style={{
+                      fontSize: '16px',
+                      lineHeight: '1.8',
+                      color: '#6B6B6B',
+                      maxWidth: '680px',
+                      margin: '0 0 32px 0',
+                      textAlign: 'justify'
+                    }}>
+                      {lang === 'zh' 
+                        ? '在看懂錯題解析後，系統會自動提取該錯題的核心知識點，並生成一組相似的題目讓學生進行即時驗證。相似題能幫助學生脫離「看懂卻不會做」的學習盲區，透過即時輸出反饋，真正將知識內化為個人能力。'
+                        : 'After understanding the mistake analysis, the system automatically extracts the core knowledge points of the wrong question and generates a set of similar questions for instant verification. This helps students escape the trap of "understanding but not being able to do it," and truly internalizes the knowledge.'}
+                    </p>
 
-                <p style={{
-                  fontSize: '14px',
-                  color: '#6B6B6B',
-                  lineHeight: '1.7',
-                  maxWidth: '680px',
-                  margin: '16px 0 0 0',
-                  textAlign: 'justify'
+                    {/* FIVE-STEP FLOW CAROUSEL WITH ARROWS FOR SIMILAR QUESTIONS */}
+                    <div style={{ position: 'relative', width: '100%', marginTop: '32px', marginBottom: '24px' }}>
+                      {/* Left Scroll Arrow (prev button) */}
+                      {showSimilarLeftArrow && (
+                        <button 
+                          onClick={() => {
+                            if (similarScrollRef.current) {
+                              similarScrollRef.current.scrollBy({ left: -258, behavior: 'smooth' });
+                            }
+                          }}
+                          style={{
+                            position: 'absolute',
+                            left: '-24px',
+                            top: '250px',
+                            transform: 'translateY(-50%)',
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '50%',
+                            backgroundColor: '#FFFFFF',
+                            border: '1px solid rgba(148, 163, 184, 0.15)',
+                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            zIndex: 10,
+                            color: '#1E293B',
+                            transition: 'all 200ms ease',
+                            outline: 'none',
+                            padding: '0',
+                            lineHeight: '0'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                          }}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
+                            <path d="m15 18-6-6 6-6" />
+                          </svg>
+                        </button>
+                      )}
+
+                      <div 
+                        ref={similarScrollRef}
+                        onScroll={handleSimilarScroll}
+                        className="hide-scrollbar"
+                        style={{
+                          display: 'flex',
+                          gap: '28px',
+                          overflowX: 'auto',
+                          scrollBehavior: 'smooth',
+                          width: '100%',
+                          padding: '12px 0px',
+                          boxSizing: 'border-box',
+                          WebkitOverflowScrolling: 'touch'
+                        }}
+                      >
+                        {[
+                          { src: 'projects/mslin-app/screens/similar/相似題入口.jpg', label: lang === 'zh' ? '步驟一：相似題入口' : 'Step 1: Similar Entrance' },
+                          { src: 'projects/mslin-app/screens/similar/相似題生成中.jpg', label: lang === 'zh' ? '步驟二：相似題生成中' : 'Step 2: Generating Similar Questions' },
+                          { src: 'projects/mslin-app/screens/similar/相似題生成完成.jpg', label: lang === 'zh' ? '步驟三：相似題生成完成' : 'Step 3: Generation Complete' },
+                          { src: 'projects/mslin-app/screens/similar/相似題作答頁面.jpg', label: lang === 'zh' ? '步驟四：相似題作答頁面' : 'Step 4: Similar Question Practice' },
+                          { src: 'projects/mslin-app/screens/similar/作答完成改為查看題目.jpg', label: lang === 'zh' ? '步驟五：作答完成改為查看題目' : 'Step 5: View Solved Question' }
+                        ].map((item, idx) => (
+                          <div 
+                            key={idx} 
+                            style={{ 
+                              width: '230px', 
+                              flexShrink: 0, 
+                              display: 'flex', 
+                              flexDirection: 'column', 
+                              alignItems: 'center' 
+                            }}
+                          >
+                            <PhoneMockup screenStyle={{ display: 'block', padding: 0 }}>
+                              <img 
+                                src={item.src} 
+                                alt={item.label} 
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                              />
+                            </PhoneMockup>
+                            
+                            {/* Step label */}
+                            <div style={{ marginTop: '12px', textAlign: 'center', minHeight: '36px', width: '100%' }}>
+                              <h4 style={{
+                                fontSize: '12.5px',
+                                fontWeight: '600',
+                                color: '#E8734A',
+                                margin: '0'
+                              }}>
+                                {item.label}
+                              </h4>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Right Scroll Arrow (next button) */}
+                      {showSimilarRightArrow && (
+                        <button 
+                          onClick={() => {
+                            if (similarScrollRef.current) {
+                              similarScrollRef.current.scrollBy({ left: 258, behavior: 'smooth' });
+                            }
+                          }}
+                          style={{
+                            position: 'absolute',
+                            right: '-24px',
+                            top: '250px',
+                            transform: 'translateY(-50%)',
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '50%',
+                            backgroundColor: '#FFFFFF',
+                            border: '1px solid rgba(148, 163, 184, 0.15)',
+                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            zIndex: 10,
+                            color: '#1E293B',
+                            transition: 'all 200ms ease',
+                            outline: 'none',
+                            padding: '0',
+                            lineHeight: '0'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                          }}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
+                            <path d="m9 18 6-6-6-6" />
+                          </svg>
+                        </button>
+                      )}
+                    </div>
+                  </>
+                )}
+
+                {/* DESIGN INSIGHT CALLOUT BOX FOR LOOP 2 */}
+                <div style={{
+                  backgroundColor: '#FAFAFE',
+                  borderLeft: '3px solid #E8734A',
+                  borderRadius: '0 8px 8px 0',
+                  padding: '12px 16px',
+                  margin: '24px 0 0 0',
+                  boxSizing: 'border-box'
                 }}>
-                  {lang === 'zh'
-                    ? `這條路徑的設計核心是降低解惑門檻、延伸學習深度：拍照→即時解析把解惑的摩擦力降到最低；解析→相似題把「看懂」延伸成「會做」；相似題結果→錯題庫把複習閉環接回共用資產系統。`
-                    : `The design core of this path is to lower the barrier to solving queries and extend learning depth: Photo → Instant Analysis reduces friction to a minimum; Analysis → Similar Questions bridges "understanding" to "doing"; Similar Results → Incorrect Library links the review loop back to the shared asset system.`}
-                </p>
+                  <div style={{
+                    fontSize: '11px',
+                    fontWeight: '700',
+                    textTransform: 'uppercase',
+                    color: '#E8734A',
+                    marginBottom: '8px'
+                  }}>
+                    {lang === 'zh' ? '設計核心' : 'DESIGN INSIGHT'}
+                  </div>
+                  <div style={{
+                    fontSize: '13px',
+                    color: 'var(--color-text-secondary)',
+                    lineHeight: '1.8',
+                    textAlign: 'justify'
+                  }}>
+                    {lang === 'zh' ? (
+                      <>
+                        <p style={{ margin: '0 0 8px 0' }}>這條路徑的設計核心是降低解惑門檻、延伸學習深度：</p>
+                        <p style={{ margin: '0 0 4px 0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>拍照 → 即時解析</strong>把解惑的摩擦力降到最低；</p>
+                        <p style={{ margin: '0 0 4px 0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>解析 → 相似題</strong>把「看懂」延伸成「會做」；</p>
+                        <p style={{ margin: '0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>相似題結果 → 錯題庫</strong>把複習閉環接回共用資產系統。</p>
+                      </>
+                    ) : (
+                      <>
+                        <p style={{ margin: '0 0 8px 0' }}>The design core of this path is to lower the barrier to solving queries and extend learning depth:</p>
+                        <p style={{ margin: '0 0 4px 0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>Photo → Instant Analysis</strong> reduces friction to a minimum;</p>
+                        <p style={{ margin: '0 0 4px 0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>Analysis → Similar Questions</strong> bridges "understanding" to "doing";</p>
+                        <p style={{ margin: '0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>Similar Results → Incorrect Library</strong> links the review loop back to the shared asset system.</p>
+                      </>
+                    )}
+                  </div>
+                </div>
               </div>
-
+              
               {/* SHARED SYSTEM NOTE */}
               <div style={{
-                background: '#FAEEDA',
-                borderRadius: '12px',
-                padding: '16px 24px',
+                backgroundColor: '#FAFAFE',
+                borderLeft: '3px solid #E8734A',
+                borderRadius: '0 8px 8px 0',
+                padding: '12px 16px',
                 marginTop: '48px',
-                borderLeft: '4px solid #BA7517',
                 boxSizing: 'border-box'
               }}>
-                <div style={{ fontSize: '14px', fontWeight: '500', color: '#412402', marginBottom: '8px' }}>
+                <div style={{
+                  fontSize: '11px',
+                  fontWeight: '700',
+                  textTransform: 'uppercase',
+                  color: '#E8734A',
+                  marginBottom: '6px'
+                }}>
                   {lang === 'zh' ? '兩條閉環的匯流點' : 'Convergence Point of the Two Loops'}
                 </div>
-                <div style={{ fontSize: '13px', color: '#633806', lineHeight: '1.7', textAlign: 'justify' }}>
+                <p style={{
+                  fontSize: '13px',
+                  color: 'var(--color-text-secondary)',
+                  lineHeight: '1.7',
+                  margin: 0,
+                  textAlign: 'justify'
+                }}>
                   {lang === 'zh'
                     ? `不論從哪條閉環進入，最終都匯流至同一套個人學習資產系統——XP 累積、段位記錄、錯題庫、收藏庫。這讓兩條路徑互相強化：刷題閉環建立廣度，複習閉環補強弱點，共同構成完整的學習飛輪。`
                     : `Regardless of which loop students enter from, they ultimately converge on the same personal learning asset system—accumulating XP, tier records, incorrect question library, and saved library. This allows both paths to reinforce each other: the practice loop builds breadth, while the review loop strengthens weaknesses, jointly forming a complete learning flywheel.`}
-                </div>
+                </p>
               </div>
               {/* Divider between Feature 3 and Visual Design System */}
               <div style={{ width: '100%', borderBottom: '1px solid #E5E7EB', margin: '64px 0' }}></div>
 
               {/* VISUAL DESIGN SYSTEM */}
               <div>
-                <SubHeading>視覺設計系統</SubHeading>
+                <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#1D1D1F] leading-none" style={{ marginTop: '0', marginBottom: '32px' }}>
+                  {lang === 'zh' ? '視覺設計系統' : 'Visual Design System'}
+                </h3>
 
                 {/* COLOR SYSTEM */}
                 <div style={{ marginBottom: '48px' }}>
                   <SubHeading>色彩系統</SubHeading>
+
+                  {/* Color tab switcher */}
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    marginBottom: '40px',
+                    width: '100%',
+                    boxSizing: 'border-box'
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      backgroundColor: '#F1F5F9',
+                      padding: '4px',
+                      borderRadius: '9999px',
+                      width: 'fit-content',
+                      boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.02)'
+                    }}>
+                      {[
+                        { id: 'Neutral', label: 'Neutral' },
+                        { id: 'Primary', label: 'Primary' },
+                        { id: 'Functional', label: 'Functional' },
+                        { id: 'Other colors', label: lang === 'zh' ? '其他色彩' : 'Other Colors' }
+                      ].map((tab) => {
+                        const isActive = activeColorTab === tab.id;
+                        return (
+                          <button
+                            key={tab.id}
+                            onClick={() => setActiveColorTab(tab.id)}
+                            style={{
+                              padding: '8px 24px',
+                              borderRadius: '9999px',
+                              border: 'none',
+                              outline: 'none',
+                              cursor: 'pointer',
+                              fontSize: '14px',
+                              fontWeight: '600',
+                              backgroundColor: isActive ? '#FFFFFF' : 'transparent',
+                              color: isActive ? '#1E293B' : '#64748B',
+                              boxShadow: isActive ? '0 4px 10px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02)' : 'none',
+                              transition: 'all 200ms ease',
+                              fontFamily: "'Inter', sans-serif"
+                            }}
+                          >
+                            {tab.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                   
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '48px', marginBottom: '32px' }}>
                     {[
@@ -5480,7 +5954,7 @@ const SPLIT_VIEW_CHIPS = [
                         title: 'Primary',
                         rows: [
                           [
-                            { name: 'Primary/100', bg: '#EEEEFF', text: 'EEEEEF', textColor: '#2525A4' },
+                            { name: 'Primary/100', bg: '#EEEEFF', text: '#EEEEFF', textColor: '#2525A4' },
                             { name: 'Primary/200', bg: '#E2E2FF', text: '#E2E2FF', textColor: '#2525A4' },
                             { name: 'Primary/300', bg: '#CDCDFF', text: '#CDCDFF', textColor: '#2525A4' },
                             { name: 'Primary/400', bg: '#A9A9FF', text: '#A9A9FF', textColor: '#FFFFFF' },
@@ -5496,9 +5970,7 @@ const SPLIT_VIEW_CHIPS = [
                           [
                             { name: 'Incorrect/200', bg: '#FFE1E8', text: '#FFE1E8', textColor: '#8E3148' },
                             { name: 'Incorrect/400', bg: '#FF8AA4', text: '#FF8AA4', textColor: '#FFFFFF' },
-                            { name: 'Incorrect/600', bg: '#8E3148', text: '#8E3148', textColor: '#FFFFFF' }
-                          ],
-                          [
+                            { name: 'Incorrect/600', bg: '#8E3148', text: '#8E3148', textColor: '#FFFFFF' },
                             { name: 'Correct/200', bg: '#C7F1E8', text: '#C7F1E8', textColor: '#2D5B4F' },
                             { name: 'Correct/400', bg: '#4F8479', text: '#4F8479', textColor: '#FFFFFF' },
                             { name: 'Correct/600', bg: '#2D5B4F', text: '#4F8479', textColor: '#FFFFFF' }
@@ -5511,31 +5983,20 @@ const SPLIT_VIEW_CHIPS = [
                           [
                             { name: 'Gold/100', bg: '#FFEFA0', text: '#FFEFA0', textColor: '#C4A820' },
                             { name: 'Gold/300', bg: '#FFDE3F', text: '#FFDE3F', textColor: '#C4A820' },
-                            { name: 'Gold/600', bg: '#C4A820', text: '#C4A820', textColor: '#FFFFFF' }
-                          ],
-                          [
+                            { name: 'Gold/600', bg: '#C4A820', text: '#C4A820', textColor: '#FFFFFF' },
                             { name: 'Bronze/100', bg: '#FFE1C3', text: '#FFE1C3', textColor: '#994C00' },
                             { name: 'Bronze/300', bg: '#D26800', text: '#D26800', textColor: '#FFFFFF' },
                             { name: 'Bronze/600', bg: '#994C00', text: '#994C00', textColor: '#FFFFFF' }
                           ]
                         ]
                       }
-                    ].map((group, groupIndex) => (
-                      <div key={groupIndex}>
-                        <h5 style={{
-                          fontSize: '32px',
-                          fontWeight: '700',
-                          color: '#0F172A',
-                          margin: '0 0 24px 0',
-                          fontFamily: "'Inter', sans-serif",
-                          letterSpacing: '-0.02em'
-                        }}>
-                          {group.title}
-                        </h5>
-                        
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    ]
+                    .filter((group) => group.title === activeColorTab)
+                    .map((group, groupIndex) => (
+                      <div key={groupIndex} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', alignItems: 'flex-start', width: '100%' }}>
                           {group.rows.map((row, rowIndex) => (
-                            <div key={rowIndex} style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                            <div key={rowIndex} style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
                               {row.map((item, itemIndex) => (
                                 <div key={itemIndex} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '90px' }}>
                                   <span style={{
@@ -5544,7 +6005,8 @@ const SPLIT_VIEW_CHIPS = [
                                     fontFamily: "'Inter', sans-serif",
                                     fontWeight: '500',
                                     marginBottom: '6px',
-                                    whiteSpace: 'nowrap'
+                                    whiteSpace: 'nowrap',
+                                    textAlign: 'left'
                                   }}>
                                     {item.name}
                                   </span>

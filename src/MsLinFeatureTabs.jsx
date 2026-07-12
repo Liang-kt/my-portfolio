@@ -85,7 +85,7 @@ const SinglePhoneSlider = ({ steps, lang, themeColor = '#7F77DD' }) => {
         <div style={{
           fontSize: '13px',
           fontWeight: '600',
-          color: themeColor,
+          color: '#E8734A',
           textAlign: 'center',
           lineHeight: '1.4',
           minHeight: '18px'
@@ -133,8 +133,8 @@ const MsLinFeatureTabs = ({ lang }) => {
 
 
   // Outer tabs state ('1a', '1b', '1c')
-  const [activeOuter, setActiveOuter] = useState('1b');
-  const [displayOuter, setDisplayOuter] = useState('1b');
+  const [activeOuter, setActiveOuter] = useState('1a');
+  const [displayOuter, setDisplayOuter] = useState('1a');
   const [isOuterTransitioning, setIsOuterTransitioning] = useState(false);
 
   // Inner tabs state ('math', 'chinese', 'english')
@@ -170,6 +170,26 @@ const MsLinFeatureTabs = ({ lang }) => {
       setShowRightArrow(true);
     }
   }, [activeMathType]);
+
+  const loopScrollRef = useRef(null);
+  const [showLoopLeftArrow, setShowLoopLeftArrow] = useState(false);
+  const [showLoopRightArrow, setShowLoopRightArrow] = useState(true);
+
+  const handleLoopScroll = () => {
+    if (loopScrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = loopScrollRef.current;
+      setShowLoopLeftArrow(scrollLeft > 5);
+      setShowLoopRightArrow(scrollLeft + clientWidth < scrollWidth - 5);
+    }
+  };
+
+  useEffect(() => {
+    if (loopScrollRef.current) {
+      loopScrollRef.current.scrollLeft = 0;
+      setShowLoopLeftArrow(false);
+      setShowLoopRightArrow(true);
+    }
+  }, [activeOuter]);
 
   const mathSteps = [
     {
@@ -255,6 +275,33 @@ const MsLinFeatureTabs = ({ lang }) => {
       title: lang === 'zh' ? '步驟三' : 'Step 3',
       desc: lang === 'zh' ? '填空解答第 3 步' : 'Fill-in-the-blank step 3',
       img: '/projects/mslin-app/screens/math/填空題3.jpg'
+    }
+  ];
+
+  const mathConceptSteps = [
+    {
+      num: '1',
+      title: lang === 'zh' ? '步驟一' : 'Step 1',
+      desc: lang === 'zh' ? '選擇符合題意的核心觀念' : 'Select the core concept matching the question',
+      img: '/projects/mslin-app/screens/math/觀念選擇1.PNG'
+    },
+    {
+      num: '2',
+      title: lang === 'zh' ? '步驟二' : 'Step 2',
+      desc: lang === 'zh' ? '檢視相關概念的連結關係' : 'Check the connection of related concepts',
+      img: '/projects/mslin-app/screens/math/觀念選擇2.PNG'
+    },
+    {
+      num: '3',
+      title: lang === 'zh' ? '步驟三' : 'Step 3',
+      desc: lang === 'zh' ? '確認對應的解題定理' : 'Confirm the corresponding solving theorem',
+      img: '/projects/mslin-app/screens/math/觀念選擇3.PNG'
+    },
+    {
+      num: '4',
+      title: lang === 'zh' ? '步驟四' : 'Step 4',
+      desc: lang === 'zh' ? '完成觀念連結，準備列式計算' : 'Complete concept connection, ready for formula',
+      img: '/projects/mslin-app/screens/math/觀念選擇4.PNG'
     }
   ];
 
@@ -463,6 +510,20 @@ const MsLinFeatureTabs = ({ lang }) => {
         @media (min-width: 640px) {
           .feature-mockup-grid {
             grid-template-columns: repeat(4, 1fr);
+          }
+        }
+        .loop-mockup-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+          margin-top: 16px;
+          margin-bottom: 24px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        @media (min-width: 768px) {
+          .loop-mockup-grid {
+            grid-template-columns: repeat(5, 1fr);
           }
         }
         .showcase-split-container {
@@ -695,24 +756,189 @@ const MsLinFeatureTabs = ({ lang }) => {
               textAlign: 'justify'
             }}>
               {lang === 'zh' 
-                ? '五題是刷題閉環的預設輪次，也是整個設計最關鍵的數字決策。太少（1–2 題）沒有儀式感；太多（10 題以上）容易中途放棄。五題對應一次短時間的專注週期，做完剛好有點累又覺得「差點就更多」，這個微妙的張力是讓人想再開一輪的關鍵。'
-                : 'Five questions is the default round of the practice loop, which is also the most critical numeric decision in the design. Too few (1-2 questions) feels unceremonious; too many (10+ questions) leads to mid-way abandonment. Five questions corresponds to a short focus cycle, finishing just when slightly fatigued but feeling \'almost more\'—this subtle tension is key to motivating another round.'}
+                ? '五題是刷題閉環的預設輪次，也是整個設計最關鍵的數字決策。太少（1–2 題）沒有儀式感；太多（10 題以上）容易中途放棄。五題對應一次短時間的專注週期，做完剛好有點累又覺得「差點就更多」，這個微妙的張力是讓人想再開一輪的關鍵。對於想多刷幾題的用戶，我們依然提供了多題數10/15題題數選擇滿足不同用戶需求。'
+                : 'Five questions is the default round of the practice loop, which is also the most critical numeric decision in the design. Too few (1-2 questions) feels unceremonious; too many (10+ questions) leads to mid-way abandonment. Five questions corresponds to a short focus cycle, finishing just when slightly fatigued but feeling \'almost more\'—this subtle tension is key to motivating another round. For users who want to practice more, we also offer 10 and 15 question choices to meet different user needs.'}
             </p>
             
-            <div className="feature-mockup-grid">
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }} />
-                <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                  {lang === 'zh' ? '刷題畫面 — 進度條顯示第幾題' : 'Practice Screen - Progress bar showing current question'}
-                </span>
+            {/* FIVE-PHONE HORIZONTAL SCROLL CAROUSEL (SAME AS MATH & AI ANALYSIS) */}
+            <div style={{ position: 'relative', width: '100%', marginTop: '24px' }}>
+              {/* Left Scroll Arrow (prev button) */}
+              {showLoopLeftArrow && (
+                <button 
+                  onClick={() => {
+                    if (loopScrollRef.current) {
+                      loopScrollRef.current.scrollBy({ left: -258, behavior: 'smooth' });
+                    }
+                  }}
+                  style={{
+                    position: 'absolute',
+                    left: '-24px',
+                    top: '250px',
+                    transform: 'translateY(-50%)',
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid rgba(148, 163, 184, 0.15)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    zIndex: 10,
+                    color: '#1E293B',
+                    transition: 'all 200ms ease',
+                    outline: 'none',
+                    padding: '0',
+                    lineHeight: '0'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                  }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
+                    <path d="m15 18-6-6 6-6" />
+                  </svg>
+                </button>
+              )}
+
+              {/* Scrollable Track */}
+              <div 
+                ref={loopScrollRef}
+                onScroll={handleLoopScroll}
+                className="hide-scrollbar"
+                style={{
+                  display: 'flex',
+                  gap: '28px',
+                  overflowX: 'auto',
+                  scrollBehavior: 'smooth',
+                  width: '100%',
+                  padding: '12px 0px',
+                  boxSizing: 'border-box',
+                  WebkitOverflowScrolling: 'touch'
+                }}
+              >
+                {[
+                  {
+                    type: 'image',
+                    src: '/projects/mslin-app/screens/loop/刷題loop5題.PNG',
+                    label: lang === 'zh' ? '刷題畫面 — 5題Loop' : 'Practice Screen - 5 Qs Loop'
+                  },
+                  {
+                    type: 'video',
+                    src: '/projects/mslin-app/screens/loop/完成頁面.webm',
+                    label: lang === 'zh' ? '練習完成頁面' : 'Practice Complete Page'
+                  },
+                  {
+                    type: 'video',
+                    src: '/projects/mslin-app/screens/loop/xp結算頁.webm',
+                    label: lang === 'zh' ? 'XP結算頁' : 'XP Settlement Page'
+                  },
+                  {
+                    type: 'image',
+                    src: '/projects/mslin-app/screens/loop/刷題loop10題.PNG',
+                    label: lang === 'zh' ? '10題練習' : '10 Questions Practice'
+                  },
+                  {
+                    type: 'image',
+                    src: '/projects/mslin-app/screens/loop/刷題loop15題.PNG',
+                    label: lang === 'zh' ? '15題練習' : '15 Questions Practice'
+                  }
+                ].map((item, idx) => (
+                  <div 
+                    key={idx} 
+                    style={{ 
+                      width: '230px', 
+                      flexShrink: 0, 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      alignItems: 'center' 
+                    }}
+                  >
+                    <PhoneMockup screenStyle={{ backgroundColor: '#EEEDFE' }}>
+                      {item.type === 'video' ? (
+                        <video 
+                          src={item.src} 
+                          autoPlay 
+                          loop 
+                          muted 
+                          playsInline 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      ) : (
+                        <img 
+                          src={item.src} 
+                          alt={item.label} 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      )}
+                    </PhoneMockup>
+                    
+                    {/* Step label & desc */}
+                    <div style={{ marginTop: '12px', textAlign: 'center', minHeight: '36px', width: '100%' }}>
+                      <span style={{
+                        fontSize: '11px',
+                        color: 'var(--color-text-secondary)',
+                        textAlign: 'center',
+                        lineHeight: '1.4',
+                        display: 'block'
+                      }}>
+                        {item.label}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }} />
-                <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                  {lang === 'zh' ? '結果頁 — XP 動畫結算' : 'Results Page - XP Animation Settlement'}
-                </span>
-              </div>
+              {/* Right Scroll Arrow (next button) */}
+              {showLoopRightArrow && (
+                <button 
+                  onClick={() => {
+                    if (loopScrollRef.current) {
+                      loopScrollRef.current.scrollBy({ left: 258, behavior: 'smooth' });
+                    }
+                  }}
+                  style={{
+                    position: 'absolute',
+                    right: '-24px',
+                    top: '250px',
+                    transform: 'translateY(-50%)',
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid rgba(148, 163, 184, 0.15)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    zIndex: 10,
+                    color: '#1E293B',
+                    transition: 'all 200ms ease',
+                    outline: 'none',
+                    padding: '0',
+                    lineHeight: '0'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                  }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </button>
+              )}
             </div>
           </div>
         )}
@@ -820,9 +1046,14 @@ const MsLinFeatureTabs = ({ lang }) => {
               boxSizing: 'border-box'
             }}>
               {displayInner === 'math' && (() => {
-                const currentMathSteps = activeMathType === 'steps' 
-                  ? mathSteps 
-                  : (activeMathType === 'judgement' ? mathJudgementSteps : mathBlankSteps);
+                let currentMathSteps = mathSteps;
+                if (activeMathType === 'judgement') {
+                  currentMathSteps = mathJudgementSteps;
+                } else if (activeMathType === 'blank') {
+                  currentMathSteps = mathBlankSteps;
+                } else if (activeMathType === 'concept') {
+                  currentMathSteps = mathConceptSteps;
+                }
 
                 return (
                   <div>
@@ -835,6 +1066,7 @@ const MsLinFeatureTabs = ({ lang }) => {
                     }}>
                       {[
                         { id: 'steps', label: lang === 'zh' ? '步驟解題' : 'Step-by-Step Solving' },
+                        { id: 'concept', label: lang === 'zh' ? '觀念選擇' : 'Concept Selection' },
                         { id: 'judgement', label: lang === 'zh' ? '逐項判斷' : 'Item-by-Item Judgement' },
                         { id: 'blank', label: lang === 'zh' ? '填空題' : 'Fill-in-the-Blank' }
                       ].map((tab) => {
@@ -962,7 +1194,7 @@ const MsLinFeatureTabs = ({ lang }) => {
                               <h4 style={{
                                 fontSize: '12.5px',
                                 fontWeight: '600',
-                                color: '#534AB7',
+                                color: '#E8734A',
                                 margin: '0 0 4px 0'
                               }}>
                                 {step.title}
@@ -1136,7 +1368,7 @@ const MsLinFeatureTabs = ({ lang }) => {
                     </div>
 
                     {/* Right Column: 3 Phone Mockups side-by-side */}
-                    <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                    <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px' }}>
                       {chineseTypes[activeChineseType].screens.map((screen, idx) => (
                         <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                           <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
@@ -1315,7 +1547,7 @@ const MsLinFeatureTabs = ({ lang }) => {
                     </div>
 
                     {/* Right Column: 3 Phone Mockups side-by-side */}
-                    <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                    <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px' }}>
                       {englishTypes[activeEnglishType].screens.map((screen, idx) => (
                         <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                           <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>

@@ -290,148 +290,160 @@ const MsLinFeatureTabs = ({ lang }) => {
     {
       id: 'pairing',
       num: '1',
-      title: lang === 'zh' ? '字音字形配對' : 'Phonetic Pairing',
-      train: lang === 'zh' ? '注音辨識' : 'Phonetic Recognition',
-      interact: lang === 'zh' ? '左右連線操作' : 'Match Left & Right',
+      title: lang === 'zh' ? '字音字型' : 'Phonetic Spelling',
+      train: lang === 'zh' ? '注音與字形辨識' : 'Phonetic & Character Recognition',
+      interact: lang === 'zh' ? '左右連線配對' : 'Connect left and right matching',
       screens: [
-        '/projects/mslin-app/screens/chinese3.png',
-        '/projects/mslin-app/screens/chinese4.png',
-        '/projects/mslin-app/screens/chinese1.png'
+        '/projects/mslin-app/screens/Chinese/字音字型1.png',
+        '/projects/mslin-app/screens/Chinese/字音字型2.png',
+        '/projects/mslin-app/screens/Chinese/字音字型3.png'
       ]
     },
     {
       id: 'typo',
       num: '2',
-      title: lang === 'zh' ? '錯字辨識' : 'Typo Spotting',
-      train: lang === 'zh' ? '用字精準度' : 'Character Precision',
-      interact: lang === 'zh' ? '點選句中錯字' : 'Tap Typos in Sentences',
+      title: lang === 'zh' ? '錯字辨識' : 'Typo Recognition',
+      train: lang === 'zh' ? '錯別字偵測與用字精準度' : 'Typo detection and character precision',
+      interact: lang === 'zh' ? '點選句子中的錯別字' : 'Tap the typo in sentences',
       screens: [
-        '/projects/mslin-app/screens/chinese5.png',
-        '/projects/mslin-app/screens/chinese6.png',
-        '/projects/mslin-app/screens/chinese2.png'
+        '/projects/mslin-app/screens/Chinese/錯字辨識1.png',
+        '/projects/mslin-app/screens/Chinese/錯字辨識2.png',
+        '/projects/mslin-app/screens/Chinese/錯字辨識3.png'
       ]
     },
     {
       id: 'idiom',
       num: '3',
-      title: lang === 'zh' ? '成語配對填空' : 'Idiom Pairing Fill',
-      train: lang === 'zh' ? '成語理解' : 'Idiom Understanding',
-      interact: lang === 'zh' ? '點選成語填入空格' : 'Tap Idioms for Blanks',
+      title: lang === 'zh' ? '成語釋義' : 'Idiom Definition',
+      train: lang === 'zh' ? '成語語意理解與應用' : 'Idiom meaning understanding and application',
+      interact: lang === 'zh' ? '點選成語填入正確空格' : 'Tap idioms to fill in blanks',
       screens: [
-        '/projects/mslin-app/screens/chinese7.png',
-        '/projects/mslin-app/screens/chinese8.png',
-        '/projects/mslin-app/screens/chinese9.png'
-      ]
-    },
-    {
-      id: 'translation',
-      num: '4',
-      title: lang === 'zh' ? '文言文逐句翻譯' : 'Classical Chinese translation',
-      train: lang === 'zh' ? '文言文語感' : 'Classical Context Sense',
-      interact: lang === 'zh' ? '關鍵詞填空' : 'Keyword Blank Fills',
-      screens: [
-        '/projects/mslin-app/screens/chinese18.png',
-        '/projects/mslin-app/screens/chinese19.png',
-        '/projects/mslin-app/screens/chinese10.png'
+        '/projects/mslin-app/screens/Chinese/成語釋義1.png',
+        '/projects/mslin-app/screens/Chinese/成語釋義2.png',
+        '/projects/mslin-app/screens/Chinese/成語釋義3.png'
       ]
     },
     {
       id: 'reading',
-      num: '5',
+      num: '4',
       title: lang === 'zh' ? '閱讀測驗' : 'Reading Comprehension',
-      train: lang === 'zh' ? '文章理解推論' : 'Article Comprehension & Inference',
-      interact: lang === 'zh' ? '選擇題' : 'Interaction: Multiple-Choice',
+      train: lang === 'zh' ? '篇章閱讀理解與主旨推論' : 'Paragraph reading comprehension and inference',
+      interact: lang === 'zh' ? '閱讀後單選題' : 'Post-reading multiple-choice questions',
       screens: [
-        '/projects/mslin-app/screens/chinese11.png',
-        '/projects/mslin-app/screens/chinese12.png',
-        '/projects/mslin-app/screens/chinese13.png'
+        '/projects/mslin-app/screens/Chinese/閱讀測驗1.png',
+        '/projects/mslin-app/screens/Chinese/閱讀測驗2.png',
+        '/projects/mslin-app/screens/Chinese/閱讀測驗3.png'
+      ]
+    },
+    {
+      id: 'translation',
+      num: '5',
+      title: lang === 'zh' ? '文言文翻譯' : 'Classical Chinese Translation',
+      train: lang === 'zh' ? '文言文語感與詞彙對譯' : 'Classical sense and vocabulary translation',
+      interact: lang === 'zh' ? '文言文關鍵詞與逐句填空' : 'Classical keywords and line translation fills',
+      screens: [
+        '/projects/mslin-app/screens/Chinese/文言文翻譯1.png',
+        '/projects/mslin-app/screens/Chinese/文言文翻譯12.png',
+        '/projects/mslin-app/screens/Chinese/文言文翻譯3.png'
       ]
     }
   ];
 
   const englishTypes = [
     {
-      id: 'mcq',
+      id: 'vocab',
       num: '1',
-      title: lang === 'zh' ? '單字選擇題' : 'Vocabulary MCQs',
-      train: lang === 'zh' ? '詞彙辨義' : 'Vocabulary Differentiation',
-      interact: lang === 'zh' ? '4 選 1' : '4-Option MCQ',
+      title: lang === 'zh' ? '單字選擇' : 'Vocabulary',
+      train: lang === 'zh' ? '字彙量與詞彙辨義' : 'Vocabulary range and word differentiation',
+      interact: lang === 'zh' ? '4 選 1 單選題' : '4-Option MCQ',
       screens: [
-        '/projects/mslin-app/screens/english1.png',
-        '/projects/mslin-app/screens/english2.png',
-        '/projects/mslin-app/screens/english3.png'
+        '/projects/mslin-app/screens/English/單字選擇1.PNG',
+        '/projects/mslin-app/screens/English/單字選擇2.PNG',
+        '/projects/mslin-app/screens/English/單字選擇3.PNG'
       ]
     },
     {
       id: 'spelling',
       num: '2',
-      title: lang === 'zh' ? '拼字題' : 'Spelling',
-      train: lang === 'zh' ? '字母拼寫記憶' : 'Letter Spelling Memory',
-      interact: lang === 'zh' ? '鍵盤輸入' : 'Keyboard Input',
+      title: lang === 'zh' ? '拼字' : 'Spelling',
+      train: lang === 'zh' ? '單字拼寫與聽力書寫' : 'Word spelling and audio transcription',
+      interact: lang === 'zh' ? '聽音與提示拼字輸入' : 'Audio with hints spelling input',
       screens: [
-        '/projects/mslin-app/screens/english3.png',
-        '/projects/mslin-app/screens/english4.png',
-        '/projects/mslin-app/screens/english5.png'
+        '/projects/mslin-app/screens/English/拼字1.PNG',
+        '/projects/mslin-app/screens/English/拼字2.PNG',
+        '/projects/mslin-app/screens/English/拼字3.PNG'
       ]
     },
     {
-      id: 'reorder',
+      id: 'forms',
       num: '3',
-      title: lang === 'zh' ? '文法造句重組' : 'Sentence Rebuilding',
-      train: lang === 'zh' ? '句型結構' : 'Sentence Structure',
-      interact: lang === 'zh' ? '字詞點擊排列' : 'Tap Words to Arrange',
+      title: lang === 'zh' ? '詞性變化' : 'Word Forms',
+      train: lang === 'zh' ? '文法結構與詞性轉換' : 'Grammar syntax and word transformation',
+      interact: lang === 'zh' ? '依句意輸入正確詞性單字' : 'Input correct form word in context',
       screens: [
-        '/projects/mslin-app/screens/english-sentence1.png',
-        '/projects/mslin-app/screens/english-sentence2.png',
-        '/projects/mslin-app/screens/english6.png'
+        '/projects/mslin-app/screens/English/詞性變化填空1.PNG',
+        '/projects/mslin-app/screens/English/詞性變化填空2.PNG',
+        '/projects/mslin-app/screens/English/詞性變化填空3.PNG'
       ]
     },
     {
-      id: 'wordform',
+      id: 'sentence',
       num: '4',
-      title: lang === 'zh' ? '詞性變化填空' : 'Word Form Blank Fill',
-      train: lang === 'zh' ? '字彙應用' : 'Vocabulary Application',
-      interact: lang === 'zh' ? '手動輸入詞形' : 'Manual Form Input',
+      title: lang === 'zh' ? '句子建構' : 'Sentence Reordering',
+      train: lang === 'zh' ? '英文句型結構與語序重組' : 'Sentence structure and syntax reordering',
+      interact: lang === 'zh' ? '拖選/點擊單字塊重組句子' : 'Tap/drag word blocks to rebuild sentence',
       screens: [
-        '/projects/mslin-app/screens/english5.png',
-        '/projects/mslin-app/screens/english6.png',
-        '/projects/mslin-app/screens/english1.png'
+        '/projects/mslin-app/screens/English/文法造句1.PNG',
+        '/projects/mslin-app/screens/English/文法造句2.PNG',
+        '/projects/mslin-app/screens/English/文法造句3.PNG'
       ]
     },
     {
-      id: 'cloze',
+      id: 'translation',
       num: '5',
-      title: lang === 'zh' ? '文意選填' : 'Cloze',
-      train: lang === 'zh' ? '篇章理解' : 'Passage Comprehension',
-      interact: lang === 'zh' ? '點空格選詞填入' : 'Tap Blanks to Choose Words',
+      title: lang === 'zh' ? '引導翻譯' : 'Guided Translation',
+      train: lang === 'zh' ? '中英翻譯思維與常用片語' : 'CN-EN translation thinking & key phrases',
+      interact: lang === 'zh' ? '引導式關鍵字詞組拼裝' : 'Guided keywords and phrases assembly',
       screens: [
-        '/projects/mslin-app/screens/english-close1.png',
-        '/projects/mslin-app/screens/english-close2.png',
-        '/projects/mslin-app/screens/english2.png'
+        '/projects/mslin-app/screens/English/引導式翻譯1.PNG',
+        '/projects/mslin-app/screens/English/引導式翻譯2.PNG',
+        '/projects/mslin-app/screens/English/引導式翻譯3.PNG'
       ]
     },
     {
       id: 'reading',
       num: '6',
       title: lang === 'zh' ? '閱讀測驗' : 'Reading Comprehension',
-      train: lang === 'zh' ? '長文理解' : 'Long Passage Comprehension',
-      interact: lang === 'zh' ? '選擇題' : 'Multiple-Choice',
+      train: lang === 'zh' ? '長文脈絡理解與資訊檢索' : 'Long text context understanding and info search',
+      interact: lang === 'zh' ? '長篇閱讀後單選題' : 'Post-reading multiple choice questions',
       screens: [
-        '/projects/mslin-app/screens/english1.png',
-        '/projects/mslin-app/screens/english3.png',
-        '/projects/mslin-app/screens/english5.png'
+        '/projects/mslin-app/screens/English/閱讀測驗1.PNG',
+        '/projects/mslin-app/screens/English/閱讀測驗2.PNG',
+        '/projects/mslin-app/screens/English/閱讀測驗3.PNG'
       ]
     },
     {
-      id: 'translation',
+      id: 'discourse',
       num: '7',
-      title: lang === 'zh' ? '引導式翻譯' : 'Guided Translation',
-      train: lang === 'zh' ? '中英對應語感' : 'CN-EN Correspondence Sense',
-      interact: lang === 'zh' ? '關鍵詞填空含提示' : 'Fill Keywords with Hints',
+      title: lang === 'zh' ? '篇章結構' : 'Discourse Structure',
+      train: lang === 'zh' ? '段落連貫性與邏輯架構' : 'Paragraph coherence and logical structure',
+      interact: lang === 'zh' ? '句型段落拖選嵌入' : 'Drag and insert sentence paragraph slots',
       screens: [
-        '/projects/mslin-app/screens/english2.png',
-        '/projects/mslin-app/screens/english4.png',
-        '/projects/mslin-app/screens/english6.png'
+        '/projects/mslin-app/screens/English/篇章結構1.PNG',
+        '/projects/mslin-app/screens/English/篇章結構2.PNG',
+        '/projects/mslin-app/screens/English/篇章結構3.PNG'
+      ]
+    },
+    {
+      id: 'cloze',
+      num: '8',
+      title: lang === 'zh' ? '克漏字／文意選填' : 'Cloze Test',
+      train: lang === 'zh' ? '綜合文意理解與語法配合' : 'Context comprehension and syntax coordination',
+      interact: lang === 'zh' ? '挖空填詞下拉選單' : 'Blank slot drop-down words fill',
+      screens: [
+        '/projects/mslin-app/screens/English/文意選填1.PNG',
+        '/projects/mslin-app/screens/English/文意選填2.PNG',
+        '/projects/mslin-app/screens/English/文意選填3.PNG'
       ]
     }
   ];

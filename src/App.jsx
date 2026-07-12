@@ -5826,49 +5826,26 @@ const SPLIT_VIEW_CHIPS = [
                         <p style={{ margin: '0 0 8px 0' }}>這條路徑的設計核心是降低解惑門檻、延伸學習深度：</p>
                         <p style={{ margin: '0 0 4px 0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>拍照 → 即時解析</strong>把解惑的摩擦力降到最低；</p>
                         <p style={{ margin: '0 0 4px 0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>解析 → 相似題</strong>把「看懂」延伸成「會做」；</p>
-                        <p style={{ margin: '0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>相似題結果 → 錯題庫</strong>把複習閉環接回共用資產系統。</p>
+                        <p style={{ margin: '0 0 16px 0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>相似題結果 → 錯題庫</strong>把複習閉環接回共用資產系統。</p>
+                        
+                        <p style={{ margin: '0 0 8px 0', borderTop: '1px solid rgba(232, 115, 74, 0.15)', paddingTop: '12px', fontWeight: '600', color: '#1D1D1F' }}>兩條閉環的匯流點：</p>
+                        <p style={{ margin: '0 0 8px 0' }}>不論從哪條閉環進入，最終都匯流至同一套個人學習資產系統——XP 累積、段位記錄、錯題庫、收藏庫。</p>
+                        <p style={{ margin: '0' }}>這讓兩條路徑互相強化：刷題閉環建立廣度，複習閉環補強弱點，共同構成完整的學習飛輪。</p>
                       </>
                     ) : (
                       <>
                         <p style={{ margin: '0 0 8px 0' }}>The design core of this path is to lower the barrier to solving queries and extend learning depth:</p>
                         <p style={{ margin: '0 0 4px 0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>Photo → Instant Analysis</strong> reduces friction to a minimum;</p>
                         <p style={{ margin: '0 0 4px 0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>Analysis → Similar Questions</strong> bridges "understanding" to "doing";</p>
-                        <p style={{ margin: '0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>Similar Results → Incorrect Library</strong> links the review loop back to the shared asset system.</p>
+                        <p style={{ margin: '0 0 16px 0', paddingLeft: '12px', textIndent: '-12px' }}>• <strong>Similar Results → Incorrect Library</strong> links the review loop back to the shared asset system.</p>
+                        
+                        <p style={{ margin: '0 0 8px 0', borderTop: '1px solid rgba(232, 115, 74, 0.15)', paddingTop: '12px', fontWeight: '600', color: '#1D1D1F' }}>Convergence Point of the Two Loops:</p>
+                        <p style={{ margin: '0 0 8px 0' }}>Regardless of which loop students enter from, they ultimately converge on the same personal learning asset system—accumulating XP, tier records, incorrect question library, and saved library.</p>
+                        <p style={{ margin: '0' }}>This allows both paths to reinforce each other: the practice loop builds breadth, while the review loop strengthens weaknesses, jointly forming a complete learning flywheel.</p>
                       </>
                     )}
                   </div>
                 </div>
-              </div>
-              
-              {/* SHARED SYSTEM NOTE */}
-              <div style={{
-                backgroundColor: '#FAFAFE',
-                borderLeft: '3px solid #E8734A',
-                borderRadius: '0 8px 8px 0',
-                padding: '12px 16px',
-                marginTop: '48px',
-                boxSizing: 'border-box'
-              }}>
-                <div style={{
-                  fontSize: '11px',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  color: '#E8734A',
-                  marginBottom: '6px'
-                }}>
-                  {lang === 'zh' ? '兩條閉環的匯流點' : 'Convergence Point of the Two Loops'}
-                </div>
-                <p style={{
-                  fontSize: '13px',
-                  color: 'var(--color-text-secondary)',
-                  lineHeight: '1.7',
-                  margin: 0,
-                  textAlign: 'justify'
-                }}>
-                  {lang === 'zh'
-                    ? `不論從哪條閉環進入，最終都匯流至同一套個人學習資產系統——XP 累積、段位記錄、錯題庫、收藏庫。這讓兩條路徑互相強化：刷題閉環建立廣度，複習閉環補強弱點，共同構成完整的學習飛輪。`
-                    : `Regardless of which loop students enter from, they ultimately converge on the same personal learning asset system—accumulating XP, tier records, incorrect question library, and saved library. This allows both paths to reinforce each other: the practice loop builds breadth, while the review loop strengthens weaknesses, jointly forming a complete learning flywheel.`}
-                </p>
               </div>
               {/* Divider between Feature 3 and Visual Design System */}
               <div style={{ width: '100%', borderBottom: '1px solid #E5E7EB', margin: '64px 0' }}></div>

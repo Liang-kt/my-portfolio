@@ -184,8 +184,8 @@ html, body {
 .premium-phone-frame {
   width: 100%;
   aspect-ratio: 9 / 19.5;
-  border: 12px solid #1D1D1F;
-  border-radius: 38px;
+  border: 8px solid #1D1D1F;
+  border-radius: 28px;
   background-color: #1D1D1F;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 6px 12px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
@@ -196,13 +196,13 @@ html, body {
 /* Dynamic Island Notch */
 .premium-phone-notch {
   position: absolute;
-  top: 8px;
+  top: 6px;
   left: 50%;
   transform: translateX(-50%);
-  width: 74px;
-  height: 16px;
+  width: 54px;
+  height: 12px;
   background-color: #1D1D1F;
-  border-radius: 8px;
+  border-radius: 6px;
   z-index: 10;
   display: flex;
   align-items: center;

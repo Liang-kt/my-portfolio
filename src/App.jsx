@@ -2823,6 +2823,38 @@ const SPLIT_VIEW_CHIPS = [
     };
 
     const MsLinProjectView = ({ activeItem, lang, transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, navigateTo }) => {
+      const aiSteps = [
+        {
+          num: '1',
+          title: lang === 'zh' ? '步驟一：拍照上傳' : 'Step 1: Upload Photo',
+          desc: lang === 'zh' ? '拍照即時上傳考卷或題目' : 'Take a photo to instantly upload graded papers or questions'
+        },
+        {
+          num: '2',
+          title: lang === 'zh' ? '步驟二：影像辨識' : 'Step 2: Image Recognition',
+          desc: lang === 'zh' ? '系統精準辨識題目內容與手寫字' : 'System accurately recognizes questions and handwriting'
+        },
+        {
+          num: '3',
+          title: lang === 'zh' ? '步驟三：AI 解析結果' : 'Step 3: AI Analysis',
+          desc: lang === 'zh' ? '針對錯題提供完整的步驟引導解說' : 'Provide complete step-guided explanations for mistakes'
+        },
+        {
+          num: '4',
+          title: lang === 'zh' ? '步驟四：觀念連結' : 'Step 4: Concept Connection',
+          desc: lang === 'zh' ? '分析錯題關聯的核心知識點與鷹架' : 'Analyze core concepts and scaffolding linked to mistakes'
+        },
+        {
+          num: '5',
+          title: lang === 'zh' ? '步驟五：相似題練習' : 'Step 5: Similar Practice',
+          desc: lang === 'zh' ? '生成相似題目進行即時練習驗證' : 'Generate similar questions for instant practice verification'
+        },
+        {
+          num: '6',
+          title: lang === 'zh' ? '步驟六：加入錯題庫' : 'Step 6: Add to Wrong Book',
+          desc: lang === 'zh' ? '自動歸檔至錯題本，完成學習閉環' : 'Auto-archive to incorrect book to complete review loop'
+        }
+      ];
       const [activeSection, setActiveSection] = useState('overview');
       const [activeOnboardingStep, setActiveOnboardingStep] = useState(0);
       const [timerKey, setTimerKey] = useState(0);
@@ -2844,6 +2876,18 @@ const SPLIT_VIEW_CHIPS = [
       const [chineseAllExpanded, setChineseAllExpanded] = useState(false);
       const [englishAllExpanded, setEnglishAllExpanded] = useState(false);
       const sliderContainerRef = useRef(null);
+
+      const aiScrollRef = useRef(null);
+      const [showAiLeftArrow, setShowAiLeftArrow] = useState(false);
+      const [showAiRightArrow, setShowAiRightArrow] = useState(true);
+
+      const handleAiScroll = () => {
+        if (aiScrollRef.current) {
+          const { scrollLeft, scrollWidth, clientWidth } = aiScrollRef.current;
+          setShowAiLeftArrow(scrollLeft > 5);
+          setShowAiRightArrow(scrollLeft + clientWidth < scrollWidth - 5);
+        }
+      };
 
       useEffect(() => {
         const isDesktopOrTablet = window.matchMedia('(min-width: 768px)').matches;
@@ -5226,51 +5270,149 @@ const SPLIT_VIEW_CHIPS = [
                     : `The analysis page features clear question recognition, step-by-step solutions, and a primary "Practice Similar Questions" CTA, ensuring students don't just "see" the answer but actually learn it.`}
                 </p>
 
-                {/* THREE-STEP FLOW VISUAL */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '16px',
-                  flexWrap: 'wrap',
-                  width: '100%',
-                  boxSizing: 'border-box',
-                  padding: '0 16px',
-                  margin: '32px 0 24px 0'
-                }}>
-                  {/* Frame 1 */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '240px' }}>
-                    <PhoneMockup screenStyle={{ backgroundColor: '#D8F0E8' }} />
-                    <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', fontWeight: '500' }}>
-                      {lang === 'zh' ? '拍照上傳' : 'Upload Photo'}
-                    </span>
+                {/* SIX-STEP FLOW CAROUSEL WITH ARROWS (SAME AS MATH) */}
+                <div style={{ position: 'relative', width: '100%', marginTop: '32px', marginBottom: '24px' }}>
+                  {/* Left Scroll Arrow (prev button) */}
+                  {showAiLeftArrow && (
+                    <button 
+                      onClick={() => {
+                        if (aiScrollRef.current) {
+                          aiScrollRef.current.scrollBy({ left: -258, behavior: 'smooth' });
+                        }
+                      }}
+                      style={{
+                        position: 'absolute',
+                        left: '-24px',
+                        top: '250px',
+                        transform: 'translateY(-50%)',
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '50%',
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid rgba(148, 163, 184, 0.15)',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        zIndex: 10,
+                        color: '#1E293B',
+                        transition: 'all 200ms ease',
+                        outline: 'none',
+                        padding: '0',
+                        lineHeight: '0'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                      }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
+                        <path d="m15 18-6-6 6-6" />
+                      </svg>
+                    </button>
+                  )}
+
+                  {/* Scrollable Track */}
+                  <div 
+                    ref={aiScrollRef}
+                    onScroll={handleAiScroll}
+                    className="hide-scrollbar"
+                    style={{
+                      display: 'flex',
+                      gap: '28px',
+                      overflowX: 'auto',
+                      scrollBehavior: 'smooth',
+                      width: '100%',
+                      padding: '12px 0px',
+                      boxSizing: 'border-box',
+                      WebkitOverflowScrolling: 'touch'
+                    }}
+                  >
+                    {aiSteps.map((step, idx) => (
+                      <div 
+                        key={idx} 
+                        style={{ 
+                          width: '230px', 
+                          flexShrink: 0, 
+                          display: 'flex', 
+                          flexDirection: 'column', 
+                          alignItems: 'center' 
+                        }}
+                      >
+                        <PhoneMockup screenStyle={{ backgroundColor: '#D8F0E8' }} />
+                        
+                        {/* Step label & desc */}
+                        <div style={{ marginTop: '12px', textAlign: 'center', minHeight: '52px', width: '100%' }}>
+                          <h4 style={{
+                            fontSize: '12.5px',
+                            fontWeight: '600',
+                            color: '#0F6E56',
+                            margin: '0 0 4px 0'
+                          }}>
+                            {step.title}
+                          </h4>
+                          <p style={{
+                            fontSize: '11.5px',
+                            color: 'var(--color-text-secondary)',
+                            lineHeight: '1.4',
+                            margin: 0
+                          }}>
+                            {step.desc}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
 
-                  {/* Arrow 1 */}
-                  <div style={{ color: '#0F6E56', fontSize: '24px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    →
-                  </div>
-
-                  {/* Frame 2 */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '240px' }}>
-                    <PhoneMockup screenStyle={{ backgroundColor: '#D8F0E8' }} />
-                    <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', fontWeight: '500' }}>
-                      {lang === 'zh' ? 'AI 解析結果' : 'AI Analysis'}
-                    </span>
-                  </div>
-
-                  {/* Arrow 2 */}
-                  <div style={{ color: '#0F6E56', fontSize: '24px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    →
-                  </div>
-
-                  {/* Frame 3 */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '240px' }}>
-                    <PhoneMockup screenStyle={{ backgroundColor: '#D8F0E8' }} />
-                    <span style={{ fontSize: '12px', color: '#6B6B6B', textAlign: 'center', fontWeight: '500' }}>
-                      {lang === 'zh' ? '相似題練習' : 'Similar Practice'}
-                    </span>
-                  </div>
+                  {/* Right Scroll Arrow (next button) */}
+                  {showAiRightArrow && (
+                    <button 
+                      onClick={() => {
+                        if (aiScrollRef.current) {
+                          aiScrollRef.current.scrollBy({ left: 258, behavior: 'smooth' });
+                        }
+                      }}
+                      style={{
+                        position: 'absolute',
+                        right: '-24px',
+                        top: '250px',
+                        transform: 'translateY(-50%)',
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '50%',
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid rgba(148, 163, 184, 0.15)',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        zIndex: 10,
+                        color: '#1E293B',
+                        transition: 'all 200ms ease',
+                        outline: 'none',
+                        padding: '0',
+                        lineHeight: '0'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                      }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
+                        <path d="m9 18 6-6-6-6" />
+                      </svg>
+                    </button>
+                  )}
                 </div>
 
                 <p style={{

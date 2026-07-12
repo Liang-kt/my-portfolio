@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const PhoneMockup = ({ children, style = {}, screenStyle = {}, className = "" }) => {
   return (
@@ -150,7 +150,26 @@ const MsLinFeatureTabs = ({ lang }) => {
   const [activeChineseType, setActiveChineseType] = useState(0);
   const [activeEnglishType, setActiveEnglishType] = useState(0);
 
-  const [activeMathStep, setActiveMathStep] = useState(0);
+  const mathScrollRef = useRef(null);
+  const [activeMathType, setActiveMathType] = useState('steps');
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+
+  const handleMathScroll = () => {
+    if (mathScrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = mathScrollRef.current;
+      setShowLeftArrow(scrollLeft > 5);
+      setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 5);
+    }
+  };
+
+  useEffect(() => {
+    if (mathScrollRef.current) {
+      mathScrollRef.current.scrollLeft = 0;
+      setShowLeftArrow(false);
+      setShowRightArrow(true);
+    }
+  }, [activeMathType]);
 
   const mathSteps = [
     {
@@ -191,19 +210,55 @@ const MsLinFeatureTabs = ({ lang }) => {
     }
   ];
 
-  const chineseSteps = [
-    { img: '/projects/mslin-app/screens/chinese3.png', title: lang === 'zh' ? '字音字形配對 — 左右連線' : 'Pronunciation & Character Pairing - Connect' },
-    { img: '/projects/mslin-app/screens/chinese18.png', title: lang === 'zh' ? '文言文逐句翻譯 — 填空' : 'Classical Chinese - Blank Fills' },
-    { num: '3', title: lang === 'zh' ? '成語配對填空 — 點選填入' : 'Idiom Pairing - Tap to Fill' },
-    { num: '4', title: lang === 'zh' ? '錯字辨識 — 點選句中錯字' : 'Typo Spotting - Tap Typos' }
+  const mathJudgementSteps = [
+    {
+      num: '1',
+      title: lang === 'zh' ? '步驟一' : 'Step 1',
+      desc: lang === 'zh' ? '逐項判斷第 1 步' : 'Item-by-item analysis step 1',
+      img: '/projects/mslin-app/screens/math/逐項判斷1.jpg'
+    },
+    {
+      num: '2',
+      title: lang === 'zh' ? '步驟二' : 'Step 2',
+      desc: lang === 'zh' ? '逐項判斷第 2 步' : 'Item-by-item analysis step 2',
+      img: '/projects/mslin-app/screens/math/逐項判斷2.jpg'
+    },
+    {
+      num: '3',
+      title: lang === 'zh' ? '步驟三' : 'Step 3',
+      desc: lang === 'zh' ? '逐項判斷第 3 步' : 'Item-by-item analysis step 3',
+      img: '/projects/mslin-app/screens/math/逐項判斷3.jpg'
+    },
+    {
+      num: '4',
+      title: lang === 'zh' ? '步驟四' : 'Step 4',
+      desc: lang === 'zh' ? '逐項判斷第 4 步' : 'Item-by-item analysis step 4',
+      img: '/projects/mslin-app/screens/math/逐項判斷4.jpg'
+    }
   ];
 
-  const englishSteps = [
-    { img: '/projects/mslin-app/screens/english-sentence2.png', title: lang === 'zh' ? '文法造句重組 — 點擊排列' : 'Sentence Reordering - Tap to Rebuild' },
-    { img: '/projects/mslin-app/screens/english-close2.png', title: lang === 'zh' ? '文意選填 — 空格嵌入段落' : 'Cloze - Slot Words in Paragraphs' },
-    { num: '3', title: lang === 'zh' ? '單字選擇題 — 詞彙辨義' : 'Vocabulary MCQs - Meaning' },
-    { num: '4', title: lang === 'zh' ? '拼字題 — 鍵盤輸入' : 'Spelling - Keyboard Input' }
+  const mathBlankSteps = [
+    {
+      num: '1',
+      title: lang === 'zh' ? '步驟一' : 'Step 1',
+      desc: lang === 'zh' ? '填空解答第 1 步' : 'Fill-in-the-blank step 1',
+      img: '/projects/mslin-app/screens/math/填空題1.jpg'
+    },
+    {
+      num: '2',
+      title: lang === 'zh' ? '步驟二' : 'Step 2',
+      desc: lang === 'zh' ? '填空解答第 2 步' : 'Fill-in-the-blank step 2',
+      img: '/projects/mslin-app/screens/math/填空題2.jpg'
+    },
+    {
+      num: '3',
+      title: lang === 'zh' ? '步驟三' : 'Step 3',
+      desc: lang === 'zh' ? '填空解答第 3 步' : 'Fill-in-the-blank step 3',
+      img: '/projects/mslin-app/screens/math/填空題3.jpg'
+    }
   ];
+
+
 
 
 
@@ -234,6 +289,7 @@ const MsLinFeatureTabs = ({ lang }) => {
   const chineseTypes = [
     {
       id: 'pairing',
+      num: '1',
       title: lang === 'zh' ? '字音字形配對' : 'Phonetic Pairing',
       train: lang === 'zh' ? '注音辨識' : 'Phonetic Recognition',
       interact: lang === 'zh' ? '左右連線操作' : 'Match Left & Right',
@@ -245,6 +301,7 @@ const MsLinFeatureTabs = ({ lang }) => {
     },
     {
       id: 'typo',
+      num: '2',
       title: lang === 'zh' ? '錯字辨識' : 'Typo Spotting',
       train: lang === 'zh' ? '用字精準度' : 'Character Precision',
       interact: lang === 'zh' ? '點選句中錯字' : 'Tap Typos in Sentences',
@@ -256,6 +313,7 @@ const MsLinFeatureTabs = ({ lang }) => {
     },
     {
       id: 'idiom',
+      num: '3',
       title: lang === 'zh' ? '成語配對填空' : 'Idiom Pairing Fill',
       train: lang === 'zh' ? '成語理解' : 'Idiom Understanding',
       interact: lang === 'zh' ? '點選成語填入空格' : 'Tap Idioms for Blanks',
@@ -267,6 +325,7 @@ const MsLinFeatureTabs = ({ lang }) => {
     },
     {
       id: 'translation',
+      num: '4',
       title: lang === 'zh' ? '文言文逐句翻譯' : 'Classical Chinese translation',
       train: lang === 'zh' ? '文言文語感' : 'Classical Context Sense',
       interact: lang === 'zh' ? '關鍵詞填空' : 'Keyword Blank Fills',
@@ -278,6 +337,7 @@ const MsLinFeatureTabs = ({ lang }) => {
     },
     {
       id: 'reading',
+      num: '5',
       title: lang === 'zh' ? '閱讀測驗' : 'Reading Comprehension',
       train: lang === 'zh' ? '文章理解推論' : 'Article Comprehension & Inference',
       interact: lang === 'zh' ? '選擇題' : 'Interaction: Multiple-Choice',
@@ -292,6 +352,7 @@ const MsLinFeatureTabs = ({ lang }) => {
   const englishTypes = [
     {
       id: 'mcq',
+      num: '1',
       title: lang === 'zh' ? '單字選擇題' : 'Vocabulary MCQs',
       train: lang === 'zh' ? '詞彙辨義' : 'Vocabulary Differentiation',
       interact: lang === 'zh' ? '4 選 1' : '4-Option MCQ',
@@ -303,6 +364,7 @@ const MsLinFeatureTabs = ({ lang }) => {
     },
     {
       id: 'spelling',
+      num: '2',
       title: lang === 'zh' ? '拼字題' : 'Spelling',
       train: lang === 'zh' ? '字母拼寫記憶' : 'Letter Spelling Memory',
       interact: lang === 'zh' ? '鍵盤輸入' : 'Keyboard Input',
@@ -314,6 +376,7 @@ const MsLinFeatureTabs = ({ lang }) => {
     },
     {
       id: 'reorder',
+      num: '3',
       title: lang === 'zh' ? '文法造句重組' : 'Sentence Rebuilding',
       train: lang === 'zh' ? '句型結構' : 'Sentence Structure',
       interact: lang === 'zh' ? '字詞點擊排列' : 'Tap Words to Arrange',
@@ -325,6 +388,7 @@ const MsLinFeatureTabs = ({ lang }) => {
     },
     {
       id: 'wordform',
+      num: '4',
       title: lang === 'zh' ? '詞性變化填空' : 'Word Form Blank Fill',
       train: lang === 'zh' ? '字彙應用' : 'Vocabulary Application',
       interact: lang === 'zh' ? '手動輸入詞形' : 'Manual Form Input',
@@ -336,6 +400,7 @@ const MsLinFeatureTabs = ({ lang }) => {
     },
     {
       id: 'cloze',
+      num: '5',
       title: lang === 'zh' ? '文意選填' : 'Cloze',
       train: lang === 'zh' ? '篇章理解' : 'Passage Comprehension',
       interact: lang === 'zh' ? '點空格選詞填入' : 'Tap Blanks to Choose Words',
@@ -347,6 +412,7 @@ const MsLinFeatureTabs = ({ lang }) => {
     },
     {
       id: 'reading',
+      num: '6',
       title: lang === 'zh' ? '閱讀測驗' : 'Reading Comprehension',
       train: lang === 'zh' ? '長文理解' : 'Long Passage Comprehension',
       interact: lang === 'zh' ? '選擇題' : 'Multiple-Choice',
@@ -358,6 +424,7 @@ const MsLinFeatureTabs = ({ lang }) => {
     },
     {
       id: 'translation',
+      num: '7',
       title: lang === 'zh' ? '引導式翻譯' : 'Guided Translation',
       train: lang === 'zh' ? '中英對應語感' : 'CN-EN Correspondence Sense',
       interact: lang === 'zh' ? '關鍵詞填空含提示' : 'Fill Keywords with Hints',
@@ -583,9 +650,7 @@ const MsLinFeatureTabs = ({ lang }) => {
                 onClick={() => handleOuterSwitch(tab.id)}
                 className={`outer-tab-button ${isActive ? 'active' : ''}`}
               >
-                <span className="outer-tab-sub">
-                  {tab.num}
-                </span>
+
                 <span className="outer-tab-label">
                   {lang === 'zh' ? tab.zhLabel : tab.enLabel}
                 </span>
@@ -605,17 +670,7 @@ const MsLinFeatureTabs = ({ lang }) => {
       }}>
         {displayOuter === '1a' && (
           <div style={{ marginBottom: '64px' }}>
-            <div style={{
-              display: 'inline-block',
-              backgroundColor: '#EEEDFE',
-              color: '#534AB7',
-              borderRadius: '20px',
-              fontSize: '12px',
-              padding: '3px 12px',
-              marginBottom: '12px'
-            }}>
-              {lang === 'zh' ? '功能 1A' : 'Feature 1A'}
-            </div>
+
             <SubHeading>
               {lang === 'zh' ? '刷題 Loop（5 / 10 / 15 題）' : 'Practice Loop (5 / 10 / 15 Questions)'}
             </SubHeading>
@@ -652,17 +707,7 @@ const MsLinFeatureTabs = ({ lang }) => {
 
         {displayOuter === '1b' && (
           <div style={{ marginBottom: '64px' }}>
-            <div style={{
-              display: 'inline-block',
-              backgroundColor: '#EEEDFE',
-              color: '#534AB7',
-              borderRadius: '20px',
-              fontSize: '12px',
-              padding: '3px 12px',
-              marginBottom: '12px'
-            }}>
-              {lang === 'zh' ? '功能 1B' : 'Feature 1B'}
-            </div>
+
             <SubHeading>
               {lang === 'zh' ? '多科互動題型' : 'Interactive Questions'}
             </SubHeading>
@@ -698,9 +743,9 @@ const MsLinFeatureTabs = ({ lang }) => {
                   backgroundColor: 'transparent',
                   border: 'none',
                   borderBottom: '2px solid',
-                  borderBottomColor: activeInner === 'math' ? '#7F77DD' : 'transparent',
+                  borderBottomColor: activeInner === 'math' ? '#E8734A' : 'transparent',
                   marginBottom: '-0.5px',
-                  color: activeInner === 'math' ? '#534AB7' : 'var(--color-text-secondary)',
+                  color: activeInner === 'math' ? '#E8734A' : 'var(--color-text-secondary)',
                   fontWeight: activeInner === 'math' ? 600 : 400,
                   transition: 'color 150ms ease, border-color 150ms ease',
                   outline: 'none',
@@ -720,9 +765,9 @@ const MsLinFeatureTabs = ({ lang }) => {
                   backgroundColor: 'transparent',
                   border: 'none',
                   borderBottom: '2px solid',
-                  borderBottomColor: activeInner === 'chinese' ? '#7F77DD' : 'transparent',
+                  borderBottomColor: activeInner === 'chinese' ? '#E8734A' : 'transparent',
                   marginBottom: '-0.5px',
-                  color: activeInner === 'chinese' ? '#534AB7' : 'var(--color-text-secondary)',
+                  color: activeInner === 'chinese' ? '#E8734A' : 'var(--color-text-secondary)',
                   fontWeight: activeInner === 'chinese' ? 600 : 400,
                   transition: 'color 150ms ease, border-color 150ms ease',
                   outline: 'none',
@@ -742,9 +787,9 @@ const MsLinFeatureTabs = ({ lang }) => {
                   backgroundColor: 'transparent',
                   border: 'none',
                   borderBottom: '2px solid',
-                  borderBottomColor: activeInner === 'english' ? '#7F77DD' : 'transparent',
+                  borderBottomColor: activeInner === 'english' ? '#E8734A' : 'transparent',
                   marginBottom: '-0.5px',
-                  color: activeInner === 'english' ? '#534AB7' : 'var(--color-text-secondary)',
+                  color: activeInner === 'english' ? '#E8734A' : 'var(--color-text-secondary)',
                   fontWeight: activeInner === 'english' ? 600 : 400,
                   transition: 'color 150ms ease, border-color 150ms ease',
                   outline: 'none',
@@ -762,140 +807,232 @@ const MsLinFeatureTabs = ({ lang }) => {
               transition: isInnerTransitioning ? 'opacity 100ms ease' : 'opacity 200ms ease',
               boxSizing: 'border-box'
             }}>
-              {displayInner === 'math' && (
-                <div>
-                  <div style={{
-                    fontSize: '13px',
-                    fontWeight: 500,
-                    color: '#534AB7',
-                    paddingBottom: '8px',
-                    borderBottom: '0.5px solid var(--color-border-tertiary)',
-                    marginBottom: '16px'
-                  }}>
-                    {lang === 'zh' ? '數學｜步驟解題' : 'Math | Step-by-Step Problem Solving'}
-                  </div>
-                  
-                  <p style={{
-                    fontSize: '14px',
-                    lineHeight: '1.8',
-                    color: 'var(--color-text-secondary)',
-                    marginBottom: '20px',
-                    textAlign: 'justify'
-                  }}>
-                    {lang === 'zh'
-                      ? '步驟解題改變了學生的角色：題目被拆解成 2–4 個步驟，學生依序填入，最後才呈現完整解題過程。做完的感覺是「我解出來了」，而不是「我看到答案了」——對應 Scaffolding 鷹架理論：有結構的引導比被動接收更能形成長期記憶。'
-                      : "Step-by-step problem solving changes the role of the student: questions are broken down into 2-4 steps, filled in sequentially, showing the full process at the end. The feeling is 'I solved it' rather than 'I saw the answer'—aligned with Scaffolding theory: structured guidance forms longer-term memory than passive reception."}
-                  </p>
+              {displayInner === 'math' && (() => {
+                const currentMathSteps = activeMathType === 'steps' 
+                  ? mathSteps 
+                  : (activeMathType === 'judgement' ? mathJudgementSteps : mathBlankSteps);
 
-                  {/* DESKTOP/TABLET ONLY: Interactive Split Switcher Layout (same style as onboarding) */}
-                  <div className="hidden md:flex" style={{ gap: '32px', alignItems: 'flex-start', marginTop: '24px' }}>
-                    {/* Left Column: List of 6 steps */}
-                    <div style={{ flex: 1 }}>
-                      <div style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '4px',
-                        backgroundColor: '#F4F4F6',
-                        border: '1px solid rgba(0, 0, 0, 0.05)',
-                        borderRadius: '24px',
-                        padding: '8px'
-                      }}>
-                        {mathSteps.map((step, idx) => {
-                          const isActive = activeMathStep === idx;
-                          return (
-                            <div 
-                              key={idx}
-                              onClick={() => setActiveMathStep(idx)}
-                              style={{
-                                display: 'flex',
-                                alignItems: 'flex-start',
-                                gap: '14px',
-                                padding: '12px 16px',
-                                cursor: 'pointer',
-                                transition: 'all 200ms ease',
-                                backgroundColor: isActive ? '#FFFFFF' : 'transparent',
-                                borderRadius: '16px',
-                                border: isActive ? '1px solid rgba(0, 0, 0, 0.05)' : '1px solid transparent',
-                                boxShadow: isActive ? '0 4px 12px rgba(0, 0, 0, 0.03)' : 'none'
-                              }}
-                            >
-                              {/* Step circle/bubble */}
-                              <div style={{
-                                width: '22px',
-                                height: '22px',
-                                borderRadius: '6px',
-                                backgroundColor: isActive ? '#534AB7' : '#E5E7EB',
-                                color: isActive ? '#FFFFFF' : '#8E97A6',
-                                fontSize: '10px',
-                                fontWeight: '700',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyCenter: 'center',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                flexShrink: 0,
-                                marginTop: '2px',
-                                transition: 'all 200ms ease'
+                return (
+                  <div>
+                    {/* Math sub-type capsule tabs */}
+                    <div style={{
+                      display: 'flex',
+                      gap: '8px',
+                      marginBottom: '24px',
+                      flexWrap: 'wrap'
+                    }}>
+                      {[
+                        { id: 'steps', label: lang === 'zh' ? '步驟解題' : 'Step-by-Step Solving' },
+                        { id: 'judgement', label: lang === 'zh' ? '逐項判斷' : 'Item-by-Item Judgement' },
+                        { id: 'blank', label: lang === 'zh' ? '填空題' : 'Fill-in-the-Blank' }
+                      ].map((tab) => {
+                        const isActive = activeMathType === tab.id;
+                        return (
+                          <button
+                            key={tab.id}
+                            onClick={() => setActiveMathType(tab.id)}
+                            style={{
+                              padding: '8px 16px',
+                              borderRadius: '9999px',
+                              border: '1px solid',
+                              borderColor: isActive ? '#1D1D1F' : 'rgba(148, 163, 184, 0.15)',
+                              backgroundColor: isActive ? '#1D1D1F' : 'transparent',
+                              color: isActive ? '#FFFFFF' : 'var(--color-text-secondary)',
+                              fontSize: '13px',
+                              fontWeight: isActive ? 600 : 400,
+                              cursor: 'pointer',
+                              transition: 'all 200ms ease',
+                              outline: 'none'
+                            }}
+                          >
+                            {tab.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    
+                    <p style={{
+                      fontSize: '14px',
+                      lineHeight: '1.8',
+                      color: 'var(--color-text-secondary)',
+                      marginBottom: '20px',
+                      textAlign: 'justify'
+                    }}>
+                      {lang === 'zh'
+                        ? '步驟解題改變了學生的角色：題目被拆解成 2–4 個步驟，學生依序填入，最後才呈現完整解題過程。做完的感覺是「我解出來了」，而不是「我看到答案了」——對應 Scaffolding 鷹架理論：有結構的引導比被動接收更能形成長期記憶。'
+                        : "Step-by-step problem solving changes the role of the student: questions are broken down into 2-4 steps, filled in sequentially, showing the full process at the end. The feeling is 'I solved it' rather than 'I saw the answer'—aligned with Scaffolding theory: structured guidance forms longer-term memory than passive reception."}
+                    </p>
+
+                    {/* DESKTOP/TABLET ONLY: Horizontal Scroll Row with Navigation Arrows */}
+                    <div className="hidden md:block" style={{ position: 'relative', width: '100%', marginTop: '24px' }}>
+                      {/* Left Scroll Arrow (prev button) */}
+                      {currentMathSteps.length > 4 && showLeftArrow && (
+                        <button 
+                          onClick={() => {
+                            if (mathScrollRef.current) {
+                              mathScrollRef.current.scrollBy({ left: -258, behavior: 'smooth' });
+                            }
+                          }}
+                        style={{
+                          position: 'absolute',
+                          left: '-24px',
+                          top: '280px',
+                          transform: 'translateY(-50%)',
+                          width: '48px',
+                          height: '48px',
+                          borderRadius: '50%',
+                          backgroundColor: '#FFFFFF',
+                          border: '1px solid rgba(148, 163, 184, 0.15)',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                          zIndex: 10,
+                          color: '#1E293B',
+                          transition: 'all 200ms ease',
+                          outline: 'none',
+                          padding: '0',
+                          lineHeight: '0'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                          e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                        }}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
+                          <path d="m15 18-6-6 6-6" />
+                        </svg>
+                      </button>
+                      )}
+
+                      {/* Scrollable Track */}
+                      <div 
+                        ref={mathScrollRef}
+                        onScroll={handleMathScroll}
+                        className="hide-scrollbar"
+                        style={{
+                          display: 'flex',
+                          gap: '28px',
+                          overflowX: 'auto',
+                          scrollBehavior: 'smooth',
+                          width: '100%',
+                          padding: '12px 0px',
+                          boxSizing: 'border-box',
+                          WebkitOverflowScrolling: 'touch'
+                        }}
+                      >
+                        {currentMathSteps.map((step, idx) => (
+                          <div 
+                            key={idx} 
+                            style={{ 
+                              width: '230px', 
+                              flexShrink: 0, 
+                              display: 'flex', 
+                              flexDirection: 'column', 
+                              alignItems: 'center' 
+                            }}
+                          >
+                            <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                              <img 
+                                src={step.img} 
+                                alt={step.title} 
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                              />
+                            </PhoneMockup>
+                            
+                            {/* Step label & desc */}
+                            <div style={{ marginTop: '12px', textAlign: 'center', minHeight: '52px', width: '100%' }}>
+                              <h4 style={{
+                                fontSize: '12.5px',
+                                fontWeight: '600',
+                                color: '#534AB7',
+                                margin: '0 0 4px 0'
                               }}>
-                                {step.num}
-                              </div>
-                              {/* Title and description */}
-                              <div>
-                                <h4 style={{
-                                  fontSize: '13px',
-                                  fontWeight: '600',
-                                  color: isActive ? '#534AB7' : 'var(--color-text-primary)',
-                                  margin: '0 0 3px 0',
-                                  transition: 'all 200ms ease'
-                                }}>
-                                  {step.title}
-                                </h4>
-                                <p style={{
-                                  fontSize: '11.5px',
-                                  color: 'var(--color-text-secondary)',
-                                  lineHeight: '1.5',
-                                  margin: 0
-                                }}>
-                                  {step.desc}
-                                </p>
-                              </div>
+                                {step.title}
+                              </h4>
+                              <p style={{
+                                fontSize: '11.5px',
+                                color: 'var(--color-text-secondary)',
+                                lineHeight: '1.4',
+                                margin: 0
+                              }}>
+                                {step.desc}
+                              </p>
                             </div>
-                          );
-                        })}
+                          </div>
+                        ))}
                       </div>
+
+                      {/* Right Scroll Arrow (next button) */}
+                      {currentMathSteps.length > 4 && showRightArrow && (
+                        <button 
+                          onClick={() => {
+                            if (mathScrollRef.current) {
+                              mathScrollRef.current.scrollBy({ left: 258, behavior: 'smooth' });
+                            }
+                          }}
+                        style={{
+                          position: 'absolute',
+                          right: '-24px',
+                          top: '280px',
+                          transform: 'translateY(-50%)',
+                          width: '48px',
+                          height: '48px',
+                          borderRadius: '50%',
+                          backgroundColor: '#FFFFFF',
+                          border: '1px solid rgba(148, 163, 184, 0.15)',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                          zIndex: 10,
+                          color: '#1E293B',
+                          transition: 'all 200ms ease',
+                          outline: 'none',
+                          padding: '0',
+                          lineHeight: '0'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                          e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                        }}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      </button>
+                      )}
                     </div>
 
-                    {/* Right Column: Single Phone Mockup Preview */}
-                    <div style={{ width: '280px', flexShrink: 0, display: 'flex', justifyContent: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src={mathSteps[activeMathStep].img} 
-                          alt={mathSteps[activeMathStep].title} 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
+                    {/* MOBILE/TABLET ONLY: Single Phone Mockup Horizontal Slider */}
+                    <div className="block md:hidden">
+                      <SinglePhoneSlider steps={currentMathSteps} lang={lang} themeColor="#534AB7" />
                     </div>
                   </div>
-
-                  {/* MOBILE/TABLET ONLY: Single Phone Mockup Horizontal Slider */}
-                  <div className="block md:hidden">
-                    <SinglePhoneSlider steps={mathSteps} lang={lang} themeColor="#534AB7" />
-                  </div>
-                </div>
-              )}
+                );
+              })()}
 
               {displayInner === 'chinese' && (
                 <div>
                   <div style={{
                     fontSize: '13px',
                     fontWeight: 500,
-                    color: '#534AB7',
+                    color: '#E8734A',
                     paddingBottom: '8px',
                     borderBottom: '0.5px solid var(--color-border-tertiary)',
                     marginBottom: '16px'
                   }}>
-                    {lang === 'zh' ? '國文｜依題目性質設計互動形式' : 'Chinese | Custom Interaction per Subject'}
+                    {lang === 'zh' ? '依題目性質設計互動形式' : 'Custom Interaction per Subject'}
                   </div>
                   
                   <p style={{
@@ -910,172 +1047,156 @@ const MsLinFeatureTabs = ({ lang }) => {
                       : 'Chinese knowledge points vary greatly. According to the cognitive needs of each question type, we designed five corresponding interaction formats.'}
                   </p>
 
-                  {/* DESKTOP/TABLET ONLY: 4-Column Grid Layout */}
-                  <div className="hidden sm:grid feature-mockup-grid">
-                    {/* Phone 1 (With Image) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/chinese3.png" 
-                          alt="字音字形配對" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '字音字形配對 — 左右連線' : 'Pronunciation & Character Pairing - Connect'}
-                      </span>
-                    </div>
-
-                    {/* Phone 2 (With Image) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/chinese18.png" 
-                          alt="文言文逐句翻譯" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '文言文逐句翻譯 — 填空' : 'Classical Chinese - Blank Fills'}
-                      </span>
-                    </div>
-
-                    {/* Phone 3 (Placeholder) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#534AB7', opacity: 0.15 }}>3</div>
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '成語配對填空 — 點選填入' : 'Idiom Pairing - Tap to Fill'}
-                      </span>
-                    </div>
-
-                    {/* Phone 4 (Placeholder) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#534AB7', opacity: 0.15 }}>4</div>
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '錯字辨識 — 點選句中錯字' : 'Typo Spotting - Tap Typos'}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* MOBILE ONLY: Single Phone Mockup Horizontal Slider */}
-                  <div className="block sm:hidden">
-                    <SinglePhoneSlider steps={chineseSteps} lang={lang} themeColor="#534AB7" />
-                  </div>
-
-                  {/* Expandable Grid */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '16px', width: '100%' }}>
-                    <button 
-                      onClick={() => setChineseGridOpen(!chineseGridOpen)}
-                      style={{
-                        border: '0.5px solid var(--color-border-tertiary)',
-                        borderRadius: 'var(--border-radius-md)',
-                        backgroundColor: 'transparent',
-                        fontSize: '13px',
-                        padding: '10px 24px',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        color: 'var(--color-text-primary)',
-                        outline: 'none'
-                      }}
-                    >
-                      <span>{lang === 'zh' ? '查看所有國文題型' : 'View All Chinese Question Types'}</span>
-                      <i className="ti ti-chevron-down" style={{
-                        transition: 'transform 200ms ease',
-                        transform: chineseGridOpen ? 'rotate(180deg)' : 'rotate(0deg)'
-                      }}></i>
-                    </button>
-                    
-                    <div style={{
-                      maxHeight: chineseGridOpen ? '1000px' : '0px',
-                      transition: 'max-height 350ms ease',
-                      overflow: 'hidden',
-                      boxSizing: 'border-box',
-                      width: '100%'
-                    }}>
-                      <div className="showcase-split-container">
-                        {/* Left Column: switching buttons */}
-                        <div className="showcase-buttons-col">
-                          {chineseTypes.map((type, index) => (
+                  {/* DESKTOP/TABLET VIEW: Split Onboarding Switcher Layout */}
+                  <div className="hidden md:flex" style={{ gap: '24px', alignItems: 'flex-start', marginTop: '24px' }}>
+                    {/* Left Column: Question Types Tabs in Onboarding style */}
+                    <div style={{ width: '260px', flexShrink: 0 }}>
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '4px',
+                        backgroundColor: '#F4F4F6',
+                        border: '1px solid rgba(0, 0, 0, 0.05)',
+                        borderRadius: '24px',
+                        padding: '8px'
+                      }}>
+                        {chineseTypes.map((type, index) => {
+                          const isActive = activeChineseType === index;
+                          return (
                             <div 
                               key={index}
-                              onClick={(e) => {
-                                setActiveChineseType(index);
-                                const child = e.currentTarget;
-                                const parent = child.parentElement;
-                                if (parent) {
-                                  const targetScrollLeft = child.offsetLeft - (parent.clientWidth - child.clientWidth) / 2;
-                                  parent.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
-                                }
+                              onClick={() => setActiveChineseType(index)}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: '14px',
+                                padding: '12px 16px',
+                                cursor: 'pointer',
+                                transition: 'all 200ms ease',
+                                backgroundColor: isActive ? '#FFFFFF' : 'transparent',
+                                borderRadius: '16px',
+                                border: isActive ? '1px solid rgba(0, 0, 0, 0.05)' : '1px solid transparent',
+                                boxShadow: isActive ? '0 4px 12px rgba(0, 0, 0, 0.03)' : 'none'
                               }}
-                              className={`showcase-btn-item ${activeChineseType === index ? 'active-chinese' : ''}`}
                             >
-                              <div className="showcase-btn-title">
-                                {type.title}
-                              </div>
-                              <div className="hidden md:block" style={{
-                                fontSize: '11px',
-                                color: activeChineseType === index ? '#7F77DD' : 'var(--color-text-tertiary)',
-                                lineHeight: '1.4'
+                              {/* Number Bubble */}
+                              <div style={{
+                                width: '22px',
+                                height: '22px',
+                                borderRadius: '6px',
+                                backgroundColor: isActive ? '#E8734A' : '#E5E7EB',
+                                color: isActive ? '#FFFFFF' : '#8E97A6',
+                                fontSize: '10px',
+                                fontWeight: '700',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexShrink: 0,
+                                marginTop: '2px',
+                                transition: 'all 200ms ease'
                               }}>
-                                {lang === 'zh' ? '訓練：' : 'Train: '}{type.train} ｜ {lang === 'zh' ? '互動：' : 'Interact: '}{type.interact}
+                                {type.num}
+                              </div>
+                              {/* Text Info */}
+                              <div>
+                                <h4 style={{
+                                  fontSize: '14px',
+                                  fontWeight: '600',
+                                  color: isActive ? '#E8734A' : 'var(--color-text-primary)',
+                                  margin: '0 0 1px 0',
+                                  transition: 'all 200ms ease'
+                                }}>
+                                  {type.title}
+                                </h4>
+                                <p style={{
+                                  fontSize: '11px',
+                                  color: 'var(--color-text-secondary)',
+                                  lineHeight: '1.4',
+                                  margin: 0
+                                }}>
+                                  {lang === 'zh' ? `訓練：${type.train} ｜ 互動：${type.interact}` : `Train: ${type.train} | Interact: ${type.interact}`}
+                                </p>
                               </div>
                             </div>
-                          ))}
-                        </div>
-
-                        {/* Mobile Active Type Description Subtitle */}
-                        <div className="block md:hidden" style={{
-                          fontSize: '12px',
-                          fontWeight: '500',
-                          color: 'var(--color-text-secondary)',
-                          padding: '8px 12px',
-                          marginBottom: '8px',
-                          lineHeight: '1.4',
-                          backgroundColor: '#FAFAFE',
-                          borderLeft: '3px solid #7F77DD',
-                          borderRadius: '4px',
-                          width: '100%',
-                          boxSizing: 'border-box'
-                        }}>
-                          {lang === 'zh' ? '訓練：' : 'Train: '}{chineseTypes[activeChineseType].train} ｜ {lang === 'zh' ? '互動：' : 'Interact: '}{chineseTypes[activeChineseType].interact}
-                        </div>
-
-                        {/* Right Column: mockups (Desktop/Tablet) */}
-                        <div className="hidden md:grid showcase-mockups-col">
-                          {chineseTypes[activeChineseType].screens.map((screen, idx) => (
-                            <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                              <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                                <img 
-                                  src={screen} 
-                                  alt={chineseTypes[activeChineseType].title} 
-                                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                                />
-                              </PhoneMockup>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Mobile slider */}
-                        <div className="block md:hidden w-full">
-                          <SinglePhoneSlider 
-                            steps={chineseTypes[activeChineseType].screens.map((screen, sIdx) => ({
-                              img: screen,
-                              title: lang === 'zh'
-                                ? `${chineseTypes[activeChineseType].title} — ${chineseTypes[activeChineseType].interact} (${sIdx + 1}/${chineseTypes[activeChineseType].screens.length})`
-                                : `${chineseTypes[activeChineseType].title} - ${chineseTypes[activeChineseType].interact} (${sIdx + 1}/${chineseTypes[activeChineseType].screens.length})`
-                            }))} 
-                            lang={lang} 
-                            themeColor="#534AB7" 
-                          />
-                        </div>
+                          );
+                        })}
                       </div>
                     </div>
+
+                    {/* Right Column: 3 Phone Mockups side-by-side */}
+                    <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                      {chineseTypes[activeChineseType].screens.map((screen, idx) => (
+                        <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                          <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                            <img 
+                              src={screen} 
+                              alt={chineseTypes[activeChineseType].title} 
+                              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            />
+                          </PhoneMockup>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* MOBILE VIEW: Horizontal Tabs Switcher + SinglePhoneSlider */}
+                  <div className="block md:hidden">
+                    {/* Horizontal capsule tabs */}
+                    <div 
+                      className="hide-scrollbar"
+                      style={{
+                        display: 'flex',
+                        gap: '8px',
+                        overflowX: 'auto',
+                        padding: '4px 4px 12px 4px',
+                        marginBottom: '16px',
+                        width: '100%',
+                        WebkitOverflowScrolling: 'touch'
+                      }}
+                    >
+                      {chineseTypes.map((type, index) => {
+                        const isActive = activeChineseType === index;
+                        return (
+                          <div 
+                            key={index}
+                            onClick={(e) => {
+                              setActiveChineseType(index);
+                              const child = e.currentTarget;
+                              const parent = child.parentElement;
+                              if (parent) {
+                                const targetScrollLeft = child.offsetLeft - (parent.clientWidth - child.clientWidth) / 2;
+                                parent.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+                              }
+                            }}
+                            style={{
+                              flexShrink: 0,
+                              padding: '8px 16px',
+                              borderRadius: '9999px',
+                              backgroundColor: isActive ? '#1D1D1F' : '#F1F5F9',
+                              color: isActive ? '#FFFFFF' : 'var(--color-text-secondary)',
+                              fontSize: '12px',
+                              fontWeight: isActive ? 600 : 400,
+                              cursor: 'pointer',
+                              transition: 'all 200ms ease'
+                            }}
+                          >
+                            {type.title}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* SinglePhoneSlider */}
+                    <SinglePhoneSlider 
+                      steps={chineseTypes[activeChineseType].screens.map((screen, sIdx) => ({
+                        img: screen,
+                        title: lang === 'zh'
+                          ? `${chineseTypes[activeChineseType].title} — ${chineseTypes[activeChineseType].interact} (${sIdx + 1}/${chineseTypes[activeChineseType].screens.length})`
+                          : `${chineseTypes[activeChineseType].title} - ${chineseTypes[activeChineseType].interact} (${sIdx + 1}/${chineseTypes[activeChineseType].screens.length})`
+                      }))} 
+                      lang={lang} 
+                      themeColor="#534AB7" 
+                    />
                   </div>
                 </div>
               )}
@@ -1085,12 +1206,12 @@ const MsLinFeatureTabs = ({ lang }) => {
                   <div style={{
                     fontSize: '13px',
                     fontWeight: 500,
-                    color: '#534AB7',
+                    color: '#E8734A',
                     paddingBottom: '8px',
                     borderBottom: '0.5px solid var(--color-border-tertiary)',
                     marginBottom: '16px'
                   }}>
-                    {lang === 'zh' ? '英文｜依技能類型分流練習' : 'English | Split Skill Practice'}
+                    {lang === 'zh' ? '依技能類型分流練習' : 'Split Skill Practice'}
                   </div>
                   
                   <p style={{
@@ -1105,172 +1226,156 @@ const MsLinFeatureTabs = ({ lang }) => {
                       : 'English learning covers multiple skills—word memory, reading comprehension, grammar application, and Chinese-English conversion, each requiring different training. We design specific types for each skill.'}
                   </p>
 
-                  {/* DESKTOP/TABLET ONLY: 4-Column Grid Layout */}
-                  <div className="hidden sm:grid feature-mockup-grid">
-                    {/* Phone 1 (With Image) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/english-sentence2.png" 
-                          alt="文法造句重組" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '文法造句重組 — 點擊排列' : 'Sentence Reordering - Tap to Rebuild'}
-                      </span>
-                    </div>
-
-                    {/* Phone 2 (With Image) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <img 
-                          src="/projects/mslin-app/screens/english-close2.png" 
-                          alt="文意選填" 
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '文意選填 — 空格嵌入段落' : 'Cloze - Slot Words in Paragraphs'}
-                      </span>
-                    </div>
-
-                    {/* Phone 3 (Placeholder) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#378ADD', opacity: 0.15 }}>3</div>
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '單字選擇題 — 詞彙辨義' : 'Vocabulary MCQs - Meaning'}
-                      </span>
-                    </div>
-
-                    {/* Phone 4 (Placeholder) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#378ADD', opacity: 0.15 }}>4</div>
-                      </PhoneMockup>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
-                        {lang === 'zh' ? '拼字題 — 鍵盤輸入' : 'Spelling - Keyboard Input'}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* MOBILE ONLY: Single Phone Mockup Horizontal Slider */}
-                  <div className="block sm:hidden">
-                    <SinglePhoneSlider steps={englishSteps} lang={lang} themeColor="#378ADD" />
-                  </div>
-
-                  {/* Expandable Grid */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '16px', width: '100%' }}>
-                    <button 
-                      onClick={() => setEnglishGridOpen(!englishGridOpen)}
-                      style={{
-                        border: '0.5px solid var(--color-border-tertiary)',
-                        borderRadius: 'var(--border-radius-md)',
-                        backgroundColor: 'transparent',
-                        fontSize: '13px',
-                        padding: '10px 24px',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        color: 'var(--color-text-primary)',
-                        outline: 'none'
-                      }}
-                    >
-                      <span>{lang === 'zh' ? '查看所有英文題型' : 'View All English Question Types'}</span>
-                      <i className="ti ti-chevron-down" style={{
-                        transition: 'transform 200ms ease',
-                        transform: englishGridOpen ? 'rotate(180deg)' : 'rotate(0deg)'
-                      }}></i>
-                    </button>
-                    
-                    <div style={{
-                      maxHeight: englishGridOpen ? '1000px' : '0px',
-                      transition: 'max-height 350ms ease',
-                      overflow: 'hidden',
-                      boxSizing: 'border-box',
-                      width: '100%'
-                    }}>
-                      <div className="showcase-split-container">
-                        {/* Left Column: switching buttons */}
-                        <div className="showcase-buttons-col">
-                          {englishTypes.map((type, index) => (
+                  {/* DESKTOP/TABLET VIEW: Split Onboarding Switcher Layout */}
+                  <div className="hidden md:flex" style={{ gap: '24px', alignItems: 'flex-start', marginTop: '24px' }}>
+                    {/* Left Column: Question Types Tabs in Onboarding style */}
+                    <div style={{ width: '260px', flexShrink: 0 }}>
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '4px',
+                        backgroundColor: '#F4F4F6',
+                        border: '1px solid rgba(0, 0, 0, 0.05)',
+                        borderRadius: '24px',
+                        padding: '8px'
+                      }}>
+                        {englishTypes.map((type, index) => {
+                          const isActive = activeEnglishType === index;
+                          return (
                             <div 
                               key={index}
-                              onClick={(e) => {
-                                setActiveEnglishType(index);
-                                const child = e.currentTarget;
-                                const parent = child.parentElement;
-                                if (parent) {
-                                  const targetScrollLeft = child.offsetLeft - (parent.clientWidth - child.clientWidth) / 2;
-                                  parent.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
-                                }
+                              onClick={() => setActiveEnglishType(index)}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: '14px',
+                                padding: '12px 16px',
+                                cursor: 'pointer',
+                                transition: 'all 200ms ease',
+                                backgroundColor: isActive ? '#FFFFFF' : 'transparent',
+                                borderRadius: '16px',
+                                border: isActive ? '1px solid rgba(0, 0, 0, 0.05)' : '1px solid transparent',
+                                boxShadow: isActive ? '0 4px 12px rgba(0, 0, 0, 0.03)' : 'none'
                               }}
-                              className={`showcase-btn-item ${activeEnglishType === index ? 'active-english' : ''}`}
                             >
-                              <div className="showcase-btn-title">
-                                {type.title}
-                              </div>
-                              <div className="hidden md:block" style={{
-                                fontSize: '11px',
-                                color: activeEnglishType === index ? '#378ADD' : 'var(--color-text-tertiary)',
-                                lineHeight: '1.4'
+                              {/* Number Bubble */}
+                              <div style={{
+                                width: '22px',
+                                height: '22px',
+                                borderRadius: '6px',
+                                backgroundColor: isActive ? '#E8734A' : '#E5E7EB',
+                                color: isActive ? '#FFFFFF' : '#8E97A6',
+                                fontSize: '10px',
+                                fontWeight: '700',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexShrink: 0,
+                                marginTop: '2px',
+                                transition: 'all 200ms ease'
                               }}>
-                                {lang === 'zh' ? '訓練：' : 'Train: '}{type.train} ｜ {lang === 'zh' ? '互動：' : 'Interact: '}{type.interact}
+                                {type.num}
+                              </div>
+                              {/* Text Info */}
+                              <div>
+                                <h4 style={{
+                                  fontSize: '14px',
+                                  fontWeight: '600',
+                                  color: isActive ? '#E8734A' : 'var(--color-text-primary)',
+                                  margin: '0 0 1px 0',
+                                  transition: 'all 200ms ease'
+                                }}>
+                                  {type.title}
+                                </h4>
+                                <p style={{
+                                  fontSize: '11px',
+                                  color: 'var(--color-text-secondary)',
+                                  lineHeight: '1.4',
+                                  margin: 0
+                                }}>
+                                  {lang === 'zh' ? `訓練：${type.train} ｜ 互動：${type.interact}` : `Train: ${type.train} | Interact: ${type.interact}`}
+                                </p>
                               </div>
                             </div>
-                          ))}
-                        </div>
-
-                        {/* Mobile Active Type Description Subtitle */}
-                        <div className="block md:hidden" style={{
-                          fontSize: '12px',
-                          fontWeight: '500',
-                          color: 'var(--color-text-secondary)',
-                          padding: '8px 12px',
-                          marginBottom: '8px',
-                          lineHeight: '1.4',
-                          backgroundColor: '#F5F9FF',
-                          borderLeft: '3px solid #378ADD',
-                          borderRadius: '4px',
-                          width: '100%',
-                          boxSizing: 'border-box'
-                        }}>
-                          {lang === 'zh' ? '訓練：' : 'Train: '}{englishTypes[activeEnglishType].train} ｜ {lang === 'zh' ? '互動：' : 'Interact: '}{englishTypes[activeEnglishType].interact}
-                        </div>
-
-                        {/* Right Column: mockups (Desktop/Tablet) */}
-                        <div className="hidden md:grid showcase-mockups-col">
-                          {englishTypes[activeEnglishType].screens.map((screen, idx) => (
-                            <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                              <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                                <img 
-                                  src={screen} 
-                                  alt={englishTypes[activeEnglishType].title} 
-                                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                                />
-                              </PhoneMockup>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Mobile slider */}
-                        <div className="block md:hidden w-full">
-                          <SinglePhoneSlider 
-                            steps={englishTypes[activeEnglishType].screens.map((screen, sIdx) => ({
-                              img: screen,
-                              title: lang === 'zh'
-                                ? `${englishTypes[activeEnglishType].title} — ${englishTypes[activeEnglishType].interact} (${sIdx + 1}/${englishTypes[activeEnglishType].screens.length})`
-                                : `${englishTypes[activeEnglishType].title} - ${englishTypes[activeEnglishType].interact} (${sIdx + 1}/${englishTypes[activeEnglishType].screens.length})`
-                            }))} 
-                            lang={lang} 
-                            themeColor="#378ADD" 
-                          />
-                        </div>
+                          );
+                        })}
                       </div>
                     </div>
+
+                    {/* Right Column: 3 Phone Mockups side-by-side */}
+                    <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                      {englishTypes[activeEnglishType].screens.map((screen, idx) => (
+                        <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                          <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                            <img 
+                              src={screen} 
+                              alt={englishTypes[activeEnglishType].title} 
+                              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            />
+                          </PhoneMockup>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* MOBILE VIEW: Horizontal Tabs Switcher + SinglePhoneSlider */}
+                  <div className="block md:hidden">
+                    {/* Horizontal capsule tabs */}
+                    <div 
+                      className="hide-scrollbar"
+                      style={{
+                        display: 'flex',
+                        gap: '8px',
+                        overflowX: 'auto',
+                        padding: '4px 4px 12px 4px',
+                        marginBottom: '16px',
+                        width: '100%',
+                        WebkitOverflowScrolling: 'touch'
+                      }}
+                    >
+                      {englishTypes.map((type, index) => {
+                        const isActive = activeEnglishType === index;
+                        return (
+                          <div 
+                            key={index}
+                            onClick={(e) => {
+                              setActiveEnglishType(index);
+                              const child = e.currentTarget;
+                              const parent = child.parentElement;
+                              if (parent) {
+                                const targetScrollLeft = child.offsetLeft - (parent.clientWidth - child.clientWidth) / 2;
+                                parent.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+                              }
+                            }}
+                            style={{
+                              flexShrink: 0,
+                              padding: '8px 16px',
+                              borderRadius: '9999px',
+                              backgroundColor: isActive ? '#1D1D1F' : '#F1F5F9',
+                              color: isActive ? '#FFFFFF' : 'var(--color-text-secondary)',
+                              fontSize: '12px',
+                              fontWeight: isActive ? 600 : 400,
+                              cursor: 'pointer',
+                              transition: 'all 200ms ease'
+                            }}
+                          >
+                            {type.title}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* SinglePhoneSlider */}
+                    <SinglePhoneSlider 
+                      steps={englishTypes[activeEnglishType].screens.map((screen, sIdx) => ({
+                        img: screen,
+                        title: lang === 'zh'
+                          ? `${englishTypes[activeEnglishType].title} — ${englishTypes[activeEnglishType].interact} (${sIdx + 1}/${englishTypes[activeEnglishType].screens.length})`
+                          : `${englishTypes[activeEnglishType].title} - ${englishTypes[activeEnglishType].interact} (${sIdx + 1}/${englishTypes[activeEnglishType].screens.length})`
+                      }))} 
+                      lang={lang} 
+                      themeColor="#378ADD" 
+                    />
                   </div>
                 </div>
               )}
@@ -1280,17 +1385,7 @@ const MsLinFeatureTabs = ({ lang }) => {
 
         {displayOuter === '1c' && (
           <div style={{ marginBottom: '64px' }}>
-            <div style={{
-              display: 'inline-block',
-              backgroundColor: '#EEEDFE',
-              color: '#534AB7',
-              borderRadius: '20px',
-              fontSize: '12px',
-              padding: '3px 12px',
-              marginBottom: '12px'
-            }}>
-              {lang === 'zh' ? '功能 1C' : 'Feature 1C'}
-            </div>
+
             <SubHeading>
               {lang === 'zh' ? '錯題庫與收藏庫' : 'Incorrect & Saved'}
             </SubHeading>

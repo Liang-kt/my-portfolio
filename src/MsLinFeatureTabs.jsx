@@ -748,7 +748,69 @@ const MsLinFeatureTabs = ({ lang }) => {
                       : "Step-by-step problem solving changes the role of the student: questions are broken down into 2-4 steps, filled in sequentially, showing the full process at the end. The feeling is 'I solved it' rather than 'I saw the answer'—aligned with Scaffolding theory: structured guidance forms longer-term memory than passive reception."}
                   </p>
 
-                  <SinglePhoneSlider steps={mathSteps} lang={lang} themeColor="#534AB7" />
+                  {/* DESKTOP/TABLET ONLY: 4-Column Grid Layout */}
+                  <div className="hidden sm:grid feature-mockup-grid">
+                    {/* Phone 1 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/math10.png" 
+                          alt="步驟 1" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </PhoneMockup>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                        {lang === 'zh' ? '步驟 1：拆解題目與公式' : 'Step 1: Deconstruct Formula'}
+                      </span>
+                    </div>
+
+                    {/* Phone 2 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/math11.png" 
+                          alt="步驟 2" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </PhoneMockup>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                        {lang === 'zh' ? '步驟 2：填寫中間運算' : 'Step 2: Intermediate Steps'}
+                      </span>
+                    </div>
+
+                    {/* Phone 3 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/math12.png" 
+                          alt="步驟 3" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </PhoneMockup>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                        {lang === 'zh' ? '步驟 3：得出最終解答' : 'Step 3: Final Numerical Answer'}
+                      </span>
+                    </div>
+
+                    {/* Phone 4 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/math13.png" 
+                          alt="步驟 4" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </PhoneMockup>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                        {lang === 'zh' ? '步驟 4：觀看完整解析' : 'Step 4: View Full Explanation'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* MOBILE ONLY: Single Phone Mockup Horizontal Slider */}
+                  <div className="block sm:hidden">
+                    <SinglePhoneSlider steps={mathSteps} lang={lang} themeColor="#534AB7" />
+                  </div>
                 </div>
               )}
 
@@ -777,7 +839,61 @@ const MsLinFeatureTabs = ({ lang }) => {
                       : 'Chinese knowledge points vary greatly. According to the cognitive needs of each question type, we designed five corresponding interaction formats.'}
                   </p>
 
-                  <SinglePhoneSlider steps={chineseSteps} lang={lang} themeColor="#534AB7" />
+                  {/* DESKTOP/TABLET ONLY: 4-Column Grid Layout */}
+                  <div className="hidden sm:grid feature-mockup-grid">
+                    {/* Phone 1 (With Image) */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/chinese3.png" 
+                          alt="字音字形配對" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </PhoneMockup>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                        {lang === 'zh' ? '字音字形配對 — 左右連線' : 'Pronunciation & Character Pairing - Connect'}
+                      </span>
+                    </div>
+
+                    {/* Phone 2 (With Image) */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/chinese18.png" 
+                          alt="文言文逐句翻譯" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </PhoneMockup>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                        {lang === 'zh' ? '文言文逐句翻譯 — 填空' : 'Classical Chinese - Blank Fills'}
+                      </span>
+                    </div>
+
+                    {/* Phone 3 (Placeholder) */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#534AB7', opacity: 0.15 }}>3</div>
+                      </PhoneMockup>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                        {lang === 'zh' ? '成語配對填空 — 點選填入' : 'Idiom Pairing - Tap to Fill'}
+                      </span>
+                    </div>
+
+                    {/* Phone 4 (Placeholder) */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#534AB7', opacity: 0.15 }}>4</div>
+                      </PhoneMockup>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                        {lang === 'zh' ? '錯字辨識 — 點選句中錯字' : 'Typo Spotting - Tap Typos'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* MOBILE ONLY: Single Phone Mockup Horizontal Slider */}
+                  <div className="block sm:hidden">
+                    <SinglePhoneSlider steps={chineseSteps} lang={lang} themeColor="#534AB7" />
+                  </div>
 
                   {/* Expandable Grid */}
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '16px', width: '100%' }}>
@@ -859,8 +975,23 @@ const MsLinFeatureTabs = ({ lang }) => {
                           {lang === 'zh' ? '訓練：' : 'Train: '}{chineseTypes[activeChineseType].train} ｜ {lang === 'zh' ? '互動：' : 'Interact: '}{chineseTypes[activeChineseType].interact}
                         </div>
 
-                        {/* Right Column: mockups slider (All screen sizes) */}
-                        <div style={{ flex: 1, minWidth: 0, width: '100%' }}>
+                        {/* Right Column: mockups (Desktop/Tablet) */}
+                        <div className="hidden md:grid showcase-mockups-col">
+                          {chineseTypes[activeChineseType].screens.map((screen, idx) => (
+                            <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                              <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                                <img 
+                                  src={screen} 
+                                  alt={chineseTypes[activeChineseType].title} 
+                                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                />
+                              </PhoneMockup>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Mobile slider */}
+                        <div className="block md:hidden w-full">
                           <SinglePhoneSlider 
                             steps={chineseTypes[activeChineseType].screens.map((screen, sIdx) => ({
                               img: screen,
@@ -903,7 +1034,61 @@ const MsLinFeatureTabs = ({ lang }) => {
                       : 'English learning covers multiple skills—word memory, reading comprehension, grammar application, and Chinese-English conversion, each requiring different training. We design specific types for each skill.'}
                   </p>
 
-                  <SinglePhoneSlider steps={englishSteps} lang={lang} themeColor="#378ADD" />
+                  {/* DESKTOP/TABLET ONLY: 4-Column Grid Layout */}
+                  <div className="hidden sm:grid feature-mockup-grid">
+                    {/* Phone 1 (With Image) */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/english-sentence2.png" 
+                          alt="文法造句重組" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </PhoneMockup>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                        {lang === 'zh' ? '文法造句重組 — 點擊排列' : 'Sentence Reordering - Tap to Rebuild'}
+                      </span>
+                    </div>
+
+                    {/* Phone 2 (With Image) */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                        <img 
+                          src="/projects/mslin-app/screens/english-close2.png" 
+                          alt="文意選填" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </PhoneMockup>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                        {lang === 'zh' ? '文意選填 — 空格嵌入段落' : 'Cloze - Slot Words in Paragraphs'}
+                      </span>
+                    </div>
+
+                    {/* Phone 3 (Placeholder) */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#378ADD', opacity: 0.15 }}>3</div>
+                      </PhoneMockup>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                        {lang === 'zh' ? '單字選擇題 — 詞彙辨義' : 'Vocabulary MCQs - Meaning'}
+                      </span>
+                    </div>
+
+                    {/* Phone 4 (Placeholder) */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#378ADD', opacity: 0.15 }}>4</div>
+                      </PhoneMockup>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '8px', lineHeight: '1.4' }}>
+                        {lang === 'zh' ? '拼字題 — 鍵盤輸入' : 'Spelling - Keyboard Input'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* MOBILE ONLY: Single Phone Mockup Horizontal Slider */}
+                  <div className="block sm:hidden">
+                    <SinglePhoneSlider steps={englishSteps} lang={lang} themeColor="#378ADD" />
+                  </div>
 
                   {/* Expandable Grid */}
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '16px', width: '100%' }}>
@@ -985,8 +1170,23 @@ const MsLinFeatureTabs = ({ lang }) => {
                           {lang === 'zh' ? '訓練：' : 'Train: '}{englishTypes[activeEnglishType].train} ｜ {lang === 'zh' ? '互動：' : 'Interact: '}{englishTypes[activeEnglishType].interact}
                         </div>
 
-                        {/* Right Column: mockups slider (All screen sizes) */}
-                        <div style={{ flex: 1, minWidth: 0, width: '100%' }}>
+                        {/* Right Column: mockups (Desktop/Tablet) */}
+                        <div className="hidden md:grid showcase-mockups-col">
+                          {englishTypes[activeEnglishType].screens.map((screen, idx) => (
+                            <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                              <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                                <img 
+                                  src={screen} 
+                                  alt={englishTypes[activeEnglishType].title} 
+                                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                />
+                              </PhoneMockup>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Mobile slider */}
+                        <div className="block md:hidden w-full">
                           <SinglePhoneSlider 
                             steps={englishTypes[activeEnglishType].screens.map((screen, sIdx) => ({
                               img: screen,

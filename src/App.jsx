@@ -421,7 +421,7 @@ const HorizontalMapScroll = ({ url, iaDots = null, lang = 'zh' }) => {
             <div className="flex items-center gap-4">
               <div className="h-1 w-48 bg-gray-100 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-cyan-400 transition-all duration-300"
+                  className="h-full bg-orange-500 transition-all duration-300"
                   style={{ width: `${progress * 100}%` }}
                 />
               </div>
@@ -7531,7 +7531,7 @@ const SPLIT_VIEW_CHIPS = [
                               key={tab.id}
                               className={`border rounded-2xl bg-white p-6 transition-all duration-300 cursor-pointer ${
                                 isExpanded 
-                                  ? 'border-purple-200 shadow-md ring-1 ring-purple-100/30' 
+                                  ? 'border-gray-200 shadow-md' 
                                   : 'border-gray-100 hover:border-gray-200 hover:shadow-sm'
                               }`}
                               onClick={() => handleDecisionTabChange(tab.id)}
@@ -7540,7 +7540,7 @@ const SPLIT_VIEW_CHIPS = [
                               <div className="flex items-center justify-between gap-4 select-none">
                                 <div className="space-y-1 flex-1">
                                   <h5 className={`text-lg md:text-xl font-bold transition-colors duration-200 ${
-                                    isExpanded ? 'text-purple-900' : 'text-gray-900'
+                                    isExpanded ? 'text-black' : 'text-gray-900'
                                   }`}>
                                     {t(tab.title, lang)}
                                   </h5>
@@ -7549,11 +7549,11 @@ const SPLIT_VIEW_CHIPS = [
                                   </p>
                                 </div>
                                 <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-gray-50 transition-colors duration-200 ${
-                                  isExpanded ? 'bg-purple-50' : ''
+                                  isExpanded ? 'bg-gray-100' : ''
                                 }`}>
                                   <svg 
                                     className={`w-5 h-5 transition-transform duration-300 ${
-                                      isExpanded ? 'transform rotate-180 text-purple-600' : 'text-gray-400'
+                                      isExpanded ? 'transform rotate-180 text-black' : 'text-gray-400'
                                     }`} 
                                     fill="none" 
                                     viewBox="0 0 24 24" 
@@ -7573,7 +7573,7 @@ const SPLIT_VIEW_CHIPS = [
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                                   {tab.insights.map((insight, idx) => (
                                     <div key={idx} className="p-5 rounded-xl bg-gray-50/70 border border-gray-100/50 flex flex-col gap-3">
-                                      <span className={`inline-block self-start px-2.5 py-1 text-xs font-bold rounded-md border ${insight.badgeColor}`}>
+                                      <span className="inline-block self-start px-2.5 py-1 text-xs font-bold rounded-md border border-orange-500 bg-orange-500 text-white">
                                         {t(insight.badge, lang)}
                                       </span>
                                       <p className="text-sm text-gray-600 leading-relaxed font-semibold font-noto">
@@ -7590,10 +7590,10 @@ const SPLIT_VIEW_CHIPS = [
                     </div>
 
                     {/* 設計決策分割視圖 */}
-                    <div className="flex flex-col gap-6 mb-16">
+                    <div className="flex flex-col gap-6 mb-16 w-full">
                       
-                      {/* Mobile / Tablet layout tabs (visible on < xl) */}
-                      <div className="block xl:hidden w-full">
+                      {/* Unified Tab Switcher (Capsule styling) */}
+                      <div className="w-full">
                         {/* Tab Switcher Buttons */}
                         <div 
                           ref={mobileTabsContainerRef}
@@ -7624,9 +7624,9 @@ const SPLIT_VIEW_CHIPS = [
                                     }
                                   }
                                 }}
-                                className={`flex-shrink-0 px-4 py-2 text-xs md:text-sm font-bold font-noto rounded-full border transition-all duration-300 cursor-pointer ${
+                                className={`flex-shrink-0 px-5 py-2.5 text-xs md:text-sm font-bold font-noto rounded-full border transition-all duration-300 cursor-pointer ${
                                   isActive
-                                    ? 'bg-[#534ab7] border-[#534ab7] text-white shadow-sm'
+                                    ? 'bg-black border-black text-white shadow-sm shadow-black/10'
                                     : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
                                 }`}
                               >
@@ -7637,8 +7637,8 @@ const SPLIT_VIEW_CHIPS = [
                         </div>
                         
                         {/* Active Tab Description */}
-                        <div className="mt-4 p-5 bg-purple-50/50 border border-purple-100/30 rounded-2xl">
-                          <h6 className="font-bold text-sm text-[#534ab7] mb-2 font-noto">
+                        <div className="mt-4 p-5 bg-gray-50 border border-gray-100 rounded-2xl">
+                          <h6 className="font-bold text-sm md:text-base text-gray-900 mb-2 font-noto">
                             {t(SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.title, lang)}
                           </h6>
                           <p className="text-xs md:text-sm text-gray-600 leading-relaxed font-noto">
@@ -7647,9 +7647,8 @@ const SPLIT_VIEW_CHIPS = [
                         </div>
                       </div>
 
-                      {/* Main Layout Grid */}
-                      <div className="grid grid-cols-1 xl:grid-cols-[3fr_1fr] gap-6 items-start">
-                        {/* Left/Top: Mockups Wrapper */}
+                      {/* Mockups Wrapper - Full Width */}
+                      <div className="w-full">
                         <div className="rounded-[12px] lg:p-[12px] flex flex-col lg:flex-row lg:items-center lg:justify-start relative w-full aspect-none lg:aspect-[16/10] gap-6 lg:gap-0">
                           {videoState === 'none' ? (
                             <div className="w-full h-full relative flex flex-col lg:flex-row lg:items-center lg:justify-start">
@@ -7700,7 +7699,7 @@ const SPLIT_VIEW_CHIPS = [
   
                               {/* Mobile Showcase (Phone Mockup & Shadow removed, border added) */}
                               <div 
-                                className="relative lg:absolute lg:top-12 lg:-right-6 w-[200px] sm:w-[240px] lg:w-[28%] aspect-[9/19.5] lg:aspect-none lg:h-full mt-6 lg:mt-0 mx-auto lg:mx-0 bg-[#080d19] rounded-[2rem] border-[6px] border-[#1a1b20] overflow-hidden flex flex-col z-20"
+                                className="relative lg:absolute lg:top-12 lg:right-0 w-[200px] sm:w-[240px] lg:w-[28%] aspect-[9/19.5] lg:aspect-none lg:h-full mt-6 lg:mt-0 mx-auto lg:mx-0 bg-[#080d19] rounded-[2rem] border-[6px] border-[#1a1b20] overflow-hidden flex flex-col z-20"
                                 onMouseLeave={() => setIsMobileScrollActive(false)}
                               >
                                 {/* Scrollable Mobile Viewport */}
@@ -7784,42 +7783,6 @@ const SPLIT_VIEW_CHIPS = [
                               )}
                             </div>
                           )}
-                        </div>
-  
-                        {/* Right Column: Interactive Chips (Only visible on xl screens) */}
-                        <div className="hidden xl:flex flex-col gap-4 justify-center">
-                          {SPLIT_VIEW_CHIPS.map((chip) => {
-                            const isActive = activeChip === chip.id;
-                            return (
-                              <div
-                                key={chip.id}
-                                onClick={() => {
-                                  if (!isActive) {
-                                    setActiveChip(chip.id);
-                                    setVideoState('none');
-                                  }
-                                }}
-                                className={`border rounded-xl p-5 transition-all duration-300 cursor-pointer ${
-                                  isActive
-                                    ? 'border-[#534ab7] bg-purple-50 text-purple-900 shadow-sm'
-                                    : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
-                                }`}
-                              >
-                                <h5 className={`font-bold text-base md:text-lg font-noto transition-colors duration-300 ${isActive ? 'text-purple-900' : 'text-gray-800'}`}>
-                                  {t(chip.title, lang)}
-                                </h5>
-  
-                                {/* Expandable content */}
-                                <div className={`grid transition-all duration-300 ease-in-out ${isActive ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0 overflow-hidden'}`}>
-                                  <div className="overflow-hidden min-h-0">
-                                    <p className="text-sm text-gray-600 leading-relaxed font-noto">
-                                      {t(chip.desc, lang)}
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            );
-                          })}
                         </div>
                       </div>
                     </div>

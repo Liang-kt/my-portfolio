@@ -2897,6 +2897,23 @@ const SPLIT_VIEW_CHIPS = [
       const [activeColorTab, setActiveColorTab] = useState('Neutral');
       const [activeSystemTab, setActiveSystemTab] = useState('home');
       const [activeLoopTwoTab, setActiveLoopTwoTab] = useState('photo');
+      const [activeMascotTab, setActiveMascotTab] = useState('微笑拿版子-2');
+
+      const MASCOTS = [
+        { name: '微笑拿版子-2', label: lang === 'zh' ? '微笑拿板子' : 'Smile & Sign', file: '微笑拿版子-2.svg' },
+        { name: '傲嬌', label: lang === 'zh' ? '傲嬌' : 'Tsundere', file: '傲嬌.svg' },
+        { name: '厭世-1', label: lang === 'zh' ? '厭世 1' : 'Gloomy 1', file: '厭世-1.svg' },
+        { name: '厭世-2', label: lang === 'zh' ? '厭世 2' : 'Gloomy 2', file: '厭世-2.svg' },
+        { name: '打哈欠', label: lang === 'zh' ? '打哈欠' : 'Yawning', file: '打哈欠.svg' },
+        { name: '暴躁抓狂', label: lang === 'zh' ? '暴躁抓狂' : 'Frustrated', file: '暴躁抓狂.svg' },
+        { name: '無奈', label: lang === 'zh' ? '無奈' : 'Helpless', file: '無奈.svg' },
+        { name: '無臉拿指揮棒', label: lang === 'zh' ? '無臉拿指揮棒' : 'Director', file: '無臉拿指揮棒.svg' },
+        { name: '無表情', label: lang === 'zh' ? '無表情' : 'Expressionless', file: '無表情.svg' },
+        { name: '生氣', label: lang === 'zh' ? '生氣' : 'Angry', file: '生氣.svg' },
+        { name: '翻白眼', label: lang === 'zh' ? '翻白眼' : 'Rolling Eyes', file: '翻白眼.svg' },
+        { name: '輕微認可', label: lang === 'zh' ? '輕微認可' : 'Approval', file: '輕微認可.svg' },
+        { name: '驚訝2', label: lang === 'zh' ? '驚訝' : 'Surprised', file: '驚訝2.svg' }
+      ];
 
 
       const toggleCard = (idx) => {
@@ -6129,47 +6146,65 @@ const SPLIT_VIEW_CHIPS = [
                     </span>
                   </SubHeading>
 
-                  <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
-                    {/* Left block */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '300px' }}>
-                      <div style={{
-                        width: '100%',
-                        aspectRatio: '1 / 1',
-                        borderRadius: '12px',
-                        backgroundColor: '#FFF1E6',
-                        boxShadow: '0 8px 24px rgba(0,0,0,0.04)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        border: '1px solid rgba(0,0,0,0.02)',
-                        boxSizing: 'border-box'
-                      }}>
-                        <span style={{ fontSize: '12px', color: '#EA580C', fontWeight: '500' }}>[ 角色插圖占位 ]</span>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10 w-full">
+                    {/* Left: Interactive Selector Display */}
+                    <div className="flex flex-col gap-6 w-full">
+                      {/* Big Preview Box (Matched to phone aspect-ratio of Wisdome.ai mockups) */}
+                      <div className="w-full flex items-center justify-center p-8 bg-white border border-gray-100 rounded-[2rem] shadow-sm select-none" style={{ aspectRatio: '1.4 / 1', minHeight: '320px' }}>
+                        <img 
+                          src={`projects/mslin-app/illustrations/mascot/${activeMascotTab}.svg`} 
+                          className="max-h-[260px] object-contain transition-transform duration-300 hover:scale-105"
+                          alt={activeMascotTab}
+                        />
                       </div>
-                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center' }}>
-                        Ms Lin 角色插圖
-                      </span>
+                      
+                      {/* Grid Tabs (Reference from Wisdome.ai dashboard cards look) */}
+                      <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 w-full">
+                        {MASCOTS.map((m) => {
+                          const isActive = activeMascotTab === m.name;
+                          return (
+                            <button
+                              key={m.name}
+                              onClick={() => setActiveMascotTab(m.name)}
+                              className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all select-none ${
+                                isActive 
+                                  ? 'bg-[#EEEDFE] border-[#7F77DD] text-[#3C3489] shadow-sm font-bold' 
+                                  : 'bg-gray-50 border-gray-100 hover:bg-gray-100 text-gray-600 hover:text-gray-900'
+                              }`}
+                            >
+                              <div className="w-8 h-8 flex items-center justify-center mb-1.5 opacity-80">
+                                <img src={`projects/mslin-app/illustrations/mascot/${m.file}`} className="w-full h-full object-contain" alt="" />
+                              </div>
+                              <span className="text-[11px] leading-tight truncate w-full">{m.label}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
 
-                    {/* Right block */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '300px' }}>
-                      <div style={{
-                        width: '100%',
-                        aspectRatio: '9 / 19.5',
-                        borderRadius: '28px',
-                        border: '6px solid #000000',
-                        backgroundColor: '#D0CCEA',
-                        boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
-                        boxSizing: 'border-box',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}>
-                        <span style={{ fontSize: '12px', color: '#FFFFFF', fontWeight: '500' }}>[ 首頁情境模擬 ]</span>
+                    {/* Right: Phone Context Mockup */}
+                    <div className="flex flex-col items-center justify-center w-full">
+                      <div className="w-full max-w-[280px]">
+                        <PhoneMockup className="w-full" screenStyle={{ backgroundColor: '#D0CCEA' }}>
+                          <div className="w-full h-full flex items-center justify-center p-6 relative">
+                            {/* Inner Card representing Homepage usage */}
+                            <div className="bg-white rounded-2xl p-4 shadow-md w-full max-w-[200px] flex flex-col items-center gap-3">
+                              <span className="text-xs font-bold text-gray-500">{lang === 'zh' ? '學習夥伴 Ms Lin' : 'Partner Ms Lin'}</span>
+                              <div className="w-24 h-24 flex items-center justify-center">
+                                <img src={`projects/mslin-app/illustrations/mascot/${activeMascotTab}.svg`} className="w-full h-full object-contain" alt="" />
+                              </div>
+                              <div className="text-[11px] text-center text-[#3C3489] font-bold bg-[#EEEDFE] px-3 py-1.5 rounded-full">
+                                {lang === 'zh' ? '「再接再厲喔！」' : '"Keep going!"'}
+                              </div>
+                            </div>
+                          </div>
+                        </PhoneMockup>
+                        <div className="text-center mt-3">
+                          <span className="text-xs text-gray-400 font-bold uppercase tracking-wider">
+                            {lang === 'zh' ? '角色於首頁的情境使用' : 'Mascot Homepage Context'}
+                          </span>
+                        </div>
                       </div>
-                      <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center', lineHeight: '1.4' }}>
-                        角色於首頁的情境使用
-                      </span>
                     </div>
                   </div>
 
@@ -6178,10 +6213,36 @@ const SPLIT_VIEW_CHIPS = [
                     color: '#6B6B6B',
                     lineHeight: '1.7',
                     maxWidth: '680px',
-                    margin: '0'
+                    margin: '0 0 32px 0'
                   }}>
                     為了降低刷題帶來的枯燥與焦慮感，我們設計了親切的角色「Ms Lin」作為學生的學習夥伴。角色不僅出現在 Onboarding 引導與首頁，更會在學生達成連勝或突破記錄時給予即時鼓勵，將冷冰冰的練習轉化為有溫度的陪伴體驗。
                   </p>
+
+                  {/* Phone Mockup Scenario Simulation (Grid of 4 Phones below) */}
+                  <div className="mb-12">
+                    <div className="mb-6">
+                      <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2 select-none">
+                        {lang === 'zh' ? '情境模擬圖' : 'SCENARIO MOCKUPS'}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                      {[
+                        { img: 'projects/mslin-app/screens/photo-analysis/1拍照頁面.jpg', label: lang === 'zh' ? '步驟一：拍照上傳' : '1. Photo Upload' },
+                        { img: 'projects/mslin-app/screens/photo-analysis/5解析完成浮動通知.png', label: lang === 'zh' ? '步驟五：解析完成浮動通知' : '5. Solved Notification' },
+                        { img: 'projects/mslin-app/screens/photo-analysis/7解析成功畫面.png', label: lang === 'zh' ? '步驟七：解析成功畫面' : '7. Question Detail' },
+                        { img: 'projects/mslin-app/screens/photo-analysis/8解析失敗畫面.png', label: lang === 'zh' ? '步驟八：解析失敗畫面' : '8. Retry Prompt' }
+                      ].map((item, idx) => (
+                        <div key={idx} className="flex flex-col items-center">
+                          <PhoneMockup className="w-full">
+                            <img src={item.img} className="w-full h-full object-cover" alt={item.label} />
+                          </PhoneMockup>
+                          <span className="text-xs text-gray-500 font-medium font-noto mt-3 text-center">
+                            {item.label}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 {/* COMPONENT SYSTEM */}

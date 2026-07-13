@@ -545,7 +545,24 @@ const PROJECTS = [
       componentsImages: ['projects/wisdome.ai_web/components-1.jpg', 'projects/wisdome.ai_web/components-2.jpg'],
       webShowcaseStrip: [
         { type: 'video', url: 'projects/wisdome.ai_web/hero-page-web.webm', title: 'Hero Page', desc: '首頁主視覺區塊，以動態影片與品牌標語傳遞 AI 教育平台的創新形象與科技感。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-hero.webm' } },
-        { type: 'video', url: 'projects/wisdome.ai_web/service.mov', title: 'Service', desc: '服務介紹區塊，透過清晰的圖文排版逐一呈現平台核心功能與解決方案。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-service.mov' } },
+        { 
+          type: 'video', 
+          url: [
+            'projects/wisdome.ai_web/service1.webm', 
+            'projects/wisdome.ai_web/service2.webm', 
+            'projects/wisdome.ai_web/service3.webm'
+          ], 
+          title: 'Service', 
+          desc: '服務介紹區塊，透過清晰的圖文排版逐一呈現平台核心功能與解決方案。', 
+          mobile: { 
+            type: 'video', 
+            url: [
+              'projects/wisdome.ai_web/mobile-service1.webm', 
+              'projects/wisdome.ai_web/mobile-service2.webm', 
+              'projects/wisdome.ai_web/mobile-service3.webm'
+            ] 
+          } 
+        },
         { type: 'video', url: 'projects/wisdome.ai_web/why-wisdome.webm', title: 'Why Wisdome', desc: '品牌差異化區塊，說明選擇 Wisdome.ai 的關鍵優勢與競爭力。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-why-wisdome.webm' } },
         { type: 'image', url: 'projects/wisdome.ai_web/success-stories.png', title: 'Success Stories', desc: '成功案例區塊，以數據與客戶回饋建立信任感，強化轉換說服力。', mobile: { type: 'image', url: 'projects/wisdome.ai_web/mobile-sucsess-stories.jpg' } },
         { type: 'video', url: 'projects/wisdome.ai_web/cta-area.webm', title: 'CTA Area', desc: '行動呼籲區塊，引導訪客進行下一步操作，如免費試用或聯繫諮詢。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-cta-area.webm' } },
@@ -922,7 +939,7 @@ const SPLIT_VIEW_CHIPS = [
       zh: '將系統的「自動排課」、「AI 閱卷」等核心功能以模組化卡片呈現，並利用動態流程圖展示，讓非技術背景的主管也能秒懂產品實用價值。',
       en: 'Presents core features like "auto-scheduling" and "AI grading" in modular cards, allowing non-tech administrators to grasp values instantly.'
     },
-    videoUrl: 'projects/wisdome.ai_web/service.mov',
+    videoUrl: 'projects/wisdome.ai_web/service1.webm',
     top: 22,
     height: 30
   },
@@ -7681,7 +7698,13 @@ const SPLIT_VIEW_CHIPS = [
                                         style={{ lineHeight: 0 }}
                                       >
                                         {item.type === 'video' ? (
-                                          <WebShowcaseVideo src={item.url} className="w-full h-auto block" />
+                                          Array.isArray(item.url) ? (
+                                            item.url.map((urlStr, uIdx) => (
+                                              <WebShowcaseVideo key={uIdx} src={urlStr} className="w-full h-auto block" />
+                                            ))
+                                          ) : (
+                                            <WebShowcaseVideo src={item.url} className="w-full h-auto block" />
+                                          )
                                         ) : (
                                           <WebShowcaseImage src={item.url} />
                                         )}
@@ -7727,7 +7750,13 @@ const SPLIT_VIEW_CHIPS = [
                                         style={{ lineHeight: 0 }}
                                       >
                                         {mItem.type === 'video' ? (
-                                          <WebShowcaseVideo src={mItem.url} />
+                                          Array.isArray(mItem.url) ? (
+                                            mItem.url.map((urlStr, uIdx) => (
+                                              <WebShowcaseVideo key={uIdx} src={urlStr} />
+                                            ))
+                                          ) : (
+                                            <WebShowcaseVideo src={mItem.url} />
+                                          )
                                         ) : (
                                           <WebShowcaseImage src={mItem.url} />
                                         )}

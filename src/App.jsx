@@ -2931,6 +2931,18 @@ const SPLIT_VIEW_CHIPS = [
       const [englishAllExpanded, setEnglishAllExpanded] = useState(false);
       const sliderContainerRef = useRef(null);
 
+      const mascotPhonesScrollRef = useRef(null);
+      const [showMascotPhonesLeft, setShowMascotPhonesLeft] = useState(false);
+      const [showMascotPhonesRight, setShowMascotPhonesRight] = useState(true);
+
+      const handleMascotPhonesScroll = () => {
+        if (mascotPhonesScrollRef.current) {
+          const { scrollLeft, scrollWidth, clientWidth } = mascotPhonesScrollRef.current;
+          setShowMascotPhonesLeft(scrollLeft > 5);
+          setShowMascotPhonesRight(scrollLeft + clientWidth < scrollWidth - 5);
+        }
+      };
+
       const aiScrollRef = useRef(null);
       const [showAiLeftArrow, setShowAiLeftArrow] = useState(false);
       const [showAiRightArrow, setShowAiRightArrow] = useState(true);
@@ -6146,11 +6158,11 @@ const SPLIT_VIEW_CHIPS = [
                     </span>
                   </SubHeading>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10 w-full">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10 w-full items-stretch">
                     {/* Left: Interactive Selector Display */}
-                    <div className="flex flex-col gap-6 w-full">
+                    <div className="col-span-1 lg:col-span-7 flex flex-col gap-6 w-full">
                       {/* Big Preview Box (Matched to phone aspect-ratio of Wisdome.ai mockups) */}
-                      <div className="w-full flex items-center justify-center p-8 bg-white border border-gray-100 rounded-[2rem] shadow-sm select-none" style={{ aspectRatio: '1.4 / 1', minHeight: '320px' }}>
+                      <div className="w-full flex items-center justify-center p-8 bg-white border border-gray-100 rounded-[2rem] select-none" style={{ aspectRatio: '1.4 / 1', minHeight: '320px', boxShadow: '0 8px 30px rgba(0,0,0,0.04)' }}>
                         <img 
                           src={`projects/mslin-app/illustrations/mascot/${activeMascotTab}.svg`} 
                           className="max-h-[260px] object-contain transition-transform duration-300 hover:scale-105"
@@ -6182,27 +6194,92 @@ const SPLIT_VIEW_CHIPS = [
                       </div>
                     </div>
 
-                    {/* Right: Phone Context Mockup */}
-                    <div className="flex flex-col items-center justify-center w-full">
-                      <div className="w-full max-w-[280px]">
-                        <PhoneMockup className="w-full" screenStyle={{ backgroundColor: '#D0CCEA' }}>
-                          <div className="w-full h-full flex items-center justify-center p-6 relative">
-                            {/* Inner Card representing Homepage usage */}
-                            <div className="bg-white rounded-2xl p-4 shadow-md w-full max-w-[200px] flex flex-col items-center gap-3">
-                              <span className="text-xs font-bold text-gray-500">{lang === 'zh' ? '學習夥伴 Ms Lin' : 'Partner Ms Lin'}</span>
-                              <div className="w-24 h-24 flex items-center justify-center">
-                                <img src={`projects/mslin-app/illustrations/mascot/${activeMascotTab}.svg`} className="w-full h-full object-contain" alt="" />
-                              </div>
-                              <div className="text-[11px] text-center text-[#3C3489] font-bold bg-[#EEEDFE] px-3 py-1.5 rounded-full">
-                                {lang === 'zh' ? '「再接再厲喔！」' : '"Keep going!"'}
+                    {/* Right: Phone Carousel with 5 mockups */}
+                    <div className="col-span-1 lg:col-span-5 flex flex-col items-center justify-center w-full h-[520px] lg:h-[580px] relative">
+                      <div className="w-full h-full relative flex items-center justify-center flex-grow">
+                        {/* Scroll controls */}
+                        {showMascotPhonesLeft && (
+                          <button 
+                            onClick={() => {
+                              if (mascotPhonesScrollRef.current) {
+                                mascotPhonesScrollRef.current.scrollBy({ left: -290, behavior: 'smooth' });
+                              }
+                            }}
+                            className="absolute left-[-12px] lg:left-[-20px] top-[40%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-700 hover:bg-gray-50 active:scale-95 transition-all select-none"
+                            aria-label="Scroll left"
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" /></svg>
+                          </button>
+                        )}
+                        {showMascotPhonesRight && (
+                          <button 
+                            onClick={() => {
+                              if (mascotPhonesScrollRef.current) {
+                                mascotPhonesScrollRef.current.scrollBy({ left: 290, behavior: 'smooth' });
+                              }
+                            }}
+                            className="absolute right-[-12px] lg:right-[-20px] top-[40%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-700 hover:bg-gray-50 active:scale-95 transition-all select-none"
+                            aria-label="Scroll right"
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" /></svg>
+                          </button>
+                        )}
+
+                        {/* Carousel Scroll Wrapper */}
+                        <div 
+                          ref={mascotPhonesScrollRef}
+                          onScroll={handleMascotPhonesScroll}
+                          className="w-full overflow-x-auto flex gap-6 snap-x snap-mandatory hide-scrollbar py-2 px-1 scroll-smooth"
+                          style={{ maxWidth: '280px', height: '100%' }}
+                        >
+                          {[
+                            {
+                              src: 'projects/mslin-app/screens/home1.png',
+                              label: lang === 'zh' ? '於首頁的情境使用' : 'Context use on Homepage'
+                            },
+                            {
+                              src: 'projects/mslin-app/screens/base1.png',
+                              label: lang === 'zh' ? '於題庫頁' : 'On Question Bank Page'
+                            },
+                            {
+                              src: 'projects/mslin-app/screens/profile1.png',
+                              label: lang === 'zh' ? '於個人頁' : 'On Profile Page'
+                            },
+                            {
+                              src: 'projects/mslin-app/screens/loop/完成頁面.webm',
+                              label: lang === 'zh' ? '於作答完成頁' : 'On Practice Completion Page'
+                            },
+                            {
+                              src: 'projects/mslin-app/screens/Chinese/成語釋義3.png',
+                              label: lang === 'zh' ? '於練習過程即時回饋' : 'Real-time Practice Feedback'
+                            }
+                          ].map((item, idx) => (
+                            <div key={idx} className="w-[260px] shrink-0 snap-center flex flex-col items-center justify-between h-full">
+                              <PhoneMockup className="h-[calc(100%-36px)] w-auto" style={{ width: 'auto', height: 'calc(100% - 36px)', aspectRatio: '9 / 19.5' }}>
+                                {item.src.endsWith('.webm') ? (
+                                  <video 
+                                    src={item.src} 
+                                    autoPlay 
+                                    muted 
+                                    loop 
+                                    playsInline 
+                                    className="w-full h-full object-cover"
+                                  />
+                                ) : (
+                                  <img 
+                                    src={item.src} 
+                                    className="w-full h-full object-cover" 
+                                    alt={item.label} 
+                                  />
+                                )}
+                              </PhoneMockup>
+                              <div className="text-center h-6 flex items-center justify-center">
+                                <span className="text-xs text-gray-500 font-bold font-noto tracking-wide select-none">
+                                  {item.label}
+                                </span>
                               </div>
                             </div>
-                          </div>
-                        </PhoneMockup>
-                        <div className="text-center mt-3">
-                          <span className="text-xs text-gray-400 font-bold uppercase tracking-wider">
-                            {lang === 'zh' ? '角色於首頁的情境使用' : 'Mascot Homepage Context'}
-                          </span>
+                          ))}
                         </div>
                       </div>
                     </div>

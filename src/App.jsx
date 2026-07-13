@@ -3500,7 +3500,7 @@ const SPLIT_VIEW_CHIPS = [
                     </SubHeading>
                     <div className="space-y-4">
                       <div className="flex items-start">
-                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#7F77DD', marginTop: '6px', marginRight: '12px', flexShrink: 0 }}></div>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#E8734A', marginTop: '6px', marginRight: '12px', flexShrink: 0 }}></div>
                         <div className="flex flex-col">
                           <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#111827' }}>2025.11 — 2026.01</span>
                           <span style={{ fontSize: '13px', color: '#6B6B6B' }}>
@@ -3509,7 +3509,7 @@ const SPLIT_VIEW_CHIPS = [
                         </div>
                       </div>
                       <div className="flex items-start">
-                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#7F77DD', marginTop: '6px', marginRight: '12px', flexShrink: 0 }}></div>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#E8734A', marginTop: '6px', marginRight: '12px', flexShrink: 0 }}></div>
                         <div className="flex flex-col">
                           <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#111827' }}>2026.02 — {lang === 'zh' ? '至今' : 'Present'}</span>
                           <span style={{ fontSize: '13px', color: '#6B6B6B' }}>
@@ -3538,19 +3538,22 @@ const SPLIT_VIEW_CHIPS = [
                 <SubHeading>
                   {lang === 'zh' ? '專案成果' : 'Project Outcomes'}
                 </SubHeading>
-                <div style={{ fontSize: '16px', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '24px' }}>
-                  {lang === 'zh' ? '打造兩條學習閉環並獲得數據驗證' : 'Building two learning loops validated by user data'}
-                </div>
+                <ul className="flex flex-col gap-2 text-sm md:text-base text-gray-700 font-bold font-noto list-disc pl-5 mb-8">
+                  <li>{lang === 'zh' ? '打造兩條學習閉環並獲得數據驗證' : 'Building two learning loops validated by user data'}</li>
+                  <li>{lang === 'zh' ? '完成 6 大模組 共 13 個功能' : 'Completed 6 major modules containing 13 features'}</li>
+                  <li>{lang === 'zh' ? '繪製 13 個角色插圖及 8 個系統插圖' : 'Drawn 13 character illustrations and 8 system illustrations'}</li>
+                  <li>{lang === 'zh' ? '建立 16 個元件系統共涵蓋 100 個元件檔' : 'Built 16 component systems covering 100 component files'}</li>
+                </ul>
 
-                {/* Side-by-Side Grid Layout */}
-                <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 xl:gap-6 items-center">
-                  {/* Left Column: Loop Diagram */}
-                  <div className="xl:col-span-8 flex justify-center w-full">
-                    <div style={{ width: '100%', maxWidth: '920px', background: 'none', padding: 0, boxSizing: 'border-box' }} className="w-full">
+                {/* Vertically Stacked Layout */}
+                <div className="flex flex-col items-center gap-2 w-full">
+                  {/* Top: Loop Diagram */}
+                  <div className="w-full flex justify-center">
+                    <div style={{ width: '100%', maxWidth: '1080px', background: 'none', padding: 0, boxSizing: 'border-box' }} className="w-full">
                       
                       {/* DESKTOP VERSION (horizontal SVG) */}
                       <div className="hidden md:block w-full">
-                        <svg id="animated-loops-svg" width="100%" viewBox="22 0 658 330" style={{ fontFamily: 'system-ui', display: 'block', userSelect: 'none' }}>
+                        <svg id="animated-loops-svg" width="100%" viewBox="22 0 658 305" style={{ fontFamily: 'system-ui', display: 'block', userSelect: 'none' }}>
                           <defs>
                             <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
                               <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#7F77DD" />
@@ -3687,7 +3690,7 @@ const SPLIT_VIEW_CHIPS = [
                       </div>
 
                       <div className="block md:hidden w-full max-w-[380px] mx-auto">
-                        <svg id="mobile-loops-svg" width="100%" viewBox="0 0 380 430" style={{ fontFamily: 'system-ui', display: 'block', userSelect: 'none', background: 'transparent' }}>
+                        <svg id="mobile-loops-svg" width="100%" viewBox="0 0 380 422" style={{ fontFamily: 'system-ui', display: 'block', userSelect: 'none', background: 'transparent' }}>
                           <defs>
                             <marker id="arrow-mobile-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                               <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#7F77DD" />
@@ -3870,45 +3873,47 @@ const SPLIT_VIEW_CHIPS = [
                     </div>
                   </div>
 
-                  {/* Right Column: 3 Metrics Cards (Horizontal on mobile/tablet, Stacked Vertically on desktop) */}
-                  <div className="w-full max-w-[658px] mx-auto xl:col-span-4 xl:max-w-none xl:mx-0 mt-8 xl:mt-0">
-                    <div className="grid grid-cols-3 xl:grid-cols-1 gap-6 sm:gap-12 xl:gap-12 w-full">
-                      {/* Card 1 */}
-                      <div id="metric-card-1" className="anim-el flex flex-col items-center xl:items-start text-center xl:text-left" style={{ background: 'none', padding: '12px 0' }}>
-                        <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
-                          {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
+                  {/* Bottom: 3 Metrics Cards (Horizontal, total width aligned to loop diagram) */}
+                  <div className="w-full flex justify-center">
+                    <div className="w-full" style={{ maxWidth: '1080px' }}>
+                      <div className="grid grid-cols-3 gap-6 sm:gap-12 w-full">
+                        {/* Card 1 */}
+                        <div id="metric-card-1" className="anim-el flex flex-col items-center md:items-start text-center md:text-left" style={{ background: 'none', padding: '12px 0' }}>
+                          <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
+                            {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
+                          </div>
+                          <div className="text-[36px] sm:text-[56px] md:text-[68px] lg:text-[80px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
+                            50<span className="text-[16px] sm:text-[22px] md:text-[26px] lg:text-[30px] font-normal text-[#4B5563]">%</span>
+                          </div>
+                          <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
+                            {lang === 'zh' ? '認為五題一輪 loop 完成感適中' : 'Felt a 5-question loop offered a balanced sense of completion'}
+                          </div>
                         </div>
-                        <div className="text-[40px] sm:text-[52px] xl:text-[64px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
-                          50<span className="text-[16px] sm:text-[20px] xl:text-[24px] font-normal text-[#4B5563]">%</span>
-                        </div>
-                        <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
-                          {lang === 'zh' ? '認為五題一輪 loop 完成感適中' : 'Felt a 5-question loop offered a balanced sense of completion'}
-                        </div>
-                      </div>
 
-                      {/* Card 2 */}
-                      <div id="metric-card-2" className="anim-el flex flex-col items-center xl:items-start text-center xl:text-left" style={{ background: 'none', padding: '12px 0' }}>
-                        <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
-                          {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
+                        {/* Card 2 */}
+                        <div id="metric-card-2" className="anim-el flex flex-col items-center text-center" style={{ background: 'none', padding: '12px 0' }}>
+                          <div style={{ background: '#EEEDFE', color: '#3C3489', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
+                            {lang === 'zh' ? '刷題閉環' : 'Practice Loop'}
+                          </div>
+                          <div className="text-[36px] sm:text-[56px] md:text-[68px] lg:text-[80px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
+                            66.7<span className="text-[16px] sm:text-[22px] md:text-[26px] lg:text-[30px] font-normal text-[#4B5563]">%</span>
+                          </div>
+                          <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
+                            {lang === 'zh' ? '認為步驟解題密度合適，能在關鍵折點提供提示' : 'Found step-by-step guidance density appropriate, offering hints at key pivots'}
+                          </div>
                         </div>
-                        <div className="text-[40px] sm:text-[52px] xl:text-[64px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
-                          66.7<span className="text-[16px] sm:text-[20px] xl:text-[24px] font-normal text-[#4B5563]">%</span>
-                        </div>
-                        <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
-                          {lang === 'zh' ? '認為步驟解題密度合適，能在關鍵折點提供提示' : 'Found step-by-step guidance density appropriate, offering hints at key pivots'}
-                        </div>
-                      </div>
 
-                      {/* Card 3 */}
-                      <div id="metric-card-3" className="anim-el flex flex-col items-center xl:items-start text-center xl:text-left" style={{ background: 'none', padding: '12px 0' }}>
-                        <div style={{ background: 'transparent', color: 'var(--color-text-secondary)', border: '0.5px solid var(--color-border-tertiary)', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
-                          {lang === 'zh' ? '問卷訪談' : 'Survey & Interview'}
-                        </div>
-                        <div className="text-[40px] sm:text-[52px] xl:text-[64px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
-                          100<span className="text-[16px] sm:text-[20px] xl:text-[24px] font-normal text-[#4B5563]">%</span>
-                        </div>
-                        <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
-                          {lang === 'zh' ? '參與前期問卷與使用者訪談' : 'Participated in pre-research surveys and user interviews'}
+                        {/* Card 3 */}
+                        <div id="metric-card-3" className="anim-el flex flex-col items-center md:items-end text-center md:text-right" style={{ background: 'none', padding: '12px 0' }}>
+                          <div style={{ background: 'transparent', color: 'var(--color-text-secondary)', border: '0.5px solid var(--color-border-tertiary)', borderRadius: '20px', fontSize: '10px', padding: '1px 7px', display: 'inline-block', marginBottom: '6px' }}>
+                            {lang === 'zh' ? '問卷訪談' : 'Survey & Interview'}
+                          </div>
+                          <div className="text-[36px] sm:text-[56px] md:text-[68px] lg:text-[80px] font-bold text-[#111827]" style={{ lineHeight: '1.1' }}>
+                            100<span className="text-[16px] sm:text-[22px] md:text-[26px] lg:text-[30px] font-normal text-[#4B5563]">%</span>
+                          </div>
+                          <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: '1.5', marginTop: '4px' }}>
+                            {lang === 'zh' ? '參與前期問卷與使用者訪談' : 'Participated in pre-research surveys and user interviews'}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -3927,7 +3932,7 @@ const SPLIT_VIEW_CHIPS = [
 
               {/* CORE INSIGHT QUOTE BLOCK */}
               <div style={{
-                background: '#FFF7ED',
+                background: '#F5F5F5',
                 borderRadius: '16px',
                 padding: '40px 48px',
                 marginBottom: '48px',
@@ -3947,14 +3952,14 @@ const SPLIT_VIEW_CHIPS = [
                   fontSize: '20px',
                   fontWeight: '500',
                   lineHeight: '1.7',
-                  color: '#26215C',
+                  color: '#1F2937',
                   margin: 0
                 }}>
                   Epop 讓人上癮，不是因為即時回饋——而是「累積了努力成本之後的即時回饋」。互動密度高、完成前有持續操作、loop 不能太短，三者共同製造了成就感的重量。
                 </p>
                 <div style={{
                   fontSize: '13px',
-                  color: '#534AB7',
+                  color: '#4B5563',
                   marginTop: '16px',
                   fontWeight: '500'
                 }}>
@@ -3984,7 +3989,7 @@ const SPLIT_VIEW_CHIPS = [
                   <svg viewBox="0 0 700 260" width="100%" height="auto" style={{ display: 'block' }}>
                     <defs>
                       <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#BA7517" />
+                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#000000" />
                       </marker>
                       <linearGradient id="purpleGlow" x1="0%" y1="0%" x2="100%" y2="0%">
                         <stop offset="0%" stopColor="#F97316" stopOpacity="0.15" />
@@ -4004,11 +4009,11 @@ const SPLIT_VIEW_CHIPS = [
                     <path d="M 60,180 L 150,166 L 240,152 L 330,138 L 420,124 L 510,110" fill="none" stroke="#F97316" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
 
                     {/* Green spike: from 題5 (510, 110) to 結果 (600, 45) */}
-                    <path d="M 510,110 L 600,45" fill="none" stroke="#1D9E75" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M 510,110 L 600,45" fill="none" stroke="#000000" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
 
                     {/* Amber return line: from 結果 (600, 45) back to 進入 (60, 180) */}
-                    <path d="M 600,55 Q 330,225 65,185" fill="none" stroke="#BA7517" strokeWidth="2" strokeDasharray="4,4" markerEnd="url(#arrow)" />
-                    <text x="330" y="240" textAnchor="middle" fill="#BA7517" fontSize="11" fontWeight="500">重新進入刷題 Loop</text>
+                    <path d="M 600,55 Q 330,225 65,185" fill="none" stroke="#000000" strokeWidth="2" strokeDasharray="4,4" markerEnd="url(#arrow)" />
+                    <text x="330" y="240" textAnchor="middle" fill="#000000" fontSize="11" fontWeight="500">重新進入刷題 Loop</text>
 
                     {/* Points Dots */}
                     {/* 進入 */}
@@ -4024,7 +4029,7 @@ const SPLIT_VIEW_CHIPS = [
                     {/* 題5 */}
                     <circle cx="510" cy="110" r="4" fill="#F97316" stroke="#FFFFFF" strokeWidth="1.5" />
                     {/* 結果 */}
-                    <circle cx="600" cy="45" r="6" fill="#1D9E75" stroke="#FFFFFF" strokeWidth="2" />
+                    <circle cx="600" cy="45" r="6" fill="#000000" stroke="#FFFFFF" strokeWidth="2" />
 
                     {/* Dot labels */}
                     <text x="60" y="202" textAnchor="middle" fill="#6B6B6B" fontSize="11">進入</text>
@@ -4037,9 +4042,9 @@ const SPLIT_VIEW_CHIPS = [
 
                     {/* Annotation: "回饋釋放點" dot label */}
                     <g>
-                      <rect x="540" y="8" width="120" height="24" fill="#E8F8F2" rx="4" />
-                      <text x="600" y="24" textAnchor="middle" fill="#1D9E75" fontSize="11" fontWeight="600">回饋釋放點 ●</text>
-                      <path d="M 600,32 L 600,40" stroke="#1D9E75" strokeWidth="1" strokeDasharray="1,1" />
+                      <rect x="540" y="8" width="120" height="24" fill="#F5F5F5" rx="4" />
+                      <text x="600" y="24" textAnchor="middle" fill="#000000" fontSize="11" fontWeight="600">回饋釋放點 ●</text>
+                      <path d="M 600,32 L 600,40" stroke="#000000" strokeWidth="1" strokeDasharray="1,1" />
                     </g>
                   </svg>
                 </div>
@@ -6787,7 +6792,7 @@ const SPLIT_VIEW_CHIPS = [
                     ].map((card, idx) => (
                       <div 
                         key={idx} 
-                        className="bg-[#F5F5F5] rounded-2xl p-6 flex flex-col justify-center min-h-[100px] shadow-sm"
+                        className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex flex-col justify-center min-h-[100px] select-none"
                       >
                         <span className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">
                           {t(card.label, lang)}
@@ -6811,9 +6816,9 @@ const SPLIT_VIEW_CHIPS = [
                     <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 lg:gap-20">
                       {/* Left Column: Narrative Background */}
                       <div className="space-y-4">
-                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        <SubHeading>
                           {t({ zh: '專案背景', en: 'Project Background' }, lang)}
-                        </h4>
+                        </SubHeading>
                         <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-noto">
                           {t({
                             zh: 'Wisdome.ai 是一家致力於使用 AI 技術打造全方位線上教育平台的新創公司，以 AI、機器學習以及教育為公司核心概念。我們面臨的核心挑戰在於：教育機構的校長與決策主管多數對 AI 技術感到陌生甚至排斥，如何透過網頁設計將複雜的 AI 概念具象化，進而轉化為信任？',
@@ -6830,9 +6835,9 @@ const SPLIT_VIEW_CHIPS = [
 
                       {/* Right Column: Team Composition */}
                       <div className="space-y-4">
-                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        <SubHeading>
                           {t({ zh: '團隊組成', en: 'Team Composition' }, lang)}
-                        </h4>
+                        </SubHeading>
                         <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-noto list-none pl-0">
                           <li>• {t({ zh: 'UI/UX 設計師 (本人)', en: 'UI/UX Designer (Self)' }, lang)}</li>
                           <li>• {t({ zh: '前端工程師 (本人兼任)', en: 'Frontend Engineer (Self)' }, lang)}</li>
@@ -6844,15 +6849,14 @@ const SPLIT_VIEW_CHIPS = [
                     </div>
 
                     {/* Deliverables Section (below both columns) */}
-                    <div className="pt-8 border-t border-gray-100">
-                      <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
-                        {t({ zh: '交付物', en: 'Deliverables' }, lang)}
-                      </h4>
-                      <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm md:text-base text-gray-700 font-bold font-noto list-disc pl-5">
-                        <li>{t({ zh: '企業視覺識別系統', en: 'Corporate Identity System' }, lang)}</li>
-                        <li>{t({ zh: '企業形象官網設計', en: 'Official Website Design' }, lang)}</li>
-                        <li>{t({ zh: '網頁互動元件設計', en: 'Interactive Web Components' }, lang)}</li>
-                        <li>{t({ zh: '產品功能展示動畫', en: 'Product Showcase Motion' }, lang)}</li>
+                    <div className="pt-6 border-t border-gray-100">
+                      <SubHeading>
+                        {t({ zh: '專案成果', en: 'Project Outcomes' }, lang)}
+                      </SubHeading>
+                      <ul className="flex flex-col gap-2 text-sm md:text-base text-gray-700 font-bold font-noto list-disc pl-5">
+                        <li>{t({ zh: '企業視覺識別系統', en: 'Corporate Visual Identity System' }, lang)}</li>
+                        <li>{t({ zh: '企業識別形象動畫', en: 'Brand Identity Motion Graphics' }, lang)}</li>
+                        <li>{t({ zh: '官網設計', en: 'Official Website Design' }, lang)}</li>
                       </ul>
                     </div>
                   </div>
@@ -8479,9 +8483,9 @@ const SPLIT_VIEW_CHIPS = [
               {/* 2-column text block */}
               <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 lg:gap-20 max-w-6xl pt-2">
                 <div>
-                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
+                  <SubHeading>
                     {lang === 'zh' ? '專案背景' : 'PROJECT BACKGROUND'}
-                  </span>
+                  </SubHeading>
                   <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium font-noto">
                     {lang === 'zh' 
                       ? 'BrainBox 是由 Wisdome.ai 開發，為 SAT 考生打造的個性化線上備考系統。我負責整體視覺設計系統，包含品牌識別、插圖、icon 與動態設計，並與 UI/UX 設計師合作確保視覺與 UI 框架一致。'
@@ -8489,9 +8493,9 @@ const SPLIT_VIEW_CHIPS = [
                   </p>
                 </div>
                 <div>
-                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block select-none">
+                  <SubHeading>
                     {lang === 'zh' ? '團隊組成' : 'TEAM COMPOSITION'}
-                  </span>
+                  </SubHeading>
                   <ul className="space-y-3 text-sm md:text-base text-gray-600 font-medium font-noto list-none pl-0">
                     <li>• Visual Designer（{lang === 'zh' ? '本人' : 'Me'}）</li>
                     <li>• UI/UX {lang === 'zh' ? '設計師 x1' : 'Designer x1'}</li>
@@ -8499,6 +8503,23 @@ const SPLIT_VIEW_CHIPS = [
                     <li>• {lang === 'zh' ? '產品經理 x1' : 'Product Manager x1'}</li>
                   </ul>
                 </div>
+              </div>
+
+              {/* Outcomes Section */}
+              <div className="pt-8 border-t border-gray-100 max-w-6xl">
+                <SubHeading>
+                  {lang === 'zh' ? '專案成果' : 'Project Outcomes'}
+                </SubHeading>
+                <ul className="grid grid-cols-1 md:grid-cols-[max-content_max-content] gap-x-16 gap-y-1.5 text-sm md:text-base text-gray-700 font-bold font-noto list-disc pl-5 max-w-5xl">
+                  <li className="md:whitespace-nowrap">{lang === 'zh' ? '產品識別系統' : 'Product Identity System'}</li>
+                  <li className="md:whitespace-nowrap">{lang === 'zh' ? '品牌吉祥物（含四個動態表情＋兩個吉祥物 loading 動畫）' : 'Brand Mascot (incl. 4 animated expressions & 2 loading loops)'}</li>
+                  <li className="md:whitespace-nowrap">{lang === 'zh' ? '70個靜態圖標＋14個動態圖標' : '70 Static + 14 Animated Icons'}</li>
+                  <li className="md:whitespace-nowrap">{lang === 'zh' ? '品牌吉祥物形象動畫' : 'Brand Mascot Animated Film'}</li>
+                  <li className="md:whitespace-nowrap">{lang === 'zh' ? 'Onboarding 歡迎動畫' : 'Onboarding Welcome Motion'}</li>
+                  <li className="md:whitespace-nowrap">{lang === 'zh' ? '系統動畫' : 'System Motion Graphics'}</li>
+                  <li className="md:whitespace-nowrap">{lang === 'zh' ? '八款用戶頭像' : '8 Custom User Avatars'}</li>
+                  <li className="md:whitespace-nowrap">{lang === 'zh' ? '產品形象動畫' : 'Product Identity Motion'}</li>
+                </ul>
               </div>
             </div>
           </div>

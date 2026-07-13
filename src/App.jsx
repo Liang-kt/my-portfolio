@@ -2898,6 +2898,18 @@ const SPLIT_VIEW_CHIPS = [
       const [activeSystemTab, setActiveSystemTab] = useState('home');
       const [activeLoopTwoTab, setActiveLoopTwoTab] = useState('photo');
       const [activeMascotTab, setActiveMascotTab] = useState('微笑拿版子-2');
+      const [activeSystemIllusTab, setActiveSystemIllusTab] = useState('math-a');
+
+      const SYSTEM_ILLUSTRATIONS = [
+        { name: 'math-a', label: lang === 'zh' ? '數學 A' : 'Math A', file: 'math-a.svg' },
+        { name: 'math-b', label: lang === 'zh' ? '數學 B' : 'Math B', file: 'math-b.svg' },
+        { name: 'chinese', label: lang === 'zh' ? '國文' : 'Chinese', file: 'chinese.svg' },
+        { name: 'english', label: lang === 'zh' ? '英文' : 'English', file: 'english.svg' },
+        { name: 'feature/key-feature1', label: lang === 'zh' ? '特點一' : 'Feature 1', file: 'feature/key-feature1.svg' },
+        { name: 'feature/key-feature2', label: lang === 'zh' ? '特點二' : 'Feature 2', file: 'feature/key-feature2.svg' },
+        { name: 'feature/key-feature3', label: lang === 'zh' ? '特點三' : 'Feature 3', file: 'feature/key-feature3.svg' },
+        { name: 'feature/key-feature4', label: lang === 'zh' ? '特點四' : 'Feature 4', file: 'feature/key-feature4.svg' }
+      ];
 
       const MASCOTS = [
         { name: '微笑拿版子-2', label: lang === 'zh' ? '微笑拿板子' : 'Smile & Sign', file: '微笑拿版子-2.svg' },
@@ -2938,8 +2950,20 @@ const SPLIT_VIEW_CHIPS = [
       const handleMascotPhonesScroll = () => {
         if (mascotPhonesScrollRef.current) {
           const { scrollLeft, scrollWidth, clientWidth } = mascotPhonesScrollRef.current;
-          setShowMascotPhonesLeft(scrollLeft > 5);
-          setShowMascotPhonesRight(scrollLeft + clientWidth < scrollWidth - 5);
+          setShowMascotPhonesLeft(scrollLeft > 50);
+          setShowMascotPhonesRight(scrollLeft + clientWidth < scrollWidth - 50);
+        }
+      };
+
+      const systemIllusScrollRef = useRef(null);
+      const [showSystemIllusLeft, setShowSystemIllusLeft] = useState(false);
+      const [showSystemIllusRight, setShowSystemIllusRight] = useState(true);
+
+      const handleSystemIllusScroll = () => {
+        if (systemIllusScrollRef.current) {
+          const { scrollLeft, scrollWidth, clientWidth } = systemIllusScrollRef.current;
+          setShowSystemIllusLeft(scrollLeft > 50);
+          setShowSystemIllusRight(scrollLeft + clientWidth < scrollWidth - 50);
         }
       };
 
@@ -6140,7 +6164,7 @@ const SPLIT_VIEW_CHIPS = [
                 {/* CHARACTER DESIGN */}
                 <div style={{ marginBottom: '48px' }}>
                   <SubHeading>
-                    插圖與角色設計
+                    角色設計
                     <span style={{
                       fontSize: '11px',
                       color: '#854F0B',
@@ -6158,11 +6182,21 @@ const SPLIT_VIEW_CHIPS = [
                     </span>
                   </SubHeading>
 
+                  <p style={{
+                    fontSize: '13px',
+                    color: '#6B6B6B',
+                    lineHeight: '1.7',
+                    maxWidth: '680px',
+                    margin: '0 0 32px 0'
+                  }}>
+                    為了降低刷題帶來的枯燥與焦慮感，我們設計了親切的角色「Ms Lin」作為學生的學習夥伴。角色不僅出現在 Onboarding 引導與首頁，更會在學生達成連勝或突破記錄時給予即時鼓勵，將冷冰冰的練習轉化為有溫度的陪伴體驗。
+                  </p>
+
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10 w-full items-stretch">
                     {/* Left: Interactive Selector Display */}
-                    <div className="col-span-1 lg:col-span-7 flex flex-col gap-6 w-full">
-                      {/* Big Preview Box (Matched to phone aspect-ratio of Wisdome.ai mockups) */}
-                      <div className="w-full flex items-center justify-center p-8 bg-white border border-gray-100 rounded-[2rem] select-none" style={{ aspectRatio: '1.4 / 1', minHeight: '320px', boxShadow: '0 8px 30px rgba(0,0,0,0.04)' }}>
+                    <div className="col-span-1 lg:col-span-6 flex flex-col gap-6 w-full justify-between">
+                      {/* Big Preview Box (Width-aligned to tabs below it, height shrunk back) */}
+                      <div className="w-full flex items-center justify-center p-6 bg-white border border-gray-100 rounded-[2rem] select-none" style={{ aspectRatio: '1.35 / 1', boxShadow: '0 8px 30px rgba(0,0,0,0.04)' }}>
                         <img 
                           src={`projects/mslin-app/illustrations/mascot/${activeMascotTab}.svg`} 
                           className="max-h-[260px] object-contain transition-transform duration-300 hover:scale-105"
@@ -6170,15 +6204,15 @@ const SPLIT_VIEW_CHIPS = [
                         />
                       </div>
                       
-                      {/* Grid Tabs (Reference from Wisdome.ai dashboard cards look) */}
-                      <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 w-full">
+                      {/* Grid Tabs (Arranged in 5, 5, 3 layout) */}
+                      <div className="grid grid-cols-5 gap-2.5 w-full">
                         {MASCOTS.map((m) => {
                           const isActive = activeMascotTab === m.name;
                           return (
                             <button
                               key={m.name}
                               onClick={() => setActiveMascotTab(m.name)}
-                              className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all select-none ${
+                              className={`flex flex-col items-center justify-center p-2 rounded-2xl border text-center transition-all select-none ${
                                 isActive 
                                   ? 'bg-[#EEEDFE] border-[#7F77DD] text-[#3C3489] shadow-sm font-bold' 
                                   : 'bg-gray-50 border-gray-100 hover:bg-gray-100 text-gray-600 hover:text-gray-900'
@@ -6194,15 +6228,15 @@ const SPLIT_VIEW_CHIPS = [
                       </div>
                     </div>
 
-                    {/* Right: Phone Carousel with 5 mockups */}
-                    <div className="col-span-1 lg:col-span-5 flex flex-col items-center justify-center w-full h-[520px] lg:h-[580px] relative">
+                    {/* Right: Phone Carousel with 5 mockups (Shows 2.5 phones at a time on desktop, height-aligned to left column) */}
+                    <div className="col-span-1 lg:col-span-6 flex flex-col items-center justify-start w-full h-[520px] lg:h-full relative">
                       <div className="w-full h-full relative flex items-center justify-center flex-grow">
                         {/* Scroll controls */}
                         {showMascotPhonesLeft && (
                           <button 
                             onClick={() => {
                               if (mascotPhonesScrollRef.current) {
-                                mascotPhonesScrollRef.current.scrollBy({ left: -290, behavior: 'smooth' });
+                                mascotPhonesScrollRef.current.scrollBy({ left: -296, behavior: 'smooth' });
                               }
                             }}
                             className="absolute left-[-12px] lg:left-[-20px] top-[40%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-700 hover:bg-gray-50 active:scale-95 transition-all select-none"
@@ -6215,7 +6249,7 @@ const SPLIT_VIEW_CHIPS = [
                           <button 
                             onClick={() => {
                               if (mascotPhonesScrollRef.current) {
-                                mascotPhonesScrollRef.current.scrollBy({ left: 290, behavior: 'smooth' });
+                                mascotPhonesScrollRef.current.scrollBy({ left: 296, behavior: 'smooth' });
                               }
                             }}
                             className="absolute right-[-12px] lg:right-[-20px] top-[40%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-700 hover:bg-gray-50 active:scale-95 transition-all select-none"
@@ -6229,8 +6263,8 @@ const SPLIT_VIEW_CHIPS = [
                         <div 
                           ref={mascotPhonesScrollRef}
                           onScroll={handleMascotPhonesScroll}
-                          className="w-full overflow-x-auto flex gap-6 snap-x snap-mandatory hide-scrollbar py-2 px-1 scroll-smooth"
-                          style={{ maxWidth: '280px', height: '100%' }}
+                          className="w-full overflow-x-auto flex gap-8 snap-x snap-mandatory hide-scrollbar py-4 px-6 scroll-smooth"
+                          style={{ maxWidth: '724px', height: '100%' }}
                         >
                           {[
                             {
@@ -6238,11 +6272,11 @@ const SPLIT_VIEW_CHIPS = [
                               label: lang === 'zh' ? '於首頁的情境使用' : 'Context use on Homepage'
                             },
                             {
-                              src: 'projects/mslin-app/screens/base1.png',
+                              src: 'projects/mslin-app/screens/question-bank/base1.png',
                               label: lang === 'zh' ? '於題庫頁' : 'On Question Bank Page'
                             },
                             {
-                              src: 'projects/mslin-app/screens/profile1.png',
+                              src: 'projects/mslin-app/screens/profile/profile1.png',
                               label: lang === 'zh' ? '於個人頁' : 'On Profile Page'
                             },
                             {
@@ -6254,8 +6288,8 @@ const SPLIT_VIEW_CHIPS = [
                               label: lang === 'zh' ? '於練習過程即時回饋' : 'Real-time Practice Feedback'
                             }
                           ].map((item, idx) => (
-                            <div key={idx} className="w-[260px] shrink-0 snap-center flex flex-col items-center justify-between h-full">
-                              <PhoneMockup className="h-[calc(100%-36px)] w-auto" style={{ width: 'auto', height: 'calc(100% - 36px)', aspectRatio: '9 / 19.5' }}>
+                            <div key={idx} className="w-[220px] lg:w-[264px] shrink-0 snap-start flex flex-col items-center gap-3 py-2">
+                              <PhoneMockup className="w-full h-auto" style={{ width: '100%', height: 'auto', aspectRatio: '9 / 19.5' }}>
                                 {item.src.endsWith('.webm') ? (
                                   <video 
                                     src={item.src} 
@@ -6285,6 +6319,29 @@ const SPLIT_VIEW_CHIPS = [
                     </div>
                   </div>
 
+                </div>
+
+                {/* SYSTEM ILLUSTRATIONS */}
+                <div style={{ marginBottom: '48px' }}>
+                  <SubHeading>
+                    系統插圖
+                    <span style={{
+                      fontSize: '11px',
+                      color: '#854F0B',
+                      backgroundColor: '#FAEEDA',
+                      borderRadius: '20px',
+                      padding: '2px 10px',
+                      fontWeight: '500',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      marginLeft: '12px',
+                      verticalAlign: 'middle',
+                      textTransform: 'none'
+                    }}>
+                      學科插圖迭代中 ▲
+                    </span>
+                  </SubHeading>
+
                   <p style={{
                     fontSize: '13px',
                     color: '#6B6B6B',
@@ -6292,32 +6349,133 @@ const SPLIT_VIEW_CHIPS = [
                     maxWidth: '680px',
                     margin: '0 0 32px 0'
                   }}>
-                    為了降低刷題帶來的枯燥與焦慮感，我們設計了親切的角色「Ms Lin」作為學生的學習夥伴。角色不僅出現在 Onboarding 引導與首頁，更會在學生達成連勝或突破記錄時給予即時鼓勵，將冷冰冰的練習轉化為有溫度的陪伴體驗。
+                    系統插圖旨在為各個學科建立專屬且具高識別度的視覺意象。在題庫科目切換及單元選擇選單中，運用富含學科特色的插圖，不僅引導學生的視覺焦點，更能降低作答前的心智負擔，為學生營造有質感、富趣味的學習氛圍。
                   </p>
 
-                  {/* Phone Mockup Scenario Simulation (Grid of 4 Phones below) */}
-                  <div className="mb-12">
-                    <div className="mb-6">
-                      <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2 select-none">
-                        {lang === 'zh' ? '情境模擬圖' : 'SCENARIO MOCKUPS'}
-                      </span>
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10 w-full items-stretch">
+                    {/* Left: Interactive Selector Display */}
+                    <div className="col-span-1 lg:col-span-6 flex flex-col gap-4 w-full justify-start">
+                      {/* Big Preview Box (Width-aligned to tabs below it, height shrunk back) */}
+                      <div className="w-full flex items-center justify-center p-6 bg-white border border-gray-100 rounded-[2rem] select-none" style={{ aspectRatio: '1.35 / 1', boxShadow: '0 8px 30px rgba(0,0,0,0.04)' }}>
+                        <img 
+                          src={`projects/mslin-app/illustrations/${activeSystemIllusTab}.svg`} 
+                          className="max-h-[310px] object-contain transition-transform duration-300 hover:scale-105"
+                          alt={activeSystemIllusTab}
+                        />
+                      </div>
+                      
+                      {/* Grid Tabs */}
+                      <div className="grid grid-cols-4 gap-2.5 w-full">
+                        {SYSTEM_ILLUSTRATIONS.map((m) => {
+                          const isActive = activeSystemIllusTab === m.name;
+                          return (
+                            <button
+                              key={m.name}
+                              onClick={() => setActiveSystemIllusTab(m.name)}
+                              className={`flex flex-col items-center justify-center p-2 rounded-2xl border text-center transition-all select-none ${
+                                isActive 
+                                  ? 'bg-[#EEEDFE] border-[#7F77DD] text-[#3C3489] shadow-sm font-bold' 
+                                  : 'bg-gray-50 border-gray-100 hover:bg-gray-100 text-gray-600 hover:text-gray-900'
+                              }`}
+                            >
+                              <div className="w-8 h-8 flex items-center justify-center mb-1.5 opacity-80">
+                                <img src={`projects/mslin-app/illustrations/${m.file}`} className="w-full h-full object-contain" alt="" />
+                              </div>
+                              <span className="text-[11px] leading-tight truncate w-full">{m.label}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                      {[
-                        { img: 'projects/mslin-app/screens/photo-analysis/1拍照頁面.jpg', label: lang === 'zh' ? '步驟一：拍照上傳' : '1. Photo Upload' },
-                        { img: 'projects/mslin-app/screens/photo-analysis/5解析完成浮動通知.png', label: lang === 'zh' ? '步驟五：解析完成浮動通知' : '5. Solved Notification' },
-                        { img: 'projects/mslin-app/screens/photo-analysis/7解析成功畫面.png', label: lang === 'zh' ? '步驟七：解析成功畫面' : '7. Question Detail' },
-                        { img: 'projects/mslin-app/screens/photo-analysis/8解析失敗畫面.png', label: lang === 'zh' ? '步驟八：解析失敗畫面' : '8. Retry Prompt' }
-                      ].map((item, idx) => (
-                        <div key={idx} className="flex flex-col items-center">
-                          <PhoneMockup className="w-full">
-                            <img src={item.img} className="w-full h-full object-cover" alt={item.label} />
-                          </PhoneMockup>
-                          <span className="text-xs text-gray-500 font-medium font-noto mt-3 text-center">
-                            {item.label}
-                          </span>
+
+                    {/* Right: Phone Carousel with 5 mockups (Shows 2.5 phones at a time on desktop, height-aligned to left column) */}
+                    <div className="col-span-1 lg:col-span-6 flex flex-col items-center justify-start w-full h-[520px] lg:h-full relative">
+                      <div className="w-full h-full relative flex items-center justify-center flex-grow">
+                        {/* Scroll controls */}
+                        {showSystemIllusLeft && (
+                          <button 
+                            onClick={() => {
+                              if (systemIllusScrollRef.current) {
+                                systemIllusScrollRef.current.scrollBy({ left: -296, behavior: 'smooth' });
+                              }
+                            }}
+                            className="absolute left-[-12px] lg:left-[-20px] top-[40%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-700 hover:bg-gray-50 active:scale-95 transition-all select-none"
+                            aria-label="Scroll left"
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" /></svg>
+                          </button>
+                        )}
+                        {showSystemIllusRight && (
+                          <button 
+                            onClick={() => {
+                              if (systemIllusScrollRef.current) {
+                                systemIllusScrollRef.current.scrollBy({ left: 296, behavior: 'smooth' });
+                              }
+                            }}
+                            className="absolute right-[-12px] lg:right-[-20px] top-[40%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-700 hover:bg-gray-50 active:scale-95 transition-all select-none"
+                            aria-label="Scroll right"
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" /></svg>
+                          </button>
+                        )}
+
+                        {/* Carousel Scroll Wrapper */}
+                        <div 
+                          ref={systemIllusScrollRef}
+                          onScroll={handleSystemIllusScroll}
+                          className="w-full overflow-x-auto flex gap-8 snap-x snap-mandatory hide-scrollbar py-4 px-6 scroll-smooth"
+                          style={{ maxWidth: '724px', height: '100%' }}
+                        >
+                          {[
+                            {
+                              src: 'projects/mslin-app/screens/home/subject-images.webm',
+                              label: lang === 'zh' ? '於首頁學科展示' : 'Subject Display on Homepage'
+                            },
+                            {
+                              src: 'projects/mslin-app/screens/onboarding/key-feature1.jpg',
+                              label: lang === 'zh' ? '引導特點一' : 'Onboarding Feature 1'
+                            },
+                            {
+                              src: 'projects/mslin-app/screens/onboarding/key-feature2.jpg',
+                              label: lang === 'zh' ? '引導特點二' : 'Onboarding Feature 2'
+                            },
+                            {
+                              src: 'projects/mslin-app/screens/onboarding/key-feature3.jpg',
+                              label: lang === 'zh' ? '引導特點三' : 'Onboarding Feature 3'
+                            },
+                            {
+                              src: 'projects/mslin-app/screens/onboarding/key-feature4.jpg',
+                              label: lang === 'zh' ? '引導特點四' : 'Onboarding Feature 4'
+                            }
+                          ].map((item, idx) => (
+                            <div key={idx} className="w-[220px] lg:w-[264px] shrink-0 snap-start flex flex-col items-center gap-3 py-2">
+                              <PhoneMockup className="w-full h-auto" style={{ width: '100%', height: 'auto', aspectRatio: '9 / 19.5' }}>
+                                {item.src.endsWith('.webm') ? (
+                                  <video 
+                                    src={item.src} 
+                                    autoPlay 
+                                    muted 
+                                    loop 
+                                    playsInline 
+                                    className="w-full h-full object-cover"
+                                  />
+                                ) : (
+                                  <img 
+                                    src={item.src} 
+                                    className="w-full h-full object-cover" 
+                                    alt={item.label} 
+                                  />
+                                )}
+                              </PhoneMockup>
+                              <div className="text-center h-6 flex items-center justify-center">
+                                <span className="text-xs text-gray-500 font-bold font-noto tracking-wide select-none">
+                                  {item.label}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -6356,6 +6514,16 @@ const SPLIT_VIEW_CHIPS = [
 
                     {/* 6. Accordion (col-span-1) */}
                     {renderCard(accordionComp, 'col-span-1 min-h-[200px]')}
+                  </div>
+
+                  <div className="flex justify-center items-center mt-12 py-6 border-t border-dashed border-gray-100">
+                    <span className="text-xs text-gray-400 font-medium font-noto tracking-wider select-none flex items-center gap-1.5">
+                      <svg className="w-3.5 h-3.5 animate-pulse text-[#7F77DD]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" strokeWidth="2.5"></circle>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4l3 3"></path>
+                      </svg>
+                      {lang === 'zh' ? '更多元件展示 Coming Soon' : 'More components Coming Soon'}
+                    </span>
                   </div>
                 </div>
               </div>

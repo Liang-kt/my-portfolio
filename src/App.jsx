@@ -492,87 +492,6 @@ const CATEGORIES = [
 
 const PROJECTS = [
   {
-    id: 1,
-    categoryId: 'uiux',
-    platform: 'web',
-    title: 'Wisdome.ai 官網設計',
-    thumb: 'bg-[#0f172a]',
-    coverMedia: { type: 'image', url: 'projects/wisdome.ai_web/cover.webp' },
-    heroMedia: { type: 'video', url: 'projects/wisdome.ai_web/cover-video.webm' },
-    tags: ['UI/UX', 'Web Design'],
-    client: 'WISDOME.AI',
-    year: '2023 - 2024',
-    projectOverview: {
-      clientLogoUrl: 'projects/wisdome.ai_web/wisdomeai_logo.svg',
-      backgroundAndGoals: 'Wisdome.ai 是一家致力於使用ai 技術打造全方位線上教育平台的新創公司，以AI、機器學習以及教育為公司核心概念。在這支形象動畫中利用俐落的線條元素搭配快節奏的動態串接，完整Wisdome.ai 創新及科技導向的企業風格。',
-      challenge: 'Wisdome.ai is a startup focused on creating a comprehensive online education platform using AI, machine learning, and education as its core. This promotional video uses sleek lines and fast-paced animation to showcase Wisdome.ai’s innovative and tech-driven identity.',
-      myRole: 'UI/UX Designer & Motion Designer',
-      service: 'VIS Design, Web Design, Corporate Identity Animation'
-    },
-    strategyAndArchitecture: {
-      description: '',
-      iaImage: 'projects/wisdome.ai_web/ia-map.png'
-    },
-    brandIdentity: {
-      motionVideoUrl: 'projects/wisdome.ai_web/wisdome.ai_motion-brading.mp4',
-      combinedView: true,
-      typography: {
-        en: { name: 'Figtree', preview: 'WISDOME.AI' },
-        tc: { name: 'Noto Sans TC', preview: '聚愢科技股份有限公司' }
-      },
-      colorDesc: '以明快的藍色及堅實的黑色作為品牌代表色，象徵為穩固的教育體系中增添科技導向的解決方針。',
-      logos: [
-        {
-          type: 'Graphic Logo',
-          title: '[ 圖像標誌設計理念 ]',
-          description: '此處可以說明圖像 Logo 的設計靈感、隱喻或是幾何構造原理...',
-          imageUrl: 'projects/wisdome.ai_web/graph-logo.png'
-        },
-        {
-          type: 'Logotype',
-          title: '[ 標準字設計理念 ]',
-          description: '此處可以說明文字 Logo 的筆畫細節、字型選擇原因與微調...',
-          imageUrl: 'projects/wisdome.ai_web/logotype.png'
-        }
-      ],
-      colors: [
-        { hex: '#282828', name: 'Primary Dark' },
-        { hex: '#00D2E2', name: 'Accent Cyan' }
-      ]
-    },
-    design: {
-      designSystemDesc: '',
-      componentsImages: ['projects/wisdome.ai_web/components-1.jpg', 'projects/wisdome.ai_web/components-2.jpg'],
-      webShowcaseStrip: [
-        { type: 'video', url: 'projects/wisdome.ai_web/hero-page-web.webm', title: 'Hero Page', desc: '首頁主視覺區塊，以動態影片與品牌標語傳遞 AI 教育平台的創新形象與科技感。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-hero.webm' } },
-        { 
-          type: 'video', 
-          url: [
-            'projects/wisdome.ai_web/service1.webm', 
-            'projects/wisdome.ai_web/service2.webm', 
-            'projects/wisdome.ai_web/service3.webm'
-          ], 
-          title: 'Service', 
-          desc: '服務介紹區塊，透過清晰的圖文排版逐一呈現平台核心功能與解決方案。', 
-          mobile: { 
-            type: 'video', 
-            url: [
-              'projects/wisdome.ai_web/mobile-service1.webm', 
-              'projects/wisdome.ai_web/mobile-service2.webm', 
-              'projects/wisdome.ai_web/mobile-service3.webm'
-            ] 
-          } 
-        },
-        { type: 'video', url: 'projects/wisdome.ai_web/why-wisdome.webm', title: 'Why Wisdome', desc: '品牌差異化區塊，說明選擇 Wisdome.ai 的關鍵優勢與競爭力。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-why-wisdome.webm' } },
-        { type: 'image', url: 'projects/wisdome.ai_web/success-stories.png', title: 'Success Stories', desc: '成功案例區塊，以數據與客戶回饋建立信任感，強化轉換說服力。', mobile: { type: 'image', url: 'projects/wisdome.ai_web/mobile-sucsess-stories.jpg' } },
-        { type: 'video', url: 'projects/wisdome.ai_web/cta-area.webm', title: 'CTA Area', desc: '行動呼籲區塊，引導訪客進行下一步操作，如免費試用或聯繫諮詢。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-cta-area.webm' } },
-        { type: 'image', url: 'projects/wisdome.ai_web/about-us.png', title: 'About Us', desc: '關於我們區塊，介紹團隊背景與企業願景，拉近與用戶的距離。', mobile: { type: 'image', url: 'projects/wisdome.ai_web/mobile-last-part.jpg' } },
-        { type: 'image', url: 'projects/wisdome.ai_web/contact-us.png', title: 'Contact Us', desc: '聯絡資訊區塊，提供多元聯繫管道，降低用戶溝通門檻。' },
-        { type: 'image', url: 'projects/wisdome.ai_web/footer.png', title: 'Footer', desc: '頁尾區塊，統整網站導航、社群連結與版權資訊。' }
-      ]
-    }
-  },
-  {
     id: 2,
     categoryId: 'uiux',
     platform: 'app',
@@ -706,6 +625,87 @@ const PROJECTS = [
     mascotDesign: {
       description: '設計了象徵智慧與陪伴的貓頭鷹吉祥物「Line 醬」，在使用者答對連續題目時給予動態鼓勵，增加學習趣味。',
       images: ['projects/msline/mascot-1.mp4', 'projects/msline/mascot-2.mp4']
+    }
+  },
+  {
+    id: 1,
+    categoryId: 'uiux',
+    platform: 'web',
+    title: 'Wisdome.ai 官網設計',
+    thumb: 'bg-[#0f172a]',
+    coverMedia: { type: 'image', url: 'projects/wisdome.ai_web/cover.webp' },
+    heroMedia: { type: 'video', url: 'projects/wisdome.ai_web/cover-video.webm' },
+    tags: ['UI/UX', 'Web Design'],
+    client: 'WISDOME.AI',
+    year: '2023 - 2024',
+    projectOverview: {
+      clientLogoUrl: 'projects/wisdome.ai_web/wisdomeai_logo.svg',
+      backgroundAndGoals: 'Wisdome.ai 是一家致力於使用ai 技術打造全方位線上教育平台的新創公司，以AI、機器學習以及教育為公司核心概念。在這支形象動畫中利用俐落的線條元素搭配快節奏的動態串接，完整Wisdome.ai 創新及科技導向的企業風格。',
+      challenge: 'Wisdome.ai is a startup focused on creating a comprehensive online education platform using AI, machine learning, and education as its core. This promotional video uses sleek lines and fast-paced animation to showcase Wisdome.ai’s innovative and tech-driven identity.',
+      myRole: 'UI/UX Designer & Motion Designer',
+      service: 'VIS Design, Web Design, Corporate Identity Animation'
+    },
+    strategyAndArchitecture: {
+      description: '',
+      iaImage: 'projects/wisdome.ai_web/ia-map.png'
+    },
+    brandIdentity: {
+      motionVideoUrl: 'projects/wisdome.ai_web/wisdome.ai_motion-brading.mp4',
+      combinedView: true,
+      typography: {
+        en: { name: 'Figtree', preview: 'WISDOME.AI' },
+        tc: { name: 'Noto Sans TC', preview: '聚愢科技股份有限公司' }
+      },
+      colorDesc: '以明快的藍色及堅實的黑色作為品牌代表色，象徵為穩固的教育體系中增添科技導向的解決方針。',
+      logos: [
+        {
+          type: 'Graphic Logo',
+          title: '[ 圖像標誌設計理念 ]',
+          description: '此處可以說明圖像 Logo 的設計靈感、隱喻或是幾何構造原理...',
+          imageUrl: 'projects/wisdome.ai_web/graph-logo.png'
+        },
+        {
+          type: 'Logotype',
+          title: '[ 標準字設計理念 ]',
+          description: '此處可以說明文字 Logo 的筆畫細節、字型選擇原因與微調...',
+          imageUrl: 'projects/wisdome.ai_web/logotype.png'
+        }
+      ],
+      colors: [
+        { hex: '#282828', name: 'Primary Dark' },
+        { hex: '#00D2E2', name: 'Accent Cyan' }
+      ]
+    },
+    design: {
+      designSystemDesc: '',
+      componentsImages: ['projects/wisdome.ai_web/components-1.jpg', 'projects/wisdome.ai_web/components-2.jpg'],
+      webShowcaseStrip: [
+        { type: 'video', url: 'projects/wisdome.ai_web/hero-page-web.webm', title: 'Hero Page', desc: '首頁主視覺區塊，以動態影片與品牌標語傳遞 AI 教育平台的創新形象與科技感。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-hero.webm' } },
+        { 
+          type: 'video', 
+          url: [
+            'projects/wisdome.ai_web/service1.webm', 
+            'projects/wisdome.ai_web/service2.webm', 
+            'projects/wisdome.ai_web/service3.webm'
+          ], 
+          title: 'Service', 
+          desc: '服務介紹區塊，透過清晰的圖文排版逐一呈現平台核心功能與解決方案。', 
+          mobile: { 
+            type: 'video', 
+            url: [
+              'projects/wisdome.ai_web/mobile-service1.webm', 
+              'projects/wisdome.ai_web/mobile-service2.webm', 
+              'projects/wisdome.ai_web/mobile-service3.webm'
+            ] 
+          } 
+        },
+        { type: 'video', url: 'projects/wisdome.ai_web/why-wisdome.webm', title: 'Why Wisdome', desc: '品牌差異化區塊，說明選擇 Wisdome.ai 的關鍵優勢與競爭力。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-why-wisdome.webm' } },
+        { type: 'image', url: 'projects/wisdome.ai_web/success-stories.png', title: 'Success Stories', desc: '成功案例區塊，以數據與客戶回饋建立信任感，強化轉換說服力。', mobile: { type: 'image', url: 'projects/wisdome.ai_web/mobile-sucsess-stories.jpg' } },
+        { type: 'video', url: 'projects/wisdome.ai_web/cta-area.webm', title: 'CTA Area', desc: '行動呼籲區塊，引導訪客進行下一步操作，如免費試用或聯繫諮詢。', mobile: { type: 'video', url: 'projects/wisdome.ai_web/mobile-cta-area.webm' } },
+        { type: 'image', url: 'projects/wisdome.ai_web/about-us.png', title: 'About Us', desc: '關於我們區塊，介紹團隊背景與企業願景，拉近與用戶的距離。', mobile: { type: 'image', url: 'projects/wisdome.ai_web/mobile-last-part.jpg' } },
+        { type: 'image', url: 'projects/wisdome.ai_web/contact-us.png', title: 'Contact Us', desc: '聯絡資訊區塊，提供多元聯繫管道，降低用戶溝通門檻。' },
+        { type: 'image', url: 'projects/wisdome.ai_web/footer.png', title: 'Footer', desc: '頁尾區塊，統整網站導航、社群連結與版權資訊。' }
+      ]
     }
   },
   {
@@ -3436,34 +3436,23 @@ const SPLIT_VIEW_CHIPS = [
               <ProjectSectionHeader num="01" title={lang === 'zh' ? '專案概述' : 'Project Overview'} />
 
               {/* CORE DESIGN QUESTION */}
-              <div style={{
-                borderLeft: '3px solid #7F77DD',
-                borderRadius: '0 8px 8px 0',
-                padding: '24px 32px',
-                background: '#FAFAFE',
-                boxSizing: 'border-box',
-                marginBottom: '40px'
-              }}>
-                <div style={{
-                  fontSize: '11px',
-                  textTransform: 'uppercase',
-                  color: '#7F77DD',
-                  fontWeight: 'bold',
-                  letterSpacing: '0.05em',
-                  marginBottom: '8px'
-                }}>
+              <div 
+                className="p-6 md:p-10 mb-10 transition-all duration-[800ms] ease-out transform"
+                style={{
+                  borderLeft: '3px solid #F97316',
+                  background: '#FFF7ED', // light orange
+                  borderRadius: '0 16px 16px 0',
+                  boxSizing: 'border-box'
+                }}
+              >
+                <div className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-3">
                   {lang === 'zh' ? '核心設計問題' : 'Core Design Question'}
                 </div>
-                <div style={{
-                  fontSize: '22px',
-                  fontWeight: '500',
-                  lineHeight: '1.6',
-                  color: '#1A1A1A'
-                }}>
+                <p className="text-xl md:text-3xl font-bold text-gray-900 leading-relaxed font-sans">
                   {lang === 'zh' 
                     ? '如何讓學生在不同的學習情境下——不論是主動備考還是考後解惑——都能形成完整的學習閉環，而不只是「用完就走」？'
                     : 'How can we help students form a complete learning loop in different learning contexts—whether active exam prep or post-exam review—rather than just "use and leave"?'}
-                </div>
+                </p>
               </div>
 
               {/* 4 Meta Cards */}
@@ -7234,7 +7223,7 @@ const SPLIT_VIEW_CHIPS = [
                         en: 'For B2B SaaS corporate websites, our core strategy centers on establishing professional trust and driving lead conversion. We designed a clear information architecture to help educational decision-makers quickly grasp the platform\'s value.'
                       }, lang)}
                     </p>
-                    <ul className="space-y-4 text-base md:text-lg text-gray-600 font-semibold font-noto list-disc pl-5">
+                    <ul className="space-y-4 text-base md:text-lg text-gray-600 font-normal font-noto list-disc pl-5">
                       <li>
                         {t({
                           zh: '直覺的角色化導覽：以不同教務角色切入，展示符合其痛點的客製化價值主張。',
@@ -7373,7 +7362,7 @@ const SPLIT_VIEW_CHIPS = [
                   <ProjectSectionHeader num={getSectionNum()} title={t({ zh: '企業識別系統', en: 'Corporate Identity System' }, lang)} />
                   <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium font-noto max-w-4xl">
                     {t({
-                      zh: '為凸顯 Wisdome.ai 智慧教育的創新形象與科技核心，我們規劃了完整的視覺識別規範，建立一個兼具專業感、信賴感與前沿科技感的 CIS 系統。',
+                      zh: '為凸顯 Wisdome.ai 智慧教育的創新形象與科技核心，因而規劃了完整的視覺識別規範，建立一個兼具專業感、信賴感與前沿科技感的 CIS 系統。',
                       en: 'To highlight Wisdome.ai\'s innovative image and technological core, we developed a complete visual identity system that builds a brand image combining professionalism, trust, and advanced EdTech aesthetics.'
                     }, lang)}
                   </p>
@@ -7487,17 +7476,14 @@ const SPLIT_VIEW_CHIPS = [
                             {/* Card 1: bg-[#fbfbfb] logo: wisdome-dark.svg */}
                             <div className="bg-[#fbfbfb] border border-[#E7E9EE] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none">
                               <img src="projects/wisdome.ai_web/wisdome-dark.svg" alt="Standard Lockup Light BG" className="max-w-[85%] max-h-[70%] object-contain" />
-                              <span className="text-[10px] font-bold text-[#727C8F] mt-2 font-manrope uppercase tracking-wider">#FBFBFB</span>
                             </div>
                             {/* Card 2: bg-[#00D2E2] logo: wisdome-dark.svg */}
                             <div className="bg-[#00D2E2] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none border border-transparent">
                               <img src="projects/wisdome.ai_web/wisdome-dark.svg" alt="Cyan BG Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
-                              <span className="text-[10px] font-bold text-[#12172B] mt-2 font-manrope uppercase tracking-wider">#00D2E2</span>
                             </div>
                             {/* Card 3: bg-[#282828] logo: wisdome-light.svg */}
                             <div className="bg-[#282828] rounded-[16px] flex flex-col items-center justify-center p-4 h-[140px] select-none shadow-inner border border-transparent">
                               <img src="projects/wisdome.ai_web/wisdome-light.svg" alt="Dark BG Lockup" className="max-w-[85%] max-h-[70%] object-contain" />
-                              <span className="text-[10px] font-bold text-white/70 mt-2 font-manrope uppercase tracking-wider">#282828</span>
                             </div>
                           </div>
                         </div>
@@ -7567,13 +7553,13 @@ const SPLIT_VIEW_CHIPS = [
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
                       {/* English System */}
                       <div className="space-y-6 bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100">
-                        <span className="text-xs text-orange-500 font-bold uppercase tracking-wider block mb-4">English Typeface — Figtree</span>
+                        <span className="text-xs text-orange-500 font-bold uppercase tracking-wider block mb-4">English Typeface</span>
                         
                         <div className="space-y-6">
                           <div>
                             <span className="text-[10px] text-gray-400 font-bold uppercase block mb-1">Heading H1 (900 Bold)</span>
                             <span style={{ fontSize: '36px', fontWeight: '900', color: '#1E293B', lineHeight: '1.1', fontFamily: "'Inter', sans-serif" }} className="block">
-                              Designing Educational Futures
+                              Figtree
                             </span>
                           </div>
                           
@@ -7595,13 +7581,13 @@ const SPLIT_VIEW_CHIPS = [
 
                       {/* Chinese System */}
                       <div className="space-y-6 bg-gray-50 rounded-[2rem] p-8 md:p-10 border border-gray-100">
-                        <span className="text-xs text-orange-500 font-bold uppercase tracking-wider block mb-4">Chinese Typeface — Noto Sans TC</span>
+                        <span className="text-xs text-orange-500 font-bold uppercase tracking-wider block mb-4">Chinese Typeface</span>
                         
                         <div className="space-y-6">
                           <div>
                             <span className="text-[10px] text-gray-400 font-bold uppercase block mb-1">標題 H1 (700 Bold)</span>
                             <span className="text-3xl font-bold text-gray-900 leading-tight font-noto block">
-                              重塑線上教育新未來
+                              Noto Sans TC
                             </span>
                           </div>
                           
@@ -8459,7 +8445,7 @@ const SPLIT_VIEW_CHIPS = [
           )}
 
           {/* 反思與迭代區塊 */}
-          {activeItem.id === 1 && (
+          {false && activeItem.id === 1 && (
             <div 
               ref={reflectionRef}
               className="max-w-[100rem] mx-auto px-4 md:px-12 mb-24 md:mb-40 mt-12"

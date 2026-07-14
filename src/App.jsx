@@ -493,6 +493,7 @@ const CATEGORIES = [
 const PROJECTS = [
   {
     id: 2,
+    slug: 'mslin-app',
     categoryId: 'uiux',
     platform: 'app',
     title: 'Ms Lin 刷題 App',
@@ -629,6 +630,7 @@ const PROJECTS = [
   },
   {
     id: 1,
+    slug: 'wisdome-ai',
     categoryId: 'uiux',
     platform: 'web',
     title: 'Wisdome.ai 官網設計',
@@ -710,6 +712,7 @@ const PROJECTS = [
   },
   {
     id: 3,
+    slug: 'brainbox-uiux',
     categoryId: 'uiux',
     platform: 'web', // 可以設定為 'web' 或 'app'
     title: 'BrainBox 產品視覺設計',
@@ -770,14 +773,14 @@ const PROJECTS = [
       }
     }
   },
-  { id: 4, categoryId: 'motion', title: 'BrainBox 智慧刷題系統：賦能學生，解放教師。', thumb: 'bg-black', coverMedia: { type: 'image', url: 'projects/brainbox-marketing/brainbox-marketing-cover.jpg' }, tags: ['Motion', 'Explainer'], description: '透過生動 the 2D 動畫，清楚傳達 BrainBox 產品的核心價值與功能優勢。', client: 'BrainBox', year: '2024', gallery: [] },
-  { id: 5, categoryId: 'motion', title: 'Look the Sound of Taipei Metro', thumb: 'bg-[#1a1a1a]', coverMedia: { type: 'image', url: 'projects/taipei/taipei-cover.jpg' }, tags: ['Motion', 'Data Visual'], description: '將臺北捷運的聲音地景進行視覺化，轉化為具備節奏感與幾何美學的動態圖像創作。', client: '國立臺灣藝術大學', year: '2023', gallery: [] },
-  { id: 6, categoryId: 'motion', title: 'How to Use BrainBox: A Step-by-Step Tutorial', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: 'projects/brainbox-intro/brainbox-intro-cover.png' }, tags: ['Motion', 'Tutorial'], description: 'BrainBox 教學影片，一步步引導使用者了解系統操作。', client: 'BrainBox', year: '2024', gallery: [] },
-  { id: 7, categoryId: 'motion', title: 'Wisdome.ai 公司官網首頁形象動畫', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: 'projects/wisdome-motion-brand/wisdome-motion-brand-cover.png' }, tags: ['Motion', 'Web Animation'], description: '結合品牌理念製作的首頁形象動畫，以動態視覺強化品牌科技感。', client: 'WISDOME.AI', year: '2024', gallery: [] },
-  { id: 8, categoryId: 'brand', title: '果然癮品牌識別設計', thumb: 'bg-[#EAF2ED]', coverMedia: { type: 'image', url: 'projects/glowing/glowing-brand-cover.png' }, tags: ['Branding', 'Packaging'], description: '完成品牌識別系統設計，並延伸設計 3 組產品外盒及 8 款內包裝，提升視覺吸引力。', client: '果然癮', year: '2021', gallery: [] },
-  { id: 9, categoryId: 'brand', title: 'MindGap 企業識別系統', thumb: 'bg-[#F2EFE9]', coverMedia: { type: 'image', url: 'projects/mindgap/mingap-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '從零建立企業品牌視覺系統，涵蓋標誌設計與色彩規範。', client: 'MindGap', year: '2024', gallery: [] },
-  { id: 10, categoryId: 'brand', title: 'BrainBox 產品識別設計', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: 'projects/brand-branbox/brainbox-brand-cover.png' }, tags: ['Branding', 'Product Identity'], description: '打造專屬的產品識別系統，提升產品在市場上的辨識度與專業感。', client: 'BrainBox', year: '2024', gallery: [] },
-  { id: 11, categoryId: 'brand', title: 'Wisdome.ai 企業識別系統', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: 'projects/brand-wisdomeai/wisdomeai-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '整合品牌理念與科技感，打造完整的企業視覺規範系統。', client: 'WISDOME.AI', year: '2023', gallery: [] }
+  { id: 4, slug: 'brainbox-explainer', categoryId: 'motion', title: 'BrainBox 智慧刷題系統：賦能學生，解放教師。', thumb: 'bg-black', coverMedia: { type: 'image', url: 'projects/brainbox-marketing/brainbox-marketing-cover.jpg' }, tags: ['Motion', 'Explainer'], description: '透過生動 the 2D 動畫，清楚傳達 BrainBox 產品的核心價值與功能優勢。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 5, slug: 'taipei-metro', categoryId: 'motion', title: 'Look the Sound of Taipei Metro', thumb: 'bg-[#1a1a1a]', coverMedia: { type: 'image', url: 'projects/taipei/taipei-cover.jpg' }, tags: ['Motion', 'Data Visual'], description: '將臺北捷運的聲音地景進行視覺化，轉化為具備節奏感與幾何美學的動態圖像創作。', client: '國立臺灣藝術大學', year: '2023', gallery: [] },
+  { id: 6, slug: 'brainbox-tutorial', categoryId: 'motion', title: 'How to Use BrainBox: A Step-by-Step Tutorial', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: 'projects/brainbox-intro/brainbox-intro-cover.png' }, tags: ['Motion', 'Tutorial'], description: 'BrainBox 教學影片，一步步引導使用者了解系統操作。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 7, slug: 'wisdome-motion', categoryId: 'motion', title: 'Wisdome.ai 公司官網首頁形象動畫', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: 'projects/wisdome-motion-brand/wisdome-motion-brand-cover.png' }, tags: ['Motion', 'Web Animation'], description: '結合品牌理念製作的首頁形象動畫，以動態視覺強化品牌科技感。', client: 'WISDOME.AI', year: '2024', gallery: [] },
+  { id: 8, slug: 'glowing-brand', categoryId: 'brand', title: '果然癮品牌識別設計', thumb: 'bg-[#EAF2ED]', coverMedia: { type: 'image', url: 'projects/glowing/glowing-brand-cover.png' }, tags: ['Branding', 'Packaging'], description: '完成品牌識別系統設計，並延伸設計 3 組產品外盒及 8 款內包裝，提升視覺吸引力。', client: '果然癮', year: '2021', gallery: [] },
+  { id: 9, slug: 'mindgap-brand', categoryId: 'brand', title: 'MindGap 企業識別系統', thumb: 'bg-[#F2EFE9]', coverMedia: { type: 'image', url: 'projects/mindgap/mingap-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '從零建立企業品牌視覺系統，涵蓋標誌設計與色彩規範。', client: 'MindGap', year: '2024', gallery: [] },
+  { id: 10, slug: 'brainbox-brand', categoryId: 'brand', title: 'BrainBox 產品識別設計', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: 'projects/brand-branbox/brainbox-brand-cover.png' }, tags: ['Branding', 'Product Identity'], description: '打造專屬的產品識別系統，提升產品在市場上的辨識度與專業感。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 11, slug: 'wisdome-brand', categoryId: 'brand', title: 'Wisdome.ai 企業識別系統', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: 'projects/brand-wisdomeai/wisdomeai-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '整合品牌理念與科技感，打造完整的企業視覺規範系統。', client: 'WISDOME.AI', year: '2023', gallery: [] }
 ];
 
 const DECISION_TABS = [
@@ -1463,22 +1466,16 @@ const SPLIT_VIEW_CHIPS = [
     );
   };
 
-    const BackButton = ({ transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, lang }) => {
+    const BackButton = ({ navigateTo, lang }) => {
       const handleBack = () => {
-        transitionTo(() => {
-          setCurrentPage('home');
-          setActiveItem(null);
-          setIsMobileMenuOpen(false);
-          // 使用 setTimeout 確保 HomeView 掛載後再跳轉，且使用 behavior: 'auto' 避免出現白畫面
-          setTimeout(() => {
-            const section = document.getElementById('featured-works');
-            if (section) {
-              window.scrollTo({ top: section.offsetTop, behavior: 'auto' });
-            } else {
-              window.scrollTo({ top: 0, behavior: 'auto' });
-            }
-          }, 10);
-        });
+        navigateTo('home');
+        // 使用 setTimeout 確保 HomeView 掛載後再跳轉，且使用 behavior: 'auto' 避免出現白畫面
+        setTimeout(() => {
+          const section = document.getElementById('featured-works');
+          if (section) {
+            window.scrollTo({ top: section.offsetTop, behavior: 'auto' });
+          }
+        }, 310);
       };
 
       return (
@@ -2662,7 +2659,7 @@ const SPLIT_VIEW_CHIPS = [
       return (
         <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
           <div className="pt-32 md:pt-36 px-4 md:px-12 max-w-[100rem] mx-auto">
-            <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
+            <BackButton navigateTo={navigateTo} lang={lang} />
             <h1 
               className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase" 
               style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
@@ -3384,7 +3381,7 @@ const SPLIT_VIEW_CHIPS = [
           <div className="w-full">
             {/* TITLE BLOCK */}
             <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-32 md:pt-36">
-              <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
+              <BackButton navigateTo={navigateTo} lang={lang} />
               <h1 
                 className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase md:whitespace-nowrap"
                 style={{ fontSize: 'clamp(32px, 5.5vw, 84px)' }}
@@ -7003,7 +7000,7 @@ const SPLIT_VIEW_CHIPS = [
       return (
         <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32 w-full">
           <div className="pt-32 md:pt-36 px-4 md:px-12 max-w-[100rem] mx-auto">
-            <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
+            <BackButton navigateTo={navigateTo} lang={lang} />
             <h1 
               className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase" 
               style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
@@ -8707,7 +8704,7 @@ const SPLIT_VIEW_CHIPS = [
       <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
         {/* SECTION 00 — HERO */}
         <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-32 md:pt-36">
-          <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
+          <BackButton navigateTo={navigateTo} lang={lang} />
           <h1 
             className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase md:whitespace-nowrap" 
             style={{ fontSize: 'clamp(32px, 5.5vw, 84px)' }}
@@ -9807,7 +9804,7 @@ const SPLIT_VIEW_CHIPS = [
       <div className="project-page-layout">
         <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 bg-white w-full">
           <div className="pt-40 pb-12 px-6 max-w-[100rem] mx-auto">
-            <BackButton transitionTo={transitionTo} setCurrentPage={setCurrentPage} setActiveItem={setActiveItem} setIsMobileMenuOpen={setIsMobileMenuOpen} lang={lang} />
+            <BackButton navigateTo={navigateTo} lang={lang} />
             <header className="px-2 md:px-8">
               <h1 className="text-5xl md:text-[7rem] font-bold tracking-tighter mb-12 leading-none">{activeItem.title}</h1>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-t border-gray-100 max-w-6xl">
@@ -10367,12 +10364,67 @@ export default function PortfolioApp() {
 
   useEffect(() => { if (isMobileMenuOpen) document.body.style.overflow = 'hidden'; else document.body.style.overflow = 'auto'; }, [isMobileMenuOpen]);
 
+  // 監聽網址 Hash 變化以進行路由跳轉
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      
+      if (hash.startsWith('#/project/')) {
+        const slug = hash.replace('#/project/', '');
+        const project = PROJECTS.find(p => p.slug === slug || String(p.id) === slug);
+        if (project) {
+          setCurrentPage('project');
+          setActiveItem(project);
+          window.scrollTo({ top: 0, behavior: 'auto' });
+          return;
+        }
+      }
+      
+      if (hash.startsWith('#/category/')) {
+        const categoryId = hash.replace('#/category/', '');
+        setCurrentPage('category');
+        setActiveItem(categoryId);
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        return;
+      }
+      
+      if (hash === '#/works') {
+        setCurrentPage('works');
+        setActiveItem(null);
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      } else if (hash === '#/about') {
+        setCurrentPage('about');
+        setActiveItem(null);
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      } else if (hash === '#/contact') {
+        setCurrentPage('contact');
+        setActiveItem(null);
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      } else {
+        setCurrentPage('home');
+        setActiveItem(null);
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange(); // 初始載入時解析一次
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   const navigateTo = (page, item = null) => {
     transitionTo(() => {
-      setCurrentPage(page);
-      setActiveItem(item);
+      if (page === 'project' && item) {
+        window.location.hash = `#/project/${item.slug || item.id}`;
+      } else if (page === 'category' && item) {
+        window.location.hash = `#/category/${item}`;
+      } else if (page === 'home') {
+        window.location.hash = '#/';
+      } else {
+        window.location.hash = `#/${page}`;
+      }
       setIsMobileMenuOpen(false);
-      window.scrollTo({ top: 0, behavior: 'auto' });
     });
   };
 

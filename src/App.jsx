@@ -2891,7 +2891,7 @@ const SPLIT_VIEW_CHIPS = [
       const [timerKey, setTimerKey] = useState(0);
       const [expandedCards, setExpandedCards] = useState([false, false, false]);
       const [isXpExpanded, setIsXpExpanded] = useState(false);
-      const [expandedStrategyCards, setExpandedStrategyCards] = useState([false, false, false]);
+      const [expandedStrategyCards, setExpandedStrategyCards] = useState([true, false, false]);
 
       const toggleStrategyCard = (idx) => {
         setExpandedStrategyCards(prev => {

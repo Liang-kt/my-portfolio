@@ -4290,7 +4290,7 @@ const SPLIT_VIEW_CHIPS = [
                               flexShrink: 0
                             }}
                           >
-                            <polyline points="9 18 15 12 9 6"></polyline>
+                            <polyline points="6 9 12 15 18 9"></polyline>
                           </svg>
                         </div>
                         <div style={{ fontSize: '14px', fontStyle: 'italic', color: '#534AB7', marginTop: '12px' }}>
@@ -4352,7 +4352,7 @@ const SPLIT_VIEW_CHIPS = [
                 }}>
                   {lang === 'zh' ? (
                     <>
-                      初版以假設先行——這三個假設在下一章收斂成產品策略，並於上線後以問卷與訪談驗證修正（
+                      初版未進行使用者訪談，以假設先行——驗證與修正的結果
                       <a 
                         href="#outcomes" 
                         onClick={(e) => {
@@ -4365,11 +4365,11 @@ const SPLIT_VIEW_CHIPS = [
                       >
                         見 05
                       </a>
-                      ）。
+                      。
                     </>
                   ) : (
                     <>
-                      The initial version started with hypotheses—these three assumptions converge into product strategies in the next chapter, and were verified and revised via questionnaires and interviews after launch (
+                      The initial version was designed without user interviews, using hypotheses first—the validation and revision results (
                       <a 
                         href="#outcomes" 
                         onClick={(e) => {
@@ -4386,19 +4386,6 @@ const SPLIT_VIEW_CHIPS = [
                     </>
                   )}
                 </div>
-              </div>
-
-              {/* RESEARCH NOTE */}
-              <div style={{
-                border: '0.5px solid #EEEEEE',
-                borderRadius: '8px',
-                padding: '12px 16px',
-                background: '#FAFAFA',
-                fontSize: '13px',
-                color: '#6B6B6B',
-                lineHeight: '1.6'
-              }}>
-                本章節設計依據來自競品分析與學習心理學推論，非使用者訪談。初版上線後進行問卷與深度訪談驗證——結果請見第 05 章。
               </div>
             </section>
 
@@ -4477,7 +4464,7 @@ const SPLIT_VIEW_CHIPS = [
                         marginLeft: '12px'
                       }}
                     >
-                      <polyline points="9 18 15 12 9 6"></polyline>
+                      <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                   </div>
                   
@@ -4577,7 +4564,7 @@ const SPLIT_VIEW_CHIPS = [
                         marginLeft: '12px'
                       }}
                     >
-                      <polyline points="9 18 15 12 9 6"></polyline>
+                      <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                   </div>
                   
@@ -4664,7 +4651,7 @@ const SPLIT_VIEW_CHIPS = [
                         marginLeft: '12px'
                       }}
                     >
-                      <polyline points="9 18 15 12 9 6"></polyline>
+                      <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                   </div>
                   

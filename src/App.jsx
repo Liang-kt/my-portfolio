@@ -4206,22 +4206,31 @@ const SPLIT_VIEW_CHIPS = [
                 <div className="grid grid-cols-1 md:grid-cols-3 items-start" style={{ gap: '16px', alignItems: 'start' }}>
                   {[
                     {
-                      title: "假設一 五題刷題 Loop",
-                      hypothesis: "五題是努力有重量又不至於放棄的臨界點",
-                      basis: "Epop + 注意力研究",
-                      validation: "連續多輪啟動率"
+                      prefix: lang === 'zh' ? '假設一' : 'Assumption 1',
+                      name: lang === 'zh' ? '五題刷題 Loop' : '5-Question Loop',
+                      hypothesis: lang === 'zh' ? '五題是努力有重量又不至於放棄的臨界點' : '5 questions is the threshold of effort with weight but not giving up',
+                      basis: lang === 'zh' ? 'Epop + 注意力研究' : 'Epop + Attention studies',
+                      validation: lang === 'zh' ? '連續多輪啟動率' : 'Multi-loop initiation rate',
+                      targetId: 'strategy-loop',
+                      strategyText: lang === 'zh' ? '策略落地 → 03｜遊戲化正向循環' : 'Strategy Landing → 03｜Gamified Positive Loop'
                     },
                     {
-                      title: "假設二 步驟解題",
-                      hypothesis: "過程參與感讓學生覺得是自己解出來的",
-                      basis: "Scaffolding 理論",
-                      validation: "重複錯題率差異"
+                      prefix: lang === 'zh' ? '假設二' : 'Assumption 2',
+                      name: lang === 'zh' ? '步驟解題' : 'Step-by-Step Solving',
+                      hypothesis: lang === 'zh' ? '過程參與感讓學生覺得是自己解出來的' : 'Active participation makes students feel they solved it themselves',
+                      basis: lang === 'zh' ? 'Scaffolding 理論' : 'Scaffolding Theory',
+                      validation: lang === 'zh' ? '重複錯題率差異' : 'Repeated error rate variance',
+                      targetId: 'strategy-ai',
+                      strategyText: lang === 'zh' ? '策略落地 → 03｜AI 講解的過程參與' : 'Strategy Landing → 03｜Active AI Explanation'
                     },
                     {
-                      title: "假設三 錯題庫收藏庫",
-                      hypothesis: "擁有學習記錄能提高黏性與回訪動機",
-                      basis: "競品缺乏個人化資產",
-                      validation: "D30 留存率"
+                      prefix: lang === 'zh' ? '假設三' : 'Assumption 3',
+                      name: lang === 'zh' ? '錯題庫收藏庫' : 'Error Book & Bookmark',
+                      hypothesis: lang === 'zh' ? '擁有學習記錄能提高黏性與回訪動機' : 'Owning learning records increases retention & revisit motivation',
+                      basis: lang === 'zh' ? '競品缺乏個人化資產' : 'Competitors lack personalized assets',
+                      validation: lang === 'zh' ? 'D30 留存率' : 'D30 Retention Rate',
+                      targetId: 'strategy-asset',
+                      strategyText: lang === 'zh' ? '策略落地 → 03｜學習資產驅動推薦' : 'Strategy Landing → 03｜Asset-Driven Recommendation'
                     }
                   ].map((card, idx) => {
                     const isExpanded = expandedCards[idx];
@@ -4240,16 +4249,19 @@ const SPLIT_VIEW_CHIPS = [
                           boxSizing: 'border-box'
                         }}
                       >
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                            <span style={{ fontSize: '15px', fontWeight: '500', color: '#1A1A1A' }}>{card.title}</span>
+                        <div className="flex justify-between items-center gap-2">
+                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                            <span style={{ fontSize: '15px', fontWeight: '500', color: '#1A1A1A' }}>
+                              <span style={{ color: '#D85A30' }}>{card.prefix}</span>｜{card.name}
+                            </span>
                             <span style={{
                               fontSize: '11px',
                               padding: '2px 8px',
                               borderRadius: '100px',
                               background: '#FFF7ED',
                               color: '#3C3489',
-                              fontWeight: '500'
+                              fontWeight: '500',
+                              flexShrink: 0
                             }}>
                               待驗證
                             </span>
@@ -4265,7 +4277,8 @@ const SPLIT_VIEW_CHIPS = [
                             strokeLinejoin="round" 
                             style={{
                               transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                              transition: 'transform 300ms ease'
+                              transition: 'transform 300ms ease',
+                              flexShrink: 0
                             }}
                           >
                             <polyline points="9 18 15 12 9 6"></polyline>
@@ -4291,16 +4304,78 @@ const SPLIT_VIEW_CHIPS = [
                             lineHeight: '1.6'
                           }}>
                             <div>
-                              <strong style={{ color: '#1A1A1A', fontWeight: '500' }}>依據：</strong>{card.basis}
+                              <strong style={{ color: '#1A1A1A', fontWeight: '500' }}>{lang === 'zh' ? '依據：' : 'Basis: '}</strong>{card.basis}
                             </div>
                             <div>
-                              <strong style={{ color: '#1A1A1A', fontWeight: '500' }}>計畫驗證：</strong>{card.validation}
+                              <strong style={{ color: '#1A1A1A', fontWeight: '500' }}>{lang === 'zh' ? '計畫驗證：' : 'Validation Plan: '}</strong>{card.validation}
+                            </div>
+                            <div style={{ marginTop: '12px' }}>
+                              <a 
+                                href={`#${card.targetId}`}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  const el = document.getElementById(card.targetId);
+                                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                }}
+                                className="hover:underline font-medium text-[13px] text-[#D85A30]"
+                                style={{ textDecoration: 'none' }}
+                              >
+                                {card.strategyText}
+                              </a>
                             </div>
                           </div>
                         </div>
                       </div>
                     );
                   })}
+                </div>
+
+                {/* 區塊過場句 */}
+                <div style={{
+                  fontSize: '14px',
+                  color: '#6B6B6B',
+                  lineHeight: '1.7',
+                  textAlign: 'left',
+                  marginTop: '20px',
+                  paddingTop: '16px',
+                  borderTop: '0.5px solid #EEEEEE'
+                }}>
+                  {lang === 'zh' ? (
+                    <>
+                      初版以假設先行——這三個假設在下一章收斂成產品策略，並於上線後以問卷與訪談驗證修正（
+                      <a 
+                        href="#outcomes" 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const el = document.getElementById('outcomes');
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="text-[#6B6B6B] hover:text-[#D85A30] transition-colors"
+                        style={{ textDecoration: 'none' }}
+                      >
+                        見 05
+                      </a>
+                      ）。
+                    </>
+                  ) : (
+                    <>
+                      The initial version started with hypotheses—these three assumptions converge into product strategies in the next chapter, and were verified and revised via questionnaires and interviews after launch (
+                      <a 
+                        href="#outcomes" 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const el = document.getElementById('outcomes');
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="text-[#6B6B6B] hover:text-[#D85A30] transition-colors"
+                        style={{ textDecoration: 'none' }}
+                      >
+                        see 05
+                      </a>
+                      ).
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -4359,10 +4434,12 @@ const SPLIT_VIEW_CHIPS = [
               <div id="strategy-reveal-section" className="flex flex-col gap-3">
                 {/* 卡一 */}
                 <div 
+                  id="strategy-loop"
                   className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px]"
                   style={{
                     border: '0.5px solid #EEEEEE',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
+                    scrollMarginTop: '72px'
                   }}
                 >
                   <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
@@ -4427,10 +4504,12 @@ const SPLIT_VIEW_CHIPS = [
 
                 {/* 卡二 */}
                 <div 
+                  id="strategy-ai"
                   className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px]"
                   style={{
                     border: '0.5px solid #EEEEEE',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
+                    scrollMarginTop: '72px'
                   }}
                 >
                   <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
@@ -4482,10 +4561,12 @@ const SPLIT_VIEW_CHIPS = [
 
                 {/* 卡三 */}
                 <div 
+                  id="strategy-asset"
                   className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px]"
                   style={{
                     border: '0.5px solid #EEEEEE',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
+                    scrollMarginTop: '72px'
                   }}
                 >
                   <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
@@ -6666,6 +6747,7 @@ const SPLIT_VIEW_CHIPS = [
               id="outcomes"
               className="py-12 md:py-24 border-b border-gray-100"
               style={{
+                scrollMarginTop: '72px',
                 minHeight: '600px',
                 boxSizing: 'border-box'
               }}

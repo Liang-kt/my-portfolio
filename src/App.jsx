@@ -7241,8 +7241,22 @@ const SPLIT_VIEW_CHIPS = [
         }
       }, [activeChip, videoState]);
 
+      const tabToChipMap = {
+        'long-page': 'values',
+        'pain-points': 'hero',
+        'cta': 'cta',
+        'social-proof': 'success'
+      };
+
       const handleDecisionTabChange = (tabId) => {
-        setActiveDecisionTab(prev => prev === tabId ? null : tabId);
+        if (tabId === activeDecisionTab || isDecisionFading) return;
+        setIsDecisionFading(true);
+        setVideoState('none');
+        setTimeout(() => {
+          setActiveDecisionTab(tabId);
+          setActiveChip(tabToChipMap[tabId]);
+          setIsDecisionFading(false);
+        }, 150);
       };
       const [wisdomeOverviewRef, wisdomeOverviewVisible] = useOnScreen({ threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
       const [wisdomeStrategyRef, wisdomeStrategyVisible] = useOnScreen({ threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
@@ -8137,137 +8151,188 @@ const SPLIT_VIEW_CHIPS = [
               <div className="space-y-20">
                 {activeItem.id === 1 && (
                   <>
-                    <div className="bg-[#FAFAFB] border border-gray-100 rounded-[2rem] p-8 md:p-12 shadow-sm mb-8">
-                      <div className="mb-8">
-                        <h4 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight mb-2">
+                    <div className="flex flex-col gap-6 mb-16 w-full bg-white rounded-[2rem] border border-gray-100 p-6 md:p-10 shadow-sm">
+                      {/* 區塊標題區 */}
+                      <div>
+                        <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px', color: '#A0A0A0', fontWeight: 'bold', marginBottom: '6px' }}>
+                          {lang === 'zh' ? '設計決策' : 'DESIGN DECISIONS'}
+                        </div>
+                        <h4 style={{ fontSize: '18px', fontWeight: 500, color: '#1A1A1A', margin: '0 0 4px 0' }} className="font-noto">
                           {lang === 'zh' ? '四個關鍵設計選擇' : 'Four Key Design Choices'}
                         </h4>
-                        <p className="text-sm md:text-base text-gray-500 font-medium font-noto">
+                        <p style={{ fontSize: '13px', color: '#6B6B6B', margin: 0 }} className="font-noto">
                           {lang === 'zh' ? '每個選擇背後都有 UX 根據，不是美感偏好。' : 'Each choice is backed by UX rationale, not aesthetic preference.'}
                         </p>
                       </div>
 
-                      <div className="space-y-4">
-                        {DECISION_TABS.map((tab) => {
-                          const isExpanded = activeDecisionTab === tab.id;
+                      {/* 第一層：決策 Pill Tab */}
+                      <div className="flex flex-wrap gap-1.5 w-full">
+                        {[
+                          { id: 'long-page', label: lang === 'zh' ? '單頁長版' : 'Long-form Page' },
+                          { id: 'pain-points', label: lang === 'zh' ? '痛點文案' : 'Pain-point Copy' },
+                          { id: 'cta', label: lang === 'zh' ? 'CTA 策略' : 'CTA Strategy' },
+                          { id: 'social-proof', label: lang === 'zh' ? '社會證明' : 'Social Proof' }
+                        ].map((tab) => {
+                          const isActive = activeDecisionTab === tab.id;
                           return (
-                            <div 
+                            <button
                               key={tab.id}
-                              className={`border rounded-2xl bg-white p-6 transition-all duration-300 cursor-pointer ${
-                                isExpanded 
-                                  ? 'border-gray-200 shadow-md' 
-                                  : 'border-gray-100 hover:border-gray-200 hover:shadow-sm'
-                              }`}
                               onClick={() => handleDecisionTabChange(tab.id)}
+                              className={`px-4 py-2 text-xs md:text-sm font-medium rounded-full border transition-all duration-200 cursor-pointer ${
+                                isActive
+                                  ? 'bg-[#EEEDFE] border-[#AFA9EC] text-[#26215C] font-semibold'
+                                  : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300'
+                              }`}
                             >
-                              {/* Card Header */}
-                              <div className="flex items-center justify-between gap-4 select-none">
-                                <div className="space-y-1 flex-1">
-                                  <h5 className={`text-lg md:text-xl font-bold transition-colors duration-200 ${
-                                    isExpanded ? 'text-black' : 'text-gray-900'
-                                  }`}>
-                                    {t(tab.title, lang)}
-                                  </h5>
-                                  <p className="text-sm text-gray-500 font-medium font-noto">
-                                    {t(tab.subtitle, lang)}
-                                  </p>
-                                </div>
-                                <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-gray-50 transition-colors duration-200 ${
-                                  isExpanded ? 'bg-gray-100' : ''
-                                }`}>
-                                  <svg 
-                                    className={`w-5 h-5 transition-transform duration-300 ${
-                                      isExpanded ? 'transform rotate-180 text-black' : 'text-gray-400'
-                                    }`} 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
-                                    stroke="currentColor"
-                                  >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                                  </svg>
-                                </div>
-                              </div>
-
-                              {/* Card Body (Insights) */}
-                              <div 
-                                className={`transition-all duration-300 overflow-hidden ${
-                                  isExpanded ? 'max-h-[800px] opacity-100 mt-6 pt-6 border-t border-gray-100' : 'max-h-0 opacity-0 pointer-events-none'
-                                }`}
-                              >
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                                  {tab.insights.map((insight, idx) => (
-                                    <div key={idx} className="p-5 rounded-xl bg-gray-50/70 border border-gray-100/50 flex flex-col gap-3">
-                                      <span className="inline-block self-start px-2.5 py-1 text-xs font-bold rounded-md border border-orange-500 bg-orange-500 text-white">
-                                        {t(insight.badge, lang)}
-                                      </span>
-                                      <p className="text-sm text-gray-600 leading-relaxed font-semibold font-noto">
-                                        {t(insight.content, lang)}
-                                      </p>
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
+                              {tab.label}
+                            </button>
                           );
                         })}
                       </div>
-                    </div>
 
-                    {/* 設計決策分割視圖 */}
-                    <div className="flex flex-col gap-6 mb-16 w-full">
-                      
-                      {/* Unified Tab Switcher (Capsule styling) */}
-                      <div className="w-full">
-                        {/* Tab Switcher Buttons */}
-                        <div 
-                          ref={mobileTabsContainerRef}
-                          className="flex gap-2 overflow-x-auto pb-3 hide-scrollbar border-b border-gray-100"
-                        >
-                          {SPLIT_VIEW_CHIPS.map((chip) => {
-                            const isActive = activeChip === chip.id;
-                            return (
-                              <button
-                                key={chip.id}
-                                onClick={(e) => {
-                                  if (!isActive) {
-                                    setActiveChip(chip.id);
-                                    setVideoState('none');
-                                    
-                                    // Scroll clicked tab to center of the horizontal scroll container dynamically
-                                    const button = e.currentTarget;
-                                    const container = mobileTabsContainerRef.current;
-                                    if (button && container) {
-                                      const containerWidth = container.offsetWidth;
-                                      const buttonOffsetLeft = button.offsetLeft;
-                                      const buttonWidth = button.offsetWidth;
-                                      const targetScrollLeft = buttonOffsetLeft - (containerWidth / 2) + (buttonWidth / 2);
-                                      container.scrollTo({
-                                        left: targetScrollLeft,
-                                        behavior: 'smooth'
-                                      });
-                                    }
-                                  }
-                                }}
-                                className={`flex-shrink-0 px-5 py-2.5 text-xs md:text-sm font-bold font-noto rounded-full border transition-all duration-300 cursor-pointer ${
-                                  isActive
-                                    ? 'bg-black border-black text-white shadow-sm shadow-black/10'
-                                    : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
-                                }`}
-                              >
-                                {t(chip.title, lang)}
-                              </button>
-                            );
-                          })}
+                      {/* 第二層：說明區塊（Why Block） */}
+                      <div 
+                        style={{
+                          backgroundColor: '#FAFAFA',
+                          borderRadius: '12px',
+                          padding: '16px 18px',
+                          transition: 'opacity 150ms ease-in-out',
+                          opacity: isDecisionFading ? 0 : 1,
+                          boxSizing: 'border-box'
+                        }}
+                        className="w-full flex flex-col gap-4"
+                      >
+                        <div style={{ fontSize: '13px', fontWeight: 500, color: '#1A1A1A' }}>
+                          {activeDecisionTab === 'long-page' ? (lang === 'zh' ? '為什麼選擇單頁長版' : 'Why choice long-form page') : 
+                           activeDecisionTab === 'pain-points' ? (lang === 'zh' ? '痛點導向的 Hero 文案' : 'Pain-point Hero Copy') :
+                           activeDecisionTab === 'cta' ? (lang === 'zh' ? 'CTA 文案「立即預約，聰明管理」' : 'CTA Copy "Book Now, Manage Smart"') :
+                           (lang === 'zh' ? '成功案例的社會證明配置' : 'Social Proof Placement of Cases')}
                         </div>
-                        
-                        {/* Active Tab Description */}
-                        <div className="mt-4 p-5 bg-gray-50 border border-gray-100 rounded-2xl">
-                          <h6 className="font-bold text-sm md:text-base text-gray-900 mb-2 font-noto">
-                            {t(SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.title, lang)}
-                          </h6>
-                          <p className="text-xs md:text-sm text-gray-600 leading-relaxed font-noto">
-                            {t(SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.desc, lang)}
-                          </p>
+
+                        <div className="flex flex-col gap-3.5">
+                          {(() => {
+                            const data = activeDecisionTab === 'long-page' ? [
+                              {
+                                badge: lang === 'zh' ? '核心邏輯' : 'Core Logic',
+                                badgeBg: '#EEEDFE',
+                                badgeText: '#3C3489',
+                                content: lang === 'zh'
+                                  ? '說服順序由設計師控制。訪客往下滑就依序完成整條說服路徑，不需自己決定看哪個頁面。'
+                                  : 'The persuasion sequence is controlled by the designer. Visitors slide down to complete the entire path in order.'
+                              },
+                              {
+                                badge: lang === 'zh' ? '受眾考量' : 'Audience',
+                                badgeBg: '#E1F5EE',
+                                badgeText: '#085041',
+                                content: lang === 'zh'
+                                  ? '補習班校長不是科技早採用者，多頁結構要求他們主動導航，認知負荷高、容易流失。'
+                                  : 'Cram school principals are not EdTech early adopters. Multi-page navigation increases cognitive load.'
+                              },
+                              {
+                                badge: lang === 'zh' ? '取捨' : 'Trade-off',
+                                badgeBg: '#FAEEDA',
+                                badgeText: '#633806',
+                                content: lang === 'zh'
+                                  ? '犧牲多頁 SEO。對這個產品階段，說服新訪客優先於搜尋流量。'
+                                  : 'Sacrificing multi-page SEO. In this product stage, persuading new visitors takes precedence over search traffic.'
+                              }
+                            ] : activeDecisionTab === 'pain-points' ? [
+                              {
+                                badge: lang === 'zh' ? '情緒字眼' : 'Emotional Cue',
+                                badgeBg: '#EEEDFE',
+                                badgeText: '#3C3489',
+                                content: lang === 'zh'
+                                  ? '「解放」隱含「目前被束縛」——讀者自己補完了痛苦狀態，比「提升效率」少一個思考步驟。'
+                                  : '"Liberate" implies "currently bound"—readers complete the pain state themselves, saving a cognitive step.'
+                              },
+                              {
+                                badge: lang === 'zh' ? '指向對象' : 'Target Audience',
+                                badgeBg: '#E1F5EE',
+                                badgeText: '#085041',
+                                content: lang === 'zh'
+                                  ? '「一線人力」點名的是人，校長腦海浮現的是他每天看到的行政老師和課務人員。'
+                                  : '"Frontline staff" points to actual people; principals picture administrative and course staff they see daily.'
+                              },
+                              {
+                                badge: lang === 'zh' ? '說服層次' : 'Persuasion Layer',
+                                badgeBg: '#FAEEDA',
+                                badgeText: '#633806',
+                                content: lang === 'zh'
+                                  ? '主標共鳴 → 副標範疇 → 結果想像 → CTA，四層缺一不可，順序不能反。'
+                                  : 'Headline resonance → Subheadline scope → Vision of results → CTA. All 4 layers in strict sequence.'
+                              }
+                            ] : activeDecisionTab === 'cta' ? [
+                              {
+                                badge: lang === 'zh' ? '低承諾動詞' : 'Low Commitment',
+                                badgeBg: '#EEEDFE',
+                                badgeText: '#3C3489',
+                                content: lang === 'zh'
+                                  ? '「預約」心理成本最低，暗示「約個時間聊聊」而非「做出購買決定」，降低第一步阻力。'
+                                  : '"Book" carries the lowest psychological cost, suggesting a chat rather than a buying decision.'
+                              },
+                              {
+                                badge: lang === 'zh' ? '身份認同' : 'Identity Appeal',
+                                badgeBg: '#E1F5EE',
+                                badgeText: '#085041',
+                                content: lang === 'zh'
+                                  ? '「聰明」描述的是點擊按鈕的「人」，不是產品功能——自我形象訴求比功能描述更深層。'
+                                  : '"Smart" describes the person clicking the button, not product features—appealing to self-image.'
+                              },
+                              {
+                                badge: lang === 'zh' ? '三次配置' : 'Three Placements',
+                                badgeBg: '#FAEEDA',
+                                badgeText: '#633806',
+                                content: lang === 'zh'
+                                  ? 'Hero、服務後、案例後各一次。三張安全網，捕捉在不同決策點準備好行動的訪客。'
+                                  : 'Hero, post-services, post-cases. Three safety nets to capture visitors ready at different decision points.'
+                              }
+                            ] : [
+                              {
+                                badge: lang === 'zh' ? '時機' : 'Timing',
+                                badgeBg: '#EEEDFE',
+                                badgeText: '#3C3489',
+                                content: lang === 'zh'
+                                  ? '放在核心價值後、CTA 前——訪客信任最高點。最後的疑慮是「真的有效嗎」，案例正好回答。'
+                                  : 'Placed after core values and before CTA—the trust peak. The last doubt "is it effective?" is answered.'
+                              },
+                              {
+                                badge: lang === 'zh' ? '強項' : 'Strengths',
+                                badgeBg: '#E1F5EE',
+                                badgeText: '#085041',
+                                content: lang === 'zh'
+                                  ? '具名機構（PMI、驅勢）可自行查證；標題聚焦客戶得到的優勢，不是「使用了我們的系統」。'
+                                  : 'Named institutions (PMI, etc.) can be verified; headlines focus on client benefits, not system features.'
+                              },
+                              {
+                                badge: lang === 'zh' ? '待強化' : 'To Improve',
+                                badgeBg: '#FAEEDA',
+                                badgeText: '#633806',
+                                content: lang === 'zh'
+                                  ? '缺量化數據與客戶直接引述。加入後說服層次從「品牌自述」升級為「他人推薦」。'
+                                  : 'Lacks quantitative data and direct quotes. Adding them elevates the B2B proof from self-claim to peer reference.'
+                              }
+                            ];
+                            return data.map((insight, idx) => (
+                              <div key={idx} className="flex items-start gap-3">
+                                <span 
+                                  style={{ 
+                                    backgroundColor: insight.badgeBg, 
+                                    color: insight.badgeText,
+                                    fontSize: '10px',
+                                    fontWeight: 500,
+                                    borderRadius: '3px',
+                                    padding: '2px 6px',
+                                    flexShrink: 0
+                                  }}
+                                >
+                                  {insight.badge}
+                                </span>
+                                <p style={{ fontSize: '13px', color: '#4B5563', lineHeight: '1.6', margin: 0 }} className="font-noto">
+                                  {insight.content}
+                                </p>
+                              </div>
+                            ));
+                          })()}
                         </div>
                       </div>
 

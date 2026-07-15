@@ -2891,6 +2891,15 @@ const SPLIT_VIEW_CHIPS = [
       const [timerKey, setTimerKey] = useState(0);
       const [expandedCards, setExpandedCards] = useState([false, false, false]);
       const [isXpExpanded, setIsXpExpanded] = useState(false);
+      const [expandedStrategyCards, setExpandedStrategyCards] = useState([false, false, false]);
+
+      const toggleStrategyCard = (idx) => {
+        setExpandedStrategyCards(prev => {
+          const next = [...prev];
+          next[idx] = !next[idx];
+          return next;
+        });
+      };
       const [activeColorTab, setActiveColorTab] = useState('Neutral');
       const [activeSystemTab, setActiveSystemTab] = useState('home');
       const [activeLoopTwoTab, setActiveLoopTwoTab] = useState('photo');
@@ -4435,184 +4444,274 @@ const SPLIT_VIEW_CHIPS = [
                 {/* 卡一 */}
                 <div 
                   id="strategy-loop"
-                  className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px]"
+                  onClick={() => toggleStrategyCard(0)}
+                  className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px] cursor-pointer"
                   style={{
                     border: '0.5px solid #EEEEEE',
                     boxSizing: 'border-box',
                     scrollMarginTop: '72px'
                   }}
                 >
-                  <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
-                    <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設一' : 'Assumption 1'}</span>｜{lang === 'zh' ? '刷題 Loop' : 'Practice Loop'}
-                  </div>
-                  <div style={{ fontSize: '14px', color: '#6B6B6B', marginBottom: '16px' }}>
-                    {lang === 'zh' ? '遊戲化正向循環，節奏由學生決定' : 'Gamified positive loop, pace decided by students'}
+                  <div className="flex justify-between items-center gap-2">
+                    <div>
+                      <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                        <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設一' : 'Assumption 1'}</span>｜{lang === 'zh' ? '刷題 Loop' : 'Practice Loop'}
+                      </div>
+                      <div style={{ fontSize: '14px', color: '#6B6B6B' }}>
+                        {lang === 'zh' ? '遊戲化正向循環，節奏由學生決定' : 'Gamified positive loop, pace decided by students'}
+                      </div>
+                    </div>
+                    <svg 
+                      width="16" 
+                      height="16" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="#F97316" 
+                      strokeWidth="2.5" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      style={{
+                        transform: expandedStrategyCards[0] ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 300ms ease',
+                        flexShrink: 0,
+                        marginLeft: '12px'
+                      }}
+                    >
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-[minmax(0,auto)_32px_minmax(0,1fr)] items-stretch">
-                    <div 
-                      className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
-                    >
-                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
-                        {lang === 'zh' ? '用戶痛點' : 'PAIN POINTS'}
+                  <div style={{
+                    maxHeight: expandedStrategyCards[0] ? '1000px' : '0px',
+                    overflow: 'hidden',
+                    transition: 'max-height 300ms ease, margin-top 300ms ease',
+                    marginTop: expandedStrategyCards[0] ? '16px' : '0px'
+                  }}>
+                    <div className="grid grid-cols-1 md:grid-cols-[minmax(0,auto)_32px_minmax(0,1fr)] items-stretch">
+                      <div 
+                        className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
+                      >
+                        <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
+                          {lang === 'zh' ? '用戶痛點' : 'PAIN POINTS'}
+                        </div>
+                        <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
+                          {lang === 'zh' ? '練了沒進步感・練習沒有動力' : 'No sense of progress · No motivation to practice'}
+                        </div>
                       </div>
-                      <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
-                        {lang === 'zh' ? '練了沒進步感・練習沒有動力' : 'No sense of progress · No motivation to practice'}
+                      
+                      <div className="flex items-center justify-center text-[18px] text-[#D85A30] my-1 md:my-0">
+                        <span className="hidden md:inline">→</span>
+                        <span className="inline md:hidden">↓</span>
                       </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-center text-[18px] text-[#D85A30] my-1 md:my-0">
-                      <span className="hidden md:inline">→</span>
-                      <span className="inline md:hidden">↓</span>
+
+                      <div 
+                        className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
+                      >
+                        <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
+                          {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
+                        </div>
+                        <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
+                          {lang === 'zh' ? '三層練習模式・XP・段位・Streak・排行榜・每日任務' : '3-Tier Practice · XP · Rank · Streak · Leaderboard · Daily Quests'}
+                        </div>
+                      </div>
                     </div>
 
-                    <div 
-                      className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
-                    >
-                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
-                        {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-[8px] my-[14px] md:mt-[14px] md:mb-[16px] box-sizing-border-box">
+                      <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
+                        <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '5 題' : '5 Qs'}</div>
+                        <div style={{ fontSize: '12px', color: '#6B6B6B' }} className="md:whitespace-nowrap">{lang === 'zh' ? '聚焦觀念打穩基礎' : 'Focus on concepts & build foundation'}</div>
                       </div>
-                      <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
-                        {lang === 'zh' ? '三層練習模式・XP・段位・Streak・排行榜・每日任務' : '3-Tier Practice · XP · Rank · Streak · Leaderboard · Daily Quests'}
+                      <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
+                        <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '10 題' : '10 Qs'}</div>
+                        <div style={{ fontSize: '12px', color: '#6B6B6B' }} className="md:whitespace-nowrap">{lang === 'zh' ? '混合題型強化觀念' : 'Mix question types & reinforce concepts'}</div>
+                      </div>
+                      <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
+                        <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '15 題' : '15 Qs'}</div>
+                        <div style={{ fontSize: '12px', color: '#6B6B6B' }} className="md:whitespace-nowrap">{lang === 'zh' ? '全題型實戰演練' : 'All question types & exam simulation'}</div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-[8px] my-[14px] md:mt-[14px] md:mb-[16px] box-sizing-border-box">
-                    <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
-                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '5 題' : '5 Qs'}</div>
-                      <div style={{ fontSize: '12px', color: '#6B6B6B' }} className="md:whitespace-nowrap">{lang === 'zh' ? '聚焦觀念打穩基礎' : 'Focus on concepts & build foundation'}</div>
+                    <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
+                      {lang === 'zh' ? (
+                        <>五題是一輪努力的基本單位；三層模式把<span style={{ color: '#D85A30' }}>節奏的選擇權交還給學生</span>——重量由自己決定，回饋依然在完成點釋放。</>
+                      ) : (
+                        <>5 questions form the basic unit of effort; the 3-tier mode <span style={{ color: '#D85A30' }}>hands the choice of pace back to the students</span>—you choose the weight, while the reward is still released at completion.</>
+                      )}
                     </div>
-                    <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
-                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '10 題' : '10 Qs'}</div>
-                      <div style={{ fontSize: '12px', color: '#6B6B6B' }} className="md:whitespace-nowrap">{lang === 'zh' ? '混合題型強化觀念' : 'Mix question types & reinforce concepts'}</div>
-                    </div>
-                    <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
-                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '15 題' : '15 Qs'}</div>
-                      <div style={{ fontSize: '12px', color: '#6B6B6B' }} className="md:whitespace-nowrap">{lang === 'zh' ? '全題型實戰演練' : 'All question types & exam simulation'}</div>
-                    </div>
-                  </div>
-
-                  <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
-                    {lang === 'zh' ? (
-                      <>五題是一輪努力的基本單位；三層模式把<span style={{ color: '#D85A30' }}>節奏的選擇權交還給學生</span>——重量由自己決定，回饋依然在完成點釋放。</>
-                    ) : (
-                      <>5 questions form the basic unit of effort; the 3-tier mode <span style={{ color: '#D85A30' }}>hands the choice of pace back to the students</span>—you choose the weight, while the reward is still released at completion.</>
-                    )}
                   </div>
                 </div>
 
                 {/* 卡二 */}
                 <div 
                   id="strategy-ai"
-                  className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px]"
+                  onClick={() => toggleStrategyCard(1)}
+                  className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px] cursor-pointer"
                   style={{
                     border: '0.5px solid #EEEEEE',
                     boxSizing: 'border-box',
                     scrollMarginTop: '72px'
                   }}
                 >
-                  <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
-                    <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設二' : 'Assumption 2'}</span>｜{lang === 'zh' ? '步驟解題' : 'Step-by-Step Solving'}
-                  </div>
-                  <div style={{ fontSize: '14px', color: '#6B6B6B', marginBottom: '16px' }}>
-                    {lang === 'zh' ? 'AI 講解的過程參與' : 'Active participation in the AI explanation process'}
+                  <div className="flex justify-between items-center gap-2">
+                    <div>
+                      <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                        <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設二' : 'Assumption 2'}</span>｜{lang === 'zh' ? '步驟解題' : 'Step-by-Step Solving'}
+                      </div>
+                      <div style={{ fontSize: '14px', color: '#6B6B6B' }}>
+                        {lang === 'zh' ? 'AI 講解的過程參與' : 'Active participation in the AI explanation process'}
+                      </div>
+                    </div>
+                    <svg 
+                      width="16" 
+                      height="16" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="#F97316" 
+                      strokeWidth="2.5" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      style={{
+                        transform: expandedStrategyCards[1] ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 300ms ease',
+                        flexShrink: 0,
+                        marginLeft: '12px'
+                      }}
+                    >
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-[minmax(0,auto)_32px_minmax(0,1fr)] items-stretch">
-                    <div 
-                      className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
-                    >
-                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
-                        {lang === 'zh' ? '用戶痛點' : 'PAIN POINTS'}
+                  <div style={{
+                    maxHeight: expandedStrategyCards[1] ? '1000px' : '0px',
+                    overflow: 'hidden',
+                    transition: 'max-height 300ms ease, margin-top 300ms ease',
+                    marginTop: expandedStrategyCards[1] ? '16px' : '0px'
+                  }}>
+                    <div className="grid grid-cols-1 md:grid-cols-[minmax(0,auto)_32px_minmax(0,1fr)] items-stretch">
+                      <div 
+                        className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
+                      >
+                        <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
+                          {lang === 'zh' ? '用戶痛點' : 'PAIN POINTS'}
+                        </div>
+                        <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
+                          {lang === 'zh' ? '看不懂題目解析' : 'Cannot understand question explanations'}
+                        </div>
                       </div>
-                      <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
-                        {lang === 'zh' ? '看不懂題目解析' : 'Cannot understand question explanations'}
+                      
+                      <div className="flex items-center justify-center text-[18px] text-[#D85A30] my-1 md:my-0">
+                        <span className="hidden md:inline">→</span>
+                        <span className="inline md:hidden">↓</span>
+                      </div>
+
+                      <div 
+                        className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
+                      >
+                        <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
+                          {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
+                        </div>
+                        <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
+                          {lang === 'zh' ? '林老師 AI 即時講解・步驟式引導' : 'AI Instant Explanation · Step-by-Step Guidance'}
+                        </div>
                       </div>
                     </div>
-                    
-                    <div className="flex items-center justify-center text-[18px] text-[#D85A30] my-1 md:my-0">
-                      <span className="hidden md:inline">→</span>
-                      <span className="inline md:hidden">↓</span>
+
+                    <div className="h-4" />
+
+                    <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
+                      {lang === 'zh' ? (
+                        <>不直接給答案，讓解析<span style={{ color: '#D85A30' }}>從單向閱讀變成雙向對話</span>——學生覺得是自己解出來的。</>
+                      ) : (
+                        <>Instead of giving answers directly, make explanation <span style={{ color: '#D85A30' }}>transform from one-way reading to two-way dialogue</span>—so students feel they solved it themselves.</>
+                      )}
                     </div>
-
-                    <div 
-                      className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
-                    >
-                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
-                        {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
-                      </div>
-                      <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
-                        {lang === 'zh' ? '林老師 AI 即時講解・步驟式引導' : 'AI Instant Explanation · Step-by-Step Guidance'}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="h-4" />
-
-                  <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
-                    {lang === 'zh' ? (
-                      <>不直接給答案，讓解析<span style={{ color: '#D85A30' }}>從單向閱讀變成雙向對話</span>——學生覺得是自己解出來的。</>
-                    ) : (
-                      <>Instead of giving answers directly, make explanation <span style={{ color: '#D85A30' }}>transform from one-way reading to two-way dialogue</span>—so students feel they solved it themselves.</>
-                    )}
                   </div>
                 </div>
 
                 {/* 卡三 */}
                 <div 
                   id="strategy-asset"
-                  className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px]"
+                  onClick={() => toggleStrategyCard(2)}
+                  className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px] cursor-pointer"
                   style={{
                     border: '0.5px solid #EEEEEE',
                     boxSizing: 'border-box',
                     scrollMarginTop: '72px'
                   }}
                 >
-                  <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
-                    <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設三' : 'Assumption 3'}</span>｜{lang === 'zh' ? '錯題庫收藏庫' : 'Error Book & Bookmark'}
-                  </div>
-                  <div style={{ fontSize: '14px', color: '#6B6B6B', marginBottom: '16px' }}>
-                    {lang === 'zh' ? '學習資產驅動推薦' : 'Learning asset-driven recommendation'}
+                  <div className="flex justify-between items-center gap-2">
+                    <div>
+                      <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                        <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設三' : 'Assumption 3'}</span>｜{lang === 'zh' ? '錯題庫收藏庫' : 'Error Book & Bookmark'}
+                      </div>
+                      <div style={{ fontSize: '14px', color: '#6B6B6B' }}>
+                        {lang === 'zh' ? '學習資產驅動推薦' : 'Learning asset-driven recommendation'}
+                      </div>
+                    </div>
+                    <svg 
+                      width="16" 
+                      height="16" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="#F97316" 
+                      strokeWidth="2.5" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      style={{
+                        transform: expandedStrategyCards[2] ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 300ms ease',
+                        flexShrink: 0,
+                        marginLeft: '12px'
+                      }}
+                    >
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-[minmax(0,auto)_32px_minmax(0,1fr)] items-stretch">
-                    <div 
-                      className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
-                    >
-                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
-                        {lang === 'zh' ? '用戶痛點' : 'PAIN POINTS'}
+                  <div style={{
+                    maxHeight: expandedStrategyCards[2] ? '1000px' : '0px',
+                    overflow: 'hidden',
+                    transition: 'max-height 300ms ease, margin-top 300ms ease',
+                    marginTop: expandedStrategyCards[2] ? '16px' : '0px'
+                  }}>
+                    <div className="grid grid-cols-1 md:grid-cols-[minmax(0,auto)_32px_minmax(0,1fr)] items-stretch">
+                      <div 
+                        className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
+                      >
+                        <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
+                          {lang === 'zh' ? '用戶痛點' : 'PAIN POINTS'}
+                        </div>
+                        <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
+                          {lang === 'zh' ? '不知道要練哪裡' : 'Do not know what to practice next'}
+                        </div>
                       </div>
-                      <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
-                        {lang === 'zh' ? '不知道要練哪裡' : 'Do not know what to practice next'}
+                      
+                      <div className="flex items-center justify-center text-[18px] text-[#D85A30] my-1 md:my-0">
+                        <span className="hidden md:inline">→</span>
+                        <span className="inline md:hidden">↓</span>
+                      </div>
+
+                      <div 
+                        className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
+                      >
+                        <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
+                          {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
+                        </div>
+                        <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
+                          {lang === 'zh' ? '錯題庫・收藏庫・智慧推薦（依錯題與練習紀錄）' : 'Error Book · Bookmark · Smart Recommendation (based on errors & logs)'}
+                        </div>
                       </div>
                     </div>
-                    
-                    <div className="flex items-center justify-center text-[18px] text-[#D85A30] my-1 md:my-0">
-                      <span className="hidden md:inline">→</span>
-                      <span className="inline md:hidden">↓</span>
+
+                    <div className="h-4" />
+
+                    <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
+                      {lang === 'zh' ? (
+                        <>錯題紀錄不只是收藏，它是<span style={{ color: '#D85A30' }}>智慧推薦的資料來源</span>——記錄本身回答了「下一步練什麼」。</>
+                      ) : (
+                        <>Error records are not just bookmarks; they are the <span style={{ color: '#D85A30' }}>data source for smart recommendations</span>—records themselves answer "what to practice next".</>
+                      )}
                     </div>
-
-                    <div 
-                      className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
-                    >
-                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
-                        {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
-                      </div>
-                      <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
-                        {lang === 'zh' ? '錯題庫・收藏庫・智慧推薦（依錯題與練習紀錄）' : 'Error Book · Bookmark · Smart Recommendation (based on errors & logs)'}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="h-4" />
-
-                  <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
-                    {lang === 'zh' ? (
-                      <>錯題紀錄不只是收藏，它是<span style={{ color: '#D85A30' }}>智慧推薦的資料來源</span>——記錄本身回答了「下一步練什麼」。</>
-                    ) : (
-                      <>Error records are not just bookmarks; they are the <span style={{ color: '#D85A30' }}>data source for smart recommendations</span>—records themselves answer "what to practice next".</>
-                    )}
                   </div>
                 </div>
 

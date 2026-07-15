@@ -3250,6 +3250,61 @@ const SPLIT_VIEW_CHIPS = [
         };
       }, []);
 
+      // 策略卡與進入門檻註記滾動淡入互動
+      useEffect(() => {
+        const container = document.getElementById('strategy-reveal-section');
+        if (!container) return;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const items = container.querySelectorAll('.strategy-reveal-item');
+
+        if (prefersReducedMotion) {
+          items.forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+          });
+          return;
+        }
+
+        // 初始化動畫狀態
+        items.forEach(el => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(16px)';
+          el.style.transition = 'opacity 400ms ease-out, transform 400ms ease-out';
+        });
+
+        let observer;
+        const initTimeout = setTimeout(() => {
+          observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                items.forEach((el, index) => {
+                  setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                    setTimeout(() => {
+                      el.style.transform = 'none';
+                    }, 400);
+                  }, index * 80);
+                });
+                observer.unobserve(entry.target);
+              }
+            });
+          }, {
+            root: null,
+            threshold: 0.1
+          });
+          observer.observe(container);
+        }, 100);
+
+        return () => {
+          clearTimeout(initTimeout);
+          if (observer) {
+            observer.disconnect();
+          }
+        };
+      }, [lang]);
+
       useEffect(() => {
         let animationFrameId = null;
 
@@ -4271,152 +4326,243 @@ const SPLIT_VIEW_CHIPS = [
             >
               <ProjectSectionHeader num="03" title={lang === 'zh' ? '策略定調與資訊架構' : 'Design Strategy & Information Architecture'} />
 
-              {/* FOUR PRINCIPLES */}
-              <div style={{ marginBottom: '48px' }}>
-                <SubHeading>從洞察到設計原則</SubHeading>
-                <p style={{ fontSize: '15px', color: '#6B6B6B', margin: '0 0 24px 0', lineHeight: '1.6' }}>
-                  競品分析完成後，我們將核心洞察轉換成四條設計原則，作為所有功能決策的依據：
+              {/* 一、定位句區 */}
+              <div style={{ marginBottom: '32px' }}>
+                <div style={{
+                  fontSize: '11px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  color: '#A0A0A0',
+                  fontWeight: 'bold',
+                  marginBottom: '8px'
+                }}>
+                  {lang === 'zh' ? '產品定位' : 'PRODUCT POSITIONING'}
+                </div>
+                <p className="text-[17px] md:text-[19px] font-medium text-[#1A1A1A] leading-[1.6] mb-2 font-noto">
+                  {lang === 'zh' 
+                    ? 'Ms. Lin（林老師）是一款以台灣國高中生為主要用戶的 AI 輔助刷題 App。'
+                    : 'Ms. Lin is an AI-assisted practice App targeted primarily at Taiwanese junior and senior high school students.'}
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '16px' }}>
-                  {/* Principle 01 */}
-                  <div style={{ border: '0.5px solid #EEEEEE', borderRadius: '12px', padding: '24px', backgroundColor: '#FFFFFF', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', height: '100%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#FFF7ED', color: '#534AB7', fontSize: '12px', fontWeight: 'bold' }}>
-                      01
+                <p style={{
+                  fontSize: '14px',
+                  color: '#6B6B6B',
+                  marginBottom: '28px',
+                  lineHeight: '1.6'
+                }}>
+                  {lang === 'zh'
+                    ? '三個設計假設在這裡收斂成產品策略：每一個用戶痛點，都能對應回一個假設的落地。'
+                    : 'Three design assumptions converge here into product strategy: every user pain point maps to the landing of one assumption.'}
+                </p>
+              </div>
+
+              {/* 二、三張策略卡與進入門檻註記 */}
+              <div id="strategy-reveal-section" className="flex flex-col gap-3">
+                {/* 卡一 */}
+                <div 
+                  className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px]"
+                  style={{
+                    border: '0.5px solid #EEEEEE',
+                    boxSizing: 'border-box'
+                  }}
+                >
+                  <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                    <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設一' : 'Assumption 1'}</span>｜{lang === 'zh' ? '刷題 Loop' : 'Practice Loop'}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#6B6B6B', marginBottom: '16px' }}>
+                    {lang === 'zh' ? '遊戲化正向循環，節奏由學生決定' : 'Gamified positive loop, pace decided by students'}
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-[minmax(0,auto)_32px_minmax(0,1fr)] items-stretch">
+                    <div 
+                      className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
+                    >
+                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
+                        {lang === 'zh' ? '用戶痛點' : 'PAIN POINTS'}
+                      </div>
+                      <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
+                        {lang === 'zh' ? '練了沒進步感・練習沒有動力' : 'No sense of progress · No motivation to practice'}
+                      </div>
                     </div>
-                    <div style={{ fontSize: '15px', fontWeight: '500', color: '#1A1A1A', marginTop: '12px', marginBottom: '8px' }}>
-                      讓努力感被看見
+                    
+                    <div className="flex items-center justify-center text-[18px] text-[#D85A30] my-1 md:my-0">
+                      <span className="hidden md:inline">→</span>
+                      <span className="inline md:hidden">↓</span>
                     </div>
-                    <p style={{ fontSize: '13px', lineHeight: '1.7', color: '#6B6B6B', margin: '0 0 16px 0', flex: 1 }}>
-                      每題作答後立即公布答案並附詳盡解析，進度條題號都在告訴學生這些事有意義。
-                    </p>
-                    <div style={{ fontSize: '11px', color: '#EA580C', fontWeight: '500' }}>
-                      → 影響功能：每題解析、loop 進度顯示、結果頁架構
+
+                    <div 
+                      className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
+                    >
+                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
+                        {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
+                      </div>
+                      <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
+                        {lang === 'zh' ? '三層練習模式・XP・段位・Streak・排行榜・每日任務' : '3-Tier Practice · XP · Rank · Streak · Leaderboard · Daily Quests'}
+                      </div>
                     </div>
                   </div>
 
-                  {/* Principle 02 */}
-                  <div style={{ border: '0.5px solid #EEEEEE', borderRadius: '12px', padding: '24px', backgroundColor: '#FFFFFF', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', height: '100%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#F3F4F6', color: '#4B5563', fontSize: '12px', fontWeight: 'bold' }}>
-                      02
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-[8px] my-[14px] md:mt-[14px] md:mb-[16px] box-sizing-border-box">
+                    <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '5 題' : '5 Qs'}</div>
+                      <div style={{ fontSize: '12px', color: '#6B6B6B' }} className="md:whitespace-nowrap">{lang === 'zh' ? '聚焦觀念打穩基礎' : 'Focus on concepts & build foundation'}</div>
                     </div>
-                    <div style={{ fontSize: '15px', fontWeight: '500', color: '#1A1A1A', marginTop: '12px', marginBottom: '8px' }}>
-                      用成就系統驅動持續回訪
+                    <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '10 題' : '10 Qs'}</div>
+                      <div style={{ fontSize: '12px', color: '#6B6B6B' }} className="md:whitespace-nowrap">{lang === 'zh' ? '混合題型強化觀念' : 'Mix question types & reinforce concepts'}</div>
                     </div>
-                    <p style={{ fontSize: '13px', lineHeight: '1.7', color: '#6B6B6B', margin: '0 0 16px 0', flex: 1 }}>
-                      導入 XP 積分與聯賽段位系統，將練習結果轉化為可累積可競爭的成就感。
-                    </p>
-                    <div style={{ fontSize: '11px', color: '#6B7280', fontWeight: '500', marginBottom: '12px' }}>
-                      → 影響功能：結果頁 XP 結算、段位顯示、排行榜
-                    </div>
-                    <div style={{ marginTop: 'auto' }}>
-                      <button
-                        onClick={() => setIsXpExpanded(!isXpExpanded)}
-                        className="w-full py-2 px-3 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold transition-all flex items-center justify-between cursor-pointer border border-gray-200"
-                      >
-                        <span>{lang === 'zh' ? 'XP 計算與段位規則' : 'XP & Rank Rules'}</span>
-                        <span>{isXpExpanded ? '▲' : '▼'}</span>
-                      </button>
-                      
-                      {isXpExpanded && (
-                        <div style={{
-                          background: '#F3F4F6',
-                          borderRadius: '8px',
-                          padding: '16px',
-                          marginTop: '12px',
-                          boxSizing: 'border-box',
-                          border: '1px solid #E5E7EB'
-                        }} className="animate-in fade-in slide-in-from-top-2 duration-200">
-                          <div style={{ fontSize: '12px', fontWeight: 'bold', color: '#374151', marginBottom: '8px', textAlign: 'left' }}>
-                            {lang === 'zh' ? 'XP 計算邏輯' : 'XP Calculation'}
-                          </div>
-                          <div style={{
-                            fontFamily: 'monospace',
-                            backgroundColor: '#E5E7EB',
-                            padding: '6px 10px',
-                            borderRadius: '4px',
-                            fontSize: '11px',
-                            color: '#1F2937',
-                            wordBreak: 'break-all',
-                            marginBottom: '12px',
-                            textAlign: 'left'
-                          }}>
-                            Total XP = (基礎得分 + 連擊加成) x 規模倍率 + 任務獎勵
-                          </div>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '11px', color: '#4B5563', marginBottom: '12px', textAlign: 'left' }}>
-                            <div>⚡ {lang === 'zh' ? '基礎得分：答對 +10 XP、答錯 +2 XP' : 'Base: Correct +10 XP, Incorrect +2 XP'}</div>
-                            <div>🔥 {lang === 'zh' ? '連擊加成：3-5連對+2 / 6-10+5 / 11++10' : 'Combo: 3-5 +2 / 6-10 +5 / 11+ +10'}</div>
-                            <div>✨ {lang === 'zh' ? '規模倍率：5題 1.1x → 15題 1.6x' : 'Multiplier: 5 Qs 1.1x → 15 Qs 1.6x'}</div>
-                          </div>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', borderTop: '1px solid #D1D5DB', paddingTop: '10px' }}>
-                            <span style={{ fontSize: '10px', color: '#6B7280', textTransform: 'uppercase', marginBottom: '4px', display: 'block', textAlign: 'left' }}>
-                              {lang === 'zh' ? '聯賽段位 (懸停查看規則)：' : 'Leagues (hover for rules):'}
-                            </span>
-                            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                              {/* Bronze */}
-                              <div className="group" style={{ position: 'relative', cursor: 'pointer' }}>
-                                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', backgroundColor: '#E5E7EB', color: '#4B5563', fontWeight: '500' }}>{lang === 'zh' ? '青銅' : 'Bronze'}</span>
-                                <div className="invisible group-hover:visible" style={{ position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '6px 10px', borderRadius: '6px', fontSize: '10px', whiteSpace: 'nowrap', zIndex: 50, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                                  {lang === 'zh' ? '青銅：累積至 100 XP 升級白銀' : 'Bronze: 100 XP to Silver'}
-                                </div>
-                              </div>
-                              {/* Silver */}
-                              <div className="group" style={{ position: 'relative', cursor: 'pointer' }}>
-                                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', backgroundColor: '#D9E2EC', color: '#334E68', fontWeight: '500' }}>{lang === 'zh' ? '白銀' : 'Silver'}</span>
-                                <div className="invisible group-hover:visible" style={{ position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '6px 10px', borderRadius: '6px', fontSize: '10px', whiteSpace: 'nowrap', zIndex: 50, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                                  {lang === 'zh' ? '白銀：累積至 300 XP 升級黃金' : 'Silver: 300 XP to Gold'}
-                                </div>
-                              </div>
-                              {/* Gold */}
-                              <div className="group" style={{ position: 'relative', cursor: 'pointer' }}>
-                                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', backgroundColor: '#FEF3C7', color: '#92400E', fontWeight: '500' }}>{lang === 'zh' ? '黃金' : 'Gold'}</span>
-                                <div className="invisible group-hover:visible" style={{ position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '6px 10px', borderRadius: '6px', fontSize: '10px', whiteSpace: 'nowrap', zIndex: 50, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                                  {lang === 'zh' ? '黃金：累積至 800 XP 升級鑽石' : 'Gold: 800 XP to Diamond'}
-                                </div>
-                              </div>
-                              {/* Diamond */}
-                              <div className="group" style={{ position: 'relative', cursor: 'pointer' }}>
-                                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', backgroundColor: '#EEF2FF', color: '#3730A3', fontWeight: '500' }}>{lang === 'zh' ? '鑽石' : 'Diamond'}</span>
-                                <div className="invisible group-hover:visible" style={{ position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1A1A1A', color: '#FFFFFF', padding: '6px 10px', borderRadius: '6px', fontSize: '10px', whiteSpace: 'nowrap', zIndex: 50, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                                  {lang === 'zh' ? '鑽石：排名前 10% 的頂尖聯賽' : 'Diamond: Top 10% Elite League'}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
+                    <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '15 題' : '15 Qs'}</div>
+                      <div style={{ fontSize: '12px', color: '#6B6B6B' }} className="md:whitespace-nowrap">{lang === 'zh' ? '全題型實戰演練' : 'All question types & exam simulation'}</div>
                     </div>
                   </div>
 
-                  {/* Principle 03 */}
-                  <div style={{ border: '0.5px solid #EEEEEE', borderRadius: '12px', padding: '24px', backgroundColor: '#FFFFFF', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', height: '100%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#FFF7ED', color: '#534AB7', fontSize: '12px', fontWeight: 'bold' }}>
-                      03
+                  <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
+                    {lang === 'zh' ? (
+                      <>五題是一輪努力的基本單位；三層模式把<span style={{ color: '#D85A30' }}>節奏的選擇權交還給學生</span>——重量由自己決定，回饋依然在完成點釋放。</>
+                    ) : (
+                      <>5 questions form the basic unit of effort; the 3-tier mode <span style={{ color: '#D85A30' }}>hands the choice of pace back to the students</span>—you choose the weight, while the reward is still released at completion.</>
+                    )}
+                  </div>
+                </div>
+
+                {/* 卡二 */}
+                <div 
+                  className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px]"
+                  style={{
+                    border: '0.5px solid #EEEEEE',
+                    boxSizing: 'border-box'
+                  }}
+                >
+                  <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                    <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設二' : 'Assumption 2'}</span>｜{lang === 'zh' ? '步驟解題' : 'Step-by-Step Solving'}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#6B6B6B', marginBottom: '16px' }}>
+                    {lang === 'zh' ? 'AI 講解的過程參與' : 'Active participation in the AI explanation process'}
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-[minmax(0,auto)_32px_minmax(0,1fr)] items-stretch">
+                    <div 
+                      className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
+                    >
+                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
+                        {lang === 'zh' ? '用戶痛點' : 'PAIN POINTS'}
+                      </div>
+                      <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
+                        {lang === 'zh' ? '看不懂題目解析' : 'Cannot understand question explanations'}
+                      </div>
                     </div>
-                    <div style={{ fontSize: '15px', fontWeight: '500', color: '#1A1A1A', marginTop: '12px', marginBottom: '8px' }}>
-                      回饋在投入感最高點釋放
+                    
+                    <div className="flex items-center justify-center text-[18px] text-[#D85A30] my-1 md:my-0">
+                      <span className="hidden md:inline">→</span>
+                      <span className="inline md:hidden">↓</span>
                     </div>
-                    <p style={{ fontSize: '13px', lineHeight: '1.7', color: '#6B6B6B', margin: '0 0 16px 0', flex: 1 }}>
-                      不在每題後打斷節奏，讓學生累積作答動能，一輪結束時統一釋放完整回饋。
-                    </p>
-                    <div style={{ fontSize: '11px', color: '#EA580C', fontWeight: '500' }}>
-                      → 影響功能：loop 長度設定 5/10/15 題
+
+                    <div 
+                      className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
+                    >
+                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
+                        {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
+                      </div>
+                      <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
+                        {lang === 'zh' ? '林老師 AI 即時講解・步驟式引導' : 'AI Instant Explanation · Step-by-Step Guidance'}
+                      </div>
                     </div>
                   </div>
 
-                  {/* Principle 04 */}
-                  <div style={{ border: '0.5px solid #EEEEEE', borderRadius: '12px', padding: '24px', backgroundColor: '#FFFFFF', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', height: '100%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#FFF7ED', color: '#534AB7', fontSize: '12px', fontWeight: 'bold' }}>
-                      04
+                  <div className="h-4" />
+
+                  <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
+                    {lang === 'zh' ? (
+                      <>不直接給答案，讓解析<span style={{ color: '#D85A30' }}>從單向閱讀變成雙向對話</span>——學生覺得是自己解出來的。</>
+                    ) : (
+                      <>Instead of giving answers directly, make explanation <span style={{ color: '#D85A30' }}>transform from one-way reading to two-way dialogue</span>—so students feel they solved it themselves.</>
+                    )}
+                  </div>
+                </div>
+
+                {/* 卡三 */}
+                <div 
+                  className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px]"
+                  style={{
+                    border: '0.5px solid #EEEEEE',
+                    boxSizing: 'border-box'
+                  }}
+                >
+                  <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                    <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設三' : 'Assumption 3'}</span>｜{lang === 'zh' ? '錯題庫收藏庫' : 'Error Book & Bookmark'}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#6B6B6B', marginBottom: '16px' }}>
+                    {lang === 'zh' ? '學習資產驅動推薦' : 'Learning asset-driven recommendation'}
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-[minmax(0,auto)_32px_minmax(0,1fr)] items-stretch">
+                    <div 
+                      className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
+                    >
+                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
+                        {lang === 'zh' ? '用戶痛點' : 'PAIN POINTS'}
+                      </div>
+                      <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
+                        {lang === 'zh' ? '不知道要練哪裡' : 'Do not know what to practice next'}
+                      </div>
                     </div>
-                    <div style={{ fontSize: '15px', fontWeight: '500', color: '#1A1A1A', marginTop: '12px', marginBottom: '8px' }}>
-                      學習記錄是資產不是成績單
+                    
+                    <div className="flex items-center justify-center text-[18px] text-[#D85A30] my-1 md:my-0">
+                      <span className="hidden md:inline">→</span>
+                      <span className="inline md:hidden">↓</span>
                     </div>
-                    <p style={{ fontSize: '13px', lineHeight: '1.7', color: '#6B6B6B', margin: '0 0 16px 0', flex: 1 }}>
-                      錯題庫是還沒解鎖的題目，個人化數據段位歷程都屬於學生自己。
-                    </p>
-                    <div style={{ fontSize: '11px', color: '#EA580C', fontWeight: '500' }}>
-                      → 影響功能：錯題庫、收藏庫、我的頁面
+
+                    <div 
+                      className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
+                    >
+                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
+                        {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
+                      </div>
+                      <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
+                        {lang === 'zh' ? '錯題庫・收藏庫・智慧推薦（依錯題與練習紀錄）' : 'Error Book · Bookmark · Smart Recommendation (based on errors & logs)'}
+                      </div>
                     </div>
+                  </div>
+
+                  <div className="h-4" />
+
+                  <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
+                    {lang === 'zh' ? (
+                      <>錯題紀錄不只是收藏，它是<span style={{ color: '#D85A30' }}>智慧推薦的資料來源</span>——記錄本身回答了「下一步練什麼」。</>
+                    ) : (
+                      <>Error records are not just bookmarks; they are the <span style={{ color: '#D85A30' }}>data source for smart recommendations</span>—records themselves answer "what to practice next".</>
+                    )}
+                  </div>
+                </div>
+
+                {/* 三、進入門檻註記 */}
+                <div 
+                  className="strategy-reveal-item"
+                  style={{
+                    border: '0.5px dashed #DDDDDD',
+                    borderRadius: '12px',
+                    padding: '14px 22px',
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '12px',
+                    boxSizing: 'border-box',
+                    marginBottom: '48px',
+                    marginTop: '12px'
+                  }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '18px', height: '18px', color: '#A0A0A0', flexShrink: 0, marginTop: '2px' }}>
+                    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                    <circle cx="12" cy="13" r="3" />
+                  </svg>
+                  <div style={{ fontSize: '13px', lineHeight: '1.7', color: '#6B6B6B' }}>
+                    <span style={{ fontWeight: 500, color: '#1A1A1A' }}>
+                      {lang === 'zh' ? '進入門檻・拍照解題' : 'Entry Barrier · Photo Solver'}
+                    </span>
+                    {lang === 'zh' ? (
+                      <>：「不想帶課本出門」→ 拍照上傳即解。這不是差異化假設，而是讓所有策略成立的前提——學生要先進得來，循環才轉得起來。</>
+                    ) : (
+                      <>: "Do not want to carry textbooks" → Photo upload and solve instantly. This is not a differentiator, but a prerequisite for all strategies to work—students must enter first for the loop to rotate.</>
+                    )}
                   </div>
                 </div>
               </div>

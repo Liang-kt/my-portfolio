@@ -7170,6 +7170,15 @@ const SPLIT_VIEW_CHIPS = [
       const aboutRef = useRef(null);
       const contactRef = useRef(null);
       const footerRef = useRef(null);
+      const chipRefs = useRef([]);
+
+      useEffect(() => {
+        const chipIds = ['hero', 'services', 'values', 'success', 'cta', 'about', 'contact', 'footer'];
+        const idx = chipIds.indexOf(activeChip);
+        if (idx !== -1 && chipRefs.current[idx]) {
+          chipRefs.current[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, [activeChip]);
 
       const sectionRefs = {
         hero: heroRef,
@@ -7256,6 +7265,16 @@ const SPLIT_VIEW_CHIPS = [
           setActiveDecisionTab(tabId);
           setActiveChip(tabToChipMap[tabId]);
           setIsDecisionFading(false);
+        }, 150);
+      };
+
+      const handleChipClick = (chipId) => {
+        if (chipId === activeChip || isChipFading) return;
+        setIsChipFading(true);
+        setVideoState('none');
+        setTimeout(() => {
+          setActiveChip(chipId);
+          setIsChipFading(false);
         }, 150);
       };
       const [wisdomeOverviewRef, wisdomeOverviewVisible] = useOnScreen({ threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
@@ -8336,156 +8355,386 @@ const SPLIT_VIEW_CHIPS = [
                         </div>
                       </div>
 
-                      {/* Mockups Wrapper - Full Width */}
-                      <div className="w-full">
-                        <div className="rounded-[12px] lg:p-[12px] flex flex-col lg:flex-row lg:items-center lg:justify-start relative w-full aspect-none lg:aspect-[16/10] gap-6 lg:gap-0">
-                          {videoState === 'none' ? (
-                            <div className="w-full h-full relative flex flex-col lg:flex-row lg:items-center lg:justify-start">
-                              {/* Desktop Web Showcase (Browser Mockup removed, no shadows) */}
-                              <div 
-                                className="w-full lg:w-[86%] aspect-[16/10] lg:aspect-none lg:h-full flex flex-col bg-[#080d19] rounded-2xl lg:rounded-xl overflow-hidden relative"
-                                onMouseLeave={() => setIsDesktopScrollActive(false)}
-                              >
-                                {/* Scrollable Webpage Content */}
-                                <div 
-                                  ref={containerRef}
-                                  className={`flex-1 overflow-y-auto scroll-smooth hide-scrollbar bg-[#080d19] relative ${isDesktopScrollActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
-                                >
-                                  {activeItem.design.webShowcaseStrip.map((item, idx) => {
-                                    const sectionRef = 
-                                      idx === 0 ? heroRef : 
-                                      idx === 1 ? servicesRef : 
-                                      idx === 2 ? valuesRef : 
-                                      idx === 3 ? successRef :
-                                      idx === 4 ? ctaRef :
-                                      idx === 5 ? aboutRef :
-                                      idx === 6 ? contactRef :
-                                      idx === 7 ? footerRef : null;
-                                    
-                                    return (
-                                      <div 
-                                        key={idx} 
-                                        ref={sectionRef}
-                                        className="w-full relative select-none"
-                                        style={{ lineHeight: 0 }}
-                                      >
-                                        {item.type === 'video' ? (
-                                          Array.isArray(item.url) ? (
-                                            item.url.map((urlStr, uIdx) => (
-                                              <WebShowcaseVideo key={uIdx} src={urlStr} className="w-full h-auto block" />
-                                            ))
-                                          ) : (
-                                            <WebShowcaseVideo src={item.url} className="w-full h-auto block" />
-                                          )
-                                        ) : (
-                                          <WebShowcaseImage src={item.url} />
-                                        )}
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-  
-                                {/* Center Scroll Activation Overlay */}
-                                <div 
-                                  className={`absolute inset-y-[20%] inset-x-[25%] z-30 bg-transparent ${isDesktopScrollActive ? 'pointer-events-none' : 'pointer-events-auto cursor-ns-resize'}`}
-                                  onMouseEnter={() => setIsDesktopScrollActive(true)}
-                                />
-                              </div>
-  
-                              {/* Mobile Showcase (Phone Mockup & Shadow removed, border added) */}
-                              <div 
-                                className="relative lg:absolute lg:top-12 lg:right-0 w-[200px] sm:w-[240px] lg:w-[28%] aspect-[9/19.5] lg:aspect-none lg:h-full mt-6 lg:mt-0 mx-auto lg:mx-0 bg-[#080d19] rounded-[2rem] border-[6px] border-[#1a1b20] overflow-hidden flex flex-col z-20"
-                                onMouseLeave={() => setIsMobileScrollActive(false)}
-                              >
-                                {/* Scrollable Mobile Viewport */}
-                                <div 
-                                  ref={mobileContainerRef}
-                                  className={`flex-1 overflow-y-auto scroll-smooth hide-scrollbar bg-[#080d19] relative ${isMobileScrollActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
-                                >
-                                  {activeItem.design.webShowcaseStrip.map((item, idx) => {
-                                    if (!item.mobile) return null;
-                                    const mItem = item.mobile;
-                                    
-                                    const mRef = 
-                                      idx === 0 ? mHeroRef : 
-                                      idx === 1 ? mServicesRef : 
-                                      idx === 2 ? mValuesRef : 
-                                      idx === 3 ? mSuccessRef :
-                                      idx === 4 ? mCtaRef :
-                                      idx === 5 ? mAboutRef : null;
-  
-                                    return (
-                                      <div 
-                                        key={idx} 
-                                        ref={mRef}
-                                        className="w-full relative select-none"
-                                        style={{ lineHeight: 0 }}
-                                      >
-                                        {mItem.type === 'video' ? (
-                                          Array.isArray(mItem.url) ? (
-                                            mItem.url.map((urlStr, uIdx) => (
-                                              <WebShowcaseVideo key={uIdx} src={urlStr} />
-                                            ))
-                                          ) : (
-                                            <WebShowcaseVideo src={mItem.url} />
-                                          )
-                                        ) : (
-                                          <WebShowcaseImage src={mItem.url} />
-                                        )}
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-  
-                                {/* Center Scroll Activation Overlay */}
-                                <div 
-                                  className={`absolute inset-y-[20%] inset-x-[20%] z-30 bg-transparent ${isMobileScrollActive ? 'pointer-events-none' : 'pointer-events-auto cursor-ns-resize'}`}
-                                  onMouseEnter={() => setIsMobileScrollActive(true)}
-                                />
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="w-full aspect-[16/10] lg:aspect-none lg:h-full relative flex items-center justify-center bg-black rounded-lg overflow-hidden">
-                              <video
-                                ref={videoRef}
-                                key={SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.videoUrl}
-                                src={SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.videoUrl}
-                                autoPlay
-                                controls
-                                className="w-full h-full object-contain"
-                                onEnded={() => setVideoState('ended')}
-                              />
-                              {videoState === 'ended' && (
-                                <div className="absolute inset-0 bg-black/85 flex flex-col items-center justify-center gap-4 z-10 animate-in fade-in duration-300">
-                                  <span className="text-white font-medium text-sm md:text-base font-noto">
-                                    {lang === 'zh' ? '影片播放完畢' : 'Video playback completed'}
-                                  </span>
-                                  <div className="flex gap-4">
-                                    <button
-                                      onClick={() => {
-                                        setVideoState('playing');
-                                        if (videoRef.current) {
-                                          videoRef.current.currentTime = 0;
-                                          videoRef.current.play().catch(err => console.log(err));
-                                        }
-                                      }}
-                                      className="px-4 py-2 bg-[#534ab7] hover:bg-[#433b9c] text-white rounded-full text-xs md:text-sm font-bold transition-all shadow-md cursor-pointer"
-                                    >
-                                      {lang === 'zh' ? '重播 ↺' : 'Replay ↺'}
-                                    </button>
-                                    <button
-                                      onClick={() => setVideoState('none')}
-                                      className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-full text-xs md:text-sm font-bold transition-all shadow-md cursor-pointer"
-                                    >
-                                      {lang === 'zh' ? '關閉 ✕' : 'Close ✕'}
-                                    </button>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
+                      {/* 分隔線 */}
+                      <div className="flex items-center gap-4 w-full my-2 select-none">
+                        <div className="flex-1 h-[0.5px] bg-gray-200" />
+                        <span style={{ fontSize: '11px', color: '#9CA3AF', fontWeight: 'normal' }} className="font-noto">
+                          {lang === 'zh' ? '對應介面區塊' : 'Corresponding Interface Section'}
+                        </span>
+                        <div className="flex-1 h-[0.5px] bg-gray-200" />
                       </div>
+
+                      {/* 第三層：分割視圖（Split View） */}
+                      {(() => {
+                        const HIGHLIGHT_STYLES = {
+                          hero: { bg: 'rgba(83,74,183,0.18)', border: 'rgba(144,144,204,0.8)' },
+                          services: { bg: 'rgba(15,110,86,0.18)', border: 'rgba(64,144,122,0.8)' },
+                          values: { bg: 'rgba(144,117,23,0.18)', border: 'rgba(192,168,64,0.8)' },
+                          success: { bg: 'rgba(160,96,64,0.18)', border: 'rgba(192,128,96,0.8)' },
+                          cta: { bg: 'rgba(14,90,110,0.18)', border: 'rgba(48,120,136,0.8)' },
+                          about: { bg: 'rgba(120,88,136,0.18)', border: 'rgba(184,144,192,0.8)' },
+                          contact: { bg: 'rgba(80,80,100,0.18)', border: 'rgba(160,160,176,0.8)' },
+                          footer: { bg: 'rgba(64,64,100,0.18)', border: 'rgba(136,136,168,0.8)' }
+                        };
+                        const chipSubs = {
+                          hero: lang === 'zh' ? '主視覺 · 動態影片' : 'Hero Visual · Video',
+                          services: lang === 'zh' ? 'GIF + 文字交錯' : 'GIF + Text Layout',
+                          values: lang === 'zh' ? 'Tab 切換設計' : 'Tab Switcher Design',
+                          success: lang === 'zh' ? '社會證明 · 卡片' : 'Social Proof · Cards',
+                          cta: lang === 'zh' ? '轉換錨點 · 三次出現' : 'Conversion Anchor · 3 Placements',
+                          about: lang === 'zh' ? '團隊與使命' : 'Team & Mission',
+                          contact: lang === 'zh' ? '表單 · 低摩擦設計' : 'Form · Low Friction',
+                          footer: lang === 'zh' ? '導覽 · 品牌資訊' : 'Navigation & Brand Info'
+                        };
+                        const CHIP_DESCRIPTIONS = {
+                          hero: lang === 'zh'
+                            ? '深色 Hero 搭配動態影片背景建立科技感，與白底內容區形成明確對比。主標「解放一線人力」刻意放在產品名稱之前——情緒共鳴先於功能介紹，訪客先感覺被理解，才有動機繼續往下讀。'
+                            : 'Dark Hero coupled with a dynamic video background builds a tech feel, contrasting clearly with white B2B landing pages. The headline "Liberate frontline staff" is placed before the product name—emotional resonance precedes feature intro.',
+                          services: lang === 'zh'
+                            ? '三個服務各用動態 GIF 展示操作流程，與說明文字左右交錯排版，模擬 Z 字型閱讀路徑，讓眼睛有節奏地在視覺和文字之間移動。'
+                            : 'Three services show workflows using animated GIFs, alternating left and right with description text to mimic a Z-pattern reading route.',
+                          values: lang === 'zh'
+                            ? '三個差異化優勢用 Tab 切換呈現，而非同時展開全部。每次訪客只處理一個主張，認知負荷降低，每個主張的說服空間也更充足。'
+                            : 'Three advantages are presented using tabs instead of expanding all at once. Visitors process one claim at a time, lowering B2B friction.',
+                          success: lang === 'zh'
+                            ? '案例放在核心價值後、聯絡表單前——信任最高點。用具名機構取代匿名案例，讓訪客可自行查證，信任度遠高於「某補習班」的寫法。'
+                            : 'Cases are placed after core values and before contact forms—the trust peak. Named brands replace anonymous ones for high credibility.',
+                          cta: lang === 'zh'
+                            ? 'CTA 區塊在說服流程最高點獨立呈現，強化「立即預約，聰明管理」的視覺重量。低承諾文案搭配對比色按鈕，讓視線無法忽略，同時不製造壓迫感。'
+                            : 'CTA blocks are presented independently at the peak of persuasion, reinforcing the visual weight of "Book Now, Manage Smart".',
+                          about: lang === 'zh'
+                            ? '「關於我們」刻意排在成功案例之後。訪客先看到客戶成果（外部驗證），再認識團隊（內部說明），信任建立路徑更自然。反過來先介紹自己，說服力反而較弱。'
+                            : '"About Us" is placed after success stories. Visitors see external B2B proof first, then meet the team, making the trust route more natural.',
+                          contact: lang === 'zh'
+                            ? '聯絡表單欄位精簡至三個（姓名、電話、訊息），降低填寫門檻。表單標題沿用「聰明管理」的語言，與 CTA 文案形成呼應，讓訪客感覺這是同一條路徑的自然終點。'
+                            : 'Contact B2B forms are simplified to three fields (Name, Phone, Msg) to lower barriers. Form title echoes "Smart Management".',
+                          footer: lang === 'zh'
+                            ? '頁尾包含所有主要區塊的快速連結，這是信任訊號——完整的頁尾讓 brand 看起來是有體制的組織，而非臨時搭起來的 landing page，服務的是已被說服、想進一步了解的訪客。'
+                            : 'The footer contains links to all major sections as a trust signal—a complete B2B footer makes the brand look structured.'
+                        };
+
+                        const activeChipData = SPLIT_VIEW_CHIPS.find(c => c.id === activeChip);
+                        const hasVideo = activeChipData && activeChipData.videoUrl;
+
+                        return (
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
+                            {/* 左欄 — 展示區 */}
+                            <div 
+                              style={{
+                                backgroundColor: '#FAFAFA',
+                                borderRadius: '12px',
+                                padding: '12px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '8px',
+                                boxSizing: 'border-box'
+                              }}
+                              className="w-full"
+                            >
+                              {/* 頂部裝置切換 tab */}
+                              <div className="flex gap-2 select-none">
+                                <button
+                                  onClick={() => setShowcaseDevice('desktop')}
+                                  className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border font-medium cursor-pointer transition-all duration-200 ${
+                                    showcaseDevice === 'desktop'
+                                      ? 'bg-[#EEEDFE] border-[#534AB7] text-[#26215C]'
+                                      : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
+                                  }`}
+                                  style={{ fontSize: '11px' }}
+                                >
+                                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" />
+                                    <path d="M8 21h8M12 17v4" />
+                                  </svg>
+                                  {lang === 'zh' ? '🖥 網頁版' : '🖥 Desktop'}
+                                </button>
+                                <button
+                                  onClick={() => setShowcaseDevice('mobile')}
+                                  className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border font-medium cursor-pointer transition-all duration-200 ${
+                                    showcaseDevice === 'mobile'
+                                      ? 'bg-[#EEEDFE] border-[#534AB7] text-[#26215C]'
+                                      : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
+                                  }`}
+                                  style={{ fontSize: '11px' }}
+                                >
+                                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                                    <rect x="5" y="2" width="14" height="20" rx="2" />
+                                    <path d="M12 18h.01" />
+                                  </svg>
+                                  {lang === 'zh' ? '📱 手機版' : '📱 Mobile'}
+                                </button>
+                              </div>
+
+                              {/* 展示元件容器 */}
+                              <div className="w-full relative flex-1" style={{ minHeight: '380px' }}>
+                                {videoState === 'none' ? (
+                                  <div className="w-full h-full relative flex flex-col">
+                                    {/* Desktop Showcase */}
+                                    <div 
+                                      style={{ display: showcaseDevice === 'desktop' ? 'flex' : 'none' }}
+                                      className="w-full aspect-[16/10] flex flex-col bg-[#080d19] rounded-xl overflow-hidden relative"
+                                      onMouseLeave={() => setIsDesktopScrollActive(false)}
+                                    >
+                                      <div 
+                                        ref={containerRef}
+                                        className={`flex-1 overflow-y-auto scroll-smooth hide-scrollbar bg-[#080d19] relative ${isDesktopScrollActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                                      >
+                                        {activeItem.design.webShowcaseStrip.map((item, idx) => {
+                                          const sectionRef = 
+                                            idx === 0 ? heroRef : 
+                                            idx === 1 ? servicesRef : 
+                                            idx === 2 ? valuesRef : 
+                                            idx === 3 ? successRef :
+                                            idx === 4 ? ctaRef :
+                                            idx === 5 ? aboutRef :
+                                            idx === 6 ? contactRef :
+                                            idx === 7 ? footerRef : null;
+                                          
+                                          const chipIds = ['hero', 'services', 'values', 'success', 'cta', 'about', 'contact', 'footer'];
+                                          const isHighlighted = activeChip === chipIds[idx];
+                                          const highlightStyle = HIGHLIGHT_STYLES[chipIds[idx]];
+
+                                          return (
+                                            <div 
+                                              key={idx} 
+                                              ref={sectionRef}
+                                              className="w-full relative select-none"
+                                              style={{ lineHeight: 0 }}
+                                            >
+                                              {/* Overlay */}
+                                              <div 
+                                                style={{
+                                                  position: 'absolute',
+                                                  inset: 0,
+                                                  backgroundColor: highlightStyle ? highlightStyle.bg : 'transparent',
+                                                  border: highlightStyle ? `2.5px solid ${highlightStyle.border}` : 'none',
+                                                  borderRadius: '4px',
+                                                  pointerEvents: 'none',
+                                                  zIndex: 10,
+                                                  opacity: isHighlighted ? 1 : 0,
+                                                  transition: 'opacity 300ms ease, border-color 300ms ease, background-color 300ms ease'
+                                                }}
+                                              />
+                                              {item.type === 'video' ? (
+                                                Array.isArray(item.url) ? (
+                                                  item.url.map((urlStr, uIdx) => (
+                                                    <WebShowcaseVideo key={uIdx} src={urlStr} className="w-full h-auto block" />
+                                                  ))
+                                                ) : (
+                                                  <WebShowcaseVideo src={item.url} className="w-full h-auto block" />
+                                                )
+                                              ) : (
+                                                <WebShowcaseImage src={item.url} />
+                                              )}
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
+                                      <div 
+                                        className={`absolute inset-y-[20%] inset-x-[25%] z-30 bg-transparent ${isDesktopScrollActive ? 'pointer-events-none' : 'pointer-events-auto cursor-ns-resize'}`}
+                                        onMouseEnter={() => setIsDesktopScrollActive(true)}
+                                      />
+                                    </div>
+
+                                    {/* Mobile Showcase */}
+                                    <div 
+                                      style={{ display: showcaseDevice === 'mobile' ? 'flex' : 'none' }}
+                                      className="w-[200px] sm:w-[220px] aspect-[9/19.5] mx-auto bg-[#080d19] rounded-[2rem] border-[6px] border-[#1a1b20] overflow-hidden flex flex-col relative z-20"
+                                      onMouseLeave={() => setIsMobileScrollActive(false)}
+                                    >
+                                      <div 
+                                        ref={mobileContainerRef}
+                                        className={`flex-1 overflow-y-auto scroll-smooth hide-scrollbar bg-[#080d19] relative ${isMobileScrollActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                                      >
+                                        {activeItem.design.webShowcaseStrip.map((item, idx) => {
+                                          if (!item.mobile) return null;
+                                          const mItem = item.mobile;
+                                          
+                                          const mRef = 
+                                            idx === 0 ? mHeroRef : 
+                                            idx === 1 ? mServicesRef : 
+                                            idx === 2 ? mValuesRef : 
+                                            idx === 3 ? mSuccessRef :
+                                            idx === 4 ? mCtaRef :
+                                            idx === 5 ? mAboutRef : null;
+
+                                          const chipIds = ['hero', 'services', 'values', 'success', 'cta', 'about', 'contact', 'footer'];
+                                          const isHighlighted = activeChip === chipIds[idx];
+                                          const highlightStyle = HIGHLIGHT_STYLES[chipIds[idx]];
+
+                                          return (
+                                            <div 
+                                              key={idx} 
+                                              ref={mRef}
+                                              className="w-full relative select-none"
+                                              style={{ lineHeight: 0 }}
+                                            >
+                                              {/* Overlay */}
+                                              <div 
+                                                style={{
+                                                  position: 'absolute',
+                                                  inset: 0,
+                                                  backgroundColor: highlightStyle ? highlightStyle.bg : 'transparent',
+                                                  border: highlightStyle ? `2.5px solid ${highlightStyle.border}` : 'none',
+                                                  borderRadius: '4px',
+                                                  pointerEvents: 'none',
+                                                  zIndex: 10,
+                                                  opacity: isHighlighted ? 1 : 0,
+                                                  transition: 'opacity 300ms ease, border-color 300ms ease, background-color 300ms ease'
+                                                }}
+                                              />
+                                              {mItem.type === 'video' ? (
+                                                Array.isArray(mItem.url) ? (
+                                                  mItem.url.map((urlStr, uIdx) => (
+                                                    <WebShowcaseVideo key={uIdx} src={urlStr} />
+                                                  ))
+                                                ) : (
+                                                  <WebShowcaseVideo src={mItem.url} />
+                                                )
+                                              ) : (
+                                                <WebShowcaseImage src={mItem.url} />
+                                              )}
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
+                                      <div 
+                                        className={`absolute inset-y-[20%] inset-x-[20%] z-30 bg-transparent ${isMobileScrollActive ? 'pointer-events-none' : 'pointer-events-auto cursor-ns-resize'}`}
+                                        onMouseEnter={() => setIsMobileScrollActive(true)}
+                                      />
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="w-full aspect-[16/10] lg:aspect-none lg:h-full relative flex items-center justify-center bg-black rounded-lg overflow-hidden">
+                                    <video
+                                      ref={videoRef}
+                                      key={SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.videoUrl}
+                                      src={SPLIT_VIEW_CHIPS.find(c => c.id === activeChip)?.videoUrl}
+                                      autoPlay
+                                      controls
+                                      className="w-full h-full object-contain"
+                                      onEnded={() => setVideoState('ended')}
+                                    />
+                                    {videoState === 'ended' && (
+                                      <div className="absolute inset-0 bg-black/85 flex flex-col items-center justify-center gap-4 z-10 animate-in fade-in duration-300">
+                                        <span className="text-white font-medium text-sm md:text-base font-noto">
+                                          {lang === 'zh' ? '影片播放完畢' : 'Video playback completed'}
+                                        </span>
+                                        <div className="flex gap-4">
+                                          <button
+                                            onClick={() => {
+                                              setVideoState('playing');
+                                              if (videoRef.current) {
+                                                videoRef.current.currentTime = 0;
+                                                videoRef.current.play().catch(err => console.log(err));
+                                              }
+                                            }}
+                                            className="px-4 py-2 bg-[#534ab7] hover:bg-[#433b9c] text-white rounded-full text-xs md:text-sm font-bold transition-all shadow-md cursor-pointer"
+                                          >
+                                            {lang === 'zh' ? '重播 ↺' : 'Replay ↺'}
+                                          </button>
+                                          <button
+                                            onClick={() => setVideoState('none')}
+                                            className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-full text-xs md:text-sm font-bold transition-all shadow-md cursor-pointer"
+                                          >
+                                            {lang === 'zh' ? '關閉 ✕' : 'Close ✕'}
+                                          </button>
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+
+                              {/* 底部說明文字 */}
+                              <div style={{ fontSize: '10px', color: '#9CA3AF', textAlign: 'center', marginTop: '4px' }} className="font-noto select-none">
+                                {lang === 'zh' ? '↕ 可滑動 · 點右側切換區塊' : '↕ Scrollable · Click chips on right to jump'}
+                              </div>
+                            </div>
+
+                            {/* 右欄 — 區塊選單與說明區 */}
+                            <div className="flex flex-col justify-between gap-4 w-full h-full">
+                              {/* 八個 Chip */}
+                              <div 
+                                style={{ 
+                                  maxHeight: '260px', 
+                                  overflowY: 'auto',
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  gap: '5px',
+                                  paddingRight: '4px'
+                                }}
+                                className="hide-scrollbar"
+                              >
+                                {SPLIT_VIEW_CHIPS.map((chip, idx) => {
+                                  const isActive = activeChip === chip.id;
+                                  return (
+                                    <button
+                                      key={chip.id}
+                                      ref={el => chipRefs.current[idx] = el}
+                                      onClick={() => handleChipClick(chip.id)}
+                                      className={`w-full text-left rounded-lg p-[8px_11px] transition-all duration-200 border cursor-pointer ${
+                                        isActive
+                                          ? 'border-[#534AB7] bg-[#EEEDFE] text-[#26215C] font-semibold'
+                                          : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
+                                      }`}
+                                    >
+                                      <div style={{ fontSize: '13px', fontWeight: 500 }}>
+                                        {t(chip.title, lang)}
+                                      </div>
+                                      <div style={{ fontSize: '10px', color: '#9CA3AF', marginTop: '2px' }} className="font-noto">
+                                        {chipSubs[chip.id]}
+                                      </div>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+
+                              {/* 第四層：說明文字 + 影片按鈕 */}
+                              <div className="flex flex-col gap-3">
+                                <div 
+                                  style={{
+                                    border: '1px solid #EEEEEE',
+                                    borderRadius: '8px',
+                                    padding: '11px 13px',
+                                    backgroundColor: '#FFFFFF',
+                                    opacity: isChipFading ? 0 : 1,
+                                    transition: 'opacity 150ms ease-in-out'
+                                  }}
+                                  className="w-full"
+                                >
+                                  <div style={{ fontSize: '10px', textTransform: 'uppercase', color: '#9CA3AF', fontWeight: 'bold', marginBottom: '6px' }} className="font-noto">
+                                    {lang === 'zh' ? '區塊設計說明' : 'SECTION DESIGN EXPLANATION'}
+                                  </div>
+                                  <p style={{ fontSize: '12px', color: '#4B5563', lineHeight: '1.6', margin: 0 }} className="font-noto">
+                                    {CHIP_DESCRIPTIONS[activeChip]}
+                                  </p>
+                                </div>
+
+                                {hasVideo && (
+                                  <button
+                                    onClick={() => setVideoState('playing')}
+                                    className="w-full bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 rounded-lg p-[7px_12px] flex items-center justify-between text-left transition-all duration-200 cursor-pointer"
+                                  >
+                                    <div className="flex items-center gap-2">
+                                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                      </svg>
+                                      <span style={{ fontSize: '12px', color: '#4B5563', fontWeight: 500 }}>
+                                        {lang === 'zh' 
+                                          ? `觀看 [${t(activeChipData.title, lang).replace('區塊', '')}] 操作錄影`
+                                          : `Watch [${t(activeChipData.title, lang)}] demo video`}
+                                      </span>
+                                    </div>
+                                    <span className="text-[10px] text-gray-400">Play →</span>
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })()}
                     </div>
                   </>
                 )}

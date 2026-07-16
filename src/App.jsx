@@ -7173,12 +7173,36 @@ const SPLIT_VIEW_CHIPS = [
       const contactRef = useRef(null);
       const footerRef = useRef(null);
       const chipRefs = useRef([]);
+      const mobileTabsRef = useRef(null);
+      const prevActiveChip = useRef(activeChip);
+      const prevActiveChipMobile = useRef(activeChip);
 
       useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+
+      useEffect(() => {
+        if (prevActiveChip.current === activeChip) {
+          return;
+        }
+        prevActiveChip.current = activeChip;
         const chipIds = ['hero', 'services', 'values', 'success', 'cta', 'about', 'contact', 'footer'];
         const idx = chipIds.indexOf(activeChip);
         if (idx !== -1 && chipRefs.current[idx]) {
           chipRefs.current[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, [activeChip]);
+
+      useEffect(() => {
+        if (prevActiveChipMobile.current === activeChip) {
+          return;
+        }
+        prevActiveChipMobile.current = activeChip;
+        if (mobileTabsRef.current) {
+          const activeEl = mobileTabsRef.current.querySelector('[data-active="true"]');
+          if (activeEl && typeof activeEl.scrollIntoView === 'function') {
+            activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
         }
       }, [activeChip]);
 
@@ -7251,21 +7275,11 @@ const SPLIT_VIEW_CHIPS = [
           }
         }
       }, [activeChip, videoState]);
-
-      const tabToChipMap = {
-        'long-page': 'values',
-        'pain-points': 'hero',
-        'cta': 'cta',
-        'social-proof': 'success'
-      };
-
       const handleDecisionTabChange = (tabId) => {
         if (tabId === activeDecisionTab || isDecisionFading) return;
         setIsDecisionFading(true);
-        setVideoState('none');
         setTimeout(() => {
           setActiveDecisionTab(tabId);
-          setActiveChip(tabToChipMap[tabId]);
           setIsDecisionFading(false);
         }, 150);
       };
@@ -8172,22 +8186,12 @@ const SPLIT_VIEW_CHIPS = [
               <div className="space-y-20">
                 {activeItem.id === 1 && (
                   <>
-                    <div className="flex flex-col gap-6 mb-16 w-full bg-white rounded-[2rem] border border-gray-100 p-6 md:p-10 shadow-sm">
-                      {/* 區塊標題區 */}
-                      <div>
-                        <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px', color: '#A0A0A0', fontWeight: 'bold', marginBottom: '6px' }}>
-                          {lang === 'zh' ? '設計決策' : 'DESIGN DECISIONS'}
-                        </div>
-                        <h4 style={{ fontSize: '18px', fontWeight: 500, color: '#1A1A1A', margin: '0 0 4px 0' }} className="font-noto">
-                          {lang === 'zh' ? '四個關鍵設計選擇' : 'Four Key Design Choices'}
-                        </h4>
-                        <p style={{ fontSize: '13px', color: '#6B6B6B', margin: 0 }} className="font-noto">
-                          {lang === 'zh' ? '每個選擇背後都有 UX 根據，不是美感偏好。' : 'Each choice is backed by UX rationale, not aesthetic preference.'}
-                        </p>
-                      </div>
-
+                    {/* 決策說明區 */}
+                    <div className="mb-16">
+                      <SubHeading>{lang === 'zh' ? '四個關鍵設計決策' : 'Four Critical Design Decisions'}</SubHeading>
+                      
                       {/* 第一層：決策 Pill Tab */}
-                      <div className="flex flex-wrap gap-1.5 w-full">
+                      <div className="flex flex-wrap gap-1.5 mb-5 select-none">
                         {[
                           { id: 'long-page', label: lang === 'zh' ? '單頁長版' : 'Long-form Page' },
                           { id: 'pain-points', label: lang === 'zh' ? '痛點文案' : 'Pain-point Copy' },
@@ -8201,7 +8205,7 @@ const SPLIT_VIEW_CHIPS = [
                               onClick={() => handleDecisionTabChange(tab.id)}
                               className={`px-4 py-2 text-xs md:text-sm font-medium rounded-full border transition-all duration-200 cursor-pointer ${
                                 isActive
-                                  ? 'bg-[#EEEDFE] border-[#AFA9EC] text-[#26215C] font-semibold'
+                                  ? 'bg-black border-black text-white font-semibold shadow-sm'
                                   : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300'
                               }`}
                             >
@@ -8214,23 +8218,19 @@ const SPLIT_VIEW_CHIPS = [
                       {/* 第二層：說明區塊（Why Block） */}
                       <div 
                         style={{
-                          backgroundColor: '#FAFAFA',
-                          borderRadius: '12px',
-                          padding: '16px 18px',
-                          transition: 'opacity 150ms ease-in-out',
                           opacity: isDecisionFading ? 0 : 1,
-                          boxSizing: 'border-box'
+                          transition: 'opacity 150ms ease-in-out'
                         }}
-                        className="w-full flex flex-col gap-4"
+                        className="bg-gray-50 rounded-xl p-4 md:p-6 border border-gray-100 w-full"
                       >
-                        <div style={{ fontSize: '13px', fontWeight: 500, color: '#1A1A1A' }}>
-                          {activeDecisionTab === 'long-page' ? (lang === 'zh' ? '為什麼選擇單頁長版' : 'Why choice long-form page') : 
-                           activeDecisionTab === 'pain-points' ? (lang === 'zh' ? '痛點導向的 Hero 文案' : 'Pain-point Hero Copy') :
-                           activeDecisionTab === 'cta' ? (lang === 'zh' ? 'CTA 文案「立即預約，聰明管理」' : 'CTA Copy "Book Now, Manage Smart"') :
-                           (lang === 'zh' ? '成功案例的社會證明配置' : 'Social Proof Placement of Cases')}
+                        <div style={{ fontSize: '13px', fontWeight: 500, color: '#1F2937', marginBottom: '14px' }} className="font-noto">
+                          {activeDecisionTab === 'long-page' && (lang === 'zh' ? '為什麼選擇單頁長版' : 'Why Choose Long-form Page')}
+                          {activeDecisionTab === 'pain-points' && (lang === 'zh' ? '為什麼選擇痛點文案' : 'Why Choose Pain-point Copy')}
+                          {activeDecisionTab === 'cta' && (lang === 'zh' ? '為什麼選擇特定 CTA 策略' : 'Why Choose CTA Strategy')}
+                          {activeDecisionTab === 'social-proof' && (lang === 'zh' ? '為什麼選擇社會證明' : 'Why Choose Social Proof')}
                         </div>
 
-                        <div className="flex flex-col gap-3.5">
+                        <div className="flex flex-col gap-4">
                           {(() => {
                             const data = activeDecisionTab === 'long-page' ? [
                               {
@@ -8356,15 +8356,11 @@ const SPLIT_VIEW_CHIPS = [
                           })()}
                         </div>
                       </div>
+                    </div>
 
-                      {/* 分隔線 */}
-                      <div className="flex items-center gap-4 w-full my-2 select-none">
-                        <div className="flex-1 h-[0.5px] bg-gray-200" />
-                        <span style={{ fontSize: '11px', color: '#9CA3AF', fontWeight: 'normal' }} className="font-noto">
-                          {lang === 'zh' ? '對應介面區塊' : 'Corresponding Interface Section'}
-                        </span>
-                        <div className="flex-1 h-[0.5px] bg-gray-200" />
-                      </div>
+                    {/* 網頁展示區 */}
+                    <div className="mb-16 flex flex-col w-full">
+                      <SubHeading>{lang === 'zh' ? '對應介面區塊' : 'Corresponding Page Sections'}</SubHeading>
 
                       {/* 第三層：分割視圖（Split View） */}
                       {(() => {
@@ -8419,53 +8415,88 @@ const SPLIT_VIEW_CHIPS = [
                         const hasVideo = activeChipData && activeChipData.videoUrl;
 
                         return (
-                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
-                            {/* 左欄 — 展示區 */}
+                          <div className="flex flex-col w-full">
+                            {/* 手機版：切換 tab */}
                             <div 
-                              style={{
-                                backgroundColor: '#FAFAFA',
-                                borderRadius: '12px',
-                                padding: '12px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '8px',
-                                boxSizing: 'border-box'
-                              }}
-                              className="w-full"
+                              ref={mobileTabsRef}
+                              className="flex lg:hidden overflow-x-auto hide-scrollbar gap-2 pb-2 mb-3 w-full select-none"
                             >
-                              {/* 頂部裝置切換 tab */}
-                              <div className="flex gap-2 select-none">
-                                <button
-                                  onClick={() => setShowcaseDevice('desktop')}
-                                  className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border font-medium cursor-pointer transition-all duration-200 ${
-                                    showcaseDevice === 'desktop'
-                                      ? 'bg-[#EEEDFE] border-[#534AB7] text-[#26215C]'
-                                      : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
-                                  }`}
-                                  style={{ fontSize: '11px' }}
-                                >
-                                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-                                    <rect x="2" y="3" width="20" height="14" rx="2" />
-                                    <path d="M8 21h8M12 17v4" />
-                                  </svg>
-                                  {lang === 'zh' ? '🖥 網頁版' : '🖥 Desktop'}
-                                </button>
-                                <button
-                                  onClick={() => setShowcaseDevice('mobile')}
-                                  className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border font-medium cursor-pointer transition-all duration-200 ${
-                                    showcaseDevice === 'mobile'
-                                      ? 'bg-[#EEEDFE] border-[#534AB7] text-[#26215C]'
-                                      : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
-                                  }`}
-                                  style={{ fontSize: '11px' }}
-                                >
-                                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-                                    <rect x="5" y="2" width="14" height="20" rx="2" />
-                                    <path d="M12 18h.01" />
-                                  </svg>
-                                  {lang === 'zh' ? '📱 手機版' : '📱 Mobile'}
-                                </button>
+                              {SPLIT_VIEW_CHIPS.map((chip) => {
+                                const isActive = activeChip === chip.id;
+                                return (
+                                  <button
+                                    key={chip.id}
+                                    data-active={isActive ? "true" : "false"}
+                                    onClick={() => handleChipClick(chip.id)}
+                                    className={`px-3.5 py-2 rounded-full border text-xs font-medium whitespace-nowrap cursor-pointer transition-all ${
+                                      isActive
+                                        ? 'bg-black border-black text-white font-semibold shadow-sm'
+                                        : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
+                                    }`}
+                                  >
+                                    {t(chip.title, lang).replace('區塊', '')}
+                                  </button>
+                                );
+                              })}
+                            </div>
+
+                            {/* 手機版：說明文字獨立放置在上方（Tab正下方） */}
+                            <div className="block lg:hidden mb-4 bg-gray-50 border border-gray-100 rounded-xl p-4 w-full">
+                              <div style={{ fontSize: '10px', textTransform: 'uppercase', color: '#9CA3AF', fontWeight: 'bold', marginBottom: '6px' }} className="font-noto">
+                                {lang === 'zh' ? '區塊設計說明' : 'SECTION DESIGN EXPLANATION'}
                               </div>
+                              <p style={{ fontSize: '12px', color: '#4B5563', lineHeight: '1.6', margin: 0 }} className="font-noto">
+                                {CHIP_DESCRIPTIONS[activeChip]}
+                              </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 w-full">
+                              {/* 左欄 — 展示區 */}
+                              <div 
+                                style={{
+                                  backgroundColor: '#FAFAFA',
+                                  borderRadius: '12px',
+                                  padding: '12px',
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  gap: '8px',
+                                  boxSizing: 'border-box'
+                                }}
+                                className="w-full lg:col-span-4"
+                              >
+                                {/* 頂部裝置切換 tab (Segmented Tab) */}
+                                <div className="bg-[#f3f4f6] p-0.5 rounded-lg flex gap-0.5 select-none w-fit border border-gray-200/50">
+                                  <button
+                                    onClick={() => setShowcaseDevice('desktop')}
+                                    className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md font-medium cursor-pointer transition-all duration-200 ${
+                                      showcaseDevice === 'desktop'
+                                        ? 'bg-white text-gray-900 shadow-[0_1px_3px_rgba(0,0,0,0.1)] font-semibold'
+                                        : 'text-gray-500 hover:text-gray-800'
+                                    }`}
+                                    style={{ fontSize: '11px' }}
+                                  >
+                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                                      <rect x="2" y="3" width="20" height="14" rx="2" />
+                                      <path d="M8 21h8M12 17v4" />
+                                    </svg>
+                                    {lang === 'zh' ? '網頁版' : 'Desktop'}
+                                  </button>
+                                  <button
+                                    onClick={() => setShowcaseDevice('mobile')}
+                                    className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md font-medium cursor-pointer transition-all duration-200 ${
+                                      showcaseDevice === 'mobile'
+                                        ? 'bg-white text-gray-900 shadow-[0_1px_3px_rgba(0,0,0,0.1)] font-semibold'
+                                        : 'text-gray-500 hover:text-gray-800'
+                                    }`}
+                                    style={{ fontSize: '11px' }}
+                                  >
+                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                                      <rect x="5" y="2" width="14" height="20" rx="2" />
+                                      <path d="M12 18h.01" />
+                                    </svg>
+                                    {lang === 'zh' ? '手機版' : 'Mobile'}
+                                  </button>
+                                </div>
 
                               {/* 展示元件容器 */}
                               <div className="w-full relative flex-1" style={{ minHeight: '380px' }}>
@@ -8492,10 +8523,6 @@ const SPLIT_VIEW_CHIPS = [
                                             idx === 6 ? contactRef :
                                             idx === 7 ? footerRef : null;
                                           
-                                          const chipIds = ['hero', 'services', 'values', 'success', 'cta', 'about', 'contact', 'footer'];
-                                          const isHighlighted = activeChip === chipIds[idx];
-                                          const highlightStyle = HIGHLIGHT_STYLES[chipIds[idx]];
-
                                           return (
                                             <div 
                                               key={idx} 
@@ -8503,20 +8530,6 @@ const SPLIT_VIEW_CHIPS = [
                                               className="w-full relative select-none"
                                               style={{ lineHeight: 0 }}
                                             >
-                                              {/* Overlay */}
-                                              <div 
-                                                style={{
-                                                  position: 'absolute',
-                                                  inset: 0,
-                                                  backgroundColor: highlightStyle ? highlightStyle.bg : 'transparent',
-                                                  border: highlightStyle ? `2.5px solid ${highlightStyle.border}` : 'none',
-                                                  borderRadius: '4px',
-                                                  pointerEvents: 'none',
-                                                  zIndex: 10,
-                                                  opacity: isHighlighted ? 1 : 0,
-                                                  transition: 'opacity 300ms ease, border-color 300ms ease, background-color 300ms ease'
-                                                }}
-                                              />
                                               {item.type === 'video' ? (
                                                 Array.isArray(item.url) ? (
                                                   item.url.map((urlStr, uIdx) => (
@@ -8560,10 +8573,6 @@ const SPLIT_VIEW_CHIPS = [
                                             idx === 4 ? mCtaRef :
                                             idx === 5 ? mAboutRef : null;
 
-                                          const chipIds = ['hero', 'services', 'values', 'success', 'cta', 'about', 'contact', 'footer'];
-                                          const isHighlighted = activeChip === chipIds[idx];
-                                          const highlightStyle = HIGHLIGHT_STYLES[chipIds[idx]];
-
                                           return (
                                             <div 
                                               key={idx} 
@@ -8571,20 +8580,6 @@ const SPLIT_VIEW_CHIPS = [
                                               className="w-full relative select-none"
                                               style={{ lineHeight: 0 }}
                                             >
-                                              {/* Overlay */}
-                                              <div 
-                                                style={{
-                                                  position: 'absolute',
-                                                  inset: 0,
-                                                  backgroundColor: highlightStyle ? highlightStyle.bg : 'transparent',
-                                                  border: highlightStyle ? `2.5px solid ${highlightStyle.border}` : 'none',
-                                                  borderRadius: '4px',
-                                                  pointerEvents: 'none',
-                                                  zIndex: 10,
-                                                  opacity: isHighlighted ? 1 : 0,
-                                                  transition: 'opacity 300ms ease, border-color 300ms ease, background-color 300ms ease'
-                                                }}
-                                              />
                                               {mItem.type === 'video' ? (
                                                 Array.isArray(mItem.url) ? (
                                                   mItem.url.map((urlStr, uIdx) => (
@@ -8650,92 +8645,83 @@ const SPLIT_VIEW_CHIPS = [
 
                               {/* 底部說明文字 */}
                               <div style={{ fontSize: '10px', color: '#9CA3AF', textAlign: 'center', marginTop: '4px' }} className="font-noto select-none">
-                                {lang === 'zh' ? '↕ 可滑動 · 點右側切換區塊' : '↕ Scrollable · Click chips on right to jump'}
+                                {lang === 'zh' ? '↕ 可滑動 · 點擊切換區塊' : '↕ Scrollable · Click tabs to jump'}
                               </div>
                             </div>
 
-                            {/* 右欄 — 區塊選單與說明區 */}
-                            <div className="flex flex-col justify-between gap-4 w-full h-full">
+                            {/* 右欄 — 區塊選單與說明區 (僅桌機版) */}
+                            <div className="hidden lg:flex flex-col gap-4 w-full h-full lg:col-span-1 items-end">
                               {/* 八個 Chip */}
                               <div 
                                 style={{ 
-                                  maxHeight: '260px', 
-                                  overflowY: 'auto',
                                   display: 'flex',
                                   flexDirection: 'column',
-                                  gap: '5px',
-                                  paddingRight: '4px'
+                                  gap: '6px',
+                                  paddingRight: '4px',
+                                  alignItems: 'flex-end'
                                 }}
-                                className="hide-scrollbar"
+                                className="w-full"
                               >
                                 {SPLIT_VIEW_CHIPS.map((chip, idx) => {
                                   const isActive = activeChip === chip.id;
                                   return (
-                                    <button
-                                      key={chip.id}
-                                      ref={el => chipRefs.current[idx] = el}
-                                      onClick={() => handleChipClick(chip.id)}
-                                      className={`w-full text-left rounded-lg p-[8px_11px] transition-all duration-200 border cursor-pointer ${
-                                        isActive
-                                          ? 'border-[#534AB7] bg-[#EEEDFE] text-[#26215C] font-semibold'
-                                          : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
-                                      }`}
-                                    >
-                                      <div style={{ fontSize: '13px', fontWeight: 500 }}>
-                                        {t(chip.title, lang)}
-                                      </div>
-                                      <div style={{ fontSize: '10px', color: '#9CA3AF', marginTop: '2px' }} className="font-noto">
-                                        {chipSubs[chip.id]}
-                                      </div>
-                                    </button>
+                                    <div key={chip.id} className="flex flex-col items-end w-full">
+                                      <button
+                                        ref={el => chipRefs.current[idx] = el}
+                                        onClick={() => handleChipClick(chip.id)}
+                                        className={`w-[180px] text-left rounded-lg p-[8px_11px] transition-all duration-300 border cursor-pointer flex flex-col ${
+                                          isActive
+                                            ? 'border-black bg-black text-white font-semibold shadow-sm'
+                                            : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
+                                        }`}
+                                      >
+                                        <div style={{ fontSize: '13px', fontWeight: 500 }} className="w-full">
+                                          {t(chip.title, lang)}
+                                        </div>
+                                        <div style={{ fontSize: '10px', color: isActive ? '#D1D5DB' : '#9CA3AF', marginTop: '2px' }} className="font-noto w-full">
+                                          {chipSubs[chip.id]}
+                                        </div>
+                                        <div 
+                                          style={{
+                                            display: 'grid',
+                                            gridTemplateRows: isActive ? '1fr' : '0fr',
+                                            transition: 'grid-template-rows 250ms ease-in-out',
+                                            overflow: 'hidden',
+                                            width: '100%'
+                                          }}
+                                        >
+                                          <div 
+                                            style={{ 
+                                              minHeight: 0,
+                                              opacity: isActive ? 1 : 0,
+                                              transition: 'opacity 200ms ease-in-out'
+                                            }}
+                                          >
+                                            <div 
+                                              style={{
+                                                marginTop: '6px',
+                                                paddingTop: '6px',
+                                                borderTop: '1px solid rgba(255, 255, 255, 0.15)',
+                                                fontSize: '11px',
+                                                color: '#E5E7EB',
+                                                lineHeight: '1.5',
+                                                fontWeight: 'normal'
+                                              }}
+                                              className="font-noto"
+                                            >
+                                              {CHIP_DESCRIPTIONS[chip.id]}
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </button>
+                                    </div>
                                   );
                                 })}
                               </div>
-
-                              {/* 第四層：說明文字 + 影片按鈕 */}
-                              <div className="flex flex-col gap-3">
-                                <div 
-                                  style={{
-                                    border: '1px solid #EEEEEE',
-                                    borderRadius: '8px',
-                                    padding: '11px 13px',
-                                    backgroundColor: '#FFFFFF',
-                                    opacity: isChipFading ? 0 : 1,
-                                    transition: 'opacity 150ms ease-in-out'
-                                  }}
-                                  className="w-full"
-                                >
-                                  <div style={{ fontSize: '10px', textTransform: 'uppercase', color: '#9CA3AF', fontWeight: 'bold', marginBottom: '6px' }} className="font-noto">
-                                    {lang === 'zh' ? '區塊設計說明' : 'SECTION DESIGN EXPLANATION'}
-                                  </div>
-                                  <p style={{ fontSize: '12px', color: '#4B5563', lineHeight: '1.6', margin: 0 }} className="font-noto">
-                                    {CHIP_DESCRIPTIONS[activeChip]}
-                                  </p>
-                                </div>
-
-                                {hasVideo && (
-                                  <button
-                                    onClick={() => setVideoState('playing')}
-                                    className="w-full bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 rounded-lg p-[7px_12px] flex items-center justify-between text-left transition-all duration-200 cursor-pointer"
-                                  >
-                                    <div className="flex items-center gap-2">
-                                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                      </svg>
-                                      <span style={{ fontSize: '12px', color: '#4B5563', fontWeight: 500 }}>
-                                        {lang === 'zh' 
-                                          ? `觀看 [${t(activeChipData.title, lang).replace('區塊', '')}] 操作錄影`
-                                          : `Watch [${t(activeChipData.title, lang)}] demo video`}
-                                      </span>
-                                    </div>
-                                    <span className="text-[10px] text-gray-400">Play →</span>
-                                  </button>
-                                )}
-                              </div>
                             </div>
                           </div>
-                        );
+                        </div>
+                      );
                       })()}
                     </div>
                   </>

@@ -10596,10 +10596,12 @@ const SPLIT_VIEW_CHIPS = [
     );
   };
 
-  const AboutSectionHeader = ({ title, english }) => (
+  const AboutSectionHeader = ({ title, english, lang }) => (
     <div className="flex items-center gap-2 mb-8 select-none font-bold text-[18px] md:text-[20px] tracking-tight text-left">
       <span className="text-[#D85A30] font-black text-xl">*</span>
-      <span className="text-[#D85A30] font-noto">{title} — {english}</span>
+      <span className="text-[#D85A30] font-noto">
+        {lang === 'zh' ? title : english}
+      </span>
     </div>
   );
 
@@ -10613,20 +10615,26 @@ const SPLIT_VIEW_CHIPS = [
       {
         num: '01',
         title: 'Product design',
-        desc: lang === 'zh' ? 'UIUX 規劃、wireframe 到高保真介面設計。' : 'UI/UX planning, wireframing, and high-fidelity interface design.',
-        tool: 'FIGMA'
+        desc: lang === 'zh' 
+          ? 'UIUX規劃、APP設計、元件庫建立維護、wireframe 到高保真介面設計、Vibe coding 設計落地。' 
+          : 'UI/UX planning, App design, component library design & maintenance, wireframing to high-fidelity interface design, and Vibe coding implementation.',
+        tools: ['Figma', 'Vibe coding']
       },
       {
         num: '02',
-        title: 'Development',
-        desc: lang === 'zh' ? 'AI 輔助前端開發與官網建置。' : 'AI-assisted front-end development and website creation.',
-        tool: 'FRAMER'
+        title: 'Motion Graphic Design',
+        desc: lang === 'zh' 
+          ? '動態圖像完整設計流程獨立製作、品牌形象動畫、影音剪輯、腳本撰寫' 
+          : 'End-to-end motion graphics production, brand identity animations, video editing, and storyboarding.',
+        tools: ['After Effects']
       },
       {
         num: '03',
-        title: 'Visual & motion',
-        desc: lang === 'zh' ? '識別系統、icon 與形象動畫。' : 'Identity systems, custom iconography, and brand animations.',
-        tool: 'AI・AE'
+        title: 'Branding／Visual Design',
+        desc: lang === 'zh' 
+          ? '品牌設計、企業識別設計、角色設計' 
+          : 'Brand strategy & design, corporate identity system (CIS), and character illustration.',
+        tools: ['Illustration']
       }
     ];
 
@@ -10668,7 +10676,7 @@ const SPLIT_VIEW_CHIPS = [
                 <div className="lg:col-span-5 flex flex-col justify-between py-1 text-left">
                   <div className="text-[15px] md:text-[16px] text-zinc-650 dark:text-zinc-400 font-normal leading-[1.8] mb-8 font-noto text-left">
                     {lang === 'zh' ? (
-                      <>產品設計師，擁有 3 年以上的產品設計與視覺設計經驗，專注於從 0 到 1 打造產品體驗。曾於 AI 科技公司獨立負責 App 與官網的 UIUX 規劃與介面設計（Figma、Framer），並透過 vibe coding 實作前端與修復 bug，能以工程可行性視角進行設計決策，縮短設計到落地的距離。具備完整的視覺設計背景，涵蓋產品識別系統、icon 系統設計與產品形象動畫，擅長將抽象的產品概念轉化為直覺、一致且具 brand 感的使用體驗。</>
+                      <>擁有 3 年以上的產品設計與視覺設計經驗，專注於從 0 到 1 打造產品體驗。曾於 AI 科技公司獨立負責 App 與官網的 UIUX 規劃與介面設計（Figma、Framer），並透過 vibe coding 實作前端與修復 bug，能以工程可行性視角進行設計決策，縮短設計到落地的距離。具備完整的視覺設計背景，涵蓋產品識別系統、icon 系統設計與產品形象動畫，擅長將抽象的產品概念轉化為直覺、一致且具品牌感的使用體驗。</>
                     ) : (
                       <>Product designer with over 3 years of experience in product and visual design, focusing on crafting product experiences from 0 to 1. Independently led UI/UX planning and interface design (Figma, Framer) for Apps and official websites at an AI tech company. Implemented front-end features and fixed bugs through vibe coding, making design decisions with an engineering feasibility perspective to shorten the distance from design to launch. Equipped with a comprehensive visual design background spanning product identity systems, icon design, and product videos, specializing in translating abstract product concepts into intuitive, consistent, and branded user experiences.</>
                     )}
@@ -10691,7 +10699,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 3. What I Do */}
           <section className="mb-24">
             <ScrollRevealItem index={2}>
-              <AboutSectionHeader title={lang === 'zh' ? '我做什麼' : 'WHAT I DO'} english="WHAT I DO" />
+              <AboutSectionHeader title="核心能力" english="Key Skills" lang={lang} />
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {WHAT_I_DO_DATA.map((item, idx) => (
                   <div key={idx} className="bg-white dark:bg-[#1A1A1A] border-[0.5px] border-zinc-200 dark:border-zinc-800 rounded-[20px] p-6 md:p-8 flex flex-col justify-between min-h-[240px] transition-all duration-300 hover:border-[#D85A30] dark:hover:border-[#D85A30] shadow-sm">
@@ -10700,10 +10708,12 @@ const SPLIT_VIEW_CHIPS = [
                       <h3 className="text-[17px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-noto">{item.title}</h3>
                       <p className="text-[13.5px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-noto">{item.desc}</p>
                     </div>
-                    <div className="mt-6 text-left">
-                      <span className="inline-block px-3.5 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-650 dark:text-zinc-400 rounded-full text-[11px] font-bold tracking-wider select-none font-sans">
-                        {item.tool}
-                      </span>
+                    <div className="mt-6 text-left flex flex-wrap gap-2">
+                      {item.tools.map((tool, tIdx) => (
+                        <span key={tIdx} className="inline-block px-3.5 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-650 dark:text-zinc-400 rounded-full text-[11px] font-bold tracking-wider select-none font-sans uppercase">
+                          {tool}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 ))}
@@ -10714,7 +10724,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 4. Experience 工作經歷 */}
           <section className="mb-24">
             <ScrollRevealItem index={3}>
-              <AboutSectionHeader title={lang === 'zh' ? '工作經歷' : 'EXPERIENCE'} english="EXPERIENCE" />
+              <AboutSectionHeader title="工作經歷" english="EXPERIENCE" lang={lang} />
             </ScrollRevealItem>
 
             <div ref={expTimelineRef} className="relative pl-7 md:pl-8 text-left">
@@ -10742,7 +10752,7 @@ const SPLIT_VIEW_CHIPS = [
                   </h3>
                   
                   <div className="text-[14px] font-bold text-[#D85A30] mb-4 flex items-center gap-1.5 flex-wrap font-noto">
-                    <span className="text-zinc-550 dark:text-zinc-400 font-bold">Visual Effects Designer</span>
+                    <span className="text-zinc-550 dark:text-zinc-400 font-bold">Visual Designer</span>
                     <span className="text-[#D85A30] font-medium select-none">→</span>
                     <span className="text-[#D85A30] font-black">{lang === 'zh' ? 'Product Designer' : 'Product Designer'}</span>
                   </div>
@@ -10755,29 +10765,31 @@ const SPLIT_VIEW_CHIPS = [
 
                   {/* Accordion Cards */}
                   <div className="mt-4 max-w-3xl">
-                    <AboutAccordion title={lang === 'zh' ? 'Product Designer' : 'Product Designer'} date={lang === 'zh' ? '2024.XX – PRESENT' : '2024.XX – PRESENT'} defaultOpen={true}>
+                    <AboutAccordion title={lang === 'zh' ? 'Product Designer' : 'Product Designer'} date={lang === 'zh' ? '2025.02 – PRESENT' : '2025.02 – PRESENT'} defaultOpen={true}>
                       <ul className="list-disc pl-4 space-y-2 text-[13.5px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed font-noto">
                         {lang === 'zh' ? (
                           <>
-                            <li>獨立負責 App 產品設計，從使用者流程、wireframe 到高保真介面（Figma）</li>
-                            <li>以 Framer 設計並建置公司官網，整合品牌視覺與產品訊息</li>
+                            <li>獨立負責 App 產品設計，從使用者流程、wireframe 到高保真介面，建立並維護完整Design System</li>
+                            <li>透過 AI 輔助開發（Vibe coding)實作前端並修復 bug，縮短設計到落地的週期</li>
                             <li>根據使用者反饋持續迭代介面，優化流程、降低使用門檻</li>
-                            <li>透過 AI 輔助開發實作前端並修復 bug，縮短設計到落地的週期</li>
+                            <li>參與Sass產品設計，導入設計系統並優化介面</li>
+                            <li>以 Framer 設計並建置公司官網，整合品牌視覺與產品訊息</li>
                             <li>以工程可行性視角參與產品決策，減少設計與開發間的溝通成本</li>
                           </>
                         ) : (
                           <>
-                            <li>Independently led App product design, from user flows and wireframes to high-fidelity interfaces in Figma.</li>
+                            <li>Independently led App product design from user flows and wireframes to high-fidelity interfaces, establishing and maintaining a comprehensive Design System.</li>
+                            <li>Implemented front-end features and resolved bugs using AI assistance (Vibe coding), shortening design-to-production cycles.</li>
+                            <li>Iterated interfaces continuously based on user feedback to optimize flows and lower user barriers.</li>
+                            <li>Participated in SaaS product design, introducing design systems and optimizing interfaces.</li>
                             <li>Designed and built the corporate website using Framer, integrating brand identity and product messaging.</li>
-                            <li>Iterated interfaces continuously based on user feedback to optimize flows and lower barriers to entry.</li>
-                            <li>Implemented front-end features and resolved bugs using AI assistance, shortening design-to-production cycles.</li>
                             <li>Participated in product decisions with engineering feasibility in mind, reducing communication costs between design and development.</li>
                           </>
                         )}
                       </ul>
                     </AboutAccordion>
 
-                    <AboutAccordion title={lang === 'zh' ? 'Visual Effects Designer' : 'Visual Effects Designer'} date={lang === 'zh' ? '2023.10 – 2024.XX' : '2023.10 – 2024.XX'} defaultOpen={false}>
+                    <AboutAccordion title={lang === 'zh' ? 'Visual Designer' : 'Visual Designer'} date={lang === 'zh' ? '2023.10 – 2025.02' : '2023.10 – 2025.02'} defaultOpen={false}>
                       <ul className="list-disc pl-4 space-y-2 text-[13.5px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed font-noto">
                         {lang === 'zh' ? (
                           <>
@@ -10852,7 +10864,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* 5. Education 學歷 */}
           <section className="mb-24">
             <ScrollRevealItem index={7}>
-              <AboutSectionHeader title={lang === 'zh' ? '學歷' : 'EDUCATION'} english="EDUCATION" />
+              <AboutSectionHeader title="學歷" english="EDUCATION" lang={lang} />
             </ScrollRevealItem>
 
             <div ref={eduTimelineRef} className="relative pl-7 md:pl-8 text-left">

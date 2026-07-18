@@ -10769,21 +10769,19 @@ const SPLIT_VIEW_CHIPS = [
                       <ul className="list-disc pl-4 space-y-2 text-[13.5px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed font-noto">
                         {lang === 'zh' ? (
                           <>
-                            <li>獨立負責 App 產品設計，從使用者流程、wireframe 到高保真介面，建立並維護完整Design System</li>
-                            <li>透過 AI 輔助開發（Vibe coding)實作前端並修復 bug，縮短設計到落地的週期</li>
-                            <li>根據使用者反饋持續迭代介面，優化流程、降低使用門檻</li>
-                            <li>參與Sass產品設計，導入設計系統並優化介面</li>
-                            <li>以 Framer 設計並建置公司官網，整合品牌視覺與產品訊息</li>
-                            <li>以工程可行性視角參與產品決策，減少設計與開發間的溝通成本</li>
+                            <li>獨立負責 App 產品設計，完成 6 大模組 共 13 個功能、建立包含 16 個元件系統共涵蓋 100 個元件的 Design System、設計 13 個角色插圖及 8 個系統插圖。從使用者流程、wireframe 到高保真介面。</li>
+                            <li>透過 AI 輔助開發 (Vibe coding)實作所有功能畫面並修復20個以上 bug，縮短設計到落地的週期。</li>
+                            <li>訪談/問卷收集 15 位早期使用者回饋，據此完成 2輪介面迭代。</li>
+                            <li>參與Sass產品設計，導入設計系統並優化介面。</li>
+                            <li>以 Framer 設計並建置公司官網，整合品牌視覺與產品訊息。</li>
                           </>
                         ) : (
                           <>
-                            <li>Independently led App product design from user flows and wireframes to high-fidelity interfaces, establishing and maintaining a comprehensive Design System.</li>
-                            <li>Implemented front-end features and resolved bugs using AI assistance (Vibe coding), shortening design-to-production cycles.</li>
-                            <li>Iterated interfaces continuously based on user feedback to optimize flows and lower user barriers.</li>
+                            <li>Independently led App product design, completing 6 modules with 13 functions, establishing a Design System with 16 component groups covering 100 components, and designing 13 character illustrations and 8 system icons; covered the entire process from user flows and wireframes to high-fidelity interfaces.</li>
+                            <li>Implemented all functional interfaces and resolved 20+ bugs using AI assistance (Vibe coding), shortening the design-to-production cycle.</li>
+                            <li>Conducted interviews and surveys to collect feedback from 15 early-stage users, executing 2 rounds of interface iterations based on the insights.</li>
                             <li>Participated in SaaS product design, introducing design systems and optimizing interfaces.</li>
                             <li>Designed and built the corporate website using Framer, integrating brand identity and product messaging.</li>
-                            <li>Participated in product decisions with engineering feasibility in mind, reducing communication costs between design and development.</li>
                           </>
                         )}
                       </ul>
@@ -10793,19 +10791,19 @@ const SPLIT_VIEW_CHIPS = [
                       <ul className="list-disc pl-4 space-y-2 text-[13.5px] text-zinc-650 dark:text-zinc-400 font-normal leading-relaxed font-noto">
                         {lang === 'zh' ? (
                           <>
-                            <li>建構產品識別規範，將核心理念轉化為視覺語言，建立跨介面一致的系統</li>
-                            <li>設計 16 個動態圖標與 70 個靜態圖標，建立 icon 系統</li>
-                            <li>依目標客群創作品牌角色及 8 種頭像插圖，強化用戶認同感</li>
-                            <li>獨立完成 2 部產品形象動畫，涵蓋腳本、分鏡、美術到動態（After Effects）</li>
-                            <li>結合插圖與 AI 生成語音製作教學影片，降低新用戶上手門檻</li>
+                            <li>建構2套品牌識別系統規範，將核心理念轉化為視覺語言，建立跨介面一致的系統。</li>
+                            <li>設計 16 個動態圖標與 70 個靜態圖標，建立完整 icon 系統。</li>
+                            <li>依目標客群創作品牌角色及 8 種頭像插圖，強化用戶認同感。</li>
+                            <li>獨立完成 2 部產品形象動畫，涵蓋腳本、分鏡、美術、動態設計、音效配樂。</li>
+                            <li>結合插圖與 AI 生成語音製作教學影片，降低新用戶上手門檻。</li>
                           </>
                         ) : (
                           <>
-                            <li>Built product brand guidelines to translate core concepts into consistent visual language across interfaces.</li>
-                            <li>Designed 16 animated icons and 70 static icons to establish the product icon system.</li>
-                            <li>Created brand mascot and 8 avatar illustrations tailored to the target audience, enhancing user engagement.</li>
-                            <li>Independently produced 2 product videos, covering scripting, storyboarding, art direction, and animation in After Effects.</li>
-                            <li>Combined custom illustrations with AI-generated voiceovers for tutorial videos, lowering onboarding friction.</li>
+                            <li>Established 2 sets of brand identity guidelines, translating core concepts into a cohesive visual language to build a consistent cross-interface system.</li>
+                            <li>Designed 16 animated icons and 70 static icons to build a complete icon system.</li>
+                            <li>Created brand mascot and 8 avatar illustrations tailored to the target audience, enhancing user resonance.</li>
+                            <li>Independently produced 2 product videos, covering scripting, storyboarding, art direction, animation, sound design, and music.</li>
+                            <li>Combined custom illustrations with AI-generated voiceovers to produce tutorial videos, lowering onboarding barriers for new users.</li>
                           </>
                         )}
                       </ul>

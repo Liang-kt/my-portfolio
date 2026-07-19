@@ -2935,7 +2935,7 @@ const SPLIT_VIEW_CHIPS = [
               width: '100%',
               aspectRatio: '16 / 10',
               borderRadius: '8px',
-              backgroundColor: '#F5F5F5',
+              backgroundColor: '#FFFFFF',
               border: '0.5px solid #EEEEEE',
               display: 'flex',
               flexDirection: 'column',
@@ -2959,7 +2959,7 @@ const SPLIT_VIEW_CHIPS = [
               <img 
                 src={src} 
                 alt={alt}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                 onError={() => setHasError(true)}
               />
             )}
@@ -7160,12 +7160,16 @@ const SPLIT_VIEW_CHIPS = [
                       {/* Figures Grid */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-[10px]" style={{ marginBottom: '20px' }}>
                         <div>
-                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h1-pace.png" alt={lang === 'zh' ? '圖：4-1 五題一輪節奏（n=6）' : 'Fig 4-1: 5-Question Round Pace (n=6)'} />
-                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>{lang === 'zh' ? '圖：4-1 五題一輪節奏（n=6）' : 'Fig 4-1: 5-Question Round Pace (n=6)'}</div>
+                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h1-pace.png" alt={lang === 'zh' ? '圖 4-1：「5 題一輪（Loop）」的節奏對你來說 (n=6)' : 'Fig 4-1: Pace of "5-Question Loop" for You (n=6)'} />
+                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>
+                            {lang === 'zh' ? '圖 4-1：「5 題一輪（Loop）」的節奏對你來說 (n=6)' : 'Fig 4-1: Pace of "5-Question Loop" for You (n=6)'}
+                          </div>
                         </div>
                         <div>
-                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h1-count.png" alt={lang === 'zh' ? '圖：4-2 理想題數三方分立（n=6）' : 'Fig 4-2: Ideal Question Count Split (n=6)'} />
-                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>{lang === 'zh' ? '圖：4-2 理想題數三方分立（n=6）' : 'Fig 4-2: Ideal Question Count Split (n=6)'}</div>
+                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h1-count.png" alt={lang === 'zh' ? '圖 4-2：你希望每一輪題數最理想是 (n=6)' : 'Fig 4-2: Your Ideal Question Count Per Round (n=6)'} />
+                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>
+                            {lang === 'zh' ? '圖 4-2：你希望每一輪題數最理想是 (n=6)' : 'Fig 4-2: Your Ideal Question Count Per Round (n=6)'}
+                          </div>
                         </div>
                       </div>
                       {/* Gold phrase */}
@@ -7263,12 +7267,16 @@ const SPLIT_VIEW_CHIPS = [
                       {/* Figures Grid */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-[10px]" style={{ marginBottom: '20px' }}>
                         <div>
-                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h2-density.png" alt={lang === 'zh' ? '圖：3-1 引導步驟密度（n=6）' : 'Fig 3-1: Guidance Step Density (n=6)'} />
-                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>{lang === 'zh' ? '圖：3-1 引導步驟密度（n=6）' : 'Fig 3-1: Guidance Step Density (n=6)'}</div>
+                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h2-density.png" alt={lang === 'zh' ? '圖 3-1：你覺得「步驟引導的密度」感覺如何？ (n=6)' : 'Fig 3-1: How Do You Feel About "Guidance Step Density"? (n=6)'} />
+                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>
+                            {lang === 'zh' ? '圖 3-1：你覺得「步驟引導的密度」感覺如何？ (n=6)' : 'Fig 3-1: How Do You Feel About "Guidance Step Density"? (n=6)'}
+                          </div>
                         </div>
                         <div>
-                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h2-interrupt.png" alt={lang === 'zh' ? '圖：3-2 被打斷的原因（可複選）' : 'Fig 3-2: Reasons for Interruption (multiple choices)'} />
-                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>{lang === 'zh' ? '圖：3-2 被打斷的原因（可複選）' : 'Fig 3-2: Reasons for Interruption (multiple choices)'}</div>
+                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h2-interrupt.png" alt={lang === 'zh' ? '圖 3-2：步驟解題中，哪一種會讓你覺得「被打斷」？（可複選） (n=6)' : 'Fig 3-2: Which Part of Step-by-Step Solving Feels "Interrupted"? (multiple choices) (n=6)'} />
+                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>
+                            {lang === 'zh' ? '圖 3-2：步驟解題中，哪一種會讓你覺得「被打斷」？（可複選） (n=6)' : 'Fig 3-2: Which Part of Step-by-Step Solving Feels "Interrupted"? (multiple choices) (n=6)'}
+                          </div>
                         </div>
                       </div>
                       {/* Gold phrase */}
@@ -7361,12 +7369,16 @@ const SPLIT_VIEW_CHIPS = [
                       {/* Figures Grid */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-[10px]" style={{ marginBottom: '20px' }}>
                         <div>
-                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h3-format.png" alt={lang === 'zh' ? '圖：3-4 多題型對投入感的影響（n=6）' : 'Fig 3-4: Impact of Multiple Formats on Engagement (n=6)'} />
-                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>{lang === 'zh' ? '圖：3-4 多題型對投入感的影響（n=6）' : 'Fig 3-4: Impact of Multiple Formats on Engagement (n=6)'}</div>
+                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h3-format.png" alt={lang === 'zh' ? '圖 3-4：國文/英文採用多題型形式（選擇、選填、配對等），對你的投入感比較像 (n=6)' : 'Fig 3-4: Impact of Multiple Formats (MCQ, Fill-in, Matching) on Engagement (n=6)'} />
+                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>
+                            {lang === 'zh' ? '圖 3-4：國文/英文採用多題型形式（選擇、選填、配對等），對你的投入感比較像 (n=6)' : 'Fig 3-4: Impact of Multiple Formats (MCQ, Fill-in, Matching) on Engagement (n=6)'}
+                          </div>
                         </div>
                         <div>
-                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h3-friction.png" alt={lang === 'zh' ? '圖：2-2 再做一輪的阻力（可複選）' : 'Fig 2-2: Friction to Do Another Round (multiple choices)'} />
-                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>{lang === 'zh' ? '圖：2-2 再做一輪的阻力（可複選）' : 'Fig 2-2: Friction to Do Another Round (multiple choices)'}</div>
+                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h3-friction.png" alt={lang === 'zh' ? '圖 2-2：如果現在要你「再做一輪 5 題」，你的阻力主要是什麼？（選 1–2 個） (n=6)' : 'Fig 2-2: If Asked to "Do Another 5-Question Round" Now, What is Your Main Friction? (Choose 1-2) (n=6)'} />
+                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>
+                            {lang === 'zh' ? '圖 2-2：如果現在要你「再做一輪 5 題」，你的阻力主要是什麼？（選 1–2 個） (n=6)' : 'Fig 2-2: If Asked to "Do Another 5-Question Round" Now, What is Your Main Friction? (Choose 1-2) (n=6)'}
+                          </div>
                         </div>
                       </div>
                       {/* Gold phrase */}

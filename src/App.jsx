@@ -51,11 +51,31 @@ const SubHeading = ({ children }) => (
   </h4>
 );
 
-const ImagePlaceholder = ({ label, height = '160px', icon = 'photo', bg = 'bg-gray-50' }) => (
+const ImagePlaceholder = ({ label, height = '160px', icon = 'photo', bg = 'bg-gray-50', comingSoon = false }) => (
   <div 
-    className={`w-full ${bg} border border-dashed border-gray-300 rounded-[10px] flex flex-col items-center justify-center p-4 select-none`}
+    className={`w-full ${bg} border border-dashed border-gray-300 rounded-[10px] flex flex-col items-center justify-center p-4 select-none relative`}
     style={{ height }}
   >
+    {comingSoon && (
+      <div 
+        style={{
+          position: 'absolute',
+          top: '12px',
+          right: '12px',
+          backgroundColor: '#F3F4F6',
+          border: '0.5px solid #E5E7EB',
+          color: '#6B7280',
+          padding: '2px 8px',
+          borderRadius: '999px',
+          fontSize: '10px',
+          fontWeight: '700',
+          letterSpacing: '0.05em',
+          textTransform: 'uppercase'
+        }}
+      >
+        Coming soon
+      </div>
+    )}
     {icon === 'photo' && (
       <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
@@ -10176,7 +10196,7 @@ const SPLIT_VIEW_CHIPS = [
               <div>
                 <SubHeading>{lang === 'zh' ? '1. Icon 架構系統' : '1. Icon Architecture System'}</SubHeading>
                 <div className="space-y-4">
-                  <ImagePlaceholder label="Icon 分類架構圖（Navigation / Action / Status / Subject）" height="200px" icon="icon" />
+                  <ImagePlaceholder label="Icon 分類架構圖（Navigation / Action / Status / Subject）" height="200px" icon="icon" comingSoon={true} />
                   <p className="text-base md:text-lg text-gray-600 font-medium font-noto leading-relaxed max-w-3xl">
                     {lang === 'zh'
                       ? 'Icon 系統分為四大類別，統一使用 24px grid、2px stroke 規範，確保跨尺寸一致性與視覺統一。'

@@ -3327,8 +3327,8 @@ const SPLIT_VIEW_CHIPS = [
 
         let triggerObserver;
         let footerObserver;
-        const triggerEl = document.getElementById('closed-loops-diagram');
-        const footerEl = document.getElementById('project-footer');
+        let triggerEl = null;
+        let footerEl = null;
 
         let reachedLoops = false;
         let footerIntersecting = false;
@@ -3337,29 +3337,35 @@ const SPLIT_VIEW_CHIPS = [
           setShowDotNav(reachedLoops && !footerIntersecting);
         };
 
-        if (triggerEl) {
-          triggerObserver = new IntersectionObserver(([entry]) => {
-            reachedLoops = entry.isIntersecting || entry.boundingClientRect.top < 0;
-            updateVisibility();
-          }, {
-            root: null,
-            threshold: 0
-          });
-          triggerObserver.observe(triggerEl);
-        }
+        const timeoutId = setTimeout(() => {
+          triggerEl = document.getElementById('closed-loops-diagram');
+          footerEl = document.getElementById('project-footer');
 
-        if (footerEl) {
-          footerObserver = new IntersectionObserver(([entry]) => {
-            footerIntersecting = entry.isIntersecting;
-            updateVisibility();
-          }, {
-            root: null,
-            threshold: 0
-          });
-          footerObserver.observe(footerEl);
-        }
+          if (triggerEl) {
+            triggerObserver = new IntersectionObserver(([entry]) => {
+              reachedLoops = entry.isIntersecting || entry.boundingClientRect.top < 0;
+              updateVisibility();
+            }, {
+              root: null,
+              threshold: 0
+            });
+            triggerObserver.observe(triggerEl);
+          }
+
+          if (footerEl) {
+            footerObserver = new IntersectionObserver(([entry]) => {
+              footerIntersecting = entry.isIntersecting;
+              updateVisibility();
+            }, {
+              root: null,
+              threshold: 0
+            });
+            footerObserver.observe(footerEl);
+          }
+        }, 150);
 
         return () => {
+          clearTimeout(timeoutId);
           sections.forEach((id) => {
             const el = document.getElementById(id);
             if (el) observer.unobserve(el);
@@ -7513,8 +7519,8 @@ const SPLIT_VIEW_CHIPS = [
               border-radius: 4px;
             }
             
-            /* 1024px to 1280px range (lg to xl) - hide label and show as absolute tooltip on hover */
-            @media (min-width: 1024px) and (max-width: 1279.98px) {
+            /* 768px to 1280px range (md to xl) - hide label and show as absolute tooltip on hover */
+            @media (min-width: 768px) and (max-width: 1279.98px) {
               .dot-nav-item {
                 position: relative;
               }
@@ -7557,7 +7563,7 @@ const SPLIT_VIEW_CHIPS = [
           {/* FLOATING PROGRESS DOTS (desktop only, right side) */}
           <nav 
             aria-label={lang === 'zh' ? '章節導覽' : 'Section Navigation'}
-            className={`hidden lg:flex flex-col dot-nav-container ${showDotNav ? 'show' : ''}`}
+            className={`hidden md:flex flex-col dot-nav-container ${showDotNav ? 'show' : ''}`}
             style={{
               position: 'fixed',
               right: '24px',

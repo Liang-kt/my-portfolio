@@ -2886,12 +2886,86 @@ const SPLIT_VIEW_CHIPS = [
           img: 'projects/mslin-app/screens/photo-analysis/8解析失敗畫面.png'
         }
       ];
-      const [activeSection, setActiveSection] = useState('overview');
+      const [activeSection, setActiveSection] = useState('section-01');
+      const [showDotNav, setShowDotNav] = useState(false);
       const [activeOnboardingStep, setActiveOnboardingStep] = useState(0);
       const [timerKey, setTimerKey] = useState(0);
       const [expandedCards, setExpandedCards] = useState([false, false, false]);
       const [isXpExpanded, setIsXpExpanded] = useState(false);
       const [expandedStrategyCards, setExpandedStrategyCards] = useState([true, false, false]);
+      const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+      const [activeLightboxImg, setActiveLightboxImg] = useState(null);
+      const [expandedValidationCards, setExpandedValidationCards] = useState([false, false, false]);
+
+      const toggleValidationCard = (idx) => {
+        setExpandedValidationCards(prev => {
+          const next = [...prev];
+          next[idx] = !next[idx];
+          return next;
+        });
+      };
+
+      useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+      }, []);
+
+      useEffect(() => {
+        const handleKeyDown = (e) => {
+          if (e.key === 'Escape') {
+            setActiveLightboxImg(null);
+          }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+      }, []);
+
+      const ChartPlaceholderImage = ({ src, alt }) => {
+        const [hasError, setHasError] = useState(false);
+        return (
+          <div 
+            onClick={() => {
+              if (!hasError) {
+                setActiveLightboxImg(src);
+              }
+            }}
+            style={{
+              position: 'relative',
+              width: '100%',
+              aspectRatio: '16 / 10',
+              borderRadius: '8px',
+              backgroundColor: '#F5F5F5',
+              border: '0.5px solid #EEEEEE',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'hidden',
+              cursor: hasError ? 'default' : 'pointer',
+              boxSizing: 'border-box',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+            }}
+            className="group hover:shadow-md hover:-translate-y-0.5"
+          >
+            {hasError ? (
+              <div className="flex flex-col items-center justify-center p-4 text-center">
+                <svg className="w-8 h-8 text-[#A0A0A0] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                </svg>
+                <span style={{ fontSize: '11px', color: '#A0A0A0', fontWeight: '500' }}>[ {alt} ]</span>
+              </div>
+            ) : (
+              <img 
+                src={src} 
+                alt={alt}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                onError={() => setHasError(true)}
+              />
+            )}
+          </div>
+        );
+      };
 
       const toggleStrategyCard = (idx) => {
         setExpandedStrategyCards(prev => {
@@ -3231,10 +3305,10 @@ const SPLIT_VIEW_CHIPS = [
       }, [lang]);
 
       useEffect(() => {
-        const sections = ['overview', 'research', 'strategy', 'design', 'outcomes'];
+        const sections = ['section-01', 'section-02', 'section-03', 'section-04', 'section-05'];
         const observerOptions = {
           root: null,
-          rootMargin: '-50% 0px -50% 0px',
+          rootMargin: '-40% 0px -55% 0px',
           threshold: 0
         };
 
@@ -3251,11 +3325,26 @@ const SPLIT_VIEW_CHIPS = [
           if (el) observer.observe(el);
         });
 
+        let heroObserver;
+        const heroEl = document.getElementById('project-hero');
+        if (heroEl) {
+          heroObserver = new IntersectionObserver(([entry]) => {
+            setShowDotNav(!entry.isIntersecting);
+          }, {
+            root: null,
+            threshold: 0
+          });
+          heroObserver.observe(heroEl);
+        }
+
         return () => {
           sections.forEach((id) => {
             const el = document.getElementById(id);
             if (el) observer.unobserve(el);
           });
+          if (heroObserver && heroEl) {
+            heroObserver.unobserve(heroEl);
+          }
         };
       }, []);
 
@@ -3302,6 +3391,61 @@ const SPLIT_VIEW_CHIPS = [
           }, {
             root: null,
             threshold: 0.1
+          });
+          observer.observe(container);
+        }, 100);
+
+        return () => {
+          clearTimeout(initTimeout);
+          if (observer) {
+            observer.disconnect();
+          }
+        };
+      }, [lang]);
+
+      // 設計假設卡片滾動淡入互動
+      useEffect(() => {
+        const container = document.getElementById('hypotheses-reveal-section');
+        if (!container) return;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const items = container.querySelectorAll('.hypothesis-reveal-item');
+
+        if (prefersReducedMotion) {
+          items.forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+          });
+          return;
+        }
+
+        // 初始化動畫狀態
+        items.forEach(el => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(16px)';
+          el.style.transition = 'opacity 400ms ease-out, transform 400ms ease-out';
+        });
+
+        let observer;
+        const initTimeout = setTimeout(() => {
+          observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                items.forEach((el, index) => {
+                  setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                    setTimeout(() => {
+                      el.style.transform = 'none';
+                    }, 400);
+                  }, index * 80);
+                });
+                observer.unobserve(entry.target);
+              }
+            });
+          }, {
+            root: null,
+            threshold: 0.15
           });
           observer.observe(container);
         }, 100);
@@ -3422,11 +3566,11 @@ const SPLIT_VIEW_CHIPS = [
       };
 
       const sections = [
-        { id: 'overview', name: 'Overview' },
-        { id: 'research', name: 'Research' },
-        { id: 'strategy', name: 'Strategy' },
-        { id: 'design', name: 'Design' },
-        { id: 'outcomes', name: 'Outcomes' }
+        { id: 'section-01', num: '01', nameZh: '專案概述', nameEn: 'Overview' },
+        { id: 'section-02', num: '02', nameZh: '設計假設', nameEn: 'Design Assumptions' },
+        { id: 'section-03', num: '03', nameZh: '策略定調', nameEn: 'Design Strategy' },
+        { id: 'section-04', num: '04', nameZh: '設計執行', nameEn: 'Design Execution' },
+        { id: 'section-05', num: '05', nameZh: '成果與反思', nameEn: 'Outcomes & Reflections' }
       ];
 
       return (
@@ -3442,7 +3586,7 @@ const SPLIT_VIEW_CHIPS = [
           }}
         >
           {/* 1. PROJECT ENTRY AREA */}
-          <div className="w-full">
+          <div id="project-hero" className="w-full">
             {/* TITLE BLOCK */}
             <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-32 md:pt-36">
               <BackButton navigateTo={navigateTo} lang={lang} />
@@ -3489,9 +3633,9 @@ const SPLIT_VIEW_CHIPS = [
           >
             {/* 01 — 專案概述 */}
             <section
-              id="overview"
+              id="section-01"
               className="py-12 md:py-24 border-b border-gray-100"
-              style={{ boxSizing: 'border-box' }}
+              style={{ boxSizing: 'border-box', scrollMarginTop: '72px' }}
             >
               {/* SECTION HEADER */}
               <ProjectSectionHeader num="01" title={lang === 'zh' ? '專案概述' : 'Project Overview'} />
@@ -4027,9 +4171,9 @@ const SPLIT_VIEW_CHIPS = [
             </section>
             {/* 02 — Research */}
             <section
-              id="research"
+              id="section-02"
               className="py-12 md:py-24 border-b border-gray-100"
-              style={{ boxSizing: 'border-box' }}
+              style={{ boxSizing: 'border-box', scrollMarginTop: '72px' }}
             >
               <ProjectSectionHeader num="02" title={lang === 'zh' ? '競品洞察與設計假設' : 'Competitive Insights & Design Hypotheses'} />
 
@@ -4212,7 +4356,7 @@ const SPLIT_VIEW_CHIPS = [
               {/* ASSUMPTION CARDS */}
               <div style={{ marginBottom: '48px' }}>
                 <SubHeading>設計假設</SubHeading>
-                <div className="grid grid-cols-1 md:grid-cols-3 items-start" style={{ gap: '16px', alignItems: 'start' }}>
+                <div id="hypotheses-reveal-section" className="grid grid-cols-1 md:grid-cols-3 items-start" style={{ gap: '16px', alignItems: 'start' }}>
                   {[
                     {
                       prefix: lang === 'zh' ? '假設一' : 'Assumption 1',
@@ -4234,12 +4378,12 @@ const SPLIT_VIEW_CHIPS = [
                     },
                     {
                       prefix: lang === 'zh' ? '假設三' : 'Assumption 3',
-                      name: lang === 'zh' ? '錯題庫收藏庫' : 'Error Book & Bookmark',
-                      hypothesis: lang === 'zh' ? '擁有學習記錄能提高黏性與回訪動機' : 'Owning learning records increases retention & revisit motivation',
-                      basis: lang === 'zh' ? '競品缺乏個人化資產' : 'Competitors lack personalized assets',
-                      validation: lang === 'zh' ? 'D30 留存率' : 'D30 Retention Rate',
-                      targetId: 'strategy-asset',
-                      strategyText: lang === 'zh' ? '策略落地 → 03｜學習資產驅動推薦' : 'Strategy Landing → 03｜Asset-Driven Recommendation'
+                      name: lang === 'zh' ? '國英多題型互動' : 'Chinese & English Multiformat Interaction',
+                      hypothesis: lang === 'zh' ? '多樣題型能提升刷題爽感、帶動持續回訪' : 'Diverse question types can enhance practice satisfaction and drive continuous return visits',
+                      basis: lang === 'zh' ? '無特定理論依據，源於團隊對題型形式的發想' : 'No specific theoretical basis, originating from the team\'s ideation on question formats',
+                      validation: lang === 'zh' ? '多題型互動能否提升刷題爽感、進而提升回訪意願' : 'Whether multi-format interaction can enhance practice satisfaction and thus improve revisit motivation',
+                      targetId: 'strategy-multiformat',
+                      strategyText: lang === 'zh' ? '策略落地 → 03｜題型變化的體驗賭注' : 'Strategy Landing → 03｜Experience Bet on Question Variety'
                     }
                   ].map((card, idx) => {
                     const isExpanded = expandedCards[idx];
@@ -4247,8 +4391,9 @@ const SPLIT_VIEW_CHIPS = [
                       <div 
                         key={idx}
                         onClick={() => toggleCard(idx)}
+                        className="hypothesis-reveal-item"
                         style={{
-                          padding: '20px 24px',
+                          padding: isMobile ? '18px 16px' : '20px 24px',
                           border: '0.5px solid #EEEEEE',
                           borderRadius: '12px',
                           background: '#FFFFFF',
@@ -4265,14 +4410,15 @@ const SPLIT_VIEW_CHIPS = [
                             </span>
                             <span style={{
                               fontSize: '11px',
-                              padding: '2px 8px',
-                              borderRadius: '100px',
-                              background: '#FFF7ED',
-                              color: '#3C3489',
+                              padding: '3px 10px',
+                              borderRadius: '999px',
+                              background: '#FAECE7',
+                              color: '#993C1D',
                               fontWeight: '500',
+                              letterSpacing: '1px',
                               flexShrink: 0
                             }}>
-                              待驗證
+                              {lang === 'zh' ? '待驗證' : 'To be verified'}
                             </span>
                           </div>
                           <svg 
@@ -4354,10 +4500,10 @@ const SPLIT_VIEW_CHIPS = [
                     <>
                       初版未進行使用者訪談，以假設先行——驗證與修正的結果
                       <a 
-                        href="#outcomes" 
+                        href="#section-05" 
                         onClick={(e) => {
                           e.preventDefault();
-                          const el = document.getElementById('outcomes');
+                          const el = document.getElementById('section-05');
                           if (el) el.scrollIntoView({ behavior: 'smooth' });
                         }}
                         className="text-[#6B6B6B] hover:text-[#D85A30] transition-colors"
@@ -4371,10 +4517,10 @@ const SPLIT_VIEW_CHIPS = [
                     <>
                       The initial version was designed without user interviews, using hypotheses first—the validation and revision results (
                       <a 
-                        href="#outcomes" 
+                        href="#section-05" 
                         onClick={(e) => {
                           e.preventDefault();
-                          const el = document.getElementById('outcomes');
+                          const el = document.getElementById('section-05');
                           if (el) el.scrollIntoView({ behavior: 'smooth' });
                         }}
                         className="text-[#6B6B6B] hover:text-[#D85A30] transition-colors"
@@ -4391,9 +4537,9 @@ const SPLIT_VIEW_CHIPS = [
 
             {/* 03 — Strategy */}
             <section
-              id="strategy"
+              id="section-03"
               className="py-12 md:py-24 border-b border-gray-100"
-              style={{ boxSizing: 'border-box' }}
+              style={{ boxSizing: 'border-box', scrollMarginTop: '72px' }}
             >
               <ProjectSectionHeader num="03" title={lang === 'zh' ? '策略定調與資訊架構' : 'Design Strategy & Information Architecture'} />
 
@@ -4427,309 +4573,286 @@ const SPLIT_VIEW_CHIPS = [
               </div>
 
               {/* 二、三張策略卡與進入門檻註記 */}
-              <div id="strategy-reveal-section" className="flex flex-col gap-3">
+              <div id="strategy-reveal-section" className="flex flex-col gap-3" style={{ marginBottom: '48px' }}>
                 {/* 卡一 */}
                 <div 
                   id="strategy-loop"
-                  onClick={() => toggleStrategyCard(0)}
-                  className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px] cursor-pointer"
+                  className="strategy-reveal-item bg-white rounded-[12px]"
                   style={{
                     border: '0.5px solid #EEEEEE',
                     boxSizing: 'border-box',
-                    scrollMarginTop: '72px'
+                    scrollMarginTop: '72px',
+                    padding: isMobile ? '18px 16px' : '22px 24px'
                   }}
                 >
-                  <div className="flex justify-between items-center gap-2">
-                    <div>
-                      <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
-                        <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設一' : 'Assumption 1'}</span>｜{lang === 'zh' ? '刷題 Loop' : 'Practice Loop'}
-                      </div>
-                      <div style={{ fontSize: '14px', color: '#6B6B6B' }}>
-                        {lang === 'zh' ? '遊戲化正向循環，節奏由學生決定' : 'Gamified positive loop, pace decided by students'}
-                      </div>
-                    </div>
-                    <svg 
-                      width="16" 
-                      height="16" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="#F97316" 
-                      strokeWidth="2.5" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      style={{
-                        transform: expandedStrategyCards[0] ? 'rotate(180deg)' : 'rotate(0deg)',
-                        transition: 'transform 300ms ease',
-                        flexShrink: 0,
-                        marginLeft: '12px'
-                      }}
-                    >
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
+                  <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                    <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設一' : 'Assumption 1'}</span>｜{lang === 'zh' ? '刷題 Loop' : 'Practice Loop'}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#6B6B6B', marginBottom: '16px' }}>
+                    {lang === 'zh' ? '遊戲化正向循環，節奏由學生決定' : 'Gamified positive loop, pace decided by students'}
                   </div>
                   
-                  <div style={{
-                    maxHeight: expandedStrategyCards[0] ? '1000px' : '0px',
-                    overflow: 'hidden',
-                    transition: 'max-height 300ms ease, margin-top 300ms ease',
-                    marginTop: expandedStrategyCards[0] ? '16px' : '0px'
-                  }}>
-                    <div className="grid grid-cols-1 md:grid-cols-[minmax(0,auto)_32px_minmax(0,1fr)] items-stretch">
-                      <div 
-                        className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
-                      >
-                        <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
-                          {lang === 'zh' ? '用戶痛點' : 'PAIN POINTS'}
-                        </div>
-                        <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
-                          {lang === 'zh' ? '練了沒進步感・練習沒有動力' : 'No sense of progress · No motivation to practice'}
-                        </div>
+                  <div className="grid grid-cols-1 md:grid-cols-[240px_32px_1fr] items-center" style={{ boxSizing: 'border-box' }}>
+                    <div style={{
+                      background: '#FAFAFA',
+                      borderRadius: '8px',
+                      padding: '12px 14px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      minHeight: '64px',
+                      boxSizing: 'border-box'
+                    }}>
+                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '4px', fontWeight: 'bold' }}>
+                        {lang === 'zh' ? '用戶痛點' : 'USER PAIN POINT'}
                       </div>
-                      
-                      <div className="flex items-center justify-center text-[18px] text-[#D85A30] my-1 md:my-0">
-                        <span className="hidden md:inline">→</span>
-                        <span className="inline md:hidden">↓</span>
-                      </div>
-
-                      <div 
-                        className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
-                      >
-                        <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
-                          {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
-                        </div>
-                        <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
-                          {lang === 'zh' ? '三層練習模式・XP・段位・Streak・排行榜・每日任務' : '3-Tier Practice · XP · Rank · Streak · Leaderboard · Daily Quests'}
-                        </div>
+                      <div className="text-[14px] text-[#1A1A1A] font-medium" style={{ whiteSpace: lang === 'zh' ? (isMobile ? 'normal' : 'nowrap') : 'normal' }}>
+                        {lang === 'zh' ? '練了沒進步感・練習沒有動力' : 'No sense of progress · No motivation to practice'}
                       </div>
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-[8px] my-[14px] md:mt-[14px] md:mb-[16px] box-sizing-border-box">
-                      <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
-                        <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '5 題' : '5 Qs'}</div>
-                        <div style={{ fontSize: '12px', color: '#6B6B6B' }} className="md:whitespace-nowrap">{lang === 'zh' ? '聚焦觀念打穩基礎' : 'Focus on concepts & build foundation'}</div>
-                      </div>
-                      <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
-                        <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '10 題' : '10 Qs'}</div>
-                        <div style={{ fontSize: '12px', color: '#6B6B6B' }} className="md:whitespace-nowrap">{lang === 'zh' ? '混合題型強化觀念' : 'Mix question types & reinforce concepts'}</div>
-                      </div>
-                      <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
-                        <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '15 題' : '15 Qs'}</div>
-                        <div style={{ fontSize: '12px', color: '#6B6B6B' }} className="md:whitespace-nowrap">{lang === 'zh' ? '全題型實戰演練' : 'All question types & exam simulation'}</div>
-                      </div>
+                    
+                    <div className="flex items-center justify-center text-[18px] text-[#D85A30]" style={{ fontWeight: 'bold', margin: '4px 0' }}>
+                      <span className="hidden md:inline">→</span>
+                      <span className="inline md:hidden">↓</span>
                     </div>
 
-                    <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
-                      {lang === 'zh' ? (
-                        <>五題是一輪努力的基本單位；三層模式把<span style={{ color: '#D85A30' }}>節奏的選擇權交還給學生</span>——重量由自己決定，回饋依然在完成點釋放。</>
-                      ) : (
-                        <>5 questions form the basic unit of effort; the 3-tier mode <span style={{ color: '#D85A30' }}>hands the choice of pace back to the students</span>—you choose the weight, while the reward is still released at completion.</>
-                      )}
+                    <div style={{
+                      background: '#FAFAFA',
+                      borderRadius: '8px',
+                      padding: '12px 14px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      minHeight: '64px',
+                      boxSizing: 'border-box'
+                    }}>
+                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '4px', fontWeight: 'bold' }}>
+                        {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
+                      </div>
+                      <div className="text-[14px] text-[#1A1A1A] font-medium" style={{ whiteSpace: lang === 'zh' ? (isMobile ? 'normal' : 'nowrap') : 'normal' }}>
+                        {lang === 'zh' ? '三層練習模式・XP・段位・Streak・排行榜・每日任務' : '3-Tier Practice · XP · Rank · Streak · Leaderboard · Daily Quests'}
+                      </div>
                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2" style={{ margin: '14px 0 16px', boxSizing: 'border-box' }}>
+                    <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '5 題' : '5 Qs'}</div>
+                      <div style={{ fontSize: '12px', color: '#6B6B6B', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{lang === 'zh' ? '聚焦觀念打穩基礎' : 'Focus on concepts & build foundation'}</div>
+                    </div>
+                    <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '10 題' : '10 Qs'}</div>
+                      <div style={{ fontSize: '12px', color: '#6B6B6B', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{lang === 'zh' ? '混合題型強化觀念' : 'Mix question types & reinforce concepts'}</div>
+                    </div>
+                    <div style={{ border: '0.5px solid #DDDDDD', borderRadius: '8px', padding: '10px 12px', boxSizing: 'border-box' }} className="flex justify-between items-center md:block">
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '2px' }}>{lang === 'zh' ? '15 題' : '15 Qs'}</div>
+                      <div style={{ fontSize: '12px', color: '#6B6B6B', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{lang === 'zh' ? '全題型實戰演練' : 'All question types & exam simulation'}</div>
+                    </div>
+                  </div>
+
+                  <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
+                    {lang === 'zh' ? (
+                      <>五題是一輪努力的基本單位；三層模式把<span style={{ color: '#D85A30' }}>節奏的選擇權交還給學生</span>——重量由自己決定，回饋依然在完成點釋放。</>
+                    ) : (
+                      <>5 questions form the basic unit of effort; the 3-tier mode <span style={{ color: '#D85A30' }}>hands the choice of pace back to the students</span>—you choose the weight, while the reward is still released at completion.</>
+                    )}
                   </div>
                 </div>
 
                 {/* 卡二 */}
                 <div 
                   id="strategy-ai"
-                  onClick={() => toggleStrategyCard(1)}
-                  className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px] cursor-pointer"
+                  className="strategy-reveal-item bg-white rounded-[12px]"
                   style={{
                     border: '0.5px solid #EEEEEE',
                     boxSizing: 'border-box',
-                    scrollMarginTop: '72px'
+                    scrollMarginTop: '72px',
+                    padding: isMobile ? '18px 16px' : '22px 24px'
                   }}
                 >
-                  <div className="flex justify-between items-center gap-2">
-                    <div>
-                      <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
-                        <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設二' : 'Assumption 2'}</span>｜{lang === 'zh' ? '步驟解題' : 'Step-by-Step Solving'}
-                      </div>
-                      <div style={{ fontSize: '14px', color: '#6B6B6B' }}>
-                        {lang === 'zh' ? 'AI 講解的過程參與' : 'Active participation in the AI explanation process'}
-                      </div>
-                    </div>
-                    <svg 
-                      width="16" 
-                      height="16" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="#F97316" 
-                      strokeWidth="2.5" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      style={{
-                        transform: expandedStrategyCards[1] ? 'rotate(180deg)' : 'rotate(0deg)',
-                        transition: 'transform 300ms ease',
-                        flexShrink: 0,
-                        marginLeft: '12px'
-                      }}
-                    >
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
+                  <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                    <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設二' : 'Assumption 2'}</span>｜{lang === 'zh' ? '步驟解題' : 'Step-by-Step Solving'}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#6B6B6B', marginBottom: '16px' }}>
+                    {lang === 'zh' ? 'AI 講解的過程參與' : 'Active participation in the AI explanation process'}
                   </div>
                   
-                  <div style={{
-                    maxHeight: expandedStrategyCards[1] ? '1000px' : '0px',
-                    overflow: 'hidden',
-                    transition: 'max-height 300ms ease, margin-top 300ms ease',
-                    marginTop: expandedStrategyCards[1] ? '16px' : '0px'
-                  }}>
-                    <div className="grid grid-cols-1 md:grid-cols-[minmax(0,auto)_32px_minmax(0,1fr)] items-stretch">
-                      <div 
-                        className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
-                      >
-                        <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
-                          {lang === 'zh' ? '用戶痛點' : 'PAIN POINTS'}
-                        </div>
-                        <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
-                          {lang === 'zh' ? '看不懂題目解析' : 'Cannot understand question explanations'}
-                        </div>
+                  <div className="grid grid-cols-1 md:grid-cols-[240px_32px_1fr] items-center" style={{ boxSizing: 'border-box' }}>
+                    <div style={{
+                      background: '#FAFAFA',
+                      borderRadius: '8px',
+                      padding: '12px 14px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      minHeight: '64px',
+                      boxSizing: 'border-box'
+                    }}>
+                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '4px', fontWeight: 'bold' }}>
+                        {lang === 'zh' ? '用戶痛點' : 'USER PAIN POINT'}
                       </div>
-                      
-                      <div className="flex items-center justify-center text-[18px] text-[#D85A30] my-1 md:my-0">
-                        <span className="hidden md:inline">→</span>
-                        <span className="inline md:hidden">↓</span>
-                      </div>
-
-                      <div 
-                        className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
-                      >
-                        <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
-                          {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
-                        </div>
-                        <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
-                          {lang === 'zh' ? '林老師 AI 即時講解・步驟式引導' : 'AI Instant Explanation · Step-by-Step Guidance'}
-                        </div>
+                      <div className="text-[14px] text-[#1A1A1A] font-medium" style={{ whiteSpace: lang === 'zh' ? (isMobile ? 'normal' : 'nowrap') : 'normal' }}>
+                        {lang === 'zh' ? '看不懂題目解析' : 'Cannot understand question explanations'}
                       </div>
                     </div>
-
-                    <div className="h-4" />
-
-                    <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
-                      {lang === 'zh' ? (
-                        <>不直接給答案，讓解析<span style={{ color: '#D85A30' }}>從單向閱讀變成雙向對話</span>——學生覺得是自己解出來的。</>
-                      ) : (
-                        <>Instead of giving answers directly, make explanation <span style={{ color: '#D85A30' }}>transform from one-way reading to two-way dialogue</span>—so students feel they solved it themselves.</>
-                      )}
+                    
+                    <div className="flex items-center justify-center text-[18px] text-[#D85A30]" style={{ fontWeight: 'bold', margin: '4px 0' }}>
+                      <span className="hidden md:inline">→</span>
+                      <span className="inline md:hidden">↓</span>
                     </div>
+
+                    <div style={{
+                      background: '#FAFAFA',
+                      borderRadius: '8px',
+                      padding: '12px 14px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      minHeight: '64px',
+                      boxSizing: 'border-box'
+                    }}>
+                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '4px', fontWeight: 'bold' }}>
+                        {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
+                      </div>
+                      <div className="text-[14px] text-[#1A1A1A] font-medium" style={{ whiteSpace: lang === 'zh' ? (isMobile ? 'normal' : 'nowrap') : 'normal' }}>
+                        {lang === 'zh' ? '林老師 AI 即時講解・步驟式引導' : 'AI Instant Explanation · Step-by-Step Guidance'}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="h-4" />
+
+                  <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
+                    {lang === 'zh' ? (
+                      <>不直接給答案，讓解析<span style={{ color: '#D85A30' }}>從單向閱讀變成雙向對話</span>——學生覺得是自己解出來的。</>
+                    ) : (
+                      <>Instead of giving answers directly, make explanation <span style={{ color: '#D85A30' }}>transform from one-way reading to two-way dialogue</span>—so students feel they solved it themselves.</>
+                    )}
                   </div>
                 </div>
 
                 {/* 卡三 */}
                 <div 
-                  id="strategy-asset"
-                  onClick={() => toggleStrategyCard(2)}
-                  className="strategy-reveal-item bg-white p-4 md:p-[22px_24px] rounded-[12px] cursor-pointer"
+                  id="strategy-multiformat"
+                  className="strategy-reveal-item bg-white rounded-[12px]"
                   style={{
                     border: '0.5px solid #EEEEEE',
                     boxSizing: 'border-box',
-                    scrollMarginTop: '72px'
+                    scrollMarginTop: '72px',
+                    padding: isMobile ? '18px 16px' : '22px 24px'
                   }}
                 >
-                  <div className="flex justify-between items-center gap-2">
-                    <div>
-                      <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
-                        <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設三' : 'Assumption 3'}</span>｜{lang === 'zh' ? '錯題庫收藏庫' : 'Error Book & Bookmark'}
-                      </div>
-                      <div style={{ fontSize: '14px', color: '#6B6B6B' }}>
-                        {lang === 'zh' ? '學習資產驅動推薦' : 'Learning asset-driven recommendation'}
-                      </div>
-                    </div>
-                    <svg 
-                      width="16" 
-                      height="16" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="#F97316" 
-                      strokeWidth="2.5" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      style={{
-                        transform: expandedStrategyCards[2] ? 'rotate(180deg)' : 'rotate(0deg)',
-                        transition: 'transform 300ms ease',
-                        flexShrink: 0,
-                        marginLeft: '12px'
-                      }}
-                    >
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
+                  <div style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                    <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設三' : 'Assumption 3'}</span>｜{lang === 'zh' ? '國英多題型互動' : 'Chinese & English Multiformat Interaction'}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#6B6B6B', marginBottom: '16px' }}>
+                    {lang === 'zh' ? '用題型變化撐起刷題爽感' : 'Enhance practice satisfaction with varied question formats'}
                   </div>
                   
-                  <div style={{
-                    maxHeight: expandedStrategyCards[2] ? '1000px' : '0px',
-                    overflow: 'hidden',
-                    transition: 'max-height 300ms ease, margin-top 300ms ease',
-                    marginTop: expandedStrategyCards[2] ? '16px' : '0px'
-                  }}>
-                    <div className="grid grid-cols-1 md:grid-cols-[minmax(0,auto)_32px_minmax(0,1fr)] items-stretch">
-                      <div 
-                        className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
-                      >
-                        <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
-                          {lang === 'zh' ? '用戶痛點' : 'PAIN POINTS'}
-                        </div>
-                        <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
-                          {lang === 'zh' ? '不知道要練哪裡' : 'Do not know what to practice next'}
-                        </div>
+                  <div className="grid grid-cols-1 md:grid-cols-[240px_32px_1fr] items-center" style={{ boxSizing: 'border-box' }}>
+                    <div style={{
+                      background: '#FAFAFA',
+                      borderRadius: '8px',
+                      padding: '12px 14px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      minHeight: '64px',
+                      boxSizing: 'border-box'
+                    }}>
+                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '4px', fontWeight: 'bold' }}>
+                        {lang === 'zh' ? '用戶痛點' : 'USER PAIN POINT'}
                       </div>
-                      
-                      <div className="flex items-center justify-center text-[18px] text-[#D85A30] my-1 md:my-0">
-                        <span className="hidden md:inline">→</span>
-                        <span className="inline md:hidden">↓</span>
-                      </div>
-
-                      <div 
-                        className="flex flex-col justify-center bg-[#FAFAFA] rounded-[8px] p-[12px_14px] box-sizing-border-box"
-                      >
-                        <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '6px', fontWeight: 'bold' }}>
-                          {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
-                        </div>
-                        <div className="text-[14px] text-[#1A1A1A] font-medium md:whitespace-nowrap">
-                          {lang === 'zh' ? '錯題庫・收藏庫・智慧推薦（依錯題與練習紀錄）' : 'Error Book · Bookmark · Smart Recommendation (based on errors & logs)'}
-                        </div>
+                      <div className="text-[14px] text-[#1A1A1A] font-medium" style={{ whiteSpace: lang === 'zh' ? (isMobile ? 'normal' : 'nowrap') : 'normal' }}>
+                        {lang === 'zh' ? '刷題單調、撐不起回訪' : 'Monotonous practice fails to drive repeat visits'}
                       </div>
                     </div>
-
-                    <div className="h-4" />
-
-                    <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
-                      {lang === 'zh' ? (
-                        <>錯題紀錄不只是收藏，它是<span style={{ color: '#D85A30' }}>智慧推薦的資料來源</span>——記錄本身回答了「下一步練什麼」。</>
-                      ) : (
-                        <>Error records are not just bookmarks; they are the <span style={{ color: '#D85A30' }}>data source for smart recommendations</span>—records themselves answer "what to practice next".</>
-                      )}
+                    
+                    <div className="flex items-center justify-center text-[18px] text-[#D85A30]" style={{ fontWeight: 'bold', margin: '4px 0' }}>
+                      <span className="hidden md:inline">→</span>
+                      <span className="inline md:hidden">↓</span>
                     </div>
+
+                    <div style={{
+                      background: '#FAFAFA',
+                      borderRadius: '8px',
+                      padding: '12px 14px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      minHeight: '64px',
+                      boxSizing: 'border-box'
+                    }}>
+                      <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#A0A0A0', marginBottom: '4px', fontWeight: 'bold' }}>
+                        {lang === 'zh' ? 'Ms. Lin 的解法' : 'SOLUTIONS'}
+                      </div>
+                      <div className="text-[14px] text-[#1A1A1A] font-medium" style={{ whiteSpace: lang === 'zh' ? (isMobile ? 'normal' : 'nowrap') : 'normal' }}>
+                        {lang === 'zh' ? '選擇・選填・配對等多題型設計' : 'Multiple formats: Multiple choice, Fill-in-the-blank, Matching, etc.'}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="h-4" />
+
+                  <div className="text-[15px] font-medium text-[#1A1A1A] leading-[1.6]">
+                    {lang === 'zh' ? (
+                      <>用題型的變化對抗刷題的單調——把回訪的賭注押在<span style={{ color: '#D85A30' }}>爽感</span>上。</>
+                    ) : (
+                      <>Use question variety to combat monotony—placing the revisit bet on <span style={{ color: '#D85A30' }}>satisfaction</span>.</>
+                    )}
                   </div>
                 </div>
 
-                {/* 三、進入門檻註記 */}
+                {/* 底層體驗區 */}
                 <div 
                   className="strategy-reveal-item"
                   style={{
                     border: '0.5px dashed #DDDDDD',
                     borderRadius: '12px',
-                    padding: '14px 22px',
+                    padding: '18px 22px',
                     display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: '12px',
+                    flexDirection: 'column',
                     boxSizing: 'border-box',
-                    marginBottom: '48px',
                     marginTop: '12px'
                   }}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '18px', height: '18px', color: '#A0A0A0', flexShrink: 0, marginTop: '2px' }}>
-                    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-                    <circle cx="12" cy="13" r="3" />
-                  </svg>
-                  <div style={{ fontSize: '13px', lineHeight: '1.7', color: '#6B6B6B' }}>
-                    <span style={{ fontWeight: 500, color: '#1A1A1A' }}>
-                      {lang === 'zh' ? '進入門檻・拍照解題' : 'Entry Barrier · Photo Solver'}
-                    </span>
-                    {lang === 'zh' ? (
-                      <>：「不想帶課本出門」→ 拍照上傳即解。這不是差異化假設，而是讓所有策略成立的前提——學生要先進得來，循環才轉得起來。</>
-                    ) : (
-                      <>: "Do not want to carry textbooks" → Photo upload and solve instantly. This is not a differentiator, but a prerequisite for all strategies to work—students must enter first for the loop to rotate.</>
-                    )}
+                  <div style={{ fontSize: '13px', color: '#6B6B6B', marginBottom: '12px' }}>
+                    {lang === 'zh' ? '以下不是差異化假設，而是讓所有策略成立的前提。' : 'The following are not differentiators, but prerequisites for all strategies to work.'}
+                  </div>
+                  
+                  {/* 相機 Item */}
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '12px' }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '18px', height: '18px', color: '#A0A0A0', flexShrink: 0, marginTop: '2px' }}>
+                      <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                      <circle cx="12" cy="13" r="3" />
+                    </svg>
+                    <div style={{ fontSize: '13px', lineHeight: '1.7', color: '#6B6B6B' }}>
+                      <strong style={{ fontWeight: 600, color: '#1A1A1A' }}>
+                        {lang === 'zh' ? '進入門檻・拍照解題' : 'Entry Barrier · Photo Solver'}
+                      </strong>
+                      {lang === 'zh' ? (
+                        <>：「不想帶課本出門」→ 拍照上傳即解——學生要先進得來，循環才轉得起來。</>
+                      ) : (
+                        <>: "Do not want to carry textbooks" → Photo upload and solve instantly—students must enter first for the loop to rotate.</>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* 書籤 Item */}
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '18px', height: '18px', color: '#A0A0A0', flexShrink: 0, marginTop: '2px' }}>
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                    </svg>
+                    <div style={{ fontSize: '13px', lineHeight: '1.7', color: '#6B6B6B' }}>
+                      <strong style={{ fontWeight: 600, color: '#1A1A1A' }}>
+                        {lang === 'zh' ? '基礎資產・錯題庫收藏庫' : 'Core Asset · Error Book & Bookmark'}
+                      </strong>
+                      {lang === 'zh' ? (
+                        <>：「不知道要練哪裡」→ 錯題自動歸檔・收藏・智慧推薦依紀錄建議。初版即內建的基礎能力——它是智慧推薦的資料土壤。</>
+                      ) : (
+                        <>: "Do not know what to practice next" → Auto-archived error book, bookmarks, and smart recommendation based on logs. A built-in core capability from the initial launch—serving as the data soil for smart recommendation.</>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -4988,9 +5111,9 @@ const SPLIT_VIEW_CHIPS = [
 
             {/* 04 — Design */}
             <section
-              id="design"
+              id="section-04"
               className="py-12 md:py-24 border-b border-gray-100"
-              style={{ boxSizing: 'border-box' }}
+              style={{ boxSizing: 'border-box', scrollMarginTop: '72px' }}
               onClick={() => setActiveTooltip(null)}
             >
               <ProjectSectionHeader num="04" title={lang === 'zh' ? '設計決策與 UI 展示' : 'Design Decisions & UI Showcase'} />
@@ -6830,7 +6953,7 @@ const SPLIT_VIEW_CHIPS = [
 
             {/* 05 — Outcomes */}
             <section
-              id="outcomes"
+              id="section-05"
               className="py-12 md:py-24 border-b border-gray-100"
               style={{
                 scrollMarginTop: '72px',
@@ -6840,252 +6963,576 @@ const SPLIT_VIEW_CHIPS = [
             >
               <ProjectSectionHeader num="05" title={lang === 'zh' ? '成果與反思' : 'Outcomes & Reflections'} />
 
-              {/* HYPOTHESIS VALIDATION */}
+              {/* 研究時間軸 */}
               <div style={{ marginBottom: '64px' }}>
-                <p style={{
-                  fontSize: '16px',
-                  lineHeight: '1.8',
-                  color: '#6B6B6B',
-                  maxWidth: '680px',
-                  margin: '0 0 32px 0'
-                }}>
-                  初版上線後，我們進行了問卷調查與使用者訪談，以下是三個核心假設的驗證結果：
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '16px', marginBottom: '32px' }}>
-                  {[
-                    {
-                      title: "五題 Loop",
-                      status: "✓ 已驗證",
-                      body: "使用者回饋「做完一輪有踏實感」、「五題剛好不會太累」，驗證了 loop 長度臨界點的判斷。"
-                    },
-                    {
-                      title: "步驟解題",
-                      status: "✓ 已驗證",
-                      body: "多位使用者表示「比直接看答案更有幫助」、「感覺是自己想出來的」，與 Scaffolding 理論預期一致。"
-                    },
-                    {
-                      title: "錯題庫",
-                      status: "✓ 仍有優化空間",
-                      body: "使用者普遍喜歡錯題庫，「有一個地方記著錯題讓我比較安心」。後續迭代加強複習引導。"
-                    }
-                  ].map((card, idx) => (
-                    <div key={idx} style={{
-                      border: '0.5px solid #EEEEEE',
-                      borderRadius: '12px',
-                      padding: '20px 24px',
-                      backgroundColor: '#FFFFFF',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.02)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between'
-                    }}>
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                          <span style={{ fontSize: '14px', fontWeight: '500', color: '#1A1A1A' }}>{card.title}</span>
-                          <span style={{
-                            fontSize: '11px',
-                            fontWeight: '500',
-                            padding: '2px 8px',
-                            borderRadius: '12px',
-                            backgroundColor: '#E1F5EE',
-                            color: '#085041'
-                          }}>
-                            {card.status}
-                          </span>
-                        </div>
-                        <p style={{ fontSize: '13px', color: '#6B6B6B', lineHeight: '1.7', margin: 0 }}>
-                          {card.body}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* USER QUOTES */}
-              <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '16px', marginBottom: '64px' }}>
-                {[
-                  { quote: "做完一輪有踏實感，五題剛好不會太累。", author: "— 高三 施同學" },
-                  { quote: "感覺是自己想出來的，不是看答案。", author: "— 高二 林同學" },
-                  { quote: "有一個地方記著錯題讓我比較安心。", author: "— 國三 張同學" }
-                ].map((item, idx) => (
-                  <div key={idx} style={{
-                    backgroundColor: '#FFF1E6',
-                    borderRadius: '12px',
-                    padding: '20px 24px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 4px 12px rgba(127,119,221,0.03)'
-                  }}>
-                    <div>
-                      <span style={{
-                        fontSize: '40px',
-                        color: '#EA580C',
-                        lineHeight: '0.8',
-                        display: 'block',
-                        fontFamily: 'Georgia, serif',
-                        marginBottom: '4px'
-                      }}>
-                        “
+                <SubHeading>{lang === 'zh' ? '研究時間軸' : 'Research Timeline'}</SubHeading>
+                {isMobile ? (
+                  <div className="flex flex-col gap-3" style={{ boxSizing: 'border-box' }}>
+                    {/* Node 1 */}
+                    <div style={{ border: '0.5px solid #EEEEEE', borderRadius: '12px', padding: '16px 20px', background: '#FFFFFF', boxSizing: 'border-box' }}>
+                      <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#F0F0F0', color: '#6B6B6B', fontWeight: '500', letterSpacing: '1px', display: 'inline-block', marginBottom: '8px' }}>
+                        {lang === 'zh' ? '研究一' : 'Research I'}
                       </span>
-                      <p style={{
-                        fontSize: '16px',
-                        fontStyle: 'italic',
-                        color: '#26215C',
-                        lineHeight: '1.6',
-                        margin: '0 0 12px 0',
-                        fontWeight: '500'
-                      }}>
-                        {item.quote}
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                        {lang === 'zh' ? '初步問卷＋訪談（n=6）' : 'Initial Survey & Interviews (n=6)'}
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#A0A0A0' }}>
+                        {lang === 'zh' ? '對象：三個設計假設' : 'Target: Three Design Hypotheses'}
+                      </div>
+                    </div>
+                    {/* Down Arrow */}
+                    <div className="flex justify-center text-[18px] text-[#D85A30]" style={{ fontWeight: 'bold', margin: '4px 0' }}>↓</div>
+                    {/* Node 2 */}
+                    <div style={{ border: '0.5px dashed #DDDDDD', borderRadius: '12px', padding: '16px 20px', background: 'transparent', boxSizing: 'border-box' }}>
+                      <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#FAECE7', color: '#993C1D', fontWeight: '500', letterSpacing: '1px', display: 'inline-block', marginBottom: '8px' }}>
+                        {lang === 'zh' ? '產品迭代' : 'Product Iteration'}
+                      </span>
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                        {lang === 'zh' ? '三層練習模式' : '3-Tier Practice Mode'}
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#A0A0A0' }}>
+                        {lang === 'zh' ? '新增假設之外的功能（含營運端提案）' : 'Features beyond hypotheses (incl. business proposal)'}
+                      </div>
+                    </div>
+                    {/* Down Arrow */}
+                    <div className="flex justify-center text-[18px] text-[#D85A30]" style={{ fontWeight: 'bold', margin: '4px 0' }}>↓</div>
+                    {/* Node 3 */}
+                    <div style={{ border: '0.5px solid #EEEEEE', borderRadius: '12px', padding: '16px 20px', background: '#FFFFFF', boxSizing: 'border-box' }}>
+                      <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#F0F0F0', color: '#6B6B6B', fontWeight: '500', letterSpacing: '1px', display: 'inline-block', marginBottom: '8px' }}>
+                        {lang === 'zh' ? '研究二' : 'Research II'}
+                      </span>
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                        {lang === 'zh' ? '小樣本功能調查（n=8）' : 'Small-sample Feature Survey (n=8)'}
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#A0A0A0' }}>
+                        {lang === 'zh' ? '對象：拍照解題與新增功能' : 'Target: Photo Solver & New Features'}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-[1fr_24px_1fr_24px_1fr] items-center" style={{ boxSizing: 'border-box' }}>
+                    {/* Node 1 */}
+                    <div style={{ border: '0.5px solid #EEEEEE', borderRadius: '12px', padding: '16px 20px', background: '#FFFFFF', boxSizing: 'border-box' }}>
+                      <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#F0F0F0', color: '#6B6B6B', fontWeight: '500', letterSpacing: '1px', display: 'inline-block', marginBottom: '8px' }}>
+                        {lang === 'zh' ? '研究一' : 'Research I'}
+                      </span>
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                        {lang === 'zh' ? '初步問卷＋訪談（n=6）' : 'Initial Survey & Interviews (n=6)'}
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#A0A0A0' }}>
+                        {lang === 'zh' ? '對象：三個設計假設' : 'Target: Three Design Hypotheses'}
+                      </div>
+                    </div>
+                    {/* Right Arrow */}
+                    <div className="flex justify-center text-[18px] text-[#D85A30]" style={{ fontWeight: 'bold' }}>→</div>
+                    {/* Node 2 */}
+                    <div style={{ border: '0.5px dashed #DDDDDD', borderRadius: '12px', padding: '16px 20px', background: 'transparent', boxSizing: 'border-box' }}>
+                      <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#FAECE7', color: '#993C1D', fontWeight: '500', letterSpacing: '1px', display: 'inline-block', marginBottom: '8px' }}>
+                        {lang === 'zh' ? '產品迭代' : 'Product Iteration'}
+                      </span>
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                        {lang === 'zh' ? '三層練習模式' : '3-Tier Practice Mode'}
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#A0A0A0' }}>
+                        {lang === 'zh' ? '新增假設之外的功能（含營運端提案）' : 'Features beyond hypotheses (incl. business proposal)'}
+                      </div>
+                    </div>
+                    {/* Right Arrow */}
+                    <div className="flex justify-center text-[18px] text-[#D85A30]" style={{ fontWeight: 'bold' }}>→</div>
+                    {/* Node 3 */}
+                    <div style={{ border: '0.5px solid #EEEEEE', borderRadius: '12px', padding: '16px 20px', background: '#FFFFFF', boxSizing: 'border-box' }}>
+                      <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#F0F0F0', color: '#6B6B6B', fontWeight: '500', letterSpacing: '1px', display: 'inline-block', marginBottom: '8px' }}>
+                        {lang === 'zh' ? '研究二' : 'Research II'}
+                      </span>
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A', marginBottom: '4px' }}>
+                        {lang === 'zh' ? '小樣本功能調查（n=8）' : 'Small-sample Feature Survey (n=8)'}
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#A0A0A0' }}>
+                        {lang === 'zh' ? '對象：拍照解題與新增功能' : 'Target: Photo Solver & New Features'}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+                <div className="flex flex-col gap-3" style={{ boxSizing: 'border-box' }}>
+                  {/* Card 1 */}
+                  <div 
+                    onClick={() => toggleValidationCard(0)}
+                    style={{ 
+                      border: '0.5px solid #EEEEEE', 
+                      borderRadius: '12px', 
+                      padding: '20px 24px', 
+                      backgroundColor: '#FFFFFF', 
+                      boxSizing: 'border-box',
+                      cursor: 'pointer',
+                      transition: 'box-shadow 0.2s ease'
+                    }}
+                    className="hover:shadow-sm"
+                  >
+                    {/* Title header */}
+                    <div className="flex justify-between items-start gap-4" style={{ marginBottom: '16px' }}>
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                        <span style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A' }}>
+                          <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設一' : 'Assumption 1'}</span>｜{lang === 'zh' ? '五題刷題 Loop' : '5-Question Loop'}
+                        </span>
+                        <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#E8F3E9', color: '#3E7B4F', fontWeight: '500', letterSpacing: '1px' }}>
+                          {lang === 'zh' ? '成立・已迭代' : 'Validated & Iterated'}
+                        </span>
+                        <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#F0F0F0', color: '#6B6B6B', fontWeight: '500', letterSpacing: '1px' }}>
+                          {lang === 'zh' ? '研究一' : 'Research I'}
+                        </span>
+                      </div>
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="#D85A30" 
+                        strokeWidth="2.5" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        style={{
+                          transform: expandedValidationCards[0] ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 300ms ease',
+                          flexShrink: 0,
+                          marginTop: '4px'
+                        }}
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </div>
+                    {/* Narratives */}
+                    <p style={{ fontSize: '14px', color: '#1A1A1A', lineHeight: '1.7', margin: 0 }}>
+                      {lang === 'zh' 
+                        ? '節奏面成立：半數（3 人）認為五題一輪剛剛好、5–10 分鐘內可完成，無人覺得太多。'
+                        : 'Pace validated: Half (3 people) felt 5 questions per round was just right and could be finished in 5-10 minutes, with no one feeling it was too much.'}
+                      {!expandedValidationCards[0] && '...'}
+                    </p>
+                    
+                    <div style={{
+                      maxHeight: expandedValidationCards[0] ? '1500px' : '0px',
+                      overflow: 'hidden',
+                      transition: 'max-height 400ms ease, opacity 400ms ease, margin-top 400ms ease',
+                      opacity: expandedValidationCards[0] ? 1 : 0,
+                      marginTop: expandedValidationCards[0] ? '12px' : '0px'
+                    }} onClick={e => e.stopPropagation()}>
+                      <p style={{ fontSize: '14px', color: '#6B6B6B', lineHeight: '1.7', margin: '0 0 12px 0' }}>
+                        {lang === 'zh'
+                          ? '續用留言也印證了循環的拉力——「不影響實際生活的排名，可以給人帶來充足的競爭動力」。'
+                          : 'Re-usage comments also confirmed the loop pull: "It doesn\'t affect real-life rankings, but it gives people enough competitive motivation."'}
                       </p>
+                      <p style={{ fontSize: '14px', color: '#6B6B6B', lineHeight: '1.7', margin: '0 0 12px 0' }}>
+                        {lang === 'zh'
+                          ? '但同一份問卷也給出了單一題數的極限：2 人認為「要看題目難度」、1 人想一次刷更多；理想題數三方分立——5 題、10 題、可自訂各 2 人，無人選 3 題。邊界很清楚：下界是無人要 3 題，上界是無人嫌 5 題太多。'
+                          : 'However, the same survey revealed the limits of a single question count: 2 people felt "it depends on difficulty", 1 wanted more at once; ideal count was split three ways—5, 10, and customizable (2 people each), while none chose 3. The boundaries are clear: the lower limit is that nobody wants 3, and the upper limit is that nobody complains 5 is too much.'}
+                      </p>
+                      <p style={{ fontSize: '14px', color: '#6B6B6B', lineHeight: '1.7', margin: '0 0 20px 0' }}>
+                        {lang === 'zh'
+                          ? '我們以三層模式回應：保留五題為基本單位、向上延伸 10／15 題，用結構化選項承接「可自訂」的需求，同時保住 loop 的完成感。'
+                          : 'We responded with the 3-tier mode: keeping 5 questions as the basic unit, extending up to 10 and 15, catering to the "customizable" demand via structured choices while preserving the sense of loop completion.'}
+                      </p>
+                      {/* Figures Grid */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-[10px]" style={{ marginBottom: '20px' }}>
+                        <div>
+                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h1-pace.png" alt={lang === 'zh' ? '圖：4-1 五題一輪節奏（n=6）' : 'Fig 4-1: 5-Question Round Pace (n=6)'} />
+                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>{lang === 'zh' ? '圖：4-1 五題一輪節奏（n=6）' : 'Fig 4-1: 5-Question Round Pace (n=6)'}</div>
+                        </div>
+                        <div>
+                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h1-count.png" alt={lang === 'zh' ? '圖：4-2 理想題數三方分立（n=6）' : 'Fig 4-2: Ideal Question Count Split (n=6)'} />
+                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>{lang === 'zh' ? '圖：4-2 理想題數三方分立（n=6）' : 'Fig 4-2: Ideal Question Count Split (n=6)'}</div>
+                        </div>
+                      </div>
+                      {/* Gold phrase */}
+                      <div style={{ fontSize: '15px', fontWeight: 500, color: '#1A1A1A', lineHeight: '1.6' }}>
+                        {lang === 'zh' ? (
+                          <>問卷驗證的是<span style={{ color: '#D85A30' }}>「可接受」，不是「最適合」</span>——但同一份數據，也藏著下一步的答案。</>
+                        ) : (
+                          <>The survey validated <span style={{ color: '#D85A30' }}>"acceptability", not "suitability"</span>—yet the same data hiddenly held the answer to the next step.</>
+                        )}
+                      </div>
                     </div>
-                    <span style={{ fontSize: '13px', color: '#534AB7', fontWeight: '500' }}>
-                      {item.author}
+                  </div>
+
+                  {/* Card 2 */}
+                  <div 
+                    onClick={() => toggleValidationCard(1)}
+                    style={{ 
+                      border: '0.5px solid #EEEEEE', 
+                      borderRadius: '12px', 
+                      padding: '20px 24px', 
+                      backgroundColor: '#FFFFFF', 
+                      boxSizing: 'border-box',
+                      cursor: 'pointer',
+                      transition: 'box-shadow 0.2s ease'
+                    }}
+                    className="hover:shadow-sm"
+                  >
+                    {/* Title header */}
+                    <div className="flex justify-between items-start gap-4" style={{ marginBottom: '16px' }}>
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                        <span style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A' }}>
+                          <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設二' : 'Assumption 2'}</span>｜{lang === 'zh' ? '步驟解題' : 'Step-by-Step Solving'}
+                        </span>
+                        <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#E8F3E9', color: '#3E7B4F', fontWeight: '500', letterSpacing: '1px' }}>
+                          {lang === 'zh' ? '部分成立' : 'Partially Validated'}
+                        </span>
+                        <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#F0F0F0', color: '#6B6B6B', fontWeight: '500', letterSpacing: '1px' }}>
+                          {lang === 'zh' ? '研究一' : 'Research I'}
+                        </span>
+                      </div>
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="#D85A30" 
+                        strokeWidth="2.5" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        style={{
+                          transform: expandedValidationCards[1] ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 300ms ease',
+                          flexShrink: 0,
+                          marginTop: '4px'
+                        }}
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </div>
+                    {/* Narratives */}
+                    <p style={{ fontSize: '14px', color: '#1A1A1A', lineHeight: '1.7', margin: 0 }}>
+                      {lang === 'zh' 
+                        ? '步驟框架站得住：4 人認為引導密度剛剛好、能在關鍵轉折點給提示，無人選「太簡略」。'
+                        : 'Step-by-step framework holds: 4 felt the guidance density was just right, offering tips at key junctions, with none choosing "too simple".'}
+                      {!expandedValidationCards[1] && '...'}
+                    </p>
+                    
+                    <div style={{
+                      maxHeight: expandedValidationCards[1] ? '1500px' : '0px',
+                      overflow: 'hidden',
+                      transition: 'max-height 400ms ease, opacity 400ms ease, margin-top 400ms ease',
+                      opacity: expandedValidationCards[1] ? 1 : 0,
+                      marginTop: expandedValidationCards[1] ? '12px' : '0px'
+                    }} onClick={e => e.stopPropagation()}>
+                      <p style={{ fontSize: '14px', color: '#6B6B6B', lineHeight: '1.7', margin: '0 0 12px 0' }}>
+                        {lang === 'zh'
+                          ? '續用留言更走完了假設的完整因果——「把數學解題的步驟拆解很有趣，讓我這種數學白癡都可以輕易看懂，會考慮用這個程式多寫數學」。'
+                          : 'Re-usage comments completed the causal logic: "Breaking math steps down is fun, making it easy to grasp even for a math dummy like me; I would consider using this to practice more math."'}
+                      </p>
+                      <p style={{ fontSize: '14px', color: '#6B6B6B', lineHeight: '1.7', margin: '0 0 12px 0' }}>
+                        {lang === 'zh'
+                          ? '但「被打斷」複選題揭露真正的缺口：最多人（3 人）選的不是步驟太多，而是「不知道這一步要幹嘛」。被點名沒用的引導，都是沒有認知增量的步驟——「題目內容跟引導字條一模一樣」。學生不排斥被引導，排斥的是被沒有目的的步驟打斷。'
+                          : 'However, the "interrupted" multi-choice question revealed the gap: most (3 people) didn\'t complain about too many steps, but rather "not knowing the purpose of this step". The guidance dismissed as useless was step content with zero cognitive value: "Guidance text is identical to the question itself." Students don\'t object to guidance, they object to interruption by purposeless steps.'}
+                      </p>
+                      <p style={{ fontSize: '14px', color: '#6B6B6B', lineHeight: '1.7', margin: '0 0 12px 0' }}>
+                        {lang === 'zh'
+                          ? '迭代方向因此從加法轉為減法：為步驟標明目的、依難度與學生程度調整步驟顆粒度（正反兩方留言恰好來自程度不同的學生）、並改善步驟與題目對照時的排版密度。'
+                          : 'Therefore, the iteration direction shifted from addition to subtraction: labelling step purpose, adjusting granularity based on difficulty & student level (opposing comments came from students of different levels), and improving layout density for step-question mapping.'}
+                      </p>
+                      <div style={{ fontSize: '12px', color: '#A0A0A0', lineHeight: '1.6', margin: '0 0 20px 0' }}>
+                        {lang === 'zh'
+                          ? '* 附註：原訂指標「重複錯題率差異」需長期數據支持，本輪先以感受面驗證，錯題率追蹤列入後續。'
+                          : '* Note: Original metric "repeated error rate variance" requires long-term data. This round focused on perception verification; error rate tracking is deferred to the future.'}
+                      </div>
+                      {/* Figures Grid */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-[10px]" style={{ marginBottom: '20px' }}>
+                        <div>
+                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h2-density.png" alt={lang === 'zh' ? '圖：3-1 引導步驟密度（n=6）' : 'Fig 3-1: Guidance Step Density (n=6)'} />
+                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>{lang === 'zh' ? '圖：3-1 引導步驟密度（n=6）' : 'Fig 3-1: Guidance Step Density (n=6)'}</div>
+                        </div>
+                        <div>
+                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h2-interrupt.png" alt={lang === 'zh' ? '圖：3-2 被打斷的原因（可複選）' : 'Fig 3-2: Reasons for Interruption (multiple choices)'} />
+                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>{lang === 'zh' ? '圖：3-2 被打斷的原因（可複選）' : 'Fig 3-2: Reasons for Interruption (multiple choices)'}</div>
+                        </div>
+                      </div>
+                      {/* Gold phrase */}
+                      <div style={{ fontSize: '15px', fontWeight: 500, color: '#1A1A1A', lineHeight: '1.6' }}>
+                        {lang === 'zh' ? (
+                          <>參與感不來自有步驟，而來自<span style={{ color: '#D85A30' }}>每一步都有目的</span>。</>
+                        ) : (
+                          <>Active participation does not come from having steps, but from <span style={{ color: '#D85A30' }}>every step having a purpose</span>.</>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card 3 */}
+                  <div 
+                    onClick={() => toggleValidationCard(2)}
+                    style={{ 
+                      border: '0.5px solid #EEEEEE', 
+                      borderRadius: '12px', 
+                      padding: '20px 24px', 
+                      backgroundColor: '#FFFFFF', 
+                      boxSizing: 'border-box',
+                      cursor: 'pointer',
+                      transition: 'box-shadow 0.2s ease'
+                    }}
+                    className="hover:shadow-sm"
+                  >
+                    {/* Title header */}
+                    <div className="flex justify-between items-start gap-4" style={{ marginBottom: '16px' }}>
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                        <span style={{ fontSize: '17px', fontWeight: 500, color: '#1A1A1A' }}>
+                          <span style={{ color: '#D85A30' }}>{lang === 'zh' ? '假設三' : 'Assumption 3'}</span>｜{lang === 'zh' ? '國英多題型互動' : 'Chinese & English Multiformat Interaction'}
+                        </span>
+                        <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#FAECE7', color: '#993C1D', fontWeight: '500', letterSpacing: '1px' }}>
+                          {lang === 'zh' ? '部分成立・轉向' : 'Partially Validated & Shifted'}
+                        </span>
+                        <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#F0F0F0', color: '#6B6B6B', fontWeight: '500', letterSpacing: '1px' }}>
+                          {lang === 'zh' ? '研究一' : 'Research I'}
+                        </span>
+                      </div>
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="#D85A30" 
+                        strokeWidth="2.5" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        style={{
+                          transform: expandedValidationCards[2] ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 300ms ease',
+                          flexShrink: 0,
+                          marginTop: '4px'
+                        }}
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </div>
+                    {/* Narratives */}
+                    <p style={{ fontSize: '14px', color: '#1A1A1A', lineHeight: '1.7', margin: 0 }}>
+                      {lang === 'zh' 
+                        ? '結果沒有站在形式這邊：6 人中僅 1 人明確認同多題型「更不無聊」，2 人中立或偏好傳統選擇題，半數（3 人）表示「需要先看題目品質與解析才知道」。'
+                        : 'Results did not favor the formats: Only 1 in 6 clearly agreed that multiple question types were "less boring", 2 were neutral or preferred traditional multiple choice, and half (3 people) stated: "Need to check question quality and explanations first."'}
+                      {!expandedValidationCards[2] && '...'}
+                    </p>
+                    
+                    <div style={{
+                      maxHeight: expandedValidationCards[2] ? '1500px' : '0px',
+                      overflow: 'hidden',
+                      transition: 'max-height 400ms ease, opacity 400ms ease, margin-top 400ms ease',
+                      opacity: expandedValidationCards[2] ? 1 : 0,
+                      marginTop: expandedValidationCards[2] ? '12px' : '0px'
+                    }} onClick={e => e.stopPropagation()}>
+                      <p style={{ fontSize: '14px', color: '#6B6B6B', lineHeight: '1.7', margin: '0 0 12px 0' }}>
+                        {lang === 'zh'
+                          ? '再訪阻力題形成第二個印證——「題目或互動不夠順」以 4 人居首，「回饋／解析不夠幫助」則是 0 人。'
+                          : 'Return friction items offered further proof: "Questions or interactions not smooth" topped at 4 choices, while "feedback/explanation not helpful" got 0.'}
+                      </p>
+                      <p style={{ fontSize: '14px', color: '#6B6B6B', lineHeight: '1.7', margin: '0 0 12px 0' }}>
+                        {lang === 'zh'
+                          ? '受訪者把我們的問題改了方向：學生不是在評價題型，而是在告訴我們評價的前提——題目與解析的實質品質是門票，題型形式是加分項，無法替代內容的可信度。'
+                          : 'Respondents redirected our focus: Students were not evaluating formats, but highlighting the prerequisite: Substantive quality of questions & explanations is the entry ticket, format is a bonus, and cannot replace content credibility.'}
+                      </p>
+                      <p style={{ fontSize: '14px', color: '#6B6B6B', lineHeight: '1.7', margin: '0 0 20px 0' }}>
+                        {lang === 'zh'
+                          ? '這項發現促成了後續的題庫內容優化（由題庫內容團隊主責）；設計端則將多題型重新定位為「品質達標後的體驗層」，不再作為回訪的主要驅動假設。'
+                          : 'This finding prompted subsequent library content optimizations (led by the content team); the design team repositioned multiple formats as an "experience layer once quality is met", rather than the main driver for return visits.'}
+                      </p>
+                      {/* Figures Grid */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-[10px]" style={{ marginBottom: '20px' }}>
+                        <div>
+                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h3-format.png" alt={lang === 'zh' ? '圖：3-4 多題型對投入感的影響（n=6）' : 'Fig 3-4: Impact of Multiple Formats on Engagement (n=6)'} />
+                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>{lang === 'zh' ? '圖：3-4 多題型對投入感的影響（n=6）' : 'Fig 3-4: Impact of Multiple Formats on Engagement (n=6)'}</div>
+                        </div>
+                        <div>
+                          <ChartPlaceholderImage src="projects/mslin-app/img/05-h3-friction.png" alt={lang === 'zh' ? '圖：2-2 再做一輪的阻力（可複選）' : 'Fig 2-2: Friction to Do Another Round (multiple choices)'} />
+                          <div style={{ fontSize: '12px', color: '#A0A0A0', marginTop: '6px' }}>{lang === 'zh' ? '圖：2-2 再做一輪的阻力（可複選）' : 'Fig 2-2: Friction to Do Another Round (multiple choices)'}</div>
+                        </div>
+                      </div>
+                      {/* Gold phrase */}
+                      <div style={{ fontSize: '15px', fontWeight: 500, color: '#1A1A1A', lineHeight: '1.6' }}>
+                        {lang === 'zh' ? (
+                          <>學生要的不是更花的題型，是<span style={{ color: '#D85A30' }}>值得信任的題目</span>——形式是加分項，品質才是門票。</>
+                        ) : (
+                          <>Students do not want fancier formats, they want <span style={{ color: '#D85A30' }}>trustworthy questions</span>—format is a bonus, quality is the entry ticket.</>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              {/* 假設之外的功能 */}
+              <div 
+                className="strategy-reveal-item"
+                style={{
+                  border: '0.5px dashed #DDDDDD',
+                  borderRadius: '12px',
+                  padding: '18px 22px',
+                  boxSizing: 'border-box',
+                  marginBottom: '48px',
+                  marginTop: '20px'
+                }}
+              >
+                <div style={{ fontSize: '13px', color: '#6B6B6B', marginBottom: '16px' }}>
+                  {lang === 'zh' 
+                    ? '以下功能不在三個假設之內：拍照解題自初版即存在、但非研究一的調查重點；相似題生成為迭代期新增（含營運端提案）。研究二以小樣本（n=8）將其納入驗證，結果為方向性參考。'
+                    : 'The following features are not part of the three hypotheses: Photo Solver existed since the initial version but was not the focus of Research I; Similar Question Generation was added during iteration (incl. business proposal). Research II verified them using a small sample (n=8), results are directional references.'}
+                </div>
+                
+                {/* Item 1 */}
+                <div className="flex flex-col md:flex-row md:items-center gap-2" style={{ marginBottom: '14px' }}>
+                  <div className="flex items-center gap-2">
+                    <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#F0F0F0', color: '#6B6B6B', fontWeight: '500', letterSpacing: '1px', flexShrink: 0 }}>
+                      {lang === 'zh' ? '研究二' : 'Research II'}
+                    </span>
+                    <span style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A' }}>
+                      {lang === 'zh' ? '拍照解題' : 'Photo Solver'}
                     </span>
                   </div>
-                ))}
-              </div>
-
-              {/* ITERATION 1 — 角色設計 */}
-              <div style={{ marginBottom: '64px' }}>
-                <SubHeading>
-                  <span style={{
-                    fontSize: '11px',
-                    color: '#854F0B',
-                    backgroundColor: '#FAEEDA',
-                    borderRadius: '20px',
-                    padding: '2px 10px',
-                    fontWeight: '500',
-                    marginRight: '12px',
-                    verticalAlign: 'middle',
-                    textTransform: 'none'
-                  }}>
-                    迭代案例
+                  <span style={{ fontSize: '13px', color: '#A0A0A0' }}>
+                    {lang === 'zh' ? '｜〔研究二發現一句話，佔位待填〕' : ' | [Research II findings sentence, placeholder to be filled]'}
                   </span>
-                  角色設計｜部分回饋不滿意 → 正在迭代
-                </SubHeading>
-                <p style={{
-                  fontSize: '14px',
-                  color: '#6B6B6B',
-                  lineHeight: '1.6',
-                  maxWidth: '680px',
-                  margin: '0 0 20px 0'
-                }}>
-                  情感設計的目標是降低學習時的心理阻力，而非讓視覺元素主導整個應用的調性。初版上線後，部分使用者反應角色插圖在答題頁面的面積過大、容易分散注意力。我們正在進行第二版迭代，降低角色視覺佔比與出現頻率，使其更融入背景。
-                </p>
+                </div>
 
-                <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', width: '100%', boxSizing: 'border-box' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', width: '100%', maxWidth: '300px' }}>
-                    <div style={{
-                      width: '100%',
-                      aspectRatio: '220 / 140',
-                      borderRadius: '12px',
-                      backgroundColor: '#F5F5F5',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      border: '1px solid rgba(0,0,0,0.02)',
-                      boxSizing: 'border-box'
-                    }}>
-                      <span style={{ fontSize: '12px', color: '#A0A0A0' }}>[ 初版角色設計 ]</span>
-                    </div>
-                    <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center' }}>
-                      Before — 初版角色設計
+                {/* Item 2 */}
+                <div className="flex flex-col md:flex-row md:items-center gap-2">
+                  <div className="flex items-center gap-2">
+                    <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', background: '#FAECE7', color: '#993C1D', fontWeight: '500', letterSpacing: '1px', flexShrink: 0 }}>
+                      {lang === 'zh' ? '待驗證' : 'To be verified'}
+                    </span>
+                    <span style={{ fontSize: '14px', fontWeight: 500, color: '#1A1A1A' }}>
+                      {lang === 'zh' ? '相似題生成' : 'Similar Question Gen'}
                     </span>
                   </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', width: '100%', maxWidth: '300px' }}>
-                    <div style={{
-                      width: '100%',
-                      aspectRatio: '220 / 140',
-                      borderRadius: '12px',
-                      backgroundColor: '#FFF1E6',
-                      border: '1.5px dashed #F97316',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxSizing: 'border-box'
-                    }}>
-                      <span style={{ fontSize: '12px', color: '#EA580C', fontWeight: '500' }}>[ 降低角色存在感 ]</span>
-                    </div>
-                    <span style={{ fontSize: '11px', color: '#6B6B6B', textAlign: 'center' }}>
-                      After — 迭代方向（進行中）
-                    </span>
-                  </div>
+                  <span style={{ fontSize: '13px', color: '#A0A0A0' }}>
+                    {lang === 'zh' ? '｜驗證排程中，結果將於後續更新' : ' | Verification in progress, results will be updated later'}
+                  </span>
                 </div>
               </div>
 
-              {/* REFLECTION LIST */}
-              <div>
-                <SubHeading>如果重來，我會⋯</SubHeading>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                  {[
-                    {
-                      num: "01",
-                      title: "更早進行使用者訪談",
-                      desc: "在專案最初期即使僅進行 3-5 人的小規模快速訪談，也能過濾掉許多明顯的方向問題，避免中後期重構基本假設的成本。"
-                    },
-                    {
-                      num: "02",
-                      title: "在結果頁投入更多設計資源",
-                      desc: "刷題 Loop 的結束點（結果頁與成就結算頁）是學習成就感釋放的最關鍵節點。未來應在此處設計更細緻的微互動與動態效果，提升努力的重量。"
-                    },
-                    {
-                      num: "03",
-                      title: "更早建立設計系統",
-                      desc: "前期因為開發時程緊迫，部分元件採取一次性設計，導致後續迭代時產生視覺與互動邏輯的不一致。提早規範 Design Tokens 是確保專案可擴充性的關鍵。"
-                    }
-                  ].map((item, idx) => (
-                    <div key={idx} style={{ display: 'flex', gap: '20px' }}>
-                      <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#EA580C', lineHeight: '1' }}>
-                        {item.num}
-                      </div>
-                      <div>
-                        <h5 style={{ fontSize: '15px', fontWeight: '500', color: '#1A1A1A', margin: '0 0 4px 0' }}>
-                          {item.title}
-                        </h5>
-                        <p style={{ fontSize: '14px', color: '#6B6B6B', margin: 0, lineHeight: '1.6', maxWidth: '640px' }}>
-                          {item.desc}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              {/* 收尾金句 */}
+              <div 
+                style={{
+                  borderTop: '0.5px solid #EEEEEE',
+                  paddingTop: '20px',
+                  fontSize: isMobile ? '16px' : '17px',
+                  fontWeight: 500,
+                  color: '#1A1A1A',
+                  lineHeight: '1.7'
+                }}
+              >
+                {lang === 'zh' ? (
+                  <>功能進入產品的原因可以來自業務判斷，但功能<span style={{ color: '#D85A30' }}>留下來的理由，來自驗證</span>。</>
+                ) : (
+                  <>The reason a feature enters a product can come from business judgment, but <span style={{ color: '#D85A30' }}>the reason it stays comes from validation</span>.</>
+                )}
               </div>
             </section>
           </div>
 
 
 
+          {/* Inject style tag for dot nav item transitions, active styles, and hover actions */}
+          <style>{`
+            .dot-nav-container {
+              opacity: 0;
+              pointer-events: none;
+              transform: translateY(-50%) translateX(8px);
+              transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+            .dot-nav-container.show {
+              opacity: 1;
+              pointer-events: auto;
+              transform: translateY(-50%) translateX(0);
+            }
+            .dot-nav-item .nav-label {
+              color: #A0A0A0;
+              transition: color 0.15s ease;
+            }
+            .dot-nav-item .nav-dot {
+              background-color: #DDDDDD;
+              transition: background-color 0.15s ease, transform 0.15s ease;
+            }
+            
+            /* Hover states */
+            .dot-nav-item:hover .nav-label,
+            .dot-nav-item:focus-visible .nav-label {
+              color: #1A1A1A;
+            }
+            .dot-nav-item:hover .nav-dot,
+            .dot-nav-item:focus-visible .nav-dot {
+              background-color: #D85A30;
+              transform: scale(1.25);
+            }
+            
+            /* Active states */
+            .dot-nav-item.active .nav-label {
+              color: #D85A30;
+              font-weight: 500;
+            }
+            .dot-nav-item.active .nav-dot {
+              background-color: #D85A30;
+            }
+            
+            /* Accessibility Focus rings */
+            .dot-nav-item:focus-visible {
+              outline: 2px solid #D85A30;
+              outline-offset: 4px;
+              border-radius: 4px;
+            }
+            
+            /* 1024px to 1280px range (lg to xl) - hide label and show as absolute tooltip on hover */
+            @media (min-width: 1024px) and (max-width: 1279.98px) {
+              .dot-nav-item {
+                position: relative;
+              }
+              .dot-nav-item .nav-label {
+                position: absolute;
+                right: 20px;
+                opacity: 0;
+                transform: translateX(8px);
+                transition: opacity 0.15s ease, transform 0.15s ease;
+                pointer-events: none;
+                background-color: white;
+                padding: 2px 6px;
+                border-radius: 4px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                border: 0.5px solid #EEEEEE;
+              }
+              .dot-nav-item:hover .nav-label,
+              .dot-nav-item:focus-visible .nav-label {
+                opacity: 1;
+                transform: translateX(0);
+              }
+            }
+            
+            /* Prefers reduced motion overrides */
+            @media (prefers-reduced-motion: reduce) {
+              .dot-nav-container {
+                transform: translateY(-50%) !important;
+                transition: opacity 0.3s ease !important;
+              }
+              .dot-nav-item .nav-dot {
+                transition: background-color 0.15s ease !important;
+              }
+              .dot-nav-item:hover .nav-dot,
+              .dot-nav-item:focus-visible .nav-dot {
+                transform: none !important;
+              }
+            }
+          `}</style>
+
           {/* FLOATING PROGRESS DOTS (desktop only, right side) */}
-          <div 
-            className="hidden md:flex"
+          <nav 
+            aria-label={lang === 'zh' ? '章節導覽' : 'Section Navigation'}
+            className={`hidden lg:flex flex-col dot-nav-container ${showDotNav ? 'show' : ''}`}
             style={{
               position: 'fixed',
               right: '24px',
               top: '50%',
-              transform: 'translateY(-50%)',
-              flexDirection: 'column',
-              alignItems: 'center',
               gap: '16px',
-              zIndex: 100
+              zIndex: 90
             }}
           >
-            {/* Thin vertical line connecting 5 dots */}
-            <div style={{
-              position: 'absolute',
-              top: '8px',
-              bottom: '8px',
-              width: '1px',
-              backgroundColor: '#EEEEEE',
-              zIndex: -1
-            }}></div>
-
             {sections.map((sec) => {
               const isActive = activeSection === sec.id;
+              const label = lang === 'zh' ? sec.nameZh : sec.nameEn;
+              const fullName = `${sec.num} ${label}`;
               return (
                 <a
                   key={sec.id}
@@ -7094,22 +7541,57 @@ const SPLIT_VIEW_CHIPS = [
                     e.preventDefault();
                     document.getElementById(sec.id)?.scrollIntoView({ behavior: 'smooth' });
                   }}
+                  className={`dot-nav-item ${isActive ? 'active' : ''}`}
                   style={{
-                    display: 'block',
-                    width: isActive ? '8px' : '6px',
-                    height: isActive ? '8px' : '6px',
-                    borderRadius: '50%',
-                    backgroundColor: isActive ? '#F97316' : '#FFFFFF',
-                    border: isActive ? 'none' : '1px solid #DDDDDD',
-                    boxSizing: 'border-box',
-                    transition: 'all 0.3s ease',
-                    cursor: 'pointer'
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                    gap: '10px',
+                    textDecoration: 'none'
                   }}
-                  title={sec.name}
-                />
+                  aria-label={fullName}
+                  aria-current={isActive ? 'true' : undefined}
+                >
+                  <span className="nav-label font-noto" style={{ fontSize: '12px', whiteSpace: 'nowrap' }}>
+                    {label}
+                  </span>
+                  <span 
+                    className="nav-dot" 
+                    style={{
+                      width: '9px',
+                      height: '9px',
+                      borderRadius: '50%',
+                      flexShrink: 0
+                    }}
+                  />
+                </a>
               );
             })}
-          </div>
+          </nav>
+
+          {/* Lightbox Modal */}
+          {activeLightboxImg && (
+            <div 
+              className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200 cursor-pointer"
+              onClick={() => setActiveLightboxImg(null)}
+            >
+              <div className="relative max-w-5xl max-h-[90vh] flex flex-col items-center justify-center" onClick={e => e.stopPropagation()}>
+                <img 
+                  src={activeLightboxImg} 
+                  alt="Enlarged chart" 
+                  className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-200" 
+                />
+                <button 
+                  onClick={() => setActiveLightboxImg(null)} 
+                  className="absolute top-4 right-4 p-2 rounded-full bg-black/40 hover:bg-black/60 text-white hover:text-gray-300 transition-colors cursor-pointer"
+                  title={lang === 'zh' ? '關閉' : 'Close'}
+                >
+                  <IconX className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Component Detail Modal */}
           {selectedComponent && (

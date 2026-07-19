@@ -1078,7 +1078,7 @@ const SPLIT_VIEW_CHIPS = [
 
     if (nextProjects.length > 0) {
       return (
-        <div className="w-full mt-24 mb-16 px-6 max-w-[100rem] mx-auto">
+        <div id="project-footer" className="w-full mt-24 mb-16 px-6 max-w-[100rem] mx-auto">
           {/* Title */}
           <div className="mb-10 text-left px-2 md:px-8">
             <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight font-sans">
@@ -3325,16 +3325,38 @@ const SPLIT_VIEW_CHIPS = [
           if (el) observer.observe(el);
         });
 
-        let heroObserver;
-        const heroEl = document.getElementById('project-hero');
-        if (heroEl) {
-          heroObserver = new IntersectionObserver(([entry]) => {
-            setShowDotNav(!entry.isIntersecting);
+        let triggerObserver;
+        let footerObserver;
+        const triggerEl = document.getElementById('closed-loops-diagram');
+        const footerEl = document.getElementById('project-footer');
+
+        let reachedLoops = false;
+        let footerIntersecting = false;
+
+        const updateVisibility = () => {
+          setShowDotNav(reachedLoops && !footerIntersecting);
+        };
+
+        if (triggerEl) {
+          triggerObserver = new IntersectionObserver(([entry]) => {
+            reachedLoops = entry.isIntersecting || entry.boundingClientRect.top < 0;
+            updateVisibility();
           }, {
             root: null,
             threshold: 0
           });
-          heroObserver.observe(heroEl);
+          triggerObserver.observe(triggerEl);
+        }
+
+        if (footerEl) {
+          footerObserver = new IntersectionObserver(([entry]) => {
+            footerIntersecting = entry.isIntersecting;
+            updateVisibility();
+          }, {
+            root: null,
+            threshold: 0
+          });
+          footerObserver.observe(footerEl);
         }
 
         return () => {
@@ -3342,8 +3364,11 @@ const SPLIT_VIEW_CHIPS = [
             const el = document.getElementById(id);
             if (el) observer.unobserve(el);
           });
-          if (heroObserver && heroEl) {
-            heroObserver.unobserve(heroEl);
+          if (triggerObserver && triggerEl) {
+            triggerObserver.unobserve(triggerEl);
+          }
+          if (footerObserver && footerEl) {
+            footerObserver.unobserve(footerEl);
           }
         };
       }, []);
@@ -5816,7 +5841,7 @@ const SPLIT_VIEW_CHIPS = [
               </div>
 
 {/* LOOP ONE HEADER */}
-              <div style={{ marginBottom: '48px' }}>
+              <div id="closed-loops-diagram" style={{ marginBottom: '48px' }}>
                 <div style={{ marginBottom: '32px' }}>
                   <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold font-inter tracking-tight text-[#1D1D1F] leading-none mb-3">
                     {lang === 'zh' ? '閉環一｜刷題閉環' : 'Loop 1 | Practice Loop'}

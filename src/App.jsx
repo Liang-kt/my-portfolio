@@ -3338,7 +3338,7 @@ const SPLIT_VIEW_CHIPS = [
         };
 
         const timeoutId = setTimeout(() => {
-          triggerEl = document.getElementById('closed-loops-diagram');
+          triggerEl = document.getElementById('section-01-end');
           footerEl = document.getElementById('project-footer');
 
           if (triggerEl) {
@@ -4152,7 +4152,7 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
 
                   {/* Bottom: 3 Metrics Cards (Horizontal, total width aligned to loop diagram) */}
-                  <div className="w-full flex justify-center">
+                  <div id="section-01-end" className="w-full flex justify-center">
                     <div className="w-full" style={{ maxWidth: '1080px' }}>
                       <div className="grid grid-cols-3 gap-6 sm:gap-12 w-full">
                         {/* Card 1 */}

@@ -11399,7 +11399,7 @@ const SPLIT_VIEW_CHIPS = [
                   </span>
                   
                   <h3 className="text-[16px] font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-noto">
-                    {lang === 'zh' ? '遠邦國際品牌顧問 ｜ 設計實習生' : 'Geber Brand Consulting ｜ Design Intern'}
+                    {lang === 'zh' ? '遠邦國際品牌顧問 ｜ 設計實習生' : 'CrossBond Brands ｜ Design Intern'}
                   </h3>
                   
                   <p className="text-[14px] text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed font-noto max-w-3xl">

@@ -525,7 +525,7 @@ const PROJECTS = [
     slug: 'mslin-app',
     categoryId: 'uiux',
     platform: 'app',
-    title: 'Ms Lin 刷題 App',
+    title: { zh: 'Ms Lin 刷題 App', en: 'Ms Lin Exam Practice App' },
     thumb: 'bg-[#F2EFE9]',
     coverMedia: { type: 'image', url: 'projects/mslin-app/img/cover-photo.jpg' },
     heroMedia: { type: 'image', url: 'projects/msline/hero.jpg' },
@@ -662,7 +662,7 @@ const PROJECTS = [
     slug: 'wisdome-ai',
     categoryId: 'uiux',
     platform: 'web',
-    title: 'Wisdome.ai 官網設計',
+    title: { zh: 'Wisdome.ai 官網設計', en: 'Wisdome.ai Website Design' },
     thumb: 'bg-[#0f172a]',
     coverMedia: { type: 'image', url: 'projects/wisdome.ai_web/cover.webp' },
     heroMedia: { type: 'video', url: 'projects/wisdome.ai_web/cover-video.webm' },
@@ -744,7 +744,7 @@ const PROJECTS = [
     slug: 'brainbox-uiux',
     categoryId: 'uiux',
     platform: 'web', // 可以設定為 'web' 或 'app'
-    title: 'BrainBox 產品視覺設計',
+    title: { zh: 'BrainBox 產品視覺設計', en: 'BrainBox Product Visual Design' },
     thumb: 'bg-[#EAE8F2]',
     coverMedia: { type: 'image', url: 'projects/brainbox/brainbox-cover.png' },
     tags: ['UI/UX', 'System Design'],
@@ -802,14 +802,14 @@ const PROJECTS = [
       }
     }
   },
-  { id: 4, slug: 'brainbox-explainer', categoryId: 'motion', title: 'BrainBox 智慧刷題系統：賦能學生，解放教師。', thumb: 'bg-black', coverMedia: { type: 'image', url: 'projects/brainbox-marketing/brainbox-marketing-cover.jpg' }, tags: ['Motion', 'Explainer'], description: '透過生動 the 2D 動畫，清楚傳達 BrainBox 產品的核心價值與功能優勢。', client: 'BrainBox', year: '2024', gallery: [] },
-  { id: 5, slug: 'taipei-metro', categoryId: 'motion', title: 'Look the Sound of Taipei Metro', thumb: 'bg-[#1a1a1a]', coverMedia: { type: 'image', url: 'projects/taipei/taipei-cover.jpg' }, tags: ['Motion', 'Data Visual'], description: '將臺北捷運的聲音地景進行視覺化，轉化為具備節奏感與幾何美學的動態圖像創作。', client: '國立臺灣藝術大學', year: '2023', gallery: [] },
-  { id: 6, slug: 'brainbox-tutorial', categoryId: 'motion', title: 'How to Use BrainBox: A Step-by-Step Tutorial', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: 'projects/brainbox-intro/brainbox-intro-cover.png' }, tags: ['Motion', 'Tutorial'], description: 'BrainBox 教學影片，一步步引導使用者了解系統操作。', client: 'BrainBox', year: '2024', gallery: [] },
-  { id: 7, slug: 'wisdome-motion', categoryId: 'motion', title: 'Wisdome.ai 公司官網首頁形象動畫', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: 'projects/wisdome-motion-brand/wisdome-motion-brand-cover.png' }, tags: ['Motion', 'Web Animation'], description: '結合品牌理念製作的首頁形象動畫，以動態視覺強化品牌科技感。', client: 'WISDOME.AI', year: '2024', gallery: [] },
-  { id: 8, slug: 'glowing-brand', categoryId: 'brand', title: '果然癮品牌識別設計', thumb: 'bg-[#EAF2ED]', coverMedia: { type: 'image', url: 'projects/glowing/glowing-brand-cover.png' }, tags: ['Branding', 'Packaging'], description: '完成品牌識別系統設計，並延伸設計 3 組產品外盒及 8 款內包裝，提升視覺吸引力。', client: '果然癮', year: '2021', gallery: [] },
-  { id: 9, slug: 'mindgap-brand', categoryId: 'brand', title: 'MindGap 企業識別系統', thumb: 'bg-[#F2EFE9]', coverMedia: { type: 'image', url: 'projects/mindgap/mingap-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '從零建立企業品牌視覺系統，涵蓋標誌設計與色彩規範。', client: 'MindGap', year: '2024', gallery: [] },
-  { id: 10, slug: 'brainbox-brand', categoryId: 'brand', title: 'BrainBox 產品識別設計', thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: 'projects/brand-branbox/brainbox-brand-cover.png' }, tags: ['Branding', 'Product Identity'], description: '打造專屬的產品識別系統，提升產品在市場上的辨識度與專業感。', client: 'BrainBox', year: '2024', gallery: [] },
-  { id: 11, slug: 'wisdome-brand', categoryId: 'brand', title: 'Wisdome.ai 企業識別系統', thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: 'projects/brand-wisdomeai/wisdomeai-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '整合品牌理念與科技感，打造完整的企業視覺規範系統。', client: 'WISDOME.AI', year: '2023', gallery: [] }
+  { id: 4, slug: 'brainbox-explainer', categoryId: 'motion', title: { zh: 'BrainBox 智慧刷題系統：賦能學生，解放教師。', en: 'BrainBox Smart Practice System: Empowering Students, Liberating Teachers.' }, thumb: 'bg-black', coverMedia: { type: 'image', url: 'projects/brainbox-marketing/brainbox-marketing-cover.jpg' }, tags: ['Motion', 'Explainer'], description: '透過生動 the 2D 動畫，清楚傳達 BrainBox 產品的核心價值與功能優勢。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 5, slug: 'taipei-metro', categoryId: 'motion', title: { zh: 'Look the Sound of Taipei Metro', en: 'Look the Sound of Taipei Metro' }, thumb: 'bg-[#1a1a1a]', coverMedia: { type: 'image', url: 'projects/taipei/taipei-cover.jpg' }, tags: ['Motion', 'Data Visual'], description: '將臺北捷運的聲音地景進行視覺化，轉化為具備節奏感與幾何美學的動態圖像創作。', client: '國立臺灣藝術大學', year: '2023', gallery: [] },
+  { id: 6, slug: 'brainbox-tutorial', categoryId: 'motion', title: { zh: 'How to Use BrainBox: A Step-by-Step Tutorial', en: 'How to Use BrainBox: A Step-by-Step Tutorial' }, thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: 'projects/brainbox-intro/brainbox-intro-cover.png' }, tags: ['Motion', 'Tutorial'], description: 'BrainBox 教學影片，一步步引導使用者了解系統操作。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 7, slug: 'wisdome-motion', categoryId: 'motion', title: { zh: 'Wisdome.ai 公司官網首頁形象動畫', en: 'Wisdome.ai Corporate Website Homepage Animation' }, thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: 'projects/wisdome-motion-brand/wisdome-motion-brand-cover.png' }, tags: ['Motion', 'Web Animation'], description: '結合品牌理念製作的首頁形象動畫，以動態視覺強化品牌科技感。', client: 'WISDOME.AI', year: '2024', gallery: [] },
+  { id: 8, slug: 'glowing-brand', categoryId: 'brand', title: { zh: '果然癮品牌識別設計', en: 'Glowing Brand Identity Design' }, thumb: 'bg-[#EAF2ED]', coverMedia: { type: 'image', url: 'projects/glowing/glowing-brand-cover.png' }, tags: ['Branding', 'Packaging'], description: '完成品牌識別系統設計，並延伸設計 3 組產品外盒及 8 款內包裝，提升視覺吸引力。', client: '果然癮', year: '2021', gallery: [] },
+  { id: 9, slug: 'mindgap-brand', categoryId: 'brand', title: { zh: 'MindGap 企業識別系統', en: 'MindGap Corporate Identity System' }, thumb: 'bg-[#F2EFE9]', coverMedia: { type: 'image', url: 'projects/mindgap/mingap-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '從零建立企業品牌視覺系統，涵蓋標誌設計與色彩規範。', client: 'MindGap', year: '2024', gallery: [] },
+  { id: 10, slug: 'brainbox-brand', categoryId: 'brand', title: { zh: 'BrainBox 產品識別設計', en: 'BrainBox Product Identity Design' }, thumb: 'bg-[#EAE8F2]', coverMedia: { type: 'image', url: 'projects/brand-branbox/brainbox-brand-cover.png' }, tags: ['Branding', 'Product Identity'], description: '打造專屬的產品識別系統，提升產品在市場上的辨識度與專業感。', client: 'BrainBox', year: '2024', gallery: [] },
+  { id: 11, slug: 'wisdome-brand', categoryId: 'brand', title: { zh: 'Wisdome.ai 企業識別系統', en: 'Wisdome.ai Corporate Identity System' }, thumb: 'bg-[#0f172a]', coverMedia: { type: 'image', url: 'projects/brand-wisdomeai/wisdomeai-brand-cover.png' }, tags: ['Branding', 'Corporate Identity'], description: '整合品牌理念與科技感，打造完整的企業視覺規範系統。', client: 'WISDOME.AI', year: '2023', gallery: [] }
 ];
 
 const DECISION_TABS = [
@@ -1413,7 +1413,7 @@ const SPLIT_VIEW_CHIPS = [
                   )}
                   
                   <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 flex flex-col items-start transform group-hover:translate-y-0 md:group-hover:translate-y-[-4px] transition-transform duration-500 z-10 pointer-events-none pr-6">
-                    <h3 className="text-white text-xl md:text-3xl font-bold tracking-tight mb-3 drop-shadow-md leading-tight">{p.title}</h3>
+                    <h3 className="text-white text-xl md:text-3xl font-bold tracking-tight mb-3 drop-shadow-md leading-tight">{t(p.title, lang)}</h3>
                     <div className="flex flex-wrap gap-2">{p.tags.map(tag => (<span key={tag} className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-bold tracking-wide uppercase">{tag}</span>))}</div>
                   </div>
                 </div>
@@ -3654,17 +3654,17 @@ const SPLIT_VIEW_CHIPS = [
                 className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase md:whitespace-nowrap"
                 style={{ fontSize: 'clamp(32px, 5.5vw, 84px)' }}
               >
-                Ms Lin 刷題 App
+                {t(activeItem.title, lang)}
               </h1>
             </div>
 
             {/* METADATA ROW */}
             <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed gap-2 select-none">
-              <span>UI/UX 設計師</span>
+              <span>{lang === 'zh' ? 'UI/UX 設計師' : 'UI/UX Designer'}</span>
               <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
-              <span>前端工程師（兼任）</span>
+              <span>{lang === 'zh' ? '前端工程師（兼任）' : 'Frontend Engineer (Concurrently)'}</span>
               <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
-              <span>2025.11 — 至今</span>
+              <span>{lang === 'zh' ? '2025.11 — 至今' : 'Nov 2025 — Present'}</span>
               <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
               <span>iOS / Android</span>
             </div>
@@ -9879,7 +9879,7 @@ const SPLIT_VIEW_CHIPS = [
             className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase md:whitespace-nowrap" 
             style={{ fontSize: 'clamp(32px, 5.5vw, 84px)' }}
           >
-            BrainBox 產品視覺設計
+            {t(activeItem.title, lang)}
           </h1>
         </div>
 
@@ -10976,7 +10976,7 @@ const SPLIT_VIEW_CHIPS = [
           <div className="pt-40 pb-12 px-6 max-w-[100rem] mx-auto">
             <BackButton navigateTo={navigateTo} lang={lang} />
             <header className="px-2 md:px-8">
-              <h1 className="text-5xl md:text-[7rem] font-bold tracking-tighter mb-12 leading-none">{activeItem.title}</h1>
+              <h1 className="text-5xl md:text-[7rem] font-bold tracking-tighter mb-12 leading-none">{t(activeItem.title, lang)}</h1>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-t border-gray-100 max-w-6xl">
                 <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Client</p><p className="font-medium text-xl">{activeItem.client}</p></div>
                 <div><p className="text-sm text-gray-400 mb-2 uppercase tracking-widest font-bold">Year</p><p className="font-medium text-xl">{activeItem.year}</p></div>
@@ -10986,7 +10986,7 @@ const SPLIT_VIEW_CHIPS = [
             </header>
           </div>
           <div className={`w-full h-[60vh] md:h-[85vh] ${activeItem.thumb} flex items-center justify-center text-gray-400 text-3xl mb-24 md:mb-32 shadow-inner overflow-hidden`}>
-            {activeItem.coverMedia?.url ? <img src={activeItem.coverMedia.url} alt={activeItem.title} className="w-full h-full object-cover animate-in zoom-in duration-1000" /> : null}
+            {activeItem.coverMedia?.url ? <img src={activeItem.coverMedia.url} alt={t(activeItem.title, lang)} className="w-full h-full object-cover animate-in zoom-in duration-1000" /> : null}
           </div>
           <div className="max-w-[100rem] mx-auto px-6 pb-32">
             <div className="grid md:grid-cols-[1fr_2fr] gap-12 max-w-5xl mx-auto px-2 md:px-8 mb-24">

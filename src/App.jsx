@@ -5561,7 +5561,7 @@ const SPLIT_VIEW_CHIPS = [
                                 {/* Step 2 */}
                                 <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                                   <img 
-                                    src="projects/mslin-app/screens/onboradinbg-status.jpg" 
+                                    src="projects/mslin-app/screens/onboradinbg-grade.jpg" 
                                     alt="Onboarding step 2" 
                                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
@@ -5569,7 +5569,7 @@ const SPLIT_VIEW_CHIPS = [
                                 {/* Step 3 */}
                                 <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                                   <img 
-                                    src="projects/mslin-app/screens/onboradinbg-grade.jpg" 
+                                    src="projects/mslin-app/screens/onboradinbg-status.jpg" 
                                     alt="Onboarding step 3" 
                                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                   />
@@ -5643,7 +5643,7 @@ const SPLIT_VIEW_CHIPS = [
                             {/* Step 2 */}
                             <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                               <img 
-                                src="projects/mslin-app/screens/onboradinbg-status.jpg" 
+                                src="projects/mslin-app/screens/onboradinbg-grade.jpg" 
                                 alt="Onboarding step 2" 
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                               />
@@ -5651,7 +5651,7 @@ const SPLIT_VIEW_CHIPS = [
                             {/* Step 3 */}
                             <div style={{ width: '100%', height: '100%', flexShrink: 0 }}>
                               <img 
-                                src="projects/mslin-app/screens/onboradinbg-grade.jpg" 
+                                src="projects/mslin-app/screens/onboradinbg-status.jpg" 
                                 alt="Onboarding step 3" 
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                               />

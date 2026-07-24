@@ -1064,19 +1064,19 @@ const SPLIT_VIEW_CHIPS = [
             <button onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')} className="pointer-events-auto px-3 py-1 rounded-full text-xs font-bold border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-zinc-300 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-all cursor-pointer">
               {lang === 'zh' ? 'EN' : '繁中'}
             </button>
-            <button className="md:hidden text-gray-800 dark:text-zinc-200 p-1 cursor-pointer" onClick={() => setIsMobileMenuOpen(true)}><IconMenu className="w-6 h-6" /></button>
+            <button type="button" className="md:hidden text-gray-800 dark:text-zinc-200 p-1 cursor-pointer" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(true); }}><IconMenu className="w-6 h-6" /></button>
           </div>
         </nav>
       </div>
-      <div className={`fixed inset-0 bg-[#fbfbfb] z-[60] transform transition-transform duration-500 ease-in-out flex flex-col ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'} md:hidden`}>
-        <div className="flex justify-between items-center p-6"><div className="text-2xl font-bold tracking-wide text-zinc-900 dark:text-zinc-50" onClick={() => navigateTo('home')}>T<span className="text-orange-500">.</span></div><button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-gray-100 dark:bg-zinc-800 rounded-full text-gray-800 dark:text-zinc-200 cursor-pointer"><IconX className="w-6 h-6" /></button></div>
+      <div className={`fixed inset-0 bg-[#fbfbfb] z-[60] transform transition-all duration-500 ease-in-out flex flex-col ${isMobileMenuOpen ? 'translate-y-0 opacity-100 pointer-events-auto' : '-translate-y-full opacity-0 pointer-events-none'} md:hidden`}>
+        <div className="flex justify-between items-center p-6"><div className="text-2xl font-bold tracking-wide text-zinc-900 dark:text-zinc-50 cursor-pointer" onClick={() => { setIsMobileMenuOpen(false); navigateTo('home'); }}>T<span className="text-orange-500">.</span></div><button type="button" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }} className="p-2 bg-gray-100 dark:bg-zinc-800 rounded-full text-gray-800 dark:text-zinc-200 cursor-pointer"><IconX className="w-6 h-6" /></button></div>
         <div className="flex flex-col items-center justify-center flex-1 gap-8 text-3xl font-black uppercase tracking-widest">
-          <button onClick={() => navigateTo('home')} className={`${currentPage === 'home' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.home}</button>
+          <button type="button" onClick={() => { setIsMobileMenuOpen(false); navigateTo('home'); }} className={`${currentPage === 'home' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.home}</button>
           {/* 隱藏作品集 Tab
           <button onClick={() => navigateTo('works')} className={`${['works', 'category', 'project'].includes(currentPage) ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.works}</button>
           */}
-          <button onClick={() => navigateTo('about')} className={`${currentPage === 'about' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.about}</button>
-          <button onClick={() => navigateTo('contact')} className={`${currentPage === 'contact' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.contact}</button>
+          <button type="button" onClick={() => { setIsMobileMenuOpen(false); navigateTo('about'); }} className={`${currentPage === 'about' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.about}</button>
+          <button type="button" onClick={() => { setIsMobileMenuOpen(false); navigateTo('contact'); }} className={`${currentPage === 'contact' ? 'text-orange-500' : 'text-gray-900'}`}>{I18N[lang].nav.contact}</button>
         </div>
         <div className="p-8 pb-12 text-center text-sm text-gray-400 dark:text-zinc-500 font-bold tracking-widest">tingchenliang1998@gmail.com</div>
       </div>
@@ -11182,6 +11182,7 @@ export default function PortfolioApp() {
   // 監聽網址 Hash 變化以進行路由跳轉
   useEffect(() => {
     const handleHashChange = () => {
+      setIsMobileMenuOpen(false);
       const hash = window.location.hash;
       
       if (hash.startsWith('#/project/')) {

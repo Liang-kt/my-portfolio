@@ -2637,6 +2637,15 @@ const SPLIT_VIEW_CHIPS = [
       const [isLoaded, setIsLoaded] = useState(false);
       const [hasError, setHasError] = useState(false);
 
+      useEffect(() => {
+        setIsLoaded(false);
+        setHasError(false);
+      }, [src]);
+
+      const basePath = typeof src === 'string' ? src.replace(/\.(webm|mp4|mov|gif)$/i, '') : '';
+      const webmSrc = basePath ? `${basePath}.webm` : (src?.webm || src);
+      const mp4Src = basePath ? `${basePath}.mp4` : (src?.mp4 || src);
+
       return (
         <div className="relative w-full" style={{ lineHeight: 0, fontSize: 0 }}>
           {!isLoaded && !hasError && (
@@ -2651,17 +2660,20 @@ const SPLIT_VIEW_CHIPS = [
             </div>
           ) : (
             <video
-              src={src}
               autoPlay
               muted
               loop
               playsInline
               preload="metadata"
+              onLoadedData={() => setIsLoaded(true)}
               onCanPlay={() => setIsLoaded(true)}
               onError={() => setHasError(true)}
               className={className}
               style={{ display: hasError ? 'none' : 'block', verticalAlign: 'top' }}
-            />
+            >
+              <source src={webmSrc} type="video/webm" />
+              <source src={mp4Src} type="video/mp4" />
+            </video>
           )}
         </div>
       );
@@ -9870,7 +9882,7 @@ const SPLIT_VIEW_CHIPS = [
                     <div className={`w-full flex-grow aspect-[1.5/1] lg:aspect-auto min-h-[200px] lg:min-h-0 border rounded-[20px] flex items-center justify-center p-6 select-none shadow-sm relative overflow-hidden transition-all duration-300 ${
                       ANIMATED_ICON_ASSETS[activeIconIndex].isWhite 
                         ? 'bg-[#5E60A3] border-[#5E60A3]' 
-                        : 'bg-[#FAFCFF] border-gray-150'
+                        : 'bg-white border-[#cccccc]'
                     }`}>
                       <video 
                         key={ANIMATED_ICON_ASSETS[activeIconIndex].url}
@@ -10223,7 +10235,7 @@ const SPLIT_VIEW_CHIPS = [
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-start mt-8">
                 {/* Mascot State Switcher Column */}
                 <div className="flex flex-col w-full">
-                  <div className="w-full bg-[#FAFAFA] border border-gray-200 rounded-[2rem] flex flex-col items-center justify-center p-6 select-none aspect-[16/12] shadow-sm relative overflow-hidden">
+                  <div className="w-full bg-white border border-[#cccccc] rounded-[2rem] flex flex-col items-center justify-center p-6 select-none aspect-[16/12] shadow-sm relative overflow-hidden">
                     <video 
                       key={MASCOT_ASSETS[activeMascotIndex].url}
                       autoPlay 
@@ -10264,7 +10276,7 @@ const SPLIT_VIEW_CHIPS = [
 
                 {/* Full page loading Column */}
                 <div className="flex flex-col w-full">
-                  <div className="w-full aspect-[16/12] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
+                  <div className="w-full aspect-[16/12] bg-white border border-[#cccccc] rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
                     <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-contain block">
                       <source src="projects/brainbox/data.webm" type="video/webm" />
                       <source src="projects/brainbox/data.mp4" type="video/mp4" />
@@ -10275,7 +10287,7 @@ const SPLIT_VIEW_CHIPS = [
 
                 {/* Skeleton Screen Column */}
                 <div className="flex flex-col w-full">
-                  <div className="w-full aspect-[16/12] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
+                  <div className="w-full aspect-[16/12] bg-white border border-[#cccccc] rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
                     <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-contain block">
                       <source src="projects/brainbox/creating-test.webm" type="video/webm" />
                       <source src="projects/brainbox/creating-test.mp4" type="video/mp4" />
@@ -10363,7 +10375,10 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
                   <div className="flex-1 bg-white border border-gray-100 rounded-3xl p-8 flex flex-col items-center justify-center shadow-sm">
                     <div className="w-full max-w-[200px] aspect-square overflow-hidden flex items-center justify-center">
-                      <video src="projects/brainbox/box_loading_bright.mp4" autoPlay muted loop playsInline className="w-full h-full object-contain" />
+                      <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-contain">
+                        <source src="projects/brainbox/box_loading_bright.webm" type="video/webm" />
+                        <source src="projects/brainbox/box_loading_bright.mp4" type="video/mp4" />
+                      </video>
                     </div>
                     <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '元件 Loading' : 'Component Loading'}</div>
                   </div>
@@ -10422,13 +10437,16 @@ const SPLIT_VIEW_CHIPS = [
                       <div key={idx} className="w-full h-full flex-shrink-0 relative bg-white flex items-center justify-center overflow-hidden">
                         {item.type === 'video' ? (
                           <video 
-                            src={item.url} 
                             autoPlay 
                             muted 
                             loop 
                             playsInline 
+                            preload="metadata"
                             className="w-full h-full object-contain" 
-                          />
+                          >
+                            <source src={`${item.url.replace(/\.(webm|mp4|gif)$/i, '')}.webm`} type="video/webm" />
+                            <source src={`${item.url.replace(/\.(webm|mp4|gif)$/i, '')}.mp4`} type="video/mp4" />
+                          </video>
                         ) : (
                           <img 
                             src={item.url} 

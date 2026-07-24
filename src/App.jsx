@@ -2772,11 +2772,11 @@ const SPLIT_VIEW_CHIPS = [
 
       return (
         <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
-          <div className="pt-32 md:pt-36 px-4 md:px-12 max-w-[100rem] mx-auto">
+          <div className="pt-32 md:pt-36 px-[34px] md:px-12 max-w-[100rem] mx-auto">
             <BackButton navigateTo={navigateTo} lang={lang} />
             <h1 
-              className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase" 
-              style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
+              className="text-gray-900 font-extrabold tracking-tight leading-[0.95] mb-0 select-none font-inter uppercase whitespace-nowrap" 
+              style={{ fontSize: 'clamp(22px, 5.2vw, 84px)' }}
             >
               {t(activeItem.title, lang)}
             </h1>
@@ -2796,7 +2796,7 @@ const SPLIT_VIEW_CHIPS = [
 
           {/* 01 Project Overview */}
           {activeItem.projectOverview && (
-            <div className="max-w-[100rem] mx-auto px-4 md:px-12 mb-24 md:mb-40 mt-12">
+            <div className="max-w-[100rem] mx-auto px-[34px] md:px-12 mb-24 md:mb-40 mt-12">
               <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.overview} />
               <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
                 <div className="space-y-8">
@@ -3757,18 +3757,18 @@ const SPLIT_VIEW_CHIPS = [
           {/* 1. PROJECT ENTRY AREA */}
           <div id="project-hero" className="w-full">
             {/* TITLE BLOCK */}
-            <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-32 md:pt-36">
+            <div className="max-w-[100rem] mx-auto px-[34px] md:px-12 pt-32 md:pt-36">
               <BackButton navigateTo={navigateTo} lang={lang} />
               <h1 
-                className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase md:whitespace-nowrap"
-                style={{ fontSize: 'clamp(32px, 5.5vw, 84px)' }}
+                className="text-gray-900 font-extrabold tracking-tight leading-[0.95] mb-0 select-none font-inter uppercase whitespace-nowrap"
+                style={{ fontSize: 'clamp(22px, 5.2vw, 84px)' }}
               >
                 {t(activeItem.title, lang)}
               </h1>
             </div>
 
             {/* METADATA ROW */}
-            <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed gap-2 select-none">
+            <div className="max-w-[100rem] mx-auto px-[34px] md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed gap-2 select-none">
               <span>{lang === 'zh' ? 'UI/UX 設計師' : 'UI/UX Designer'}</span>
               <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
               <span>{lang === 'zh' ? '前端工程師（兼任）' : 'Frontend Engineer (Concurrently)'}</span>
@@ -3791,9 +3791,9 @@ const SPLIT_VIEW_CHIPS = [
             <div className="w-full border-b border-gray-100"></div>
           </div>
 
-          {/* 2. CONTENT AREA (max-width: 1600px, margin: 0 auto, padding: px-4 md:px-12) */}
+          {/* 2. CONTENT AREA (max-width: 1600px, margin: 0 auto, padding: px-[34px] md:px-12) */}
           <div 
-            className="px-4 md:px-12"
+            className="px-[34px] md:px-12"
             style={{
               maxWidth: '1600px',
               margin: '0 auto',
@@ -7607,18 +7607,18 @@ const SPLIT_VIEW_CHIPS = [
 
       return (
         <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32 w-full">
-          <div className="pt-32 md:pt-36 px-4 md:px-12 max-w-[100rem] mx-auto">
+          <div className="pt-32 md:pt-36 px-[34px] md:px-12 max-w-[100rem] mx-auto">
             <BackButton navigateTo={navigateTo} lang={lang} />
             <h1 
-              className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase" 
-              style={{ fontSize: 'clamp(40px, 7vw, 96px)' }}
+              className="text-gray-900 font-extrabold tracking-tight leading-[0.95] mb-0 select-none font-inter uppercase whitespace-nowrap" 
+              style={{ fontSize: 'clamp(22px, 5.2vw, 84px)' }}
             >
               {t(activeItem.title, lang)}
             </h1>
           </div>
 
           {/* METADATA ROW */}
-          <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed gap-2 select-none">
+          <div className="max-w-[100rem] mx-auto px-[34px] md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed gap-2 select-none">
             <span>{lang === 'zh' ? 'UI/UX 設計師' : 'UI/UX Designer'}</span>
             <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
             <span>{lang === 'zh' ? '動態設計師' : 'Motion Designer'}</span>
@@ -7642,7 +7642,7 @@ const SPLIT_VIEW_CHIPS = [
 
           {/* 01 Project Overview */}
           {activeItem.projectOverview && (
-            <div className="max-w-[100rem] mx-auto px-4 md:px-12 mb-24 md:mb-40 mt-12">
+            <div className="max-w-[100rem] mx-auto px-[34px] md:px-12 mb-24 md:mb-40 mt-12">
               <ProjectSectionHeader num={getSectionNum()} title={I18N[lang].project.overview} />
               
               {activeItem.id === 1 ? (
@@ -9564,18 +9564,18 @@ const SPLIT_VIEW_CHIPS = [
     return (
       <div className="bg-white animate-in fade-in duration-700 min-h-screen pb-32">
         {/* SECTION 00 — HERO */}
-        <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-32 md:pt-36">
+        <div className="max-w-[100rem] mx-auto px-[34px] md:px-12 pt-32 md:pt-36">
           <BackButton navigateTo={navigateTo} lang={lang} />
           <h1 
-            className="text-gray-900 font-extrabold tracking-[-2px] leading-[0.95] mb-0 select-none font-inter uppercase md:whitespace-nowrap" 
-            style={{ fontSize: 'clamp(32px, 5.5vw, 84px)' }}
+            className="text-gray-900 font-extrabold tracking-tight leading-[0.95] mb-0 select-none font-inter uppercase whitespace-nowrap" 
+            style={{ fontSize: 'clamp(22px, 5.2vw, 84px)' }}
           >
             {t(activeItem.title, lang)}
           </h1>
         </div>
 
         {/* METADATA ROW */}
-        <div className="max-w-[100rem] mx-auto px-4 md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed gap-2 select-none">
+        <div className="max-w-[100rem] mx-auto px-[34px] md:px-12 pt-5 pb-5 flex flex-wrap items-center text-[13px] text-gray-500 leading-relaxed gap-2 select-none">
           <span>{lang === 'zh' ? '視覺設計師' : 'Visual Designer'}</span>
           <span className="h-3 w-[1px] bg-gray-200 hidden sm:inline-block"></span>
           <span>2023 — 2024</span>
@@ -9585,7 +9585,7 @@ const SPLIT_VIEW_CHIPS = [
           <span>{lang === 'zh' ? '5 大系統設計' : '5 Systems Design'}</span>
         </div>
 
-        <div className="w-full md:w-screen md:relative md:left-1/2 md:-translate-x-1/2 rounded-2xl md:rounded-none bg-gray-100 mt-6 md:mt-8 select-none overflow-hidden h-auto">
+        <div className="w-full bg-[#F6F6F6] relative flex items-center justify-center overflow-hidden mt-6 md:mt-8 select-none">
           <img
             src="projects/brainbox/brainbox-innerpage-cover.png"
             alt="BrainBox Hero Cover"
@@ -9594,7 +9594,7 @@ const SPLIT_VIEW_CHIPS = [
         </div>
 
         {/* Global Case Study Content */}
-        <div className="max-w-[100rem] mx-auto px-4 md:px-12 mt-8">
+        <div className="max-w-[100rem] mx-auto px-[34px] md:px-12 mb-24 md:mb-40 mt-12">
           
           {/* SECTION 01 — 專案概述 */}
           <div id="project-overview" className="scroll-mt-24">
@@ -9979,19 +9979,19 @@ const SPLIT_VIEW_CHIPS = [
                           <button
                             key={idx}
                             onClick={() => setActiveIconIndex(idx)}
-                            className={`h-[62px] rounded-xl flex flex-col items-center justify-center p-1 select-none transition-all duration-200 cursor-pointer ${
+                            className={`h-[60px] md:h-[64px] rounded-xl md:rounded-2xl flex flex-col items-center justify-center p-1 select-none transition-all duration-200 cursor-pointer ${
                               activeIconIndex === idx 
-                                ? 'border-2 border-[#2d308a] bg-[#2d308a]/5 text-[#2d308a]' 
-                                : 'border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 text-gray-400'
+                                ? 'border-2 border-[#534AB7] bg-[#F5F3FF] text-[#534AB7] shadow-sm font-semibold' 
+                                : 'border border-gray-200 bg-gray-50 hover:bg-gray-100 text-gray-600 font-medium'
                             }`}
                           >
                             <img 
                               src={icon.iconUrl} 
                               alt={icon.label} 
                               className={`w-5 h-5 mb-1 object-contain transition-opacity duration-200 ${
-                                activeIconIndex === idx ? 'opacity-100' : 'opacity-50 hover:opacity-75'
+                                activeIconIndex === idx ? 'opacity-100' : 'opacity-60 hover:opacity-90'
                               }`} 
-                              style={activeIconIndex === idx ? { filter: 'invert(18%) sepia(87%) saturate(2222%) hue-rotate(229deg) brightness(85%) contrast(92%)' } : {}}
+                              style={activeIconIndex === idx ? { filter: 'invert(26%) sepia(85%) saturate(2314%) hue-rotate(233deg) brightness(85%) contrast(92%)' } : {}}
                             />
                             <span className="text-[10px] font-bold tracking-wide leading-none">{icon.label}</span>
                           </button>
@@ -10153,17 +10153,17 @@ const SPLIT_VIEW_CHIPS = [
                   {lang === 'zh' ? '外型分析' : 'APPEARANCE ANALYSIS'}
                 </span>
 
-                {/* Desktop layout: Centered video with callout lines pointing to labels */}
-                <div className="hidden lg:block relative w-full max-w-[1100px] h-[600px] mx-auto select-none">
+                {/* Unified Responsive Interactive Callout Diagram — Same structure for Desktop and Mobile */}
+                <div className="relative w-full max-w-[1100px] h-[340px] xs:h-[400px] sm:h-[500px] lg:h-[600px] mx-auto select-none overflow-hidden">
                   {/* Central Video Container */}
-                  <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
                     <video
                       autoPlay
                       muted
                       loop
                       playsInline
-                      preload="metadata"
-                      className="w-[450px] h-[450px] object-cover rounded-full"
+                      preload="auto"
+                      className="w-[140px] h-[140px] xs:w-[170px] xs:h-[170px] sm:w-[260px] sm:h-[260px] md:w-[340px] md:h-[340px] lg:w-[420px] lg:h-[420px] object-cover rounded-full pointer-events-auto"
                     >
                       <source src="projects/brainbox/pixie-feature.webm" type="video/webm" />
                       <source src="projects/brainbox/pixie-feature.mp4" type="video/mp4" />
@@ -10171,108 +10171,63 @@ const SPLIT_VIEW_CHIPS = [
                   </div>
 
                   {/* SVG Pointers Overlay */}
-                  <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1100 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
                     {/* Top-Left Pointer */}
-                    <line x1="365" y1="185" x2="250" y2="160" stroke="#7F77DD" strokeWidth="1.5" />
-                    <circle cx="250" cy="160" r="4" fill="#7F77DD" />
+                    <line x1="330" y1="170" x2="220" y2="145" stroke="#7F77DD" strokeWidth="1.5" />
+                    <circle cx="220" cy="145" r="3.5" fill="#7F77DD" />
                     
                     {/* Bottom-Left Pointer */}
-                    <line x1="365" y1="415" x2="250" y2="440" stroke="#7F77DD" strokeWidth="1.5" />
-                    <circle cx="250" cy="440" r="4" fill="#7F77DD" />
+                    <line x1="330" y1="350" x2="220" y2="375" stroke="#7F77DD" strokeWidth="1.5" />
+                    <circle cx="220" cy="375" r="3.5" fill="#7F77DD" />
 
                     {/* Top-Right Pointer */}
-                    <line x1="735" y1="185" x2="850" y2="160" stroke="#7F77DD" strokeWidth="1.5" />
-                    <circle cx="850" cy="160" r="4" fill="#7F77DD" />
+                    <line x1="670" y1="170" x2="780" y2="145" stroke="#7F77DD" strokeWidth="1.5" />
+                    <circle cx="780" cy="145" r="3.5" fill="#7F77DD" />
 
                     {/* Bottom-Right Pointer */}
-                    <line x1="735" y1="415" x2="850" y2="440" stroke="#7F77DD" strokeWidth="1.5" />
-                    <circle cx="850" cy="440" r="4" fill="#7F77DD" />
+                    <line x1="670" y1="350" x2="780" y2="375" stroke="#7F77DD" strokeWidth="1.5" />
+                    <circle cx="780" cy="375" r="3.5" fill="#7F77DD" />
                   </svg>
 
-                  {/* Callout Text Containers absolute positionings */}
+                  {/* Callout Text Containers */}
                   {/* Top-Left Callout Box */}
-                  <div className="absolute top-[130px] left-[20px] w-[210px] text-right">
-                    <h5 className="text-[14px] font-bold text-gray-800 mb-1">
+                  <div className="absolute top-[8%] sm:top-[12%] left-[1%] sm:left-[3%] w-[27%] sm:w-[22%] text-right z-20">
+                    <h5 className="text-[11px] xs:text-[12px] sm:text-[14px] font-bold text-gray-800 mb-0.5 sm:mb-1">
                       {lang === 'zh' ? '漸層球體' : 'Gradient Sphere'}
                     </h5>
-                    <p className="text-[12px] text-gray-500 leading-relaxed">
+                    <p className="text-[9px] xs:text-[10px] sm:text-[12px] text-gray-500 leading-tight sm:leading-relaxed font-noto">
                       {lang === 'zh' ? '藍紫漸層象徵腦部思考與知識能量的流動。' : 'Blue-purple gradient represents knowledge flow and brain thinking.'}
                     </p>
                   </div>
 
                   {/* Bottom-Left Callout Box */}
-                  <div className="absolute top-[410px] left-[20px] w-[210px] text-right">
-                    <h5 className="text-[14px] font-bold text-gray-800 mb-1">
+                  <div className="absolute top-[68%] sm:top-[68%] left-[1%] sm:left-[3%] w-[27%] sm:w-[22%] text-right z-20">
+                    <h5 className="text-[11px] xs:text-[12px] sm:text-[14px] font-bold text-gray-800 mb-0.5 sm:mb-1">
                       {lang === 'zh' ? '極簡線條表情' : 'Minimalist Facial Lines'}
                     </h5>
-                    <p className="text-[12px] text-gray-500 leading-relaxed">
+                    <p className="text-[9px] xs:text-[10px] sm:text-[12px] text-gray-500 leading-tight sm:leading-relaxed font-noto">
                       {lang === 'zh' ? '僅用眼睛與嘴型傳遞情緒，避免細節過多造成視覺負擔。' : 'Only eyes and mouth lines are used to convey expressions, avoiding detail clutter.'}
                     </p>
                   </div>
 
                   {/* Top-Right Callout Box */}
-                  <div className="absolute top-[130px] right-[20px] w-[210px] text-left">
-                    <h5 className="text-[14px] font-bold text-gray-800 mb-1">
+                  <div className="absolute top-[8%] sm:top-[12%] right-[1%] sm:right-[3%] w-[27%] sm:w-[22%] text-left z-20">
+                    <h5 className="text-[11px] xs:text-[12px] sm:text-[14px] font-bold text-gray-800 mb-0.5 sm:mb-1">
                       {lang === 'zh' ? '狀態符號' : 'State Indicators'}
                     </h5>
-                    <p className="text-[12px] text-gray-500 leading-relaxed">
+                    <p className="text-[9px] xs:text-[10px] sm:text-[12px] text-gray-500 leading-tight sm:leading-relaxed font-noto">
                       {lang === 'zh' ? 'Z字、問號泡泡等輔助圖示即時反映操作情境。' : 'Floating letters, question bubbles reflect interactive state.'}
                     </p>
                   </div>
 
                   {/* Bottom-Right Callout Box */}
-                  <div className="absolute top-[410px] right-[20px] w-[210px] text-left">
-                    <h5 className="text-[14px] font-bold text-gray-800 mb-1">
+                  <div className="absolute top-[68%] sm:top-[68%] right-[1%] sm:right-[3%] w-[27%] sm:w-[22%] text-left z-20">
+                    <h5 className="text-[11px] xs:text-[12px] sm:text-[14px] font-bold text-gray-800 mb-0.5 sm:mb-1">
                       {lang === 'zh' ? '無性別、無年齡特徵' : 'Universal Appeal'}
                     </h5>
-                    <p className="text-[12px] text-gray-500 leading-relaxed">
+                    <p className="text-[9px] xs:text-[10px] sm:text-[12px] text-gray-500 leading-tight sm:leading-relaxed font-noto">
                       {lang === 'zh' ? '抽象造型讓所有使用者都能自然建立情感投射。' : 'Genderless, ageless form allows empathy across all users.'}
                     </p>
-                  </div>
-                </div>
-
-                {/* Mobile view fallback: Stacked video and bullet points */}
-                <div className="block lg:hidden space-y-8 select-none">
-                  <div className="flex items-center justify-center py-4">
-                    <video
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      className="w-[200px] h-[200px] object-cover rounded-full shadow-md"
-                    >
-                      <source src="projects/brainbox/pixie-feature.webm" type="video/webm" />
-                      <source src="projects/brainbox/pixie-feature.mp4" type="video/mp4" />
-                    </video>
-                  </div>
-                  
-                  <div className="space-y-4 px-4">
-                    {[
-                      { 
-                        title: lang === 'zh' ? '漸層球體' : 'Gradient Sphere', 
-                        desc: lang === 'zh' ? '藍紫漸層象徵腦部思考與知識能量的流動。' : 'Blue-purple gradient represents knowledge flow and brain thinking.' 
-                      },
-                      { 
-                        title: lang === 'zh' ? '極簡線條表情' : 'Minimalist Facial Lines', 
-                        desc: lang === 'zh' ? '僅用眼睛與嘴型傳遞情緒，避免細節過多造成視覺負擔。' : 'Only eyes and mouth lines are used to convey expressions, avoiding detail clutter.' 
-                      },
-                      { 
-                        title: lang === 'zh' ? '狀態符號' : 'State Indicators', 
-                        desc: lang === 'zh' ? 'Z字、問號泡泡等輔助圖示即時反映操作情境。' : 'Floating letters, question bubbles reflect interactive state.' 
-                      },
-                      { 
-                        title: lang === 'zh' ? '無性別、無年齡特徵' : 'Universal Appeal', 
-                        desc: lang === 'zh' ? '抽象造型讓所有使用者都能自然建立情感投射。' : 'Genderless, ageless form allows empathy across all users.' 
-                      }
-                    ].map((item, idx) => (
-                      <div key={idx} className="flex items-start">
-                        <span className="w-2 h-2 rounded-full bg-[#7F77DD] mt-1.5 mr-3 flex-shrink-0" />
-                        <div className="text-[14px] leading-relaxed text-left">
-                          <strong className="text-gray-800 font-semibold">{item.title}</strong> — <span className="text-gray-500 text-[13px]">{item.desc}</span>
-                        </div>
-                      </div>
-                    ))}
                   </div>
                 </div>
 

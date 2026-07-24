@@ -116,10 +116,24 @@ const ImagePlaceholder = ({ label, height = '160px', icon = 'photo', bg = 'bg-gr
 const OptimizedVideo = ({ src, className, ...props }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const videoRef = useRef(null);
+
+  const markLoaded = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
 
   useEffect(() => {
     setIsLoaded(false);
     setHasError(false);
+  }, [src]);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      const promise = videoRef.current.play();
+      if (promise !== undefined && typeof promise.then === 'function') {
+        promise.then(() => setIsLoaded(true)).catch(() => {});
+      }
+    }
   }, [src]);
 
   const basePath = typeof src === 'string' ? src.replace(/\.(webm|mp4|mov|gif)$/i, '') : '';
@@ -139,15 +153,21 @@ const OptimizedVideo = ({ src, className, ...props }) => {
         </div>
       ) : (
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
-          onLoadedData={() => setIsLoaded(true)}
-          onCanPlay={() => setIsLoaded(true)}
+          preload="auto"
+          onLoadedData={markLoaded}
+          onCanPlay={markLoaded}
+          onCanPlayThrough={markLoaded}
+          onLoadedMetadata={markLoaded}
+          onPlay={markLoaded}
+          onPlaying={markLoaded}
+          onTimeUpdate={markLoaded}
           onError={() => setHasError(true)}
-          className={`transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${className.includes('h-auto') ? 'w-full h-auto block object-contain' : 'absolute inset-0 w-full h-full object-cover'}`}
+          className={`transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${className.includes('h-auto') ? 'w-full h-auto block object-contain' : 'absolute inset-0 w-full h-full object-cover'}`}
           {...props}
         >
           <source src={webmSrc} type="video/webm" />
@@ -2636,10 +2656,24 @@ const SPLIT_VIEW_CHIPS = [
     const WebShowcaseVideo = ({ src, className = "w-full h-auto block" }) => {
       const [isLoaded, setIsLoaded] = useState(false);
       const [hasError, setHasError] = useState(false);
+      const videoRef = useRef(null);
+
+      const markLoaded = useCallback(() => {
+        setIsLoaded(true);
+      }, []);
 
       useEffect(() => {
         setIsLoaded(false);
         setHasError(false);
+      }, [src]);
+
+      useEffect(() => {
+        if (videoRef.current) {
+          const promise = videoRef.current.play();
+          if (promise !== undefined && typeof promise.then === 'function') {
+            promise.then(() => setIsLoaded(true)).catch(() => {});
+          }
+        }
       }, [src]);
 
       const basePath = typeof src === 'string' ? src.replace(/\.(webm|mp4|mov|gif)$/i, '') : '';
@@ -2660,13 +2694,19 @@ const SPLIT_VIEW_CHIPS = [
             </div>
           ) : (
             <video
+              ref={videoRef}
               autoPlay
               muted
               loop
               playsInline
-              preload="metadata"
-              onLoadedData={() => setIsLoaded(true)}
-              onCanPlay={() => setIsLoaded(true)}
+              preload="auto"
+              onLoadedData={markLoaded}
+              onCanPlay={markLoaded}
+              onCanPlayThrough={markLoaded}
+              onLoadedMetadata={markLoaded}
+              onPlay={markLoaded}
+              onPlaying={markLoaded}
+              onTimeUpdate={markLoaded}
               onError={() => setHasError(true)}
               className={className}
               style={{ display: hasError ? 'none' : 'block', verticalAlign: 'top' }}
@@ -7337,7 +7377,9 @@ const SPLIT_VIEW_CHIPS = [
       const [activeScreenTabs, setActiveScreenTabs] = useState({});
       const [activeDecisionTab, setActiveDecisionTab] = useState('long-page');
       const [isDecisionFading, setIsDecisionFading] = useState(false);
-      const [showcaseDevice, setShowcaseDevice] = useState('desktop');
+      const [showcaseDevice, setShowcaseDevice] = useState(() => (
+        typeof window !== 'undefined' && window.innerWidth < 768 ? 'mobile' : 'desktop'
+      ));
       const [isChipFading, setIsChipFading] = useState(false);
       const [activeChip, setActiveChip] = useState('hero');
       const [videoState, setVideoState] = useState('none'); // 'none' | 'playing' | 'ended'
@@ -10518,6 +10560,18 @@ const SPLIT_VIEW_CHIPS = [
 
 
   const ProjectView = ({ activeItem, lang, transitionTo, setCurrentPage, setActiveItem, setIsMobileMenuOpen, navigateTo }) => {
+    useEffect(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      const t = setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, 50);
+      return () => clearTimeout(t);
+    }, [activeItem?.id]);
+
     if (!activeItem) return null;
 
     if (activeItem.id === 3) {

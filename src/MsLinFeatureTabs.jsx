@@ -17,6 +17,202 @@ const SubHeading = ({ children }) => (
   </h4>
 );
 
+export const PhoneRowSlider = ({ steps, lang, themeColor = '#E8734A' }) => {
+  const scrollRef = useRef(null);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setShowLeftArrow(scrollLeft > 5);
+      setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 5);
+    }
+  };
+
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener('resize', handleScroll);
+    return () => window.removeEventListener('resize', handleScroll);
+  }, [steps]);
+
+  return (
+    <div style={{ width: '100%' }}>
+      {/* Desktop View: Horizontal Side-by-Side Row with Left/Right Arrows (Image 2 style) */}
+      <div className="hidden md:block relative w-full" style={{ marginTop: '24px', marginBottom: '24px' }}>
+        {/* Left Scroll Arrow */}
+        {showLeftArrow && (
+          <button 
+            onClick={() => {
+              if (scrollRef.current) {
+                scrollRef.current.scrollBy({ left: -258, behavior: 'smooth' });
+              }
+            }}
+            style={{
+              position: 'absolute',
+              left: '-20px',
+              top: '40%',
+              transform: 'translateY(-50%)',
+              width: '44px',
+              height: '44px',
+              borderRadius: '50%',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid rgba(148, 163, 184, 0.2)',
+              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              zIndex: 20,
+              color: '#1E293B',
+              transition: 'all 200ms ease',
+              outline: 'none',
+              padding: 0
+            }}
+            aria-label="Previous"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+          </button>
+        )}
+
+        {/* Horizontal Scroll Track */}
+        <div 
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="hide-scrollbar"
+          style={{
+            display: 'flex',
+            gap: '24px',
+            overflowX: 'auto',
+            scrollBehavior: 'smooth',
+            width: '100%',
+            padding: '12px 4px',
+            boxSizing: 'border-box',
+            WebkitOverflowScrolling: 'touch'
+          }}
+        >
+          {steps.map((step, idx) => {
+            const imgUrl = step.img || step.src;
+            const labelVal = step.title || step.label;
+            const descVal = step.desc;
+
+            return (
+              <div 
+                key={idx} 
+                style={{ 
+                  width: '230px', 
+                  flexShrink: 0, 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  alignItems: 'center' 
+                }}
+              >
+                <PhoneMockup screenStyle={{ backgroundColor: '#EEEDFE' }}>
+                  {imgUrl && (imgUrl.endsWith('.webm') || imgUrl.endsWith('.mp4') || step.type === 'video') ? (
+                    <video 
+                      autoPlay 
+                      loop 
+                      muted 
+                      playsInline 
+                      preload="metadata"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    >
+                      <source src={`${imgUrl.replace(/\.(webm|mp4|gif)$/i, '')}.webm`} type="video/webm" />
+                      <source src={`${imgUrl.replace(/\.(webm|mp4|gif)$/i, '')}.mp4`} type="video/mp4" />
+                    </video>
+                  ) : imgUrl ? (
+                    <img 
+                      src={imgUrl} 
+                      alt={labelVal} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    />
+                  ) : (
+                    <div style={{ display: 'flex', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F1F5F9' }}>
+                      <span style={{ fontSize: '28px', fontWeight: 'bold', color: themeColor, opacity: 0.15 }}>
+                        0{idx + 1}
+                      </span>
+                    </div>
+                  )}
+                </PhoneMockup>
+                
+                {/* Text Labels below Phone Mockup */}
+                <div style={{ marginTop: '14px', textAlign: 'center', width: '100%' }}>
+                  {labelVal && (
+                    <div style={{
+                      fontSize: '13px',
+                      fontWeight: '700',
+                      color: themeColor,
+                      textAlign: 'center',
+                      lineHeight: '1.4',
+                      marginBottom: '2px'
+                    }}>
+                      {labelVal}
+                    </div>
+                  )}
+                  {descVal && (
+                    <div style={{
+                      fontSize: '11.5px',
+                      color: 'var(--color-text-secondary)',
+                      textAlign: 'center',
+                      lineHeight: '1.4'
+                    }}>
+                      {descVal}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Right Scroll Arrow */}
+        {showRightArrow && (
+          <button 
+            onClick={() => {
+              if (scrollRef.current) {
+                scrollRef.current.scrollBy({ left: 258, behavior: 'smooth' });
+              }
+            }}
+            style={{
+              position: 'absolute',
+              right: '-20px',
+              top: '40%',
+              transform: 'translateY(-50%)',
+              width: '44px',
+              height: '44px',
+              borderRadius: '50%',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid rgba(148, 163, 184, 0.2)',
+              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              zIndex: 20,
+              color: '#1E293B',
+              transition: 'all 200ms ease',
+              outline: 'none',
+              padding: 0
+            }}
+            aria-label="Next"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
+        )}
+      </div>
+
+      {/* Mobile View: Single Centered Phone Slider with Dot Pagination (Image 1 style) */}
+      <div className="block md:hidden w-full">
+        <SinglePhoneSlider steps={steps} lang={lang} themeColor={themeColor} />
+      </div>
+    </div>
+  );
+};
+
 export const SinglePhoneSlider = ({ steps, lang, themeColor = '#7F77DD' }) => {
   const [activeStep, setActiveStep] = useState(0);
   const containerRef = useRef(null);
@@ -81,13 +277,16 @@ export const SinglePhoneSlider = ({ steps, lang, themeColor = '#7F77DD' }) => {
                   <PhoneMockup screenStyle={{ backgroundColor: '#D0CCEA' }}>
                     {imgUrl && (imgUrl.endsWith('.webm') || imgUrl.endsWith('.mp4') || step.type === 'video') ? (
                       <video 
-                        src={imgUrl} 
                         autoPlay 
                         loop 
                         muted 
                         playsInline 
+                        preload="metadata"
                         style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                      />
+                      >
+                        <source src={`${imgUrl.replace(/\.(webm|mp4|gif)$/i, '')}.webm`} type="video/webm" />
+                        <source src={`${imgUrl.replace(/\.(webm|mp4|gif)$/i, '')}.mp4`} type="video/mp4" />
+                      </video>
                     ) : imgUrl ? (
                       <img 
                         src={imgUrl} 
@@ -127,19 +326,31 @@ export const SinglePhoneSlider = ({ steps, lang, themeColor = '#7F77DD' }) => {
         </div>
 
         {/* Premium Dot Indicators */}
-        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center', marginTop: '4px' }}>
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center', marginTop: '8px' }}>
           {steps.map((_, idx) => {
             const isActive = activeStep === idx;
             return (
-              <div 
+              <button 
                 key={idx}
+                onClick={() => {
+                  if (containerRef.current) {
+                    const width = containerRef.current.clientWidth;
+                    containerRef.current.scrollTo({ left: idx * width, behavior: 'smooth' });
+                    setActiveStep(idx);
+                  }
+                }}
                 style={{
                   width: isActive ? '32px' : '8px',
                   height: '8px',
                   borderRadius: '4px',
                   backgroundColor: isActive ? '#E8734A' : '#D1D5DB',
-                  transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)'
+                  transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                  border: 'none',
+                  outline: 'none',
+                  cursor: 'pointer',
+                  padding: 0
                 }}
+                aria-label={`Go to slide ${idx + 1}`}
               />
             );
           })}
@@ -598,7 +809,7 @@ const MsLinFeatureTabs = ({ lang }) => {
         /* New Responsive Scroll Tab Bar Styles */
         .outer-tab-container {
           display: flex;
-          justify-content: flex-start;
+          justify-content: center;
           width: 100%;
           margin-bottom: 32px;
           box-sizing: border-box;
@@ -891,13 +1102,16 @@ const MsLinFeatureTabs = ({ lang }) => {
                     <PhoneMockup screenStyle={{ backgroundColor: '#EEEDFE' }}>
                       {item.type === 'video' ? (
                         <video 
-                          src={item.src} 
                           autoPlay 
                           loop 
                           muted 
                           playsInline 
+                          preload="metadata"
                           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
+                        >
+                          <source src={`${item.src.replace(/\.(webm|mp4|gif)$/i, '')}.webm`} type="video/webm" />
+                          <source src={`${item.src.replace(/\.(webm|mp4|gif)$/i, '')}.mp4`} type="video/mp4" />
+                        </video>
                       ) : (
                         <img 
                           src={item.src} 

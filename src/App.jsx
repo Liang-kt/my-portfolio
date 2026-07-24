@@ -1,4 +1,4 @@
-import MsLinFeatureTabs, { SinglePhoneSlider } from './MsLinFeatureTabs';
+import MsLinFeatureTabs, { SinglePhoneSlider, PhoneRowSlider } from './MsLinFeatureTabs';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 const isIOSDevice = () => {
@@ -113,7 +113,7 @@ const ImagePlaceholder = ({ label, height = '160px', icon = 'photo', bg = 'bg-gr
 );
 
 // --- 優化版影片播放器 ---
-const OptimizedVideo = ({ src, className }) => {
+const OptimizedVideo = ({ src, className, ...props }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
@@ -121,6 +121,10 @@ const OptimizedVideo = ({ src, className }) => {
     setIsLoaded(false);
     setHasError(false);
   }, [src]);
+
+  const basePath = typeof src === 'string' ? src.replace(/\.(webm|mp4|mov|gif)$/i, '') : '';
+  const webmSrc = basePath ? `${basePath}.webm` : (src?.webm || src);
+  const mp4Src = basePath ? `${basePath}.mp4` : (src?.mp4 || src);
 
   return (
     <div className={`relative bg-gray-100 overflow-hidden flex items-center justify-center ${className}`}>
@@ -135,16 +139,20 @@ const OptimizedVideo = ({ src, className }) => {
         </div>
       ) : (
         <video
-          src={src}
           autoPlay
           muted
           loop
           playsInline
           preload="metadata"
+          onLoadedData={() => setIsLoaded(true)}
           onCanPlay={() => setIsLoaded(true)}
           onError={() => setHasError(true)}
           className={`transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${className.includes('h-auto') ? 'w-full h-auto block object-contain' : 'absolute inset-0 w-full h-full object-cover'}`}
-        />
+          {...props}
+        >
+          <source src={webmSrc} type="video/webm" />
+          <source src={mp4Src} type="video/mp4" />
+        </video>
       )}
     </div>
   );
@@ -1270,7 +1278,10 @@ const SPLIT_VIEW_CHIPS = [
                 borderTopLeftRadius: `${isMobile ? 3 * (1 - easeExpand) : 6 * (1 - easeExpand)}rem`, 
                 borderTopRightRadius: isMobile ? `${3 * (1 - easeExpand)}rem` : '0' }}
             >
-              <video src="hero-page_showreel.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover absolute inset-0" />
+              <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover absolute inset-0">
+                <source src="hero-page_showreel.webm" type="video/webm" />
+                <source src="hero-page_showreel.mp4" type="video/mp4" />
+              </video>
               
               {/* Dynamic Dark Tint Overlay for Legibility */}
               <div 
@@ -3055,24 +3066,48 @@ const SPLIT_VIEW_CHIPS = [
       const mascotPhonesScrollRef = useRef(null);
       const [showMascotPhonesLeft, setShowMascotPhonesLeft] = useState(false);
       const [showMascotPhonesRight, setShowMascotPhonesRight] = useState(true);
+      const [activeMascotPhoneIdx, setActiveMascotPhoneIdx] = useState(0);
 
       const handleMascotPhonesScroll = () => {
         if (mascotPhonesScrollRef.current) {
           const { scrollLeft, scrollWidth, clientWidth } = mascotPhonesScrollRef.current;
           setShowMascotPhonesLeft(scrollLeft > 50);
           setShowMascotPhonesRight(scrollLeft + clientWidth < scrollWidth - 50);
+          const cardWidth = 264 + 32;
+          const idx = Math.round(scrollLeft / cardWidth);
+          setActiveMascotPhoneIdx(Math.min(Math.max(idx, 0), 4));
+        }
+      };
+
+      const scrollToMascotPhone = (idx) => {
+        if (mascotPhonesScrollRef.current) {
+          const cardWidth = 264 + 32;
+          mascotPhonesScrollRef.current.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+          setActiveMascotPhoneIdx(idx);
         }
       };
 
       const systemIllusScrollRef = useRef(null);
       const [showSystemIllusLeft, setShowSystemIllusLeft] = useState(false);
       const [showSystemIllusRight, setShowSystemIllusRight] = useState(true);
+      const [activeSystemIllusIdx, setActiveSystemIllusIdx] = useState(0);
 
       const handleSystemIllusScroll = () => {
         if (systemIllusScrollRef.current) {
           const { scrollLeft, scrollWidth, clientWidth } = systemIllusScrollRef.current;
           setShowSystemIllusLeft(scrollLeft > 50);
           setShowSystemIllusRight(scrollLeft + clientWidth < scrollWidth - 50);
+          const cardWidth = 264 + 32;
+          const idx = Math.round(scrollLeft / cardWidth);
+          setActiveSystemIllusIdx(Math.min(Math.max(idx, 0), 4));
+        }
+      };
+
+      const scrollToSystemIllus = (idx) => {
+        if (systemIllusScrollRef.current) {
+          const cardWidth = 264 + 32;
+          systemIllusScrollRef.current.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+          setActiveSystemIllusIdx(idx);
         }
       };
 
@@ -5741,7 +5776,7 @@ const SPLIT_VIEW_CHIPS = [
                   {/* System Tabs Switcher */}
                   <div style={{
                     display: 'flex',
-                    justifyContent: 'flex-start',
+                    justifyContent: 'center',
                     marginBottom: '40px',
                     width: '100%',
                     boxSizing: 'border-box'
@@ -6004,7 +6039,7 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Loop Two Tabs Switcher */}
                 <div style={{
                   display: 'flex',
-                  justifyContent: 'flex-start',
+                  justifyContent: 'center',
                   marginBottom: '40px',
                   width: '100%',
                   boxSizing: 'border-box'
@@ -6063,159 +6098,9 @@ const SPLIT_VIEW_CHIPS = [
                         : 'The review loop stems from a common student pain point: receiving a graded paper and not understanding the mistakes, with no one to ask. Traditional solutions like searching online or waiting for teacher explanations are high-friction and slow. Photo solving minimizes this friction—taking a photo is faster than typing, and AI is more direct than search engines.'}
                     </p>
 
-                    {/* Desktop View: SIX-STEP FLOW CAROUSEL WITH ARROWS */}
-                    <div className="hidden md:block" style={{ position: 'relative', width: '100%', marginTop: '32px', marginBottom: '24px' }}>
-                      {/* Left Scroll Arrow (prev button) */}
-                      {showAiLeftArrow && (
-                        <button 
-                          onClick={() => {
-                            if (aiScrollRef.current) {
-                              aiScrollRef.current.scrollBy({ left: -258, behavior: 'smooth' });
-                            }
-                          }}
-                          style={{
-                            position: 'absolute',
-                            left: '-24px',
-                            top: '250px',
-                            transform: 'translateY(-50%)',
-                            width: '48px',
-                            height: '48px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FFFFFF',
-                            border: '1px solid rgba(148, 163, 184, 0.15)',
-                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            zIndex: 10,
-                            color: '#1E293B',
-                            transition: 'all 200ms ease',
-                            outline: 'none',
-                            padding: '0',
-                            lineHeight: '0'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-                            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-                          }}
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
-                            <path d="m15 18-6-6 6-6" />
-                          </svg>
-                        </button>
-                      )}
-
-                      <div 
-                        ref={aiScrollRef}
-                        onScroll={handleAiScroll}
-                        className="hide-scrollbar"
-                        style={{
-                          display: 'flex',
-                          gap: '28px',
-                          overflowX: 'auto',
-                          scrollBehavior: 'smooth',
-                          width: '100%',
-                          padding: '12px 0px',
-                          boxSizing: 'border-box',
-                          WebkitOverflowScrolling: 'touch'
-                        }}
-                      >
-                        {aiSteps.map((step, idx) => (
-                          <div 
-                            key={idx} 
-                            style={{ 
-                              width: '230px', 
-                              flexShrink: 0, 
-                              display: 'flex', 
-                              flexDirection: 'column', 
-                              alignItems: 'center' 
-                            }}
-                          >
-                            <PhoneMockup screenStyle={{ display: 'block', padding: 0 }}>
-                              <img 
-                                src={step.img} 
-                                alt={step.title} 
-                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                              />
-                            </PhoneMockup>
-                            
-                            {/* Step label & desc */}
-                            <div style={{ marginTop: '12px', textAlign: 'center', minHeight: '52px', width: '100%' }}>
-                              <h4 style={{
-                                fontSize: '12.5px',
-                                fontWeight: '600',
-                                color: '#E8734A',
-                                margin: '0 0 4px 0'
-                              }}>
-                                {step.title}
-                              </h4>
-                              <p style={{
-                                fontSize: '11.5px',
-                                color: 'var(--color-text-secondary)',
-                                lineHeight: '1.4',
-                                margin: 0
-                              }}>
-                                {step.desc}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Right Scroll Arrow (next button) */}
-                      {showAiRightArrow && (
-                        <button 
-                          onClick={() => {
-                            if (aiScrollRef.current) {
-                              aiScrollRef.current.scrollBy({ left: 258, behavior: 'smooth' });
-                            }
-                          }}
-                          style={{
-                            position: 'absolute',
-                            right: '-24px',
-                            top: '250px',
-                            transform: 'translateY(-50%)',
-                            width: '48px',
-                            height: '48px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FFFFFF',
-                            border: '1px solid rgba(148, 163, 184, 0.15)',
-                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            zIndex: 10,
-                            color: '#1E293B',
-                            transition: 'all 200ms ease',
-                            outline: 'none',
-                            padding: '0',
-                            lineHeight: '0'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-                            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-                          }}
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
-                            <path d="m9 18 6-6-6-6" />
-                          </svg>
-                        </button>
-                      )}
-                    </div>
-
-                    {/* Mobile View: SinglePhoneSlider for Photo Solving */}
-                    <div className="block md:hidden" style={{ width: '100%', marginTop: '24px', marginBottom: '24px' }}>
-                      <SinglePhoneSlider steps={aiSteps} lang={lang} />
+                    {/* Phone Row Slider for Photo Solving Flow (Image 2 style) */}
+                    <div style={{ width: '100%', marginTop: '24px', marginBottom: '24px' }}>
+                      <PhoneRowSlider steps={aiSteps} lang={lang} />
                     </div>
                   </>
                 ) : (
@@ -6233,157 +6118,9 @@ const SPLIT_VIEW_CHIPS = [
                         : 'After understanding the mistake analysis, the system automatically extracts the core knowledge points of the wrong question and generates a set of similar questions for instant verification. This helps students escape the trap of "understanding but not being able to do it," and truly internalizes the knowledge.'}
                     </p>
 
-                    {/* Desktop View: FIVE-STEP FLOW CAROUSEL WITH ARROWS FOR SIMILAR QUESTIONS */}
-                    <div className="hidden md:block" style={{ position: 'relative', width: '100%', marginTop: '32px', marginBottom: '24px' }}>
-                      {/* Left Scroll Arrow (prev button) */}
-                      {showSimilarLeftArrow && (
-                        <button 
-                          onClick={() => {
-                            if (similarScrollRef.current) {
-                              similarScrollRef.current.scrollBy({ left: -258, behavior: 'smooth' });
-                            }
-                          }}
-                          style={{
-                            position: 'absolute',
-                            left: '-24px',
-                            top: '250px',
-                            transform: 'translateY(-50%)',
-                            width: '48px',
-                            height: '48px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FFFFFF',
-                            border: '1px solid rgba(148, 163, 184, 0.15)',
-                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            zIndex: 10,
-                            color: '#1E293B',
-                            transition: 'all 200ms ease',
-                            outline: 'none',
-                            padding: '0',
-                            lineHeight: '0'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-                            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-                          }}
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
-                            <path d="m15 18-6-6 6-6" />
-                          </svg>
-                        </button>
-                      )}
-
-                      <div 
-                        ref={similarScrollRef}
-                        onScroll={handleSimilarScroll}
-                        className="hide-scrollbar"
-                        style={{
-                          display: 'flex',
-                          gap: '28px',
-                          overflowX: 'auto',
-                          scrollBehavior: 'smooth',
-                          width: '100%',
-                          padding: '12px 0px',
-                          boxSizing: 'border-box',
-                          WebkitOverflowScrolling: 'touch'
-                        }}
-                      >
-                        {[
-                          { src: 'projects/mslin-app/screens/similar/相似題入口.jpg', label: lang === 'zh' ? '步驟一：相似題入口' : 'Step 1: Similar Entrance' },
-                          { src: 'projects/mslin-app/screens/similar/相似題生成中.jpg', label: lang === 'zh' ? '步驟二：相似題生成中' : 'Step 2: Generating Similar Questions' },
-                          { src: 'projects/mslin-app/screens/similar/相似題生成完成.jpg', label: lang === 'zh' ? '步驟三：相似題生成完成' : 'Step 3: Generation Complete' },
-                          { src: 'projects/mslin-app/screens/similar/相似題作答頁面.jpg', label: lang === 'zh' ? '步驟四：相似題作答頁面' : 'Step 4: Similar Question Practice' },
-                          { src: 'projects/mslin-app/screens/similar/作答完成改為查看題目.jpg', label: lang === 'zh' ? '步驟五：作答完成改為查看題目' : 'Step 5: View Solved Question' }
-                        ].map((item, idx) => (
-                          <div 
-                            key={idx} 
-                            style={{ 
-                              width: '230px', 
-                              flexShrink: 0, 
-                              display: 'flex', 
-                              flexDirection: 'column', 
-                              alignItems: 'center' 
-                            }}
-                          >
-                            <PhoneMockup screenStyle={{ display: 'block', padding: 0 }}>
-                              <img 
-                                src={item.src} 
-                                alt={item.label} 
-                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                              />
-                            </PhoneMockup>
-                            
-                            {/* Step label */}
-                            <div style={{ marginTop: '12px', textAlign: 'center', minHeight: '36px', width: '100%' }}>
-                              <h4 style={{
-                                fontSize: '12.5px',
-                                fontWeight: '600',
-                                color: '#E8734A',
-                                margin: '0'
-                              }}>
-                                {item.label}
-                              </h4>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Right Scroll Arrow (next button) */}
-                      {showSimilarRightArrow && (
-                        <button 
-                          onClick={() => {
-                            if (similarScrollRef.current) {
-                              similarScrollRef.current.scrollBy({ left: 258, behavior: 'smooth' });
-                            }
-                          }}
-                          style={{
-                            position: 'absolute',
-                            right: '-24px',
-                            top: '250px',
-                            transform: 'translateY(-50%)',
-                            width: '48px',
-                            height: '48px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FFFFFF',
-                            border: '1px solid rgba(148, 163, 184, 0.15)',
-                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            zIndex: 10,
-                            color: '#1E293B',
-                            transition: 'all 200ms ease',
-                            outline: 'none',
-                            padding: '0',
-                            lineHeight: '0'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-                            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.12)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-                          }}
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', display: 'block', margin: '0 auto' }}>
-                            <path d="m9 18 6-6-6-6" />
-                          </svg>
-                        </button>
-                      )}
-                    </div>
-
-                    {/* Mobile View: SinglePhoneSlider for Similar Question Practice */}
-                    <div className="block md:hidden" style={{ width: '100%', marginTop: '24px', marginBottom: '24px' }}>
-                      <SinglePhoneSlider 
+                    {/* Phone Row Slider for Similar Question Practice Flow (Image 2 style) */}
+                    <div style={{ width: '100%', marginTop: '24px', marginBottom: '24px' }}>
+                      <PhoneRowSlider 
                         steps={[
                           { src: 'projects/mslin-app/screens/similar/相似題入口.jpg', label: lang === 'zh' ? '步驟一：相似題入口' : 'Step 1: Similar Entrance' },
                           { src: 'projects/mslin-app/screens/similar/相似題生成中.jpg', label: lang === 'zh' ? '步驟二：相似題生成中' : 'Step 2: Generating Similar Questions' },
@@ -6463,7 +6200,7 @@ const SPLIT_VIEW_CHIPS = [
                   {/* Color tab switcher */}
                   <div style={{
                     display: 'flex',
-                    justifyContent: 'flex-start',
+                    justifyContent: 'center',
                     marginBottom: '40px',
                     width: '100%',
                     boxSizing: 'border-box'
@@ -6694,7 +6431,7 @@ const SPLIT_VIEW_CHIPS = [
                             <button
                               key={m.name}
                               onClick={() => setActiveMascotTab(m.name)}
-                              className={`flex flex-col items-center justify-center p-2 rounded-2xl border text-center transition-all select-none ${
+                              className={`flex flex-col items-center justify-center p-2 rounded-2xl border text-center transition-all select-none cursor-pointer ${
                                 isActive 
                                   ? 'bg-[#EEEDFE] border-[#7F77DD] text-[#3C3489] shadow-sm font-bold' 
                                   : 'bg-gray-50 border-gray-100 hover:bg-gray-100 text-gray-600 hover:text-gray-900'
@@ -6710,94 +6447,33 @@ const SPLIT_VIEW_CHIPS = [
                       </div>
                     </div>
 
-                    {/* Right: Phone Carousel with 5 mockups (Shows 2.5 phones at a time on desktop, height-aligned to left column) */}
-                    <div className="col-span-1 lg:col-span-6 flex flex-col items-center justify-start w-full h-[520px] lg:h-full relative">
-                      <div className="w-full h-full relative flex items-center justify-center flex-grow">
-                        {/* Scroll controls */}
-                        {showMascotPhonesLeft && (
-                          <button 
-                            onClick={() => {
-                              if (mascotPhonesScrollRef.current) {
-                                mascotPhonesScrollRef.current.scrollBy({ left: -296, behavior: 'smooth' });
-                              }
-                            }}
-                            className="absolute left-[-12px] lg:left-[-20px] top-[40%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-700 hover:bg-gray-50 active:scale-95 transition-all select-none"
-                            aria-label="Scroll left"
-                          >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" /></svg>
-                          </button>
-                        )}
-                        {showMascotPhonesRight && (
-                          <button 
-                            onClick={() => {
-                              if (mascotPhonesScrollRef.current) {
-                                mascotPhonesScrollRef.current.scrollBy({ left: 296, behavior: 'smooth' });
-                              }
-                            }}
-                            className="absolute right-[-12px] lg:right-[-20px] top-[40%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-700 hover:bg-gray-50 active:scale-95 transition-all select-none"
-                            aria-label="Scroll right"
-                          >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" /></svg>
-                          </button>
-                        )}
-
-                        {/* Carousel Scroll Wrapper */}
-                        <div 
-                          ref={mascotPhonesScrollRef}
-                          onScroll={handleMascotPhonesScroll}
-                          className="w-full overflow-x-auto flex gap-8 snap-x snap-mandatory hide-scrollbar py-4 px-6 scroll-smooth"
-                          style={{ maxWidth: '724px', height: '100%' }}
-                        >
-                          {[
-                            {
-                              src: 'projects/mslin-app/screens/home1.png',
-                              label: lang === 'zh' ? '於首頁的情境使用' : 'Context use on Homepage'
-                            },
-                            {
-                              src: 'projects/mslin-app/screens/question-bank/base1.png',
-                              label: lang === 'zh' ? '於題庫頁' : 'On Question Bank Page'
-                            },
-                            {
-                              src: 'projects/mslin-app/screens/profile/profile1.png',
-                              label: lang === 'zh' ? '於個人頁' : 'On Profile Page'
-                            },
-                            {
-                              src: 'projects/mslin-app/screens/loop/完成頁面.webm',
-                              label: lang === 'zh' ? '於作答完成頁' : 'On Practice Completion Page'
-                            },
-                            {
-                              src: 'projects/mslin-app/screens/Chinese/成語釋義3.png',
-                              label: lang === 'zh' ? '於練習過程即時回饋' : 'Real-time Practice Feedback'
-                            }
-                          ].map((item, idx) => (
-                            <div key={idx} className="w-[220px] lg:w-[264px] shrink-0 snap-start flex flex-col items-center gap-3 py-2">
-                              <PhoneMockup className="w-full h-auto" style={{ width: '100%', height: 'auto', aspectRatio: '9 / 19.5' }}>
-                                {item.src.endsWith('.webm') ? (
-                                  <video 
-                                    src={item.src} 
-                                    autoPlay 
-                                    muted 
-                                    loop 
-                                    playsInline 
-                                    className="w-full h-full object-cover"
-                                  />
-                                ) : (
-                                  <img 
-                                    src={item.src} 
-                                    className="w-full h-full object-cover" 
-                                    alt={item.label} 
-                                  />
-                                )}
-                              </PhoneMockup>
-                              <div className="text-center h-6 flex items-center justify-center">
-                                <span className="text-xs text-gray-500 font-bold font-noto tracking-wide select-none">
-                                  {item.label}
-                                </span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+                    {/* Right: Phone Showcase - Phone Row Slider (Image 2 style) */}
+                    <div className="col-span-1 lg:col-span-6 flex flex-col items-center justify-center w-full overflow-hidden">
+                      <PhoneRowSlider 
+                        steps={[
+                          {
+                            src: 'projects/mslin-app/screens/home1.png',
+                            label: lang === 'zh' ? '於首頁的情境使用' : 'Context use on Homepage'
+                          },
+                          {
+                            src: 'projects/mslin-app/screens/question-bank/base1.png',
+                            label: lang === 'zh' ? '於題庫頁' : 'On Question Bank Page'
+                          },
+                          {
+                            src: 'projects/mslin-app/screens/profile/profile1.png',
+                            label: lang === 'zh' ? '於個人頁' : 'On Profile Page'
+                          },
+                          {
+                            src: 'projects/mslin-app/screens/loop/完成頁面.webm',
+                            label: lang === 'zh' ? '於作答完成頁' : 'On Practice Completion Page'
+                          },
+                          {
+                            src: 'projects/mslin-app/screens/Chinese/成語釋義3.png',
+                            label: lang === 'zh' ? '於練習過程即時回饋' : 'Real-time Practice Feedback'
+                          }
+                        ]} 
+                        lang={lang} 
+                      />
                     </div>
                   </div>
 
@@ -6870,94 +6546,33 @@ const SPLIT_VIEW_CHIPS = [
                       </div>
                     </div>
 
-                    {/* Right: Phone Carousel with 5 mockups (Shows 2.5 phones at a time on desktop, height-aligned to left column) */}
-                    <div className="col-span-1 lg:col-span-6 flex flex-col items-center justify-start w-full h-[520px] lg:h-full relative">
-                      <div className="w-full h-full relative flex items-center justify-center flex-grow">
-                        {/* Scroll controls */}
-                        {showSystemIllusLeft && (
-                          <button 
-                            onClick={() => {
-                              if (systemIllusScrollRef.current) {
-                                systemIllusScrollRef.current.scrollBy({ left: -296, behavior: 'smooth' });
-                              }
-                            }}
-                            className="absolute left-[-12px] lg:left-[-20px] top-[40%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-700 hover:bg-gray-50 active:scale-95 transition-all select-none"
-                            aria-label="Scroll left"
-                          >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" /></svg>
-                          </button>
-                        )}
-                        {showSystemIllusRight && (
-                          <button 
-                            onClick={() => {
-                              if (systemIllusScrollRef.current) {
-                                systemIllusScrollRef.current.scrollBy({ left: 296, behavior: 'smooth' });
-                              }
-                            }}
-                            className="absolute right-[-12px] lg:right-[-20px] top-[40%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-700 hover:bg-gray-50 active:scale-95 transition-all select-none"
-                            aria-label="Scroll right"
-                          >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" /></svg>
-                          </button>
-                        )}
-
-                        {/* Carousel Scroll Wrapper */}
-                        <div 
-                          ref={systemIllusScrollRef}
-                          onScroll={handleSystemIllusScroll}
-                          className="w-full overflow-x-auto flex gap-8 snap-x snap-mandatory hide-scrollbar py-4 px-6 scroll-smooth"
-                          style={{ maxWidth: '724px', height: '100%' }}
-                        >
-                          {[
-                            {
-                              src: 'projects/mslin-app/screens/home/subject-images.webm',
-                              label: lang === 'zh' ? '於首頁學科展示' : 'Subject Display on Homepage'
-                            },
-                            {
-                              src: 'projects/mslin-app/screens/onboarding/key-feature1.jpg',
-                              label: lang === 'zh' ? '引導特點一' : 'Onboarding Feature 1'
-                            },
-                            {
-                              src: 'projects/mslin-app/screens/onboarding/key-feature2.jpg',
-                              label: lang === 'zh' ? '引導特點二' : 'Onboarding Feature 2'
-                            },
-                            {
-                              src: 'projects/mslin-app/screens/onboarding/key-feature3.jpg',
-                              label: lang === 'zh' ? '引導特點三' : 'Onboarding Feature 3'
-                            },
-                            {
-                              src: 'projects/mslin-app/screens/onboarding/key-feature4.jpg',
-                              label: lang === 'zh' ? '引導特點四' : 'Onboarding Feature 4'
-                            }
-                          ].map((item, idx) => (
-                            <div key={idx} className="w-[220px] lg:w-[264px] shrink-0 snap-start flex flex-col items-center gap-3 py-2">
-                              <PhoneMockup className="w-full h-auto" style={{ width: '100%', height: 'auto', aspectRatio: '9 / 19.5' }}>
-                                {item.src.endsWith('.webm') ? (
-                                  <video 
-                                    src={item.src} 
-                                    autoPlay 
-                                    muted 
-                                    loop 
-                                    playsInline 
-                                    className="w-full h-full object-cover"
-                                  />
-                                ) : (
-                                  <img 
-                                    src={item.src} 
-                                    className="w-full h-full object-cover" 
-                                    alt={item.label} 
-                                  />
-                                )}
-                              </PhoneMockup>
-                              <div className="text-center h-6 flex items-center justify-center">
-                                <span className="text-xs text-gray-500 font-bold font-noto tracking-wide select-none">
-                                  {item.label}
-                                </span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+                    {/* Right: System Illus Showcase - Phone Row Slider (Image 2 style) */}
+                    <div className="col-span-1 lg:col-span-6 flex flex-col items-center justify-center w-full overflow-hidden">
+                      <PhoneRowSlider 
+                        steps={[
+                          {
+                            src: 'projects/mslin-app/screens/home/subject-images.webm',
+                            label: lang === 'zh' ? '於首頁學科展示' : 'Subject Display on Homepage'
+                          },
+                          {
+                            src: 'projects/mslin-app/screens/onboarding/key-feature1.jpg',
+                            label: lang === 'zh' ? '引導特點一' : 'Onboarding Feature 1'
+                          },
+                          {
+                            src: 'projects/mslin-app/screens/onboarding/key-feature2.jpg',
+                            label: lang === 'zh' ? '引導特點二' : 'Onboarding Feature 2'
+                          },
+                          {
+                            src: 'projects/mslin-app/screens/onboarding/key-feature3.jpg',
+                            label: lang === 'zh' ? '引導特點三' : 'Onboarding Feature 3'
+                          },
+                          {
+                            src: 'projects/mslin-app/screens/onboarding/key-feature4.jpg',
+                            label: lang === 'zh' ? '引導特點四' : 'Onboarding Feature 4'
+                          }
+                        ]} 
+                        lang={lang} 
+                      />
                     </div>
                   </div>
                 </div>
@@ -10257,23 +9872,18 @@ const SPLIT_VIEW_CHIPS = [
                         ? 'bg-[#5E60A3] border-[#5E60A3]' 
                         : 'bg-[#FAFCFF] border-gray-150'
                     }`}>
-                      {ANIMATED_ICON_ASSETS[activeIconIndex].url.endsWith('.webm') && !isIOSDevice() ? (
-                        <video 
-                          key={ANIMATED_ICON_ASSETS[activeIconIndex].url}
-                          src={ANIMATED_ICON_ASSETS[activeIconIndex].url} 
-                          autoPlay 
-                          muted 
-                          loop 
-                          playsInline 
-                          className="w-36 h-36 sm:w-40 sm:h-40 object-contain relative z-10 block" 
-                        />
-                      ) : (
-                        <img 
-                          src={ANIMATED_ICON_ASSETS[activeIconIndex].url.replace('.webm', '.gif')} 
-                          alt={ANIMATED_ICON_ASSETS[activeIconIndex].label} 
-                          className="w-36 h-36 sm:w-40 sm:h-40 object-contain relative z-10" 
-                        />
-                      )}
+                      <video 
+                        key={ANIMATED_ICON_ASSETS[activeIconIndex].url}
+                        autoPlay 
+                        muted 
+                        loop 
+                        playsInline 
+                        preload="metadata"
+                        className="w-36 h-36 sm:w-40 sm:h-40 object-contain relative z-10 block"
+                      >
+                        <source src={`${ANIMATED_ICON_ASSETS[activeIconIndex].url.replace(/\.(webm|mp4|gif)$/i, '')}.webm`} type="video/webm" />
+                        <source src={`${ANIMATED_ICON_ASSETS[activeIconIndex].url.replace(/\.(webm|mp4|gif)$/i, '')}.mp4`} type="video/mp4" />
+                      </video>
                       <div className={`absolute top-0 right-0 w-24 h-24 rounded-full blur-xl pointer-events-none transition-all duration-300 ${
                         ANIMATED_ICON_ASSETS[activeIconIndex].isWhite 
                           ? 'bg-white/10' 
@@ -10472,13 +10082,16 @@ const SPLIT_VIEW_CHIPS = [
                   {/* Central Video Container */}
                   <div className="absolute inset-0 flex items-center justify-center z-10">
                     <video
-                      src="projects/brainbox/pixie-feature.mp4"
                       autoPlay
                       muted
                       loop
                       playsInline
+                      preload="metadata"
                       className="w-[450px] h-[450px] object-cover rounded-full"
-                    />
+                    >
+                      <source src="projects/brainbox/pixie-feature.webm" type="video/webm" />
+                      <source src="projects/brainbox/pixie-feature.mp4" type="video/mp4" />
+                    </video>
                   </div>
 
                   {/* SVG Pointers Overlay */}
@@ -10546,13 +10159,16 @@ const SPLIT_VIEW_CHIPS = [
                 <div className="block lg:hidden space-y-8 select-none">
                   <div className="flex items-center justify-center py-4">
                     <video
-                      src="projects/brainbox/pixie-feature.mp4"
                       autoPlay
                       muted
                       loop
                       playsInline
+                      preload="metadata"
                       className="w-[200px] h-[200px] object-cover rounded-full shadow-md"
-                    />
+                    >
+                      <source src="projects/brainbox/pixie-feature.webm" type="video/webm" />
+                      <source src="projects/brainbox/pixie-feature.mp4" type="video/mp4" />
+                    </video>
                   </div>
                   
                   <div className="space-y-4 px-4">
@@ -10608,23 +10224,18 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Mascot State Switcher Column */}
                 <div className="flex flex-col w-full">
                   <div className="w-full bg-[#FAFAFA] border border-gray-200 rounded-[2rem] flex flex-col items-center justify-center p-6 select-none aspect-[16/12] shadow-sm relative overflow-hidden">
-                    {MASCOT_ASSETS[activeMascotIndex].url.endsWith('.webm') && !isIOSDevice() ? (
-                      <video 
-                        key={MASCOT_ASSETS[activeMascotIndex].url}
-                        src={MASCOT_ASSETS[activeMascotIndex].url} 
-                        autoPlay 
-                        muted 
-                        loop 
-                        playsInline 
-                        className="max-w-full max-h-[70%] object-contain relative z-10 block" 
-                      />
-                    ) : (
-                      <img 
-                        src={MASCOT_ASSETS[activeMascotIndex].url.replace('.webm', '.gif')} 
-                        alt={MASCOT_ASSETS[activeMascotIndex].status} 
-                        className="max-w-full max-h-[70%] object-contain relative z-10" 
-                      />
-                    )}
+                    <video 
+                      key={MASCOT_ASSETS[activeMascotIndex].url}
+                      autoPlay 
+                      muted 
+                      loop 
+                      playsInline 
+                      preload="metadata"
+                      className="max-w-full max-h-[70%] object-contain relative z-10 block" 
+                    >
+                      <source src={`${MASCOT_ASSETS[activeMascotIndex].url.replace(/\.(webm|mp4|gif)$/i, '')}.webm`} type="video/webm" />
+                      <source src={`${MASCOT_ASSETS[activeMascotIndex].url.replace(/\.(webm|mp4|gif)$/i, '')}.mp4`} type="video/mp4" />
+                    </video>
                     <div className="text-xs md:text-sm text-gray-500 mt-4 text-center font-medium leading-relaxed max-w-[85%] z-10">
                       <span className="font-bold text-gray-800">{lang === 'zh' ? '當前狀態：' : 'Current: '}</span>
                       {MASCOT_ASSETS[activeMascotIndex].status} — {MASCOT_ASSETS[activeMascotIndex].desc}
@@ -10654,7 +10265,10 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Full page loading Column */}
                 <div className="flex flex-col w-full">
                   <div className="w-full aspect-[16/12] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
-                    <video src="projects/brainbox/data.webm" autoPlay muted loop playsInline className="w-full h-full object-contain block" />
+                    <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-contain block">
+                      <source src="projects/brainbox/data.webm" type="video/webm" />
+                      <source src="projects/brainbox/data.mp4" type="video/mp4" />
+                    </video>
                   </div>
                   <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '前測數據分析中' : 'Analyzing Pre-test Data'}</div>
                 </div>
@@ -10662,7 +10276,10 @@ const SPLIT_VIEW_CHIPS = [
                 {/* Skeleton Screen Column */}
                 <div className="flex flex-col w-full">
                   <div className="w-full aspect-[16/12] bg-[#FAFAFA] border border-gray-200 rounded-[2rem] overflow-hidden flex items-center justify-center shadow-sm">
-                    <video src="projects/brainbox/creating-test.webm" autoPlay muted loop playsInline className="w-full h-full object-contain block" />
+                    <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-contain block">
+                      <source src="projects/brainbox/creating-test.webm" type="video/webm" />
+                      <source src="projects/brainbox/creating-test.mp4" type="video/mp4" />
+                    </video>
                   </div>
                   <div className="text-xs md:text-sm font-bold text-gray-700 mt-4 text-center select-none">{lang === 'zh' ? '前測試卷生成中' : 'Generating Pre-test Paper'}</div>
                 </div>

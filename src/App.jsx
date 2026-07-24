@@ -140,6 +140,8 @@ const OptimizedVideo = ({ src, className, ...props }) => {
   const webmSrc = basePath ? `${basePath}.webm` : (src?.webm || src);
   const mp4Src = basePath ? `${basePath}.mp4` : (src?.mp4 || src);
 
+  const isMobileOrIOS = typeof navigator !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
   return (
     <div className={`relative bg-gray-100 overflow-hidden flex items-center justify-center ${className}`}>
       {!isLoaded && !hasError && (
@@ -170,8 +172,17 @@ const OptimizedVideo = ({ src, className, ...props }) => {
           className={`transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${className.includes('h-auto') ? 'w-full h-auto block object-contain' : 'absolute inset-0 w-full h-full object-cover'}`}
           {...props}
         >
-          <source src={webmSrc} type="video/webm" />
-          <source src={mp4Src} type="video/mp4" />
+          {isMobileOrIOS ? (
+            <>
+              <source src={mp4Src} type="video/mp4" />
+              <source src={webmSrc} type="video/webm" />
+            </>
+          ) : (
+            <>
+              <source src={webmSrc} type="video/webm" />
+              <source src={mp4Src} type="video/mp4" />
+            </>
+          )}
         </video>
       )}
     </div>
@@ -2680,6 +2691,8 @@ const SPLIT_VIEW_CHIPS = [
       const webmSrc = basePath ? `${basePath}.webm` : (src?.webm || src);
       const mp4Src = basePath ? `${basePath}.mp4` : (src?.mp4 || src);
 
+      const isMobileOrIOS = typeof navigator !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
       return (
         <div className="relative w-full" style={{ lineHeight: 0, fontSize: 0 }}>
           {!isLoaded && !hasError && (
@@ -2711,8 +2724,17 @@ const SPLIT_VIEW_CHIPS = [
               className={className}
               style={{ display: hasError ? 'none' : 'block', verticalAlign: 'top' }}
             >
-              <source src={webmSrc} type="video/webm" />
-              <source src={mp4Src} type="video/mp4" />
+              {isMobileOrIOS ? (
+                <>
+                  <source src={mp4Src} type="video/mp4" />
+                  <source src={webmSrc} type="video/webm" />
+                </>
+              ) : (
+                <>
+                  <source src={webmSrc} type="video/webm" />
+                  <source src={mp4Src} type="video/mp4" />
+                </>
+              )}
             </video>
           )}
         </div>

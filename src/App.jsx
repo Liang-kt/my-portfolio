@@ -1289,7 +1289,7 @@ const SPLIT_VIEW_CHIPS = [
       <div className="bg-[#F6F6F6]">
         {/* Set explicit inline style heights to guarantee viewport scaling is 100% robust across all browsers */}
         <div ref={trackRef} style={{ height: '400vh' }} className="w-full relative">
-          <section style={{ height: '100vh' }} className="sticky top-0 w-full flex flex-col md:flex-row items-center justify-between px-4 md:px-12 overflow-hidden bg-[#F6F6F6] z-0">
+          <section style={{ height: '100vh' }} className="sticky top-0 w-full flex flex-col md:flex-row items-center justify-between px-4 md:px-[60px] overflow-hidden bg-[#F6F6F6] z-0">
             {/* Phase 1: Original Left Text Container */}
             <div className="w-full md:w-[75%] pt-40 md:pt-0 z-30 pointer-events-none will-change-transform animate-in fade-in duration-700" style={{ transform: `translateX(${textTranslateX}vw)`, opacity: textOpacity }}>
               <h1 className="text-[12vw] md:text-[6.5rem] lg:text-[8.5rem] xl:text-[9.5rem] leading-[0.9] font-black tracking-tighter text-[#252525] mb-8">
@@ -1338,7 +1338,7 @@ const SPLIT_VIEW_CHIPS = [
           </section>
         </div>
         <div id="featured-works" className="relative z-30 bg-white rounded-t-[3rem] md:rounded-t-[4rem] w-full mt-[-2rem] md:mt-[-4rem] shadow-[0_-20px_60px_rgba(0,0,0,0.08)]">
-          <div className="py-24 md:py-32 px-4 md:px-12 max-w-[100rem] mx-auto bg-white rounded-t-[3rem] md:rounded-t-[4rem]">
+          <div className="py-24 md:py-32 px-4 md:px-[60px] max-w-[100rem] mx-auto bg-white rounded-t-[3rem] md:rounded-t-[4rem]">
             <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-16 gap-8">
               <div className="max-w-2xl">
                 <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">{I18N[lang].home.selectedWorks}</h2>
@@ -3791,11 +3791,11 @@ const SPLIT_VIEW_CHIPS = [
             <div className="w-full border-b border-gray-100"></div>
           </div>
 
-          {/* 2. CONTENT AREA (max-width: 1600px, margin: 0 auto, padding: px-[34px] md:px-12) */}
+          {/* 2. CONTENT AREA (max-width: 1120px, margin: 0 auto, padding: px-[34px] md:px-[60px]) */}
           <div 
-            className="px-[34px] md:px-12"
+            className="px-[34px] md:px-[60px]"
             style={{
-              maxWidth: '1600px',
+              maxWidth: '1120px',
               margin: '0 auto',
               boxSizing: 'border-box'
             }}
@@ -5897,11 +5897,12 @@ const SPLIT_VIEW_CHIPS = [
 
                   {/* Desktop Grid of Phones (Home: 2, Bank: 3, Profile: 3) */}
                   <div 
-                    className="hidden md:grid system-tabs-grid"
+                    className="hidden md:grid system-tabs-grid mx-auto"
                     style={{
                       gridTemplateColumns: activeSystemTab === 'home' ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
                       maxWidth: activeSystemTab === 'home' ? '488px' : '746px',
-                      width: '100%'
+                      width: '100%',
+                      margin: '0 auto'
                     }}
                   >
                     {(() => {

@@ -268,20 +268,17 @@ html, body {
   }
 }
 
-@media (min-width: 768px) and (max-width: 1279px) {
-  /* Enforce 48px horizontal padding on tablet viewports for top-level project containers */
-  .project-page-layout div[class*="max-w-[100rem]"] {
-    padding-left: 48px !important;
-    padding-right: 48px !important;
-    box-sizing: border-box !important;
-  }
-}
-
-@media (min-width: 1280px) {
-  /* Enforce 80px horizontal padding on desktop viewports for top-level project containers */
-  .project-page-layout div[class*="max-w-[100rem]"] {
-    padding-left: 80px !important;
-    padding-right: 80px !important;
+@media (min-width: 768px) {
+  /* Enforce 1000px content width (1120px total container width with 60px padding on each side) on desktop viewports ONLY for project page layouts */
+  .project-page-layout div[class*="max-w-[100rem]"],
+  .project-page-layout div[style*="908px"],
+  .project-page-layout div[style*="1120px"],
+  .project-page-layout div[style*="1600px"] {
+    max-width: 1120px !important;
+    padding-left: 60px !important;
+    padding-right: 60px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     box-sizing: border-box !important;
   }
 }
